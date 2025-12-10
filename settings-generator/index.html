@@ -26,6 +26,7 @@
     <meta name="author" content="OBS Mask Generator">
     <meta name="robots" content="index, follow">
     <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
     <link rel="canonical" href="https://obsmaskgenerator.com/settings-generator/">
 
     <!-- Open Graph / Facebook -->
@@ -58,6 +59,52 @@
             "price": "0",
             "priceCurrency": "USD"
         }
+    }
+    </script>
+
+    <!-- FAQ Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What are the best OBS settings for Twitch?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "For Twitch, use NVENC encoder if you have NVIDIA GPU, 6000 Kbps bitrate, 1080p at 60fps, CBR rate control, and 2 second keyframe interval."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Should I use NVENC or x264 encoder?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Use NVENC if you have an NVIDIA GPU (GTX 900 series or newer) as it offloads encoding to the GPU. Use x264 only if you have a powerful CPU and no dedicated GPU."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What bitrate should I stream at?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "For 1080p60, use 6000 Kbps for Twitch (their max). For YouTube, you can go up to 12000 Kbps. For 720p60, 4500 Kbps works well."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "OBS Tools", "item": "https://obsmaskgenerator.com/"},
+            {"@type": "ListItem", "position": 2, "name": "Settings Generator", "item": "https://obsmaskgenerator.com/settings-generator/"}
+        ]
     }
     </script>
 
@@ -240,10 +287,34 @@
             </section>
         </main>
 
+        <!-- FAQ Section for SEO -->
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>What are the best OBS settings for Twitch?</h3>
+                <p>For Twitch, use NVENC encoder if you have NVIDIA GPU, 6000 Kbps bitrate, 1080p at 60fps, CBR rate
+                    control, and 2 second keyframe interval.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Should I use NVENC or x264 encoder?</h3>
+                <p>Use NVENC if you have an NVIDIA GPU (GTX 900 series or newer) as it offloads encoding to the GPU. Use
+                    x264 only if you have a powerful CPU and no dedicated GPU.</p>
+            </div>
+            <div class="faq-item">
+                <h3>What bitrate should I stream at?</h3>
+                <p>For 1080p60, use 6000 Kbps for Twitch (their max). For YouTube, you can go up to 12000 Kbps. For
+                    720p60, 4500 Kbps works well.</p>
+            </div>
+        </section>
+
         <!-- Footer -->
         <footer class="footer">
             <p>Free OBS Settings Generator | Part of <a href="/">OBS Mask Generator</a></p>
-            <p style="margin-top: 10px; font-size: 0.9em;"><a href="/privacy-policy.html">Privacy Policy</a></p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                <a href="/gamertag-generator/">AI Gamertag Generator</a> |
+                <a href="/channel-point-generator/">Channel Point Ideas</a> |
+                <a href="/privacy-policy.html">Privacy Policy</a>
+            </p>
         </footer>
     </div>
 

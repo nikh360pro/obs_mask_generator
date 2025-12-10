@@ -110,6 +110,18 @@
     }
     </script>
 
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "OBS Tools", "item": "https://obsmaskgenerator.com/"},
+            {"@type": "ListItem", "position": 2, "name": "Channel Point Ideas", "item": "https://obsmaskgenerator.com/channel-point-generator/"}
+        ]
+    }
+    </script>
+
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -268,7 +280,11 @@
         <!-- Footer -->
         <footer class="footer">
             <p>Free Channel Point Ideas Generator | Part of <a href="/">OBS Mask Generator</a></p>
-            <p style="margin-top: 10px; font-size: 0.9em;"><a href="/privacy-policy.html">Privacy Policy</a></p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                <a href="/settings-generator/">OBS Settings Generator</a> |
+                <a href="/gamertag-generator/">AI Gamertag Generator</a> |
+                <a href="/privacy-policy.html">Privacy Policy</a>
+            </p>
         </footer>
     </div>
 
