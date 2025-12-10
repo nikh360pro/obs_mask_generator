@@ -1,16 +1,30 @@
 /**
  * Cloudflare Worker - AI Gamertag Generator API
+ * With Model Rotation to avoid rate limits
  * 
  * SETUP INSTRUCTIONS:
  * 1. Go to workers.cloudflare.com → Create Worker
  * 2. Paste this entire code
  * 3. Go to Settings → Variables → Add:
- *    - Name: GITHUB_TOKEN
+ *    - Name: Github_Token
  *    - Value: your GitHub token
  *    - Click "Encrypt"
- * 4. Deploy
- * 5. Copy your Worker URL and paste it in script.js
+ * 4. Create KV Namespace:
+ *    - Go to Workers & Pages → KV
+ *    - Create namespace: "GAMERTAG_KV"
+ *    - Go to Worker Settings → Variables → KV Namespace Bindings
+ *    - Add: Variable name = "KV", KV namespace = "GAMERTAG_KV"
+ * 5. Deploy
  */
+
+// Models to rotate (each has 150 requests/day limit)
+const MODELS = [
+    'Meta-Llama-3.1-8B-Instruct',
+    'Mistral-small',
+    'Phi-4'
+];
+
+const REQUESTS_PER_MODEL = 45; // Switch model after 45 requests (safety margin)
 
 export default {
     async fetch(request, env) {
@@ -32,6 +46,9 @@ export default {
 
         try {
             const { style, keywords, platform } = await request.json();
+
+            // Get current model based on request count
+            const model = await getCurrentModel(env);
 
             // Build prompt
             const styleDescriptions = {
@@ -62,7 +79,7 @@ Rules:
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    model: 'gpt-4o-mini',
+                    model: model,
                     messages: [
                         { role: 'system', content: 'You are a creative gaming name generator. Generate only the names, nothing else.' },
                         { role: 'user', content: prompt }
@@ -73,6 +90,9 @@ Rules:
             });
 
             const data = await response.json();
+
+            // Increment request count after successful call
+            await incrementRequestCount(env);
 
             return new Response(JSON.stringify(data), {
                 headers: {
@@ -92,3 +112,38 @@ Rules:
         }
     }
 };
+
+// Get today's date key
+function getTodayKey() {
+    const today = new Date();
+    return `count_${today.getUTCFullYear()}_${today.getUTCMonth()}_${today.getUTCDate()}`;
+}
+
+// Get current model based on request count
+async function getCurrentModel(env) {
+    // If KV is not configured, use first model
+    if (!env.KV) {
+        return MODELS[0];
+    }
+
+    const key = getTodayKey();
+    const count = parseInt(await env.KV.get(key)) || 0;
+
+    // Calculate which model to use
+    const modelIndex = Math.floor(count / REQUESTS_PER_MODEL) % MODELS.length;
+    return MODELS[modelIndex];
+}
+
+// Increment daily request count
+async function incrementRequestCount(env) {
+    // If KV is not configured, skip
+    if (!env.KV) {
+        return;
+    }
+
+    const key = getTodayKey();
+    const count = parseInt(await env.KV.get(key)) || 0;
+
+    // Store with 24-hour expiration
+    await env.KV.put(key, String(count + 1), { expirationTtl: 86400 });
+}
