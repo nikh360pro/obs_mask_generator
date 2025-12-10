@@ -1,20 +1,71 @@
 /**
  * AI Gamertag Generator - Script
  * Calls Cloudflare Worker to get AI-generated names
+ * Rate limited: 5 names per request, 5 requests per day
  */
 
-// IMPORTANT: Replace this with your Cloudflare Worker URL after you create it
 const WORKER_URL = 'https://gamertag-api.nikh360pro.workers.dev';
+const MAX_REQUESTS_PER_DAY = 5;
+const MAX_NAMES = 5;
 
 document.addEventListener('DOMContentLoaded', () => {
     const generateBtn = document.getElementById('generate-btn');
-    const btnText = document.getElementById('btn-text');
-    const namesContainer = document.getElementById('names-container');
-
     generateBtn.addEventListener('click', generateNames);
+    updateRemainingCount();
 });
 
+// Check how many requests remaining today
+function getRemainingRequests() {
+    const today = new Date().toDateString();
+    const stored = localStorage.getItem('gamertag_usage');
+
+    if (stored) {
+        const data = JSON.parse(stored);
+        if (data.date === today) {
+            return MAX_REQUESTS_PER_DAY - data.count;
+        }
+    }
+    return MAX_REQUESTS_PER_DAY;
+}
+
+// Increment usage count
+function incrementUsage() {
+    const today = new Date().toDateString();
+    const stored = localStorage.getItem('gamertag_usage');
+
+    let data = { date: today, count: 0 };
+    if (stored) {
+        data = JSON.parse(stored);
+        if (data.date !== today) {
+            data = { date: today, count: 0 };
+        }
+    }
+    data.count++;
+    localStorage.setItem('gamertag_usage', JSON.stringify(data));
+}
+
+// Update UI with remaining count
+function updateRemainingCount() {
+    const remaining = getRemainingRequests();
+    const btnText = document.getElementById('btn-text');
+    const generateBtn = document.getElementById('generate-btn');
+
+    if (remaining <= 0) {
+        btnText.textContent = 'Daily Limit Reached';
+        generateBtn.disabled = true;
+    } else {
+        btnText.textContent = `Generate Names (${remaining} left today)`;
+        generateBtn.disabled = false;
+    }
+}
+
 async function generateNames() {
+    const remaining = getRemainingRequests();
+    if (remaining <= 0) {
+        alert('You have reached your daily limit of 5 generations. Come back tomorrow!');
+        return;
+    }
+
     const generateBtn = document.getElementById('generate-btn');
     const btnText = document.getElementById('btn-text');
     const namesContainer = document.getElementById('names-container');
@@ -53,12 +104,16 @@ async function generateNames() {
             const content = data.choices[0].message.content;
             names = content.split('\n')
                 .map(name => name.replace(/^[\d\.\-\*\•]+\s*/, '').trim())
-                .filter(name => name.length > 0 && name.length < 30);
+                .filter(name => name.length > 0 && name.length < 30)
+                .slice(0, MAX_NAMES); // Limit to 5 names
         }
 
         if (names.length === 0) {
             throw new Error('No names generated');
         }
+
+        // Increment usage after successful generation
+        incrementUsage();
 
         // Display names
         namesContainer.innerHTML = names.map(name => `
@@ -80,15 +135,13 @@ async function generateNames() {
             </div>
         `;
     } finally {
-        generateBtn.disabled = false;
         generateBtn.classList.remove('loading');
-        btnText.textContent = 'Generate Names';
+        updateRemainingCount();
     }
 }
 
 function copyName(element, name) {
     navigator.clipboard.writeText(name).then(() => {
-        // Show copied state
         element.classList.add('copied');
         const icon = element.querySelector('.copy-icon');
         icon.innerHTML = '<path d="M20 6L9 17l-5-5"/>';
@@ -99,3 +152,4 @@ function copyName(element, name) {
         }, 2000);
     });
 }
+

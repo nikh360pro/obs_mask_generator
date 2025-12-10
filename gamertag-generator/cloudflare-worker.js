@@ -46,7 +46,7 @@ export default {
             const keywordPart = keywords ? ` incorporating the word "${keywords}"` : '';
             const platformPart = platform !== 'any' ? ` suitable for ${platform}` : '';
 
-            const prompt = `Generate 8 unique ${styleDesc} gaming usernames/gamertags${keywordPart}${platformPart}. 
+            const prompt = `Generate 5 unique ${styleDesc} gaming usernames/gamertags${keywordPart}${platformPart}. 
 Rules:
 - Each name should be 4-16 characters
 - Use letters, numbers, underscores only
