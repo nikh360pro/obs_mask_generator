@@ -17,10 +17,10 @@
  * 5. Deploy
  */
 
-// Models to rotate (each has 150 requests/day limit)
+// Models to rotate (Low tier = 150 requests/day each)
 const MODELS = [
-    'Meta-Llama-3.1-8B-Instruct',
-    'Mistral-small',
+    'Llama-3.2-11B-Vision-Instruct',
+    'Mistral-Nemo-2407',
     'Phi-4'
 ];
 
