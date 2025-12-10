@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>OBS Settings Generator - Best OBS Streaming Settings Calculator | Free Tool</title>
+    <meta name="title" content="OBS Settings Generator - Best OBS Streaming Settings Calculator | Free Tool">
+    <meta name="description"
+        content="Free OBS Settings Generator. Get the best OBS settings for streaming on Twitch, YouTube, Kick & Facebook. Enter your PC specs and get optimized encoder, bitrate, and resolution recommendations instantly.">
+    <meta name="keywords"
+        content="OBS settings generator, best OBS settings, OBS streaming settings, OBS bitrate calculator, OBS encoder settings, Twitch stream settings, YouTube stream settings, OBS NVENC settings, OBS x264 settings, streaming bitrate, OBS resolution settings, best settings for streaming">
+    <meta name="author" content="OBS Mask Generator">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <link rel="canonical" href="https://obsmaskgenerator.com/settings-generator/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/settings-generator/">
+    <meta property="og:title" content="OBS Settings Generator - Best OBS Streaming Settings">
+    <meta property="og:description"
+        content="Get the best OBS settings for your PC and internet connection. Free tool - no signup required.">
+    <meta property="og:image" content="https://obsmaskgenerator.com/og-image.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://obsmaskgenerator.com/settings-generator/">
+    <meta property="twitter:title" content="OBS Settings Generator - Best OBS Streaming Settings">
+    <meta property="twitter:description"
+        content="Get the best OBS settings for your PC and internet connection. Free tool - no signup required.">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "OBS Settings Generator",
+        "url": "https://obsmaskgenerator.com/settings-generator/",
+        "description": "Free tool to generate optimal OBS Studio settings for streaming based on your hardware and internet speed.",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="url(#logo-gradient)" />
+                    <path d="M10 16L14 20L22 12" stroke="white" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <defs>
+                        <linearGradient id="logo-gradient" x1="0" y1="0" x2="32" y2="32">
+                            <stop stop-color="#9146FF" />
+                            <stop offset="1" stop-color="#6441A5" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <h1>OBS Settings Generator</h1>
+            </div>
+            <p class="tagline">Get the best OBS settings for your stream</p>
+            <a href="/" class="back-link">← Back to Mask Generator</a>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Input Form -->
+            <section class="input-section">
+                <h2 class="section-title">Your Setup</h2>
+
+                <div class="form-group">
+                    <label for="gpu-type">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="2" y="6" width="20" height="12" rx="2" />
+                            <path d="M6 10h4M14 10h4" />
+                        </svg>
+                        GPU Type
+                    </label>
+                    <select id="gpu-type">
+                        <option value="nvidia">NVIDIA (GTX/RTX)</option>
+                        <option value="amd">AMD (RX/Radeon)</option>
+                        <option value="intel">Intel (Arc/Integrated)</option>
+                        <option value="none">No GPU / CPU Only</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="upload-speed">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M12 19V5M5 12l7-7 7 7" />
+                        </svg>
+                        Upload Speed
+                    </label>
+                    <select id="upload-speed">
+                        <option value="5">5 Mbps</option>
+                        <option value="10" selected>10 Mbps</option>
+                        <option value="15">15 Mbps</option>
+                        <option value="20">20 Mbps</option>
+                        <option value="30">30 Mbps</option>
+                        <option value="50">50+ Mbps</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="platform">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" />
+                            <path d="M8 21h8M12 17v4" />
+                        </svg>
+                        Streaming Platform
+                    </label>
+                    <select id="platform">
+                        <option value="twitch">Twitch</option>
+                        <option value="youtube">YouTube</option>
+                        <option value="kick">Kick</option>
+                        <option value="facebook">Facebook Gaming</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="content-type">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <polygon points="10,8 16,12 10,16" />
+                        </svg>
+                        Content Type
+                    </label>
+                    <select id="content-type">
+                        <option value="gaming">Gaming</option>
+                        <option value="chatting">Just Chatting</option>
+                        <option value="irl">IRL Streaming</option>
+                        <option value="creative">Art / Creative</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="quality-priority">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
+                        </svg>
+                        Quality Priority
+                    </label>
+                    <select id="quality-priority">
+                        <option value="performance">Performance (Faster, less CPU)</option>
+                        <option value="balanced" selected>Balanced</option>
+                        <option value="quality">Quality (Best looking)</option>
+                    </select>
+                </div>
+
+                <button class="generate-btn" id="generate-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                        <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
+                    </svg>
+                    Generate Settings
+                </button>
+            </section>
+
+            <!-- Output Section -->
+            <section class="output-section" id="output-section">
+                <h2 class="section-title">Recommended OBS Settings</h2>
+
+                <div class="settings-card" id="settings-card">
+                    <div class="setting-row">
+                        <span class="setting-label">Encoder</span>
+                        <span class="setting-value" id="out-encoder">-</span>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">Resolution</span>
+                        <span class="setting-value" id="out-resolution">-</span>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">Bitrate</span>
+                        <span class="setting-value" id="out-bitrate">-</span>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">Framerate</span>
+                        <span class="setting-value" id="out-framerate">-</span>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">Keyframe Interval</span>
+                        <span class="setting-value" id="out-keyframe">-</span>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">Rate Control</span>
+                        <span class="setting-value" id="out-rate-control">-</span>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">Preset</span>
+                        <span class="setting-value" id="out-preset">-</span>
+                    </div>
+                </div>
+
+                <button class="copy-btn" id="copy-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" />
+                        <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+                    </svg>
+                    Copy All Settings
+                </button>
+
+                <div class="help-text">
+                    <strong>How to apply:</strong> Open OBS → Settings → Output → Set these values in the "Streaming"
+                    section.
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Free OBS Settings Generator | Part of <a href="/">OBS Mask Generator</a></p>
+            <p style="margin-top: 10px; font-size: 0.9em;"><a href="/privacy-policy.html">Privacy Policy</a></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
