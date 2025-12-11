@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>OBS Bitrate Calculator - Best Streaming Bitrate for Twitch, YouTube & Kick | Free Tool</title>
+    <meta name="title" content="OBS Bitrate Calculator - Best Streaming Bitrate for Twitch, YouTube & Kick | Free Tool">
+    <meta name="description"
+        content="Free OBS Bitrate Calculator. Find the perfect streaming bitrate for your resolution, FPS, and platform. Get optimal Twitch, YouTube, and Kick bitrate settings instantly. No signup required.">
+    <meta name="keywords"
+        content="OBS bitrate calculator, streaming bitrate, best bitrate for Twitch, OBS bitrate settings, Twitch bitrate calculator, YouTube streaming bitrate, optimal bitrate, stream quality calculator, bitrate for 1080p 60fps, Kick streaming settings">
+    <meta name="author" content="OBS Mask Generator">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    <link rel="canonical" href="https://obsmaskgenerator.com/bitrate-calculator/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/bitrate-calculator/">
+    <meta property="og:title" content="OBS Bitrate Calculator - Find Your Perfect Streaming Bitrate">
+    <meta property="og:description"
+        content="Calculate the optimal streaming bitrate for Twitch, YouTube, and Kick. Free tool - no signup required.">
+    <meta property="og:image" content="https://obsmaskgenerator.com/og-image.png">
+    <meta property="og:site_name" content="OBS Mask Generator">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://obsmaskgenerator.com/bitrate-calculator/">
+    <meta property="twitter:title" content="OBS Bitrate Calculator - Find Your Perfect Streaming Bitrate">
+    <meta property="twitter:description"
+        content="Calculate the optimal streaming bitrate for Twitch, YouTube, and Kick. Free tool.">
+    <meta property="twitter:image" content="https://obsmaskgenerator.com/og-image.png">
+
+    <!-- Structured Data - WebApplication -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "OBS Bitrate Calculator",
+        "url": "https://obsmaskgenerator.com/bitrate-calculator/",
+        "description": "Free tool to calculate the optimal streaming bitrate for OBS Studio based on resolution, FPS, and platform.",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "featureList": [
+            "Resolution-based bitrate calculation",
+            "Platform-specific recommendations",
+            "FPS optimization",
+            "Content type adjustments",
+            "Upload speed validation",
+            "Instant results"
+        ]
+    }
+    </script>
+
+    <!-- Structured Data - FAQ -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is the best bitrate for streaming on Twitch?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "For Twitch, the maximum bitrate is 6000 Kbps. For 1080p 60fps gaming, use 6000 Kbps. For 720p 60fps, use 4500 Kbps. For 720p 30fps, 3000-4000 Kbps is sufficient."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What bitrate should I use for YouTube streaming?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "YouTube allows higher bitrates than Twitch. For 1080p 60fps, use 4500-9000 Kbps. For 1440p 60fps, use 9000-18000 Kbps. For 4K 60fps, use 20000-51000 Kbps."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I calculate streaming bitrate?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Bitrate depends on resolution, FPS, and content motion. Higher resolution and FPS require more bitrate. Fast-paced games need higher bitrate than static content like Just Chatting."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What happens if my bitrate is too high?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "If your bitrate exceeds your upload speed, you'll experience dropped frames and buffering. Also, Twitch has a 6000 Kbps cap - going higher wastes bandwidth."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "OBS Tools", "item": "https://obsmaskgenerator.com/"},
+            {"@type": "ListItem", "position": 2, "name": "Bitrate Calculator", "item": "https://obsmaskgenerator.com/bitrate-calculator/"}
+        ]
+    }
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="url(#logo-gradient)" />
+                    <path d="M8 16h16M12 12v8M20 12v8" stroke="white" stroke-width="2.5" stroke-linecap="round" />
+                    <defs>
+                        <linearGradient id="logo-gradient" x1="0" y1="0" x2="32" y2="32">
+                            <stop stop-color="#9146FF" />
+                            <stop offset="1" stop-color="#6441A5" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <h1>OBS Bitrate Calculator</h1>
+            </div>
+            <p class="tagline">Find the perfect streaming bitrate for your setup</p>
+            <a href="/" class="back-link">← Back to OBS Tools</a>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Input Section -->
+            <section class="input-section">
+                <h2 class="section-title">Your Stream Settings</h2>
+
+                <div class="form-group">
+                    <label for="resolution">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" />
+                            <path d="M8 21h8M12 17v4" />
+                        </svg>
+                        Output Resolution
+                    </label>
+                    <select id="resolution">
+                        <option value="720p">720p (1280×720)</option>
+                        <option value="1080p" selected>1080p (1920×1080)</option>
+                        <option value="1440p">1440p (2560×1440)</option>
+                        <option value="4k">4K (3840×2160)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="fps">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <polyline points="12 6 12 12 16 14" />
+                        </svg>
+                        Frame Rate (FPS)
+                    </label>
+                    <select id="fps">
+                        <option value="30">30 FPS</option>
+                        <option value="60" selected>60 FPS</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="content">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="2" y="6" width="20" height="12" rx="2" />
+                            <circle cx="8" cy="12" r="2" />
+                            <path d="M18 9v6M15 12h6" />
+                        </svg>
+                        Content Type
+                    </label>
+                    <select id="content">
+                        <option value="gaming-fast">🎮 Fast-Paced Gaming (FPS, Racing)</option>
+                        <option value="gaming-medium" selected>🎯 Standard Gaming (RPG, Strategy)</option>
+                        <option value="chatting">💬 Just Chatting / Low Motion</option>
+                        <option value="sports">⚽ Sports / High Motion</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="platform">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
+                        </svg>
+                        Streaming Platform
+                    </label>
+                    <select id="platform">
+                        <option value="twitch" selected>Twitch (Max 6000 Kbps)</option>
+                        <option value="youtube">YouTube (Max 51000 Kbps)</option>
+                        <option value="kick">Kick (Max 8000 Kbps)</option>
+                        <option value="facebook">Facebook Gaming (Max 8000 Kbps)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="upload">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M12 19V5M5 12l7-7 7 7" />
+                        </svg>
+                        Upload Speed (Mbps)
+                    </label>
+                    <input type="number" id="upload" value="20" min="1" max="1000"
+                        placeholder="Enter your upload speed">
+                    <span class="hint">Run a speed test at fast.com if unsure</span>
+                </div>
+
+                <button class="generate-btn" id="calculate-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                        <polyline points="22 4 12 14.01 9 11.01" />
+                    </svg>
+                    Calculate Bitrate
+                </button>
+            </section>
+
+            <!-- Output Section -->
+            <section class="output-section">
+                <h2 class="section-title">Recommended Settings</h2>
+
+                <div class="results-container" id="results-container">
+                    <div class="result-card primary">
+                        <span class="result-label">Recommended Bitrate</span>
+                        <span class="result-value" id="recommended-bitrate">-</span>
+                        <span class="result-unit">Kbps</span>
+                    </div>
+
+                    <div class="result-card">
+                        <span class="result-label">Bitrate Range</span>
+                        <span class="result-value" id="bitrate-range">-</span>
+                    </div>
+
+                    <div class="result-card">
+                        <span class="result-label">Platform Limit</span>
+                        <span class="result-value" id="platform-limit">-</span>
+                    </div>
+
+                    <div class="result-card">
+                        <span class="result-label">Upload Headroom</span>
+                        <span class="result-value" id="upload-headroom">-</span>
+                    </div>
+                </div>
+
+                <div class="warning-box hidden" id="warning-box">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                        <line x1="12" y1="9" x2="12" y2="13" />
+                        <line x1="12" y1="17" x2="12.01" y2="17" />
+                    </svg>
+                    <span id="warning-text"></span>
+                </div>
+
+                <div class="tip-box" id="tip-box">
+                    <strong>💡 Pro Tips:</strong>
+                    <ul id="tips-list">
+                        <li>Use CBR (Constant Bitrate) for stable streaming</li>
+                        <li>Set Keyframe Interval to 2 seconds</li>
+                        <li>Leave 20-30% upload speed headroom for stability</li>
+                    </ul>
+                </div>
+
+                <div class="help-text">
+                    <strong>How to apply:</strong> Open OBS → Settings → Output → Streaming → Set Bitrate to the
+                    recommended value.
+                </div>
+            </section>
+        </main>
+
+        <!-- FAQ Section for SEO -->
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>What is the best bitrate for streaming on Twitch?</h3>
+                <p>For Twitch, the maximum bitrate is 6000 Kbps. For 1080p 60fps gaming, use 6000 Kbps. For 720p 60fps,
+                    use 4500 Kbps. For 720p 30fps, 3000-4000 Kbps is sufficient.</p>
+            </div>
+            <div class="faq-item">
+                <h3>What bitrate should I use for YouTube streaming?</h3>
+                <p>YouTube allows higher bitrates than Twitch. For 1080p 60fps, use 4500-9000 Kbps. For 1440p 60fps, use
+                    9000-18000 Kbps. For 4K 60fps, use 20000-51000 Kbps.</p>
+            </div>
+            <div class="faq-item">
+                <h3>How do I calculate streaming bitrate?</h3>
+                <p>Bitrate depends on resolution, FPS, and content motion. Higher resolution and FPS require more
+                    bitrate. Fast-paced games need higher bitrate than static content like Just Chatting.</p>
+            </div>
+            <div class="faq-item">
+                <h3>What happens if my bitrate is too high?</h3>
+                <p>If your bitrate exceeds your upload speed, you'll experience dropped frames and buffering. Also,
+                    Twitch has a 6000 Kbps cap - going higher wastes bandwidth.</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Free OBS Bitrate Calculator | Part of <a href="/">OBS Mask Generator</a></p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                <a href="/settings-generator/">OBS Settings Generator</a> |
+                <a href="/gamertag-generator/">AI Gamertag Generator</a> |
+                <a href="/channel-point-generator/">Channel Point Ideas</a> |
+                <a href="/stream-title-generator/">Stream Title Generator</a> |
+                <a href="/emote-resizer/">Emote Resizer</a> |
+                <a href="/privacy-policy.html">Privacy Policy</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
