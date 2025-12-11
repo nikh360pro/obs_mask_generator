@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Free Stream Overlay Generator - Webcam Frames & OBS Overlays | Twitch & YouTube</title>
+    <meta name="title" content="Free Stream Overlay Generator - Webcam Frames & OBS Overlays | Twitch & YouTube">
+    <meta name="description"
+        content="Free Stream Overlay Generator. Create webcam frames, Starting Soon screens, BRB overlays for OBS. Transparent PNG export. No signup required.">
+    <meta name="keywords"
+        content="stream overlay generator, OBS overlay maker, webcam frame generator, Twitch overlay free, stream overlay maker, starting soon screen, BRB overlay, stream ending screen, OBS webcam border, free streaming overlays">
+    <meta name="author" content="OBS Mask Generator">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    <link rel="canonical" href="https://obsmaskgenerator.com/overlay-generator/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/overlay-generator/">
+    <meta property="og:title" content="Free Stream Overlay Generator - Create OBS Overlays">
+    <meta property="og:description"
+        content="Create webcam frames and overlays for OBS. Free download as transparent PNG.">
+    <meta property="og:image" content="https://obsmaskgenerator.com/og-image.png">
+    <meta property="og:site_name" content="OBS Mask Generator">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://obsmaskgenerator.com/overlay-generator/">
+    <meta property="twitter:title" content="Free Stream Overlay Generator - Create OBS Overlays">
+    <meta property="twitter:description" content="Create webcam frames and overlays for OBS. Free.">
+    <meta property="twitter:image" content="https://obsmaskgenerator.com/og-image.png">
+
+    <!-- Structured Data - WebApplication -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Stream Overlay Generator",
+        "url": "https://obsmaskgenerator.com/overlay-generator/",
+        "description": "Free tool to create stream overlays, webcam frames, and scene screens for OBS Studio.",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "featureList": [
+            "Webcam frame generator",
+            "Starting Soon screens",
+            "BRB and Stream Ending overlays",
+            "Custom colors and gradients",
+            "Glow and border effects",
+            "Transparent PNG export"
+        ]
+    }
+    </script>
+
+    <!-- Structured Data - FAQ -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What size should stream overlays be?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Stream overlays should match your stream resolution. 1920x1080 (1080p) is most common. For webcam frames, typical sizes are 480x270, 640x360, or custom based on your layout."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I add overlays to OBS?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "In OBS, click the + button in Sources, select 'Image', browse to your overlay PNG file, and position it above your other sources. Make sure to use a PNG with transparency."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is a Starting Soon screen?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "A Starting Soon screen is displayed before your stream begins, letting viewers know you'll be live shortly. It typically includes your branding, a message, and sometimes a countdown timer."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is this overlay generator free?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, this stream overlay generator is completely free with no signup required. Create unlimited overlays and download them as transparent PNG files."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "OBS Tools", "item": "https://obsmaskgenerator.com/"},
+            {"@type": "ListItem", "position": 2, "name": "Overlay Generator", "item": "https://obsmaskgenerator.com/overlay-generator/"}
+        ]
+    }
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="url(#logo-gradient)" />
+                    <rect x="8" y="8" width="16" height="10" rx="2" stroke="white" stroke-width="2" fill="none" />
+                    <circle cx="16" cy="22" r="2" fill="white" />
+                    <defs>
+                        <linearGradient id="logo-gradient" x1="0" y1="0" x2="32" y2="32">
+                            <stop stop-color="#9146FF" />
+                            <stop offset="1" stop-color="#6441A5" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <h1>Stream Overlay Generator</h1>
+            </div>
+            <p class="tagline">Create webcam frames and scene overlays for OBS</p>
+            <a href="/" class="back-link">← Back to OBS Tools</a>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Input Section -->
+            <section class="input-section">
+                <h2 class="section-title">Customize Your Overlay</h2>
+
+                <!-- Overlay Type -->
+                <div class="form-group">
+                    <label>Overlay Type</label>
+                    <div class="overlay-types" id="overlay-types">
+                        <button class="overlay-type-btn active" data-type="webcam-frame">
+                            <span class="type-icon">📷</span>
+                            <span>Webcam Frame</span>
+                        </button>
+                        <button class="overlay-type-btn" data-type="starting-soon">
+                            <span class="type-icon">⏳</span>
+                            <span>Starting Soon</span>
+                        </button>
+                        <button class="overlay-type-btn" data-type="brb">
+                            <span class="type-icon">☕</span>
+                            <span>Be Right Back</span>
+                        </button>
+                        <button class="overlay-type-btn" data-type="stream-ending">
+                            <span class="type-icon">👋</span>
+                            <span>Stream Ending</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Preset Sizes -->
+                <div class="form-group">
+                    <label>Size Preset</label>
+                    <div class="size-presets" id="size-presets">
+                        <button class="size-btn" data-width="480" data-height="270">480×270</button>
+                        <button class="size-btn active" data-width="640" data-height="360">640×360</button>
+                        <button class="size-btn" data-width="854" data-height="480">854×480</button>
+                        <button class="size-btn" data-width="1920" data-height="1080">1920×1080</button>
+                    </div>
+                </div>
+
+                <!-- Custom Text (for scene screens) -->
+                <div class="form-group" id="text-group">
+                    <label for="overlay-text">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                        </svg>
+                        Overlay Text
+                    </label>
+                    <input type="text" id="overlay-text" value="" placeholder="Add custom text (optional)">
+                </div>
+
+                <!-- Colors -->
+                <div class="form-group">
+                    <label>Colors</label>
+                    <div class="color-pickers">
+                        <div class="color-picker-item">
+                            <input type="color" id="primary-color" value="#9146FF">
+                            <span>Primary</span>
+                        </div>
+                        <div class="color-picker-item">
+                            <input type="color" id="secondary-color" value="#772CE8">
+                            <span>Secondary</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Themes -->
+                <div class="form-group">
+                    <label>Quick Themes</label>
+                    <div class="color-themes" id="color-themes">
+                        <button class="theme-btn" data-primary="#9146FF" data-secondary="#772CE8" title="Twitch Purple">
+                            <span style="background: linear-gradient(135deg, #9146FF, #772CE8)"></span>
+                        </button>
+                        <button class="theme-btn" data-primary="#FF0000" data-secondary="#CC0000" title="YouTube Red">
+                            <span style="background: linear-gradient(135deg, #FF0000, #CC0000)"></span>
+                        </button>
+                        <button class="theme-btn" data-primary="#00F593" data-secondary="#00C878" title="Kick Green">
+                            <span style="background: linear-gradient(135deg, #00F593, #00C878)"></span>
+                        </button>
+                        <button class="theme-btn" data-primary="#F472B6" data-secondary="#EC4899" title="Pink">
+                            <span style="background: linear-gradient(135deg, #F472B6, #EC4899)"></span>
+                        </button>
+                        <button class="theme-btn" data-primary="#38BDF8" data-secondary="#0EA5E9" title="Blue">
+                            <span style="background: linear-gradient(135deg, #38BDF8, #0EA5E9)"></span>
+                        </button>
+                        <button class="theme-btn" data-primary="#FFE66D" data-secondary="#FFC107" title="Gold">
+                            <span style="background: linear-gradient(135deg, #FFE66D, #FFC107)"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Border Thickness -->
+                <div class="form-group">
+                    <label for="border-thickness">
+                        Border Thickness: <span id="thickness-value">8</span>px
+                    </label>
+                    <input type="range" id="border-thickness" min="2" max="30" value="8">
+                </div>
+
+                <!-- Corner Radius -->
+                <div class="form-group">
+                    <label for="corner-radius">
+                        Corner Radius: <span id="radius-value">16</span>px
+                    </label>
+                    <input type="range" id="corner-radius" min="0" max="60" value="16">
+                </div>
+
+                <!-- Glow Effect -->
+                <div class="form-group toggle-group">
+                    <label class="toggle-label">
+                        <input type="checkbox" id="glow-effect" checked>
+                        <span class="toggle-switch"></span>
+                        Glow Effect
+                    </label>
+                </div>
+            </section>
+
+            <!-- Preview Section -->
+            <section class="preview-section">
+                <h2 class="section-title">Live Preview</h2>
+
+                <div class="preview-container">
+                    <div class="preview-wrapper" id="preview-wrapper">
+                        <canvas id="overlay-canvas" width="640" height="360"></canvas>
+                    </div>
+                    <p class="size-info" id="size-info">640 × 360 pixels</p>
+                </div>
+
+                <button class="download-btn" id="download-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Download Overlay (PNG)
+                </button>
+
+                <div class="help-text">
+                    <strong>How to use:</strong> In OBS, add an Image source, select your downloaded PNG, and position
+                    it over your webcam or scene.
+                </div>
+            </section>
+        </main>
+
+        <!-- FAQ Section for SEO -->
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>What size should stream overlays be?</h3>
+                <p>Stream overlays should match your stream resolution. 1920×1080 (1080p) is most common. For webcam
+                    frames, typical sizes are 480×270, 640×360, or custom based on your layout.</p>
+            </div>
+            <div class="faq-item">
+                <h3>How do I add overlays to OBS?</h3>
+                <p>In OBS, click the + button in Sources, select "Image", browse to your overlay PNG file, and position
+                    it above your other sources. Make sure to use a PNG with transparency.</p>
+            </div>
+            <div class="faq-item">
+                <h3>What is a Starting Soon screen?</h3>
+                <p>A Starting Soon screen is displayed before your stream begins, letting viewers know you'll be live
+                    shortly. It typically includes your branding and a message.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Why use transparent overlays?</h3>
+                <p>Transparent PNG overlays allow your webcam feed or gameplay to show through. Only the frame/border is
+                    visible, creating a professional layered effect in OBS.</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Free Stream Overlay Generator | Part of <a href="/">OBS Mask Generator</a></p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                <a href="/settings-generator/">OBS Settings Generator</a> |
+                <a href="/gamertag-generator/">AI Gamertag Generator</a> |
+                <a href="/channel-point-generator/">Channel Point Ideas</a> |
+                <a href="/bitrate-calculator/">Bitrate Calculator</a> |
+                <a href="/stream-title-generator/">Stream Title Generator</a> |
+                <a href="/emote-resizer/">Emote Resizer</a> |
+                <a href="/panel-maker/">Panel Maker</a> |
+                <a href="/privacy-policy.html">Privacy Policy</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
