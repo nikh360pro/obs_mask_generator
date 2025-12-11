@@ -51,7 +51,7 @@ function buildPrompt(vibe, strictness, specificBans, ruleCount) {
         strict: 'zero tolerance for violations, heavy moderation, clear consequences'
     };
 
-    let prompt = `Generate exactly ${ruleCount} chat rules for a Twitch streamer.
+    let prompt = `Generate exactly ${Math.min(parseInt(ruleCount) || 5, 5)} chat rules for a Twitch streamer.
 
 Channel vibe: ${vibeDescriptions[vibe] || vibe}
 Moderation style: ${strictnessDescriptions[strictness] || strictness}`;
