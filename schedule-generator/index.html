@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Stream Schedule Generator - Create Twitch Schedule Images</title>
+    <meta name="description"
+        content="Free stream schedule generator. Create beautiful schedule images for Twitch panels. Show your streaming times. Download as PNG.">
+    <meta name="keywords"
+        content="stream schedule generator, Twitch schedule maker, streaming schedule image, stream schedule template, weekly stream schedule, Twitch panel schedule, stream times image">
+    <meta name="author" content="OBS Mask Generator">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://obsmaskgenerator.com/schedule-generator/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/schedule-generator/">
+    <meta property="og:title" content="Free Stream Schedule Generator">
+    <meta property="og:description" content="Create stream schedule images for Twitch. Free download.">
+    <meta property="og:image" content="https://obsmaskgenerator.com/og-image.png">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://obsmaskgenerator.com/schedule-generator/">
+    <meta property="twitter:title" content="Stream Schedule Generator">
+    <meta property="twitter:description" content="Create stream schedule images for Twitch panels.">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Stream Schedule Generator",
+        "url": "https://obsmaskgenerator.com/schedule-generator/",
+        "description": "Create stream schedule images for Twitch panels showing your weekly streaming times.",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "featureList": ["Weekly schedule", "Multiple timezones", "Custom colors", "PNG export", "Twitch panel ready"]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What size should a Twitch schedule panel be?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Twitch schedule panels should be 320 pixels wide. Height can vary, but 320x160 or 320x320 are common. Use a square format if you want to include more days."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I show my stream schedule on Twitch?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "You can show your schedule by creating a Schedule panel with an image, using Twitch's built-in Schedule feature in your Creator Dashboard, or adding schedule info to your About section."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "OBS Tools", "item": "https://obsmaskgenerator.com/"},
+            {"@type": "ListItem", "position": 2, "name": "Schedule Generator", "item": "https://obsmaskgenerator.com/schedule-generator/"}
+        ]
+    }
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <header class="header">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="url(#logo-gradient)" />
+                    <path d="M8 10h16M8 16h12M8 22h14" stroke="white" stroke-width="2" stroke-linecap="round" />
+                    <circle cx="24" cy="10" r="2" fill="white" />
+                    <defs>
+                        <linearGradient id="logo-gradient" x1="0" y1="0" x2="32" y2="32">
+                            <stop stop-color="#9146FF" />
+                            <stop offset="1" stop-color="#6441A5" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <h1>Stream Schedule Generator</h1>
+            </div>
+            <p class="tagline">Create a schedule image for your Twitch panels</p>
+            <a href="/" class="back-link">← Back to OBS Tools</a>
+        </header>
+
+        <main class="main-content">
+            <section class="input-section">
+                <h2 class="section-title">Set Your Schedule</h2>
+
+                <!-- Timezone -->
+                <div class="form-group">
+                    <label for="timezone">Timezone Display</label>
+                    <input type="text" id="timezone" value="EST" placeholder="e.g., EST, PST, GMT+1" maxlength="10">
+                </div>
+
+                <!-- Schedule Days -->
+                <div class="schedule-entries">
+                    <div class="schedule-entry" data-day="Monday">
+                        <label class="day-toggle">
+                            <input type="checkbox" checked>
+                            <span class="day-name">Monday</span>
+                        </label>
+                        <input type="text" class="time-input" value="7:00 PM" placeholder="Time">
+                    </div>
+                    <div class="schedule-entry" data-day="Tuesday">
+                        <label class="day-toggle">
+                            <input type="checkbox">
+                            <span class="day-name">Tuesday</span>
+                        </label>
+                        <input type="text" class="time-input" value="" placeholder="Off">
+                    </div>
+                    <div class="schedule-entry" data-day="Wednesday">
+                        <label class="day-toggle">
+                            <input type="checkbox" checked>
+                            <span class="day-name">Wednesday</span>
+                        </label>
+                        <input type="text" class="time-input" value="7:00 PM" placeholder="Time">
+                    </div>
+                    <div class="schedule-entry" data-day="Thursday">
+                        <label class="day-toggle">
+                            <input type="checkbox">
+                            <span class="day-name">Thursday</span>
+                        </label>
+                        <input type="text" class="time-input" value="" placeholder="Off">
+                    </div>
+                    <div class="schedule-entry" data-day="Friday">
+                        <label class="day-toggle">
+                            <input type="checkbox" checked>
+                            <span class="day-name">Friday</span>
+                        </label>
+                        <input type="text" class="time-input" value="8:00 PM" placeholder="Time">
+                    </div>
+                    <div class="schedule-entry" data-day="Saturday">
+                        <label class="day-toggle">
+                            <input type="checkbox" checked>
+                            <span class="day-name">Saturday</span>
+                        </label>
+                        <input type="text" class="time-input" value="3:00 PM" placeholder="Time">
+                    </div>
+                    <div class="schedule-entry" data-day="Sunday">
+                        <label class="day-toggle">
+                            <input type="checkbox" checked>
+                            <span class="day-name">Sunday</span>
+                        </label>
+                        <input type="text" class="time-input" value="3:00 PM" placeholder="Time">
+                    </div>
+                </div>
+
+                <!-- Colors -->
+                <div class="form-group">
+                    <label>Colors</label>
+                    <div class="color-pickers">
+                        <div class="color-picker-item">
+                            <input type="color" id="bg-color" value="#18181B">
+                            <span>Background</span>
+                        </div>
+                        <div class="color-picker-item">
+                            <input type="color" id="accent-color" value="#9146FF">
+                            <span>Accent</span>
+                        </div>
+                        <div class="color-picker-item">
+                            <input type="color" id="text-color" value="#EFEFF1">
+                            <span>Text</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="preview-section">
+                <h2 class="section-title">Preview</h2>
+
+                <div class="preview-container">
+                    <div class="preview-wrapper">
+                        <canvas id="schedule-canvas" width="320" height="400"></canvas>
+                    </div>
+                    <p class="size-info">320 × 400 pixels (Twitch panel size)</p>
+                </div>
+
+                <button class="download-btn" id="download-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Download Schedule (PNG)
+                </button>
+            </section>
+        </main>
+
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>What size should a Twitch schedule panel be?</h3>
+                <p>Twitch schedule panels should be 320 pixels wide. Height can vary based on content. This generator
+                    creates 320×400 images perfect for Twitch panels.</p>
+            </div>
+            <div class="faq-item">
+                <h3>How do I show my stream schedule on Twitch?</h3>
+                <p>Add a panel to your channel with your schedule image, use Twitch's built-in Schedule feature, or add
+                    schedule info to your About section.</p>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Free Stream Schedule Generator | Part of <a href="/">OBS Mask Generator</a></p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                <a href="/settings-generator/">OBS Settings Generator</a> |
+                <a href="/gamertag-generator/">AI Gamertag Generator</a> |
+                <a href="/channel-point-generator/">Channel Point Ideas</a> |
+                <a href="/bitrate-calculator/">Bitrate Calculator</a> |
+                <a href="/stream-title-generator/">Stream Title Generator</a> |
+                <a href="/emote-resizer/">Emote Resizer</a> |
+                <a href="/panel-maker/">Panel Maker</a> |
+                <a href="/overlay-generator/">Overlay Generator</a> |
+                <a href="/privacy-policy.html">Privacy Policy</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Twitch Banner Maker - Profile & Offline Banner Generator</title>
+    <meta name="description"
+        content="Free Twitch banner maker. Create profile banners (1200x480) and offline banners (1920x1080). Add text, colors, gradients. Download PNG instantly.">
+    <meta name="keywords"
+        content="Twitch banner maker, Twitch banner size, Twitch profile banner, Twitch offline banner, Twitch banner generator, stream banner maker, 1200x480 banner, Twitch cover image">
+    <meta name="author" content="OBS Mask Generator">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://obsmaskgenerator.com/banner-maker/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/banner-maker/">
+    <meta property="og:title" content="Free Twitch Banner Maker - Create Stream Banners">
+    <meta property="og:description" content="Create profile and offline banners for Twitch. Free download.">
+    <meta property="og:image" content="https://obsmaskgenerator.com/og-image.png">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://obsmaskgenerator.com/banner-maker/">
+    <meta property="twitter:title" content="Free Twitch Banner Maker">
+    <meta property="twitter:description" content="Create profile and offline banners for Twitch.">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Twitch Banner Maker",
+        "url": "https://obsmaskgenerator.com/banner-maker/",
+        "description": "Create Twitch profile banners (1200x480) and offline banners (1920x1080) with custom text and colors.",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "featureList": ["Profile banner 1200x480", "Offline banner 1920x1080", "Custom colors", "Text overlay", "Gradient backgrounds"]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What size should a Twitch profile banner be?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Twitch profile banners should be 1200x480 pixels (5:2 aspect ratio). The maximum file size is 10MB. Use JPEG, PNG, or GIF format."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What size should a Twitch offline banner be?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Twitch offline banners (video player banners) should be 1920x1080 pixels (16:9 aspect ratio). This is the same as Full HD resolution."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "OBS Tools", "item": "https://obsmaskgenerator.com/"},
+            {"@type": "ListItem", "position": 2, "name": "Banner Maker", "item": "https://obsmaskgenerator.com/banner-maker/"}
+        ]
+    }
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <header class="header">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="url(#logo-gradient)" />
+                    <rect x="6" y="11" width="20" height="10" rx="2" fill="white" />
+                    <defs>
+                        <linearGradient id="logo-gradient" x1="0" y1="0" x2="32" y2="32">
+                            <stop stop-color="#9146FF" />
+                            <stop offset="1" stop-color="#6441A5" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <h1>Twitch Banner Maker</h1>
+            </div>
+            <p class="tagline">Create profile and offline banners for your channel</p>
+            <a href="/" class="back-link">← Back to OBS Tools</a>
+        </header>
+
+        <main class="main-content">
+            <section class="input-section">
+                <h2 class="section-title">Customize Your Banner</h2>
+
+                <!-- Banner Type -->
+                <div class="form-group">
+                    <label>Banner Type</label>
+                    <div class="banner-types" id="banner-types">
+                        <button class="banner-type-btn active" data-type="profile" data-width="1200" data-height="480">
+                            <span class="type-icon">👤</span>
+                            <span>Profile Banner</span>
+                            <small>1200×480</small>
+                        </button>
+                        <button class="banner-type-btn" data-type="offline" data-width="1920" data-height="1080">
+                            <span class="type-icon">📺</span>
+                            <span>Offline Banner</span>
+                            <small>1920×1080</small>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Main Text -->
+                <div class="form-group">
+                    <label for="main-text">Main Text</label>
+                    <input type="text" id="main-text" value="YOUR NAME" placeholder="Your streamer name" maxlength="30">
+                </div>
+
+                <!-- Subtitle -->
+                <div class="form-group">
+                    <label for="subtitle">Subtitle (optional)</label>
+                    <input type="text" id="subtitle" placeholder="e.g., Twitch Partner • Variety Streamer"
+                        maxlength="50">
+                </div>
+
+                <!-- Colors -->
+                <div class="form-group">
+                    <label>Background Colors</label>
+                    <div class="color-pickers">
+                        <div class="color-picker-item">
+                            <input type="color" id="color1" value="#9146FF">
+                            <span>Color 1</span>
+                        </div>
+                        <div class="color-picker-item">
+                            <input type="color" id="color2" value="#2C2C2C">
+                            <span>Color 2</span>
+                        </div>
+                        <div class="color-picker-item">
+                            <input type="color" id="text-color" value="#FFFFFF">
+                            <span>Text</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Themes -->
+                <div class="form-group">
+                    <label>Quick Themes</label>
+                    <div class="color-themes" id="color-themes">
+                        <button class="theme-btn" data-c1="#9146FF" data-c2="#2C2C2C" title="Twitch">
+                            <span style="background: linear-gradient(135deg, #9146FF, #2C2C2C)"></span>
+                        </button>
+                        <button class="theme-btn" data-c1="#FF0000" data-c2="#1A1A1A" title="YouTube">
+                            <span style="background: linear-gradient(135deg, #FF0000, #1A1A1A)"></span>
+                        </button>
+                        <button class="theme-btn" data-c1="#00F593" data-c2="#0D0D0D" title="Kick">
+                            <span style="background: linear-gradient(135deg, #00F593, #0D0D0D)"></span>
+                        </button>
+                        <button class="theme-btn" data-c1="#F472B6" data-c2="#1E1E2E" title="Pink">
+                            <span style="background: linear-gradient(135deg, #F472B6, #1E1E2E)"></span>
+                        </button>
+                        <button class="theme-btn" data-c1="#38BDF8" data-c2="#0F172A" title="Blue">
+                            <span style="background: linear-gradient(135deg, #38BDF8, #0F172A)"></span>
+                        </button>
+                        <button class="theme-btn" data-c1="#FBBF24" data-c2="#1C1917" title="Gold">
+                            <span style="background: linear-gradient(135deg, #FBBF24, #1C1917)"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Style Options -->
+                <div class="form-group toggle-group">
+                    <label class="toggle-label">
+                        <input type="checkbox" id="show-pattern" checked>
+                        <span class="toggle-switch"></span>
+                        Show Pattern Overlay
+                    </label>
+                </div>
+            </section>
+
+            <section class="preview-section">
+                <h2 class="section-title">Live Preview</h2>
+
+                <div class="preview-container">
+                    <div class="preview-wrapper" id="preview-wrapper">
+                        <canvas id="banner-canvas" width="1200" height="480"></canvas>
+                    </div>
+                    <p class="size-info" id="size-info">1200 × 480 pixels</p>
+                </div>
+
+                <button class="download-btn" id="download-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Download Banner (PNG)
+                </button>
+            </section>
+        </main>
+
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>What size should a Twitch profile banner be?</h3>
+                <p>Twitch profile banners should be 1200×480 pixels (5:2 aspect ratio). The maximum file size is 10MB.
+                    Use JPEG, PNG, or GIF format.</p>
+            </div>
+            <div class="faq-item">
+                <h3>What size should a Twitch offline banner be?</h3>
+                <p>Twitch offline banners (video player banners) should be 1920×1080 pixels (16:9 aspect ratio). This is
+                    the same as Full HD resolution.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Where does the profile banner appear?</h3>
+                <p>The profile banner appears at the top of your Twitch channel page, behind your profile picture and
+                    channel name.</p>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Free Twitch Banner Maker | Part of <a href="/">OBS Mask Generator</a></p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                <a href="/settings-generator/">OBS Settings Generator</a> |
+                <a href="/gamertag-generator/">AI Gamertag Generator</a> |
+                <a href="/channel-point-generator/">Channel Point Ideas</a> |
+                <a href="/bitrate-calculator/">Bitrate Calculator</a> |
+                <a href="/stream-title-generator/">Stream Title Generator</a> |
+                <a href="/emote-resizer/">Emote Resizer</a> |
+                <a href="/panel-maker/">Panel Maker</a> |
+                <a href="/overlay-generator/">Overlay Generator</a> |
+                <a href="/privacy-policy.html">Privacy Policy</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

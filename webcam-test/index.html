@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Webcam Test - Check Camera & Mic Before Streaming</title>
+    <meta name="description"
+        content="Free webcam test for streamers. Check your camera and microphone before going live. See resolution, FPS, and audio levels. Works with OBS.">
+    <meta name="keywords"
+        content="webcam test, camera test online, microphone test, stream setup test, OBS webcam check, test camera before stream, webcam preview">
+    <meta name="author" content="OBS Mask Generator">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://obsmaskgenerator.com/webcam-test/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/webcam-test/">
+    <meta property="og:title" content="Free Webcam Test for Streamers">
+    <meta property="og:description" content="Test your webcam and microphone before streaming.">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Webcam Test",
+        "url": "https://obsmaskgenerator.com/webcam-test/",
+        "description": "Test your webcam and microphone before streaming.",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <header class="header">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="url(#logo-gradient)" />
+                    <circle cx="16" cy="14" r="6" stroke="white" stroke-width="2" fill="none" />
+                    <path d="M10 24c0-3 3-5 6-5s6 2 6 5" stroke="white" stroke-width="2" fill="none" />
+                    <defs>
+                        <linearGradient id="logo-gradient" x1="0" y1="0" x2="32" y2="32">
+                            <stop stop-color="#9146FF" />
+                            <stop offset="1" stop-color="#6441A5" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <h1>Webcam Test</h1>
+            </div>
+            <p class="tagline">Check your camera and mic before going live</p>
+            <a href="/" class="back-link">← Back to OBS Tools</a>
+        </header>
+
+        <main class="main-content">
+            <section class="video-section">
+                <div class="video-wrapper" id="video-wrapper">
+                    <video id="video" autoplay playsinline muted></video>
+                    <div class="video-placeholder" id="video-placeholder">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5">
+                            <path d="M23 7l-7 5 7 5V7z" />
+                            <rect x="1" y="5" width="15" height="14" rx="2" />
+                        </svg>
+                        <p>Click "Start Camera" to begin</p>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button class="start-btn" id="start-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M23 7l-7 5 7 5V7z" />
+                            <rect x="1" y="5" width="15" height="14" rx="2" />
+                        </svg>
+                        Start Camera
+                    </button>
+                    <button class="toggle-btn" id="mirror-btn" disabled>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3" />
+                            <path d="M16 21h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
+                        </svg>
+                        Mirror
+                    </button>
+                </div>
+            </section>
+
+            <section class="info-section">
+                <h2 class="section-title">Camera Info</h2>
+
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Resolution</span>
+                        <span class="info-value" id="resolution">--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Frame Rate</span>
+                        <span class="info-value" id="fps">--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Camera</span>
+                        <span class="info-value" id="camera-name">--</span>
+                    </div>
+                </div>
+
+                <h2 class="section-title" style="margin-top: 24px;">Audio Level</h2>
+                <div class="audio-meter">
+                    <div class="audio-bar" id="audio-bar"></div>
+                </div>
+                <p class="audio-label" id="audio-label">Microphone not active</p>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>Free Webcam Test | Part of <a href="/">OBS Mask Generator</a></p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                <a href="/settings-generator/">OBS Settings Generator</a> |
+                <a href="/gamertag-generator/">AI Gamertag Generator</a> |
+                <a href="/panel-maker/">Panel Maker</a> |
+                <a href="/overlay-generator/">Overlay Generator</a> |
+                <a href="/privacy-policy.html">Privacy Policy</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
