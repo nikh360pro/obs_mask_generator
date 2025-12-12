@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBS Studio Blog - Streaming Tips, Guides & Tutorials | OBS Tools</title>
+    <meta name="description"
+        content="Learn streaming best practices with our OBS Studio guides. Tutorials on bitrate settings, audio sync, overlays, Twitch panels, emotes, and more.">
+    <meta name="keywords"
+        content="OBS tutorials, streaming guides, OBS settings, Twitch tips, streaming tips, OBS help, streamer guides">
+    <meta name="author" content="OBS Mask Generator">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://obsmaskgenerator.com/blog/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/blog/">
+    <meta property="og:title" content="OBS Studio Blog - Streaming Tips & Guides">
+    <meta property="og:description" content="Learn streaming best practices with our OBS Studio guides and tutorials.">
+    <meta property="og:image" content="https://obsmaskgenerator.com/og-image.png">
+    <meta property="og:site_name" content="OBS Mask Generator">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://obsmaskgenerator.com/blog/">
+    <meta property="twitter:title" content="OBS Studio Blog - Streaming Tips & Guides">
+    <meta property="twitter:image" content="https://obsmaskgenerator.com/og-image.png">
+
+    <!-- Structured Data - CollectionPage -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "OBS Studio Blog",
+        "url": "https://obsmaskgenerator.com/blog/",
+        "description": "Streaming tips, guides, and tutorials for OBS Studio users.",
+        "publisher": {
+            "@type": "Organization",
+            "name": "OBS Mask Generator"
+        }
+    }
+    </script>
+
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "OBS Tools", "item": "https://obsmaskgenerator.com/"},
+            {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://obsmaskgenerator.com/blog/"}
+        ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="blog-style.css">
+    <style>
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .blog-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .blog-card h2 {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .blog-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            flex: 1;
+            margin-bottom: 0.75rem;
+        }
+
+        .blog-card .read-more {
+            color: var(--accent-primary);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .category-section {
+            margin-bottom: 3rem;
+        }
+
+        .category-title {
+            font-size: 1.25rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+
+<body>
+    <header class="blog-header">
+        <div class="header-content">
+            <a href="/" class="logo">OBS Tools</a>
+            <nav>
+                <a href="/">Tools</a>
+                <a href="/blog/" class="active">Blog</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="blog-container" style="max-width: 1000px;">
+        <div class="page-header">
+            <h1>Streaming Guides & Tutorials</h1>
+            <p>Master OBS Studio with our in-depth guides for streamers</p>
+        </div>
+
+        <!-- OBS Settings Guides -->
+        <section class="category-section">
+            <h2 class="category-title">⚙️ OBS Settings & Configuration</h2>
+            <div class="blog-grid">
+                <a href="/blog/best-obs-settings/" class="blog-card">
+                    <h2>Best OBS Settings for Streaming in 2024</h2>
+                    <p>Complete guide to encoder, bitrate, resolution, and output settings for Twitch, YouTube, and
+                        Kick.</p>
+                    <span class="read-more">Read Guide →</span>
+                </a>
+                <a href="/blog/best-bitrate-streaming/" class="blog-card">
+                    <h2>Best Bitrate for Streaming</h2>
+                    <p>Find the perfect bitrate for your resolution and platform. Includes platform-specific
+                        recommendations.</p>
+                    <span class="read-more">Read Guide →</span>
+                </a>
+                <a href="/blog/obs-recording-settings/" class="blog-card">
+                    <h2>Best OBS Recording Settings</h2>
+                    <p>Optimize your local recordings with the right encoder, format, and quality settings.</p>
+                    <span class="read-more">Read Guide →</span>
+                </a>
+                <a href="/blog/obs-hotkeys-guide/" class="blog-card">
+                    <h2>OBS Hotkeys Complete Guide</h2>
+                    <p>Master keyboard shortcuts to control your stream like a pro without touching your mouse.</p>
+                    <span class="read-more">Read Guide →</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Troubleshooting -->
+        <section class="category-section">
+            <h2 class="category-title">🔧 Troubleshooting</h2>
+            <div class="blog-grid">
+                <a href="/blog/fix-obs-audio-delay/" class="blog-card">
+                    <h2>How to Fix OBS Audio Delay</h2>
+                    <p>Solve audio sync issues with step-by-step troubleshooting for desktop audio, mic, and game
+                        capture.</p>
+                    <span class="read-more">Read Guide →</span>
+                </a>
+                <a href="/blog/fix-blurry-stream/" class="blog-card">
+                    <h2>Fix Blurry Streams</h2>
+                    <p>Diagnose and fix pixelation, blur, and quality issues in your live streams.</p>
+                    <span class="read-more">Read Guide →</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Design Guides -->
+        <section class="category-section">
+            <h2 class="category-title">🎨 Stream Design</h2>
+            <div class="blog-grid">
+                <a href="/blog/stream-overlay-guide/" class="blog-card">
+                    <h2>Stream Overlay Design Guide</h2>
+                    <p>Create professional overlays, webcam frames, and scene screens for your stream.</p>
+                    <span class="read-more">Read Guide →</span>
+                </a>
+                <a href="/blog/obs-camera-border/" class="blog-card">
+                    <h2>Add Borders to OBS Webcam</h2>
+                    <p>Learn to add rounded corners, colored borders, and frames to your webcam in OBS.</p>
+                    <span class="read-more">Read Guide →</span>
+                </a>
+                <a href="/blog/twitch-panel-size-guide/" class="blog-card">
+                    <h2>Twitch Panel Size Guide</h2>
+                    <p>Everything you need to know about Twitch panel dimensions, formatting, and best practices.</p>
+                    <span class="read-more">Read Guide →</span>
+                </a>
+                <a href="/blog/twitch-banner-guide/" class="blog-card">
+                    <h2>Twitch Banner Size Guide</h2>
+                    <p>Create the perfect profile banner, offline screen, and video player banner for Twitch.</p>
+                    <span class="read-more">Read Guide →</span>
+                </a>
+                <a href="/blog/twitch-emote-sizes/" class="blog-card">
+                    <h2>Twitch Emote Sizes & Requirements</h2>
+                    <p>Complete guide to emote dimensions, file formats, and upload requirements for Twitch.</p>
+                    <span class="read-more">Read Guide →</span>
+                </a>
+                <a href="/blog/twitch-sub-badge-guide/" class="blog-card">
+                    <h2>Twitch Sub Badge Guide</h2>
+                    <p>Design subscriber badges that reward loyalty and look great at every tier.</p>
+                    <span class="read-more">Read Guide →</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Content Ideas -->
+        <section class="category-section">
+            <h2 class="category-title">💡 Content & Ideas</h2>
+            <div class="blog-grid">
+                <a href="/blog/stream-title-ideas/" class="blog-card">
+                    <h2>Stream Title Ideas That Get Clicks</h2>
+                    <p>Craft compelling titles that attract viewers and improve discoverability on Twitch.</p>
+                    <span class="read-more">Read Guide →</span>
+                </a>
+                <a href="/blog/channel-point-ideas/" class="blog-card">
+                    <h2>Channel Point Reward Ideas</h2>
+                    <p>Creative reward ideas to boost engagement and make your channel points valuable.</p>
+                    <span class="read-more">Read Guide →</span>
+                </a>
+                <a href="/blog/chat-rules-guide/" class="blog-card">
+                    <h2>Chat Rules Template & Guide</h2>
+                    <p>Create effective chat rules that keep your community positive and welcoming.</p>
+                    <span class="read-more">Read Guide →</span>
+                </a>
+                <a href="/blog/stream-schedule-guide/" class="blog-card">
+                    <h2>Stream Schedule Best Practices</h2>
+                    <p>Build a consistent streaming schedule that grows your audience over time.</p>
+                    <span class="read-more">Read Guide →</span>
+                </a>
+                <a href="/blog/gamertag-ideas/" class="blog-card">
+                    <h2>Gamertag Ideas & Tips</h2>
+                    <p>Find the perfect gaming username that's memorable, available, and fits your brand.</p>
+                    <span class="read-more">Read Guide →</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Utilities -->
+        <section class="category-section">
+            <h2 class="category-title">🛠️ Tools & Utilities</h2>
+            <div class="blog-grid">
+                <a href="/blog/webcam-test-guide/" class="blog-card">
+                    <h2>Webcam Test Guide</h2>
+                    <p>Test your webcam settings, lighting, and framing before going live.</p>
+                    <span class="read-more">Read Guide →</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="blog-footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="/">OBS Mask Generator</a>
+                <a href="/settings-generator/">Settings Generator</a>
+                <a href="/bitrate-calculator/">Bitrate Calculator</a>
+                <a href="/privacy-policy.html">Privacy Policy</a>
+            </div>
+            <p>© 2024 OBS Mask Generator. Free tools for streamers.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
