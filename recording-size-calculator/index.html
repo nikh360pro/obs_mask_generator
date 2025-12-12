@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBS Recording Size Calculator - Estimate File Size | Free Tool</title>
+    <meta name="title" content="OBS Recording Size Calculator - Estimate File Size | Free Tool">
+    <meta name="description"
+        content="Free OBS Recording Size Calculator. Estimate how much disk space your recordings will use based on bitrate and duration. Plan your storage before recording.">
+    <meta name="keywords"
+        content="OBS recording size, file size calculator, recording storage, OBS disk space, video file size estimator, how much space for recording, bitrate file size">
+    <meta name="author" content="OBS Mask Generator">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://obsmaskgenerator.com/recording-size-calculator/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/recording-size-calculator/">
+    <meta property="og:title" content="OBS Recording Size Calculator - Estimate File Size">
+    <meta property="og:description" content="Calculate how much disk space your OBS recordings will use.">
+    <meta property="og:image" content="https://obsmaskgenerator.com/og-image.png">
+
+    <!-- Structured Data - WebApplication -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "OBS Recording Size Calculator",
+        "url": "https://obsmaskgenerator.com/recording-size-calculator/",
+        "description": "Free tool to estimate OBS recording file sizes based on bitrate and duration.",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "featureList": [
+            "Bitrate to file size conversion",
+            "Duration-based estimation",
+            "Codec comparison (H.264 vs H.265)",
+            "Quick bitrate presets",
+            "Storage planning"
+        ]
+    }
+    </script>
+
+    <!-- Structured Data - FAQ -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How much disk space does a 1 hour OBS recording take?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "At 6000 Kbps (common Twitch settings), a 1-hour recording is approximately 2.7 GB. At 20000 Kbps (high quality), it's about 9 GB per hour."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I reduce OBS recording file size?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Lower your bitrate, use H.265 (HEVC) instead of H.264 for 30-50% smaller files, reduce resolution from 1080p to 720p, or lower frame rate from 60fps to 30fps."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="tool-header">
+        <div class="tool-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="17 8 12 3 7 8" />
+                <line x1="12" y1="3" x2="12" y2="15" />
+            </svg>
+        </div>
+        <h1>OBS Recording Size Calculator</h1>
+        <p class="tool-subtitle">Estimate disk space needed for your recordings</p>
+        <a href="/" class="back-link">← Back to OBS Tools</a>
+    </header>
+
+    <main class="tool-container">
+        <section class="tool-section">
+            <div class="controls-panel">
+                <h2 class="section-title">RECORDING SETTINGS</h2>
+
+                <div class="form-group">
+                    <label for="bitrate-input">Video Bitrate (Kbps)</label>
+                    <input type="range" id="bitrate-slider" min="1000" max="50000" value="6000" step="500">
+                    <div class="range-value">
+                        <input type="number" id="bitrate-input" min="1000" max="100000" value="6000">
+                        <span>Kbps</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Quick Presets</label>
+                    <div class="preset-buttons">
+                        <button type="button" class="preset-btn" data-bitrate="3000">720p30</button>
+                        <button type="button" class="preset-btn active" data-bitrate="6000">1080p30</button>
+                        <button type="button" class="preset-btn" data-bitrate="9000">1080p60</button>
+                        <button type="button" class="preset-btn" data-bitrate="20000">High Quality</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Recording Duration</label>
+                    <div class="duration-inputs">
+                        <div class="duration-field">
+                            <input type="number" id="hours-input" min="0" max="24" value="1">
+                            <span>Hours</span>
+                        </div>
+                        <div class="duration-field">
+                            <input type="number" id="minutes-input" min="0" max="59" value="0">
+                            <span>Minutes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Video Codec</label>
+                    <div class="toggle-buttons">
+                        <button type="button" class="toggle-btn active" data-codec="h264">H.264 (x264/NVENC)</button>
+                        <button type="button" class="toggle-btn" data-codec="h265">H.265 (HEVC) ~30% smaller</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="audio-bitrate">Audio Bitrate</label>
+                    <select id="audio-bitrate">
+                        <option value="128">128 Kbps (Standard)</option>
+                        <option value="192">192 Kbps (Good)</option>
+                        <option value="320" selected>320 Kbps (High Quality)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="result-panel">
+                <h2 class="section-title">ESTIMATED FILE SIZE</h2>
+
+                <div class="result-display">
+                    <div class="result-value" id="size-value">2.70 GB</div>
+                    <div class="result-label" id="size-label">For 1 hour at 6000 Kbps</div>
+                </div>
+
+                <div class="size-breakdown">
+                    <div class="breakdown-item">
+                        <span class="breakdown-label">Video</span>
+                        <span class="breakdown-value" id="video-size">2.63 GB</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span class="breakdown-label">Audio</span>
+                        <span class="breakdown-value" id="audio-size">0.14 GB</span>
+                    </div>
+                </div>
+
+                <div id="warning-box" class="warning-box" style="display: none;">
+                    <span class="warning-icon">⚠️</span>
+                    <span class="warning-text">Large file! Make sure you have enough disk space.</span>
+                </div>
+
+                <div class="quick-reference">
+                    <h3>Quick Reference</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Duration</th>
+                                <th>Size at Current Bitrate</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reference-table">
+                            <tr>
+                                <td>30 minutes</td>
+                                <td id="ref-30min">1.35 GB</td>
+                            </tr>
+                            <tr>
+                                <td>1 hour</td>
+                                <td id="ref-1hr">2.70 GB</td>
+                            </tr>
+                            <tr>
+                                <td>2 hours</td>
+                                <td id="ref-2hr">5.40 GB</td>
+                            </tr>
+                            <tr>
+                                <td>4 hours</td>
+                                <td id="ref-4hr">10.80 GB</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Info Section -->
+        <section class="info-section">
+            <h2>Understanding Recording File Sizes</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-icon">📐</div>
+                    <h3>The Formula</h3>
+                    <p><code>Size = (Bitrate × Time) ÷ 8</code></p>
+                    <p>Bitrate in Kbps, time in seconds, result in KB.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">🎬</div>
+                    <h3>H.265 Advantage</h3>
+                    <p>HEVC (H.265) produces files 30-50% smaller than H.264 at the same quality.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">💾</div>
+                    <h3>Storage Tip</h3>
+                    <p>Always record to an SSD for best performance. HDDs can cause frame drops during recording.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h3>Why are my OBS recordings so large?</h3>
+                    <p>High bitrate = high file size. If you're using 20,000+ Kbps for recordings, files will be
+                        massive. Try lowering to 10,000-15,000 Kbps for a good balance of quality and size.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What's the best bitrate for recording?</h3>
+                    <p>For 1080p60 recordings, 15,000-20,000 Kbps provides excellent quality. For 1080p30, 10,000-15,000
+                        Kbps is usually sufficient.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Should I use CRF/CQP instead of CBR for recording?</h3>
+                    <p>Yes! CRF (x264) or CQP (NVENC) modes give better quality per file size than CBR. CRF 18-23 or CQP
+                        18-21 are good starting points.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="tool-footer">
+        <div class="footer-links">
+            <a href="/">OBS Mask Generator</a>
+            <a href="/bitrate-calculator/">Bitrate Calculator</a>
+            <a href="/audio-sync-calculator/">Audio Sync Calculator</a>
+            <a href="/privacy-policy.html">Privacy Policy</a>
+        </div>
+        <p>© 2024 OBS Mask Generator. Free tools for streamers.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream Quality Checker - Bits Per Pixel Calculator | Free OBS Tool</title>
+    <meta name="title" content="Stream Quality Checker - Bits Per Pixel Calculator | Free OBS Tool">
+    <meta name="description"
+        content="Free Stream Quality Checker. Find out if your bitrate is too low for your resolution. Calculate Bits Per Pixel (BPP) to prevent blurry, pixelated streams.">
+    <meta name="keywords"
+        content="stream quality checker, bits per pixel, BPP calculator, why is my stream blurry, pixelated stream fix, OBS quality settings, streaming bitrate vs resolution">
+    <meta name="author" content="OBS Mask Generator">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://obsmaskgenerator.com/quality-checker/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/quality-checker/">
+    <meta property="og:title" content="Stream Quality Checker - Is Your Bitrate Too Low?">
+    <meta property="og:description"
+        content="Find out if your stream is blurry because of low bitrate with our free quality checker.">
+    <meta property="og:image" content="https://obsmaskgenerator.com/og-image.png">
+
+    <!-- Structured Data - WebApplication -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Stream Quality Checker",
+        "url": "https://obsmaskgenerator.com/quality-checker/",
+        "description": "Free tool to check if your streaming bitrate is sufficient for your resolution and FPS.",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "featureList": [
+            "Bits per pixel calculation",
+            "Quality traffic light indicator",
+            "Resolution presets",
+            "Bitrate recommendations",
+            "Motion content adjustment"
+        ]
+    }
+    </script>
+
+    <!-- Structured Data - FAQ -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Why does my stream look blurry or pixelated?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Your bitrate is too low for your resolution. Use the Bits Per Pixel (BPP) formula to check: BPP = Bitrate / (Width × Height × FPS). A BPP below 0.05 will look blurry. Aim for 0.1 BPP for good quality."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is Bits Per Pixel (BPP)?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "BPP measures how many bits are allocated to each pixel in your video. Higher BPP = more data per pixel = sharper image. For streaming, 0.1 BPP is the 'golden rule' for good quality."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="tool-header">
+        <div class="tool-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 20V10" />
+                <path d="M18 20V4" />
+                <path d="M6 20v-4" />
+            </svg>
+        </div>
+        <h1>Stream Quality Checker</h1>
+        <p class="tool-subtitle">Is your bitrate too low? Check your Bits Per Pixel (BPP)</p>
+        <a href="/" class="back-link">← Back to OBS Tools</a>
+    </header>
+
+    <main class="tool-container">
+        <section class="tool-section">
+            <div class="controls-panel">
+                <h2 class="section-title">YOUR SETTINGS</h2>
+
+                <div class="form-group">
+                    <label for="resolution-select">Output Resolution</label>
+                    <select id="resolution-select">
+                        <option value="1280x720">720p (1280×720)</option>
+                        <option value="1920x1080" selected>1080p (1920×1080)</option>
+                        <option value="2560x1440">1440p (2560×1440)</option>
+                        <option value="3840x2160">4K (3840×2160)</option>
+                        <option value="custom">Custom Resolution</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="custom-res-group" style="display: none;">
+                    <label>Custom Resolution</label>
+                    <div class="resolution-inputs">
+                        <input type="number" id="custom-width" min="320" max="7680" value="1920" placeholder="Width">
+                        <span>×</span>
+                        <input type="number" id="custom-height" min="240" max="4320" value="1080" placeholder="Height">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="fps-select">Frame Rate</label>
+                    <select id="fps-select">
+                        <option value="30">30 FPS</option>
+                        <option value="60" selected>60 FPS</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="bitrate-input">Bitrate (Kbps)</label>
+                    <input type="range" id="bitrate-slider" min="1000" max="20000" value="6000" step="100">
+                    <div class="range-value">
+                        <input type="number" id="bitrate-input" min="1000" max="50000" value="6000">
+                        <span>Kbps</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Content Type</label>
+                    <div class="toggle-buttons">
+                        <button type="button" class="toggle-btn" data-motion="low">🎙️ Low Motion (Just
+                            Chatting)</button>
+                        <button type="button" class="toggle-btn active" data-motion="medium">🎮 Medium
+                            (RPG/Strategy)</button>
+                        <button type="button" class="toggle-btn" data-motion="high">⚡ High Motion (FPS/Racing)</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-panel">
+                <h2 class="section-title">QUALITY SCORE</h2>
+
+                <div class="quality-display">
+                    <div class="quality-meter" id="quality-meter">
+                        <div class="meter-fill" id="meter-fill"></div>
+                    </div>
+                    <div class="bpp-value" id="bpp-value">0.05 BPP</div>
+                    <div class="quality-label" id="quality-label">Calculating...</div>
+                </div>
+
+                <div class="recommendation-box" id="recommendation-box">
+                    <h3 id="rec-title">Recommendation</h3>
+                    <p id="rec-text">Your settings look good!</p>
+                </div>
+
+                <div class="quick-fixes">
+                    <h3>Quick Reference</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>BPP</th>
+                                <th>Quality</th>
+                                <th>Recommendation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>&lt; 0.05</td>
+                                <td><span class="badge bad">Poor</span></td>
+                                <td>Increase bitrate or lower resolution</td>
+                            </tr>
+                            <tr>
+                                <td>0.05 - 0.1</td>
+                                <td><span class="badge ok">Acceptable</span></td>
+                                <td>OK for low-motion content</td>
+                            </tr>
+                            <tr>
+                                <td>0.1 - 0.15</td>
+                                <td><span class="badge good">Good</span></td>
+                                <td>Great balance of quality/size</td>
+                            </tr>
+                            <tr>
+                                <td>&gt; 0.15</td>
+                                <td><span class="badge great">Excellent</span></td>
+                                <td>Maximum quality</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Info Section -->
+        <section class="info-section">
+            <h2>Understanding Bits Per Pixel</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-icon">📐</div>
+                    <h3>The Formula</h3>
+                    <p><code>BPP = Bitrate / (W × H × FPS)</code></p>
+                    <p>More pixels need more bits to look sharp.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">🎯</div>
+                    <h3>The Golden Rule</h3>
+                    <p>Aim for <strong>0.1 BPP</strong> for streaming. This gives the best balance of quality and
+                        bandwidth.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">🏃</div>
+                    <h3>Motion Matters</h3>
+                    <p>Fast games need higher BPP. Slow games look fine with less. Adjust based on content.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h3>Why does 1080p look worse than 720p on my stream?</h3>
+                    <p>Because 1080p has 2.25× more pixels than 720p. If you keep the same bitrate, each pixel gets less
+                        data, making the image blurry. Either increase bitrate or stream at 720p.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What's the maximum bitrate for Twitch?</h3>
+                    <p>Twitch allows up to 6000 Kbps. At 1080p 60fps, this gives about 0.05 BPP - borderline acceptable.
+                        This is why many streamers use 720p 60fps or 1080p 30fps on Twitch.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Does YouTube allow higher bitrate?</h3>
+                    <p>Yes! YouTube allows much higher bitrates (10,000+ Kbps). If your upload speed supports it, you
+                        can achieve 0.1+ BPP at 1080p 60fps on YouTube.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="tool-footer">
+        <div class="footer-links">
+            <a href="/">OBS Mask Generator</a>
+            <a href="/bitrate-calculator/">Bitrate Calculator</a>
+            <a href="/recording-size-calculator/">Recording Size Calculator</a>
+            <a href="/privacy-policy.html">Privacy Policy</a>
+        </div>
+        <p>© 2024 OBS Mask Generator. Free tools for streamers.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

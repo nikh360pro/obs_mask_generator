@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best OBS Recording Settings for Low Disk Space | OBS Tools</title>
+    <meta name="description"
+        content="Reduce OBS recording file size without losing quality. Learn the best bitrate, codec, and format settings to maximize your storage space.">
+    <meta name="keywords"
+        content="OBS recording size, reduce OBS file size, OBS disk space, recording too large, best recording bitrate, OBS H.265, HEVC recording">
+    <meta name="author" content="OBS Mask Generator">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://obsmaskgenerator.com/blog/obs-recording-settings/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://obsmaskgenerator.com/blog/obs-recording-settings/">
+    <meta property="og:title" content="Best OBS Recording Settings for Low Disk Space">
+    <meta property="og:description" content="Reduce OBS recording file size without losing quality.">
+
+    <!-- Structured Data - Article -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Best OBS Recording Settings for Low Disk Space",
+        "description": "Learn how to reduce OBS recording file sizes while maintaining quality using bitrate optimization and H.265 encoding.",
+        "author": { "@type": "Organization", "name": "OBS Mask Generator" },
+        "publisher": { "@type": "Organization", "name": "OBS Mask Generator" },
+        "datePublished": "2024-12-12",
+        "dateModified": "2024-12-12"
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="blog-style.css">
+</head>
+
+<body>
+    <header class="blog-header">
+        <div class="header-content">
+            <a href="/" class="logo">OBS Tools</a>
+            <nav>
+                <a href="/">Tools</a>
+                <a href="/blog/" class="active">Blog</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="blog-container">
+        <article class="blog-article">
+            <div class="article-header">
+                <div class="breadcrumb">
+                    <a href="/">Home</a> › <a href="/blog/">Blog</a> › Recording Settings
+                </div>
+                <h1>Best OBS Recording Settings for Low Disk Space</h1>
+                <p class="article-meta">Updated December 2024 • 4 min read</p>
+            </div>
+
+            <div class="article-content">
+                <p class="intro">
+                    Running out of storage after a long recording session? OBS recordings can easily eat 50+ GB for just
+                    a few hours of gameplay. This guide shows you how to dramatically reduce file sizes without
+                    sacrificing video quality.
+                </p>
+
+                <!-- CTA Box -->
+                <div class="cta-box">
+                    <h3>📊 Plan Your Storage</h3>
+                    <p>Find out exactly how much space you need before you start recording.</p>
+                    <a href="/recording-size-calculator/" class="cta-button">Open Recording Size Calculator →</a>
+                </div>
+
+                <h2>Why Are OBS Recordings So Large?</h2>
+                <p>File size is determined by a simple formula:</p>
+
+                <div class="formula-box">
+                    <code>File Size = Bitrate × Duration ÷ 8</code>
+                </div>
+
+                <p>At default settings, OBS often uses very high bitrates for recordings. Here's what that means in real
+                    numbers:</p>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Bitrate</th>
+                            <th>1 Hour</th>
+                            <th>4 Hours</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>6,000 Kbps</td>
+                            <td>2.7 GB</td>
+                            <td>10.8 GB</td>
+                        </tr>
+                        <tr>
+                            <td>20,000 Kbps</td>
+                            <td>9 GB</td>
+                            <td>36 GB</td>
+                        </tr>
+                        <tr>
+                            <td>50,000 Kbps</td>
+                            <td>22.5 GB</td>
+                            <td>90 GB</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>5 Ways to Reduce OBS Recording Size</h2>
+
+                <h3>1. Lower Your Bitrate</h3>
+                <p>The simplest fix. For most 1080p recordings, you don't need more than 15,000-20,000 Kbps. Even 10,000
+                    Kbps looks great for gameplay.</p>
+                <p><strong>Path:</strong> Settings → Output → Recording → Bitrate</p>
+
+                <h3>2. Use H.265 (HEVC) Instead of H.264</h3>
+                <p>H.265 provides <strong>30-50% smaller files</strong> at the same quality. If you have a newer NVIDIA
+                    GPU (GTX 1650+), you can use NVENC HEVC with minimal performance impact.</p>
+                <p><strong>Path:</strong> Settings → Output → Recording → Encoder → HEVC</p>
+
+                <div class="info-box">
+                    <h4>💡 H.265 Compatibility Note</h4>
+                    <p>Some older video editors don't support H.265. If you need maximum compatibility, stick with
+                        H.264.</p>
+                </div>
+
+                <h3>3. Use CRF/CQP Instead of CBR</h3>
+                <p>CBR (Constant Bitrate) wastes data on static scenes. CRF (for x264) or CQP (for NVENC) adjusts
+                    bitrate based on scene complexity, giving better quality per MB.</p>
+                <ul>
+                    <li><strong>CRF 18-23</strong> for x264 (lower = better quality, larger file)</li>
+                    <li><strong>CQP 18-21</strong> for NVENC</li>
+                </ul>
+
+                <h3>4. Record at 30 FPS Instead of 60</h3>
+                <p>Unless you're recording fast-paced competitive gameplay, 30 FPS cuts file size in half. Most YouTube
+                    content is uploaded at 30 FPS anyway.</p>
+
+                <h3>5. Lower Resolution (If Editing Later)</h3>
+                <p>If you're just capturing to edit later, consider recording at 1440p or 1080p instead of 4K. You can
+                    always upscale in post if needed.</p>
+
+                <div class="cta-box secondary">
+                    <h3>🧮 How Much Space Do You Need?</h3>
+                    <p>Enter your bitrate and duration to see exact file sizes.</p>
+                    <a href="/recording-size-calculator/" class="cta-button">Use Recording Size Calculator →</a>
+                </div>
+
+                <h2>Recommended Settings by Use Case</h2>
+
+                <h3>For YouTube/Social Media (Quality Focus)</h3>
+                <ul>
+                    <li>Encoder: NVENC HEVC or x264</li>
+                    <li>Rate Control: CQP 20 or CRF 20</li>
+                    <li>Resolution: 1080p or 1440p</li>
+                    <li>FPS: 30 or 60</li>
+                </ul>
+
+                <h3>For Archiving Long Streams (Size Focus)</h3>
+                <ul>
+                    <li>Encoder: x264 or NVENC</li>
+                    <li>Rate Control: CRF 23 or CQP 23</li>
+                    <li>Resolution: 1080p</li>
+                    <li>FPS: 30</li>
+                </ul>
+
+                <h2>Storage Tips</h2>
+                <ul>
+                    <li><strong>Record to SSD:</strong> Faster write speeds prevent frame drops</li>
+                    <li><strong>Use MKV format:</strong> Safer than MP4 (won't corrupt if OBS crashes)</li>
+                    <li><strong>Remux to MP4:</strong> After recording, use File → Remux Recordings to convert MKV to
+                        MP4</li>
+                    <li><strong>Auto-delete after upload:</strong> Set a reminder to clear old recordings weekly</li>
+                </ul>
+
+                <h2>Summary</h2>
+                <p>The biggest wins come from switching to H.265 and using CRF/CQP instead of CBR. These two changes
+                    alone can cut file sizes by 50% or more without visible quality loss.</p>
+
+                <div class="cta-box">
+                    <h3>Ready to Plan Your Recording?</h3>
+                    <p>Calculate exactly how much space you need before hitting record.</p>
+                    <a href="/recording-size-calculator/" class="cta-button">Open Recording Size Calculator →</a>
+                </div>
+            </div>
+        </article>
+
+        <!-- Related Tools -->
+        <aside class="related-tools">
+            <h3>Related OBS Tools</h3>
+            <div class="tool-cards">
+                <a href="/bitrate-calculator/" class="tool-card">
+                    <span class="tool-icon">📊</span>
+                    <span class="tool-name">Bitrate Calculator</span>
+                </a>
+                <a href="/audio-sync-calculator/" class="tool-card">
+                    <span class="tool-icon">🔊</span>
+                    <span class="tool-name">Audio Sync Calculator</span>
+                </a>
+                <a href="/quality-checker/" class="tool-card">
+                    <span class="tool-icon">🎬</span>
+                    <span class="tool-name">Quality Checker</span>
+                </a>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="blog-footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="/">OBS Mask Generator</a>
+                <a href="/recording-size-calculator/">Recording Size Calculator</a>
+                <a href="/bitrate-calculator/">Bitrate Calculator</a>
+                <a href="/privacy-policy.html">Privacy Policy</a>
+            </div>
+            <p>© 2024 OBS Mask Generator. Free tools for streamers.</p>
+        </div>
+    </footer>
+
+    <style>
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .data-table th {
+            background: var(--bg-secondary);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .data-table td {
+            color: var(--text-secondary);
+        }
+    </style>
+</body>
+
+</html>

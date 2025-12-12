@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Does My Stream Look Blurry? The Bitrate vs Resolution Fix | OBS Tools</title>
+    <meta name="description"
+        content="Fix blurry and pixelated streams. Learn why your 1080p stream looks worse than 720p and how to calculate the right bitrate for any resolution.">
+    <meta name="keywords"
+        content="blurry stream, pixelated stream, OBS quality, stream looks bad, bitrate too low, bits per pixel, stream resolution">
+    <meta name="author" content="OBS Mask Generator">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://obsmaskgenerator.com/blog/fix-blurry-stream/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://obsmaskgenerator.com/blog/fix-blurry-stream/">
+    <meta property="og:title" content="Why Does My Stream Look Blurry? The Bitrate vs Resolution Fix">
+    <meta property="og:description" content="Fix blurry streams by understanding the Bits Per Pixel rule.">
+
+    <!-- Structured Data - Article -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Why Does My Stream Look Blurry? The Bitrate vs Resolution Fix",
+        "description": "Learn how to fix blurry and pixelated streams by understanding the relationship between bitrate and resolution.",
+        "author": { "@type": "Organization", "name": "OBS Mask Generator" },
+        "publisher": { "@type": "Organization", "name": "OBS Mask Generator" },
+        "datePublished": "2024-12-12",
+        "dateModified": "2024-12-12"
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="blog-style.css">
+</head>
+
+<body>
+    <header class="blog-header">
+        <div class="header-content">
+            <a href="/" class="logo">OBS Tools</a>
+            <nav>
+                <a href="/">Tools</a>
+                <a href="/blog/" class="active">Blog</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="blog-container">
+        <article class="blog-article">
+            <div class="article-header">
+                <div class="breadcrumb">
+                    <a href="/">Home</a> › <a href="/blog/">Blog</a> › Fix Blurry Stream
+                </div>
+                <h1>Why Does My Stream Look Blurry? The Bitrate vs Resolution Fix</h1>
+                <p class="article-meta">Updated December 2024 • 5 min read</p>
+            </div>
+
+            <div class="article-content">
+                <p class="intro">
+                    You upgraded to 1080p streaming, but your stream looks <em>worse</em> than when you were at 720p.
+                    What gives? The answer is simple math: you don't have enough bits to fill all those extra pixels.
+                </p>
+
+                <!-- CTA Box -->
+                <div class="cta-box">
+                    <h3>🔍 Check Your Settings</h3>
+                    <p>Find out instantly if your bitrate is too low for your resolution.</p>
+                    <a href="/quality-checker/" class="cta-button">Open Quality Checker →</a>
+                </div>
+
+                <h2>The Problem: More Pixels, Same Bitrate</h2>
+                <p>Here's the math that explains everything:</p>
+                <ul>
+                    <li><strong>720p</strong> = 1280 × 720 = <strong>921,600 pixels</strong></li>
+                    <li><strong>1080p</strong> = 1920 × 1080 = <strong>2,073,600 pixels</strong></li>
+                </ul>
+                <p>That's <strong>2.25× more pixels</strong>. If you keep the same bitrate, each pixel gets 2.25× less
+                    data. The result? Blur, artifacts, and blocky mess during fast motion.</p>
+
+                <h2>The "Bits Per Pixel" Rule</h2>
+                <p>To measure stream quality, pros use a metric called <strong>Bits Per Pixel (BPP)</strong>:</p>
+
+                <div class="formula-box">
+                    <code>BPP = Bitrate / (Width × Height × FPS)</code>
+                </div>
+
+                <p>The "golden rule" is to aim for <strong>0.1 BPP</strong> for good quality streaming.</p>
+
+                <h3>What Does 0.1 BPP Mean in Real Bitrates?</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Resolution</th>
+                            <th>FPS</th>
+                            <th>Bitrate for 0.1 BPP</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>720p</td>
+                            <td>30</td>
+                            <td>2,765 Kbps</td>
+                        </tr>
+                        <tr>
+                            <td>720p</td>
+                            <td>60</td>
+                            <td>5,530 Kbps</td>
+                        </tr>
+                        <tr>
+                            <td>1080p</td>
+                            <td>30</td>
+                            <td>6,220 Kbps</td>
+                        </tr>
+                        <tr>
+                            <td>1080p</td>
+                            <td>60</td>
+                            <td>12,442 Kbps</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box warning">
+                    <h4>⚠️ The Twitch Problem</h4>
+                    <p>Twitch only allows 6000 Kbps max. At 1080p 60fps, that's only <strong>0.048 BPP</strong> - well
+                        below the 0.1 target. This is why many pro streamers use <strong>720p 60fps</strong> or
+                        <strong>1080p 30fps</strong> on Twitch.</p>
+                </div>
+
+                <div class="cta-box secondary">
+                    <h3>🧮 Check Your BPP Score</h3>
+                    <p>Enter your settings and see if they'll produce a blurry stream.</p>
+                    <a href="/quality-checker/" class="cta-button">Use Quality Checker →</a>
+                </div>
+
+                <h2>How to Fix a Blurry Stream</h2>
+
+                <h3>Option 1: Increase Bitrate</h3>
+                <p>If your platform and internet allow, simply raise your bitrate. For 1080p 60fps, aim for 8000-12000
+                    Kbps if possible.</p>
+
+                <h3>Option 2: Lower Resolution</h3>
+                <p>Drop from 1080p to 720p. At the same bitrate, your BPP doubles, and the stream looks significantly
+                    sharper. Many viewers won't notice the resolution difference.</p>
+
+                <h3>Option 3: Lower Frame Rate</h3>
+                <p>Switch from 60fps to 30fps. This immediately doubles your BPP. Unless you're playing fast-paced
+                    shooters, 30fps looks perfectly fine.</p>
+
+                <h3>Option 4: Use a Better Encoder</h3>
+                <p>NVENC and x264 "slow" preset can extract more quality from the same bitrate. If you have GPU
+                    headroom, try NVENC Quality preset instead of Performance.</p>
+
+                <h2>Quick Decision Guide</h2>
+                <ul>
+                    <li><strong>Twitch:</strong> Use 720p 60fps or 1080p 30fps at 6000 Kbps</li>
+                    <li><strong>YouTube:</strong> Use 1080p 60fps at 9000-12000 Kbps</li>
+                    <li><strong>Facebook:</strong> Use 1080p 30fps at 4000-6000 Kbps</li>
+                </ul>
+
+                <h2>Summary</h2>
+                <p>Blurry streams come from having too many pixels for your bitrate. Either increase bitrate, decrease
+                    resolution, or lower frame rate. Use our Quality Checker to find the right balance for your setup.
+                </p>
+
+                <div class="cta-box">
+                    <h3>Ready to Fix Your Stream Quality?</h3>
+                    <p>Check your Bits Per Pixel score and get recommendations.</p>
+                    <a href="/quality-checker/" class="cta-button">Open Quality Checker →</a>
+                </div>
+            </div>
+        </article>
+
+        <!-- Related Tools -->
+        <aside class="related-tools">
+            <h3>Related OBS Tools</h3>
+            <div class="tool-cards">
+                <a href="/bitrate-calculator/" class="tool-card">
+                    <span class="tool-icon">📊</span>
+                    <span class="tool-name">Bitrate Calculator</span>
+                </a>
+                <a href="/recording-size-calculator/" class="tool-card">
+                    <span class="tool-icon">💾</span>
+                    <span class="tool-name">Recording Size Calculator</span>
+                </a>
+                <a href="/audio-sync-calculator/" class="tool-card">
+                    <span class="tool-icon">🔊</span>
+                    <span class="tool-name">Audio Sync Calculator</span>
+                </a>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="blog-footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="/">OBS Mask Generator</a>
+                <a href="/quality-checker/">Quality Checker</a>
+                <a href="/bitrate-calculator/">Bitrate Calculator</a>
+                <a href="/privacy-policy.html">Privacy Policy</a>
+            </div>
+            <p>© 2024 OBS Mask Generator. Free tools for streamers.</p>
+        </div>
+    </footer>
+
+    <style>
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .data-table th {
+            background: var(--bg-secondary);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .data-table td {
+            color: var(--text-secondary);
+        }
+    </style>
+</body>
+
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>OBS Audio Sync Calculator - Fix Audio Delay & Offset | Free Tool</title>
+    <meta name="title" content="OBS Audio Sync Calculator - Fix Audio Delay & Offset | Free Tool">
+    <meta name="description"
+        content="Free OBS Audio Sync Calculator. Convert frame delay to milliseconds for perfect audio-video sync. Fix microphone lag, capture card delay, and webcam audio issues.">
+    <meta name="keywords"
+        content="OBS audio sync, audio delay calculator, OBS sync offset, fix audio lag, OBS audio delay, audio out of sync, microphone delay fix, capture card audio sync, OBS advanced audio properties">
+    <meta name="author" content="OBS Mask Generator">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    <link rel="canonical" href="https://obsmaskgenerator.com/audio-sync-calculator/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/audio-sync-calculator/">
+    <meta property="og:title" content="OBS Audio Sync Calculator - Fix Audio Delay">
+    <meta property="og:description"
+        content="Convert frame delay to milliseconds. Fix your OBS audio sync issues instantly.">
+    <meta property="og:image" content="https://obsmaskgenerator.com/og-image.png">
+    <meta property="og:site_name" content="OBS Mask Generator">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://obsmaskgenerator.com/audio-sync-calculator/">
+    <meta property="twitter:title" content="OBS Audio Sync Calculator - Fix Audio Delay">
+    <meta property="twitter:description"
+        content="Convert frame delay to milliseconds. Fix your OBS audio sync issues instantly.">
+    <meta property="twitter:image" content="https://obsmaskgenerator.com/og-image.png">
+
+    <!-- Structured Data - WebApplication -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "OBS Audio Sync Calculator",
+        "url": "https://obsmaskgenerator.com/audio-sync-calculator/",
+        "description": "Free tool to calculate the exact millisecond offset to fix audio sync issues in OBS Studio.",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "featureList": [
+            "Frame to millisecond conversion",
+            "Support for all common FPS values",
+            "Positive and negative offset calculation",
+            "Copy offset to clipboard",
+            "Visual OBS guide"
+        ]
+    }
+    </script>
+
+    <!-- Structured Data - FAQ -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How do I fix audio delay in OBS?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Open OBS, click the gear icon next to your audio source in the Audio Mixer, select 'Advanced Audio Properties', and enter the calculated Sync Offset value in milliseconds."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I calculate audio sync offset?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Use the formula: Offset (ms) = (Frames Delayed ÷ FPS) × 1000. For example, if your audio is 3 frames behind at 60 FPS, the offset is (3 ÷ 60) × 1000 = 50ms."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Should I use positive or negative sync offset in OBS?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Use positive values to delay audio (if audio plays before video). Use negative values to advance audio (if audio plays after video)."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- Structured Data - Breadcrumb -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "OBS Tools", "item": "https://obsmaskgenerator.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Audio Sync Calculator", "item": "https://obsmaskgenerator.com/audio-sync-calculator/" }
+        ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="tool-header">
+        <div class="tool-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+            </svg>
+        </div>
+        <h1>OBS Audio Sync Calculator</h1>
+        <p class="tool-subtitle">Convert frame delay to milliseconds for perfect audio-video sync</p>
+        <a href="/" class="back-link">← Back to OBS Tools</a>
+    </header>
+
+    <main class="tool-container">
+        <section class="tool-section">
+            <div class="controls-panel">
+                <h2 class="section-title">CALCULATE OFFSET</h2>
+
+                <div class="form-group">
+                    <label for="fps-select">Video Frame Rate (FPS)</label>
+                    <select id="fps-select">
+                        <option value="24">24 FPS (Film)</option>
+                        <option value="30">30 FPS (Standard)</option>
+                        <option value="60" selected>60 FPS (Gaming)</option>
+                        <option value="120">120 FPS (High Refresh)</option>
+                        <option value="custom">Custom FPS</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="custom-fps-group" style="display: none;">
+                    <label for="custom-fps">Custom FPS Value</label>
+                    <input type="number" id="custom-fps" min="1" max="240" value="60" placeholder="Enter FPS">
+                </div>
+
+                <div class="form-group">
+                    <label for="frames-input">Frames Delayed</label>
+                    <input type="number" id="frames-input" min="0" max="100" value="3" placeholder="Number of frames">
+                    <span class="input-hint">How many frames is the audio off by?</span>
+                </div>
+
+                <div class="form-group">
+                    <label>Audio Timing Issue</label>
+                    <div class="toggle-buttons">
+                        <button type="button" class="toggle-btn active" data-direction="behind">
+                            🔊 Audio Behind Video
+                        </button>
+                        <button type="button" class="toggle-btn" data-direction="ahead">
+                            🔊 Audio Ahead of Video
+                        </button>
+                    </div>
+                    <span class="input-hint">Is your audio playing before or after the video?</span>
+                </div>
+
+                <button id="calculate-btn" class="primary-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="4" y="4" width="16" height="16" rx="2"/>
+                        <line x1="8" y1="12" x2="16" y2="12"/>
+                        <line x1="12" y1="8" x2="12" y2="16"/>
+                    </svg>
+                    Calculate Offset
+                </button>
+            </div>
+
+            <div class="result-panel">
+                <h2 class="section-title">YOUR SYNC OFFSET</h2>
+
+                <div id="result-container" class="result-display">
+                    <div class="result-value" id="offset-value">0 ms</div>
+                    <div class="result-label" id="offset-label">Enter values and click Calculate</div>
+                </div>
+
+                <div id="action-buttons" class="action-buttons" style="display: none;">
+                    <button id="copy-btn" class="secondary-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2"/>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                        </svg>
+                        Copy Value
+                    </button>
+                </div>
+
+                <div class="instructions-box">
+                    <h3>How to Apply in OBS:</h3>
+                    <ol>
+                        <li>Open OBS Studio</li>
+                        <li>In the <strong>Audio Mixer</strong>, click the ⚙️ gear icon</li>
+                        <li>Select <strong>"Advanced Audio Properties"</strong></li>
+                        <li>Find your audio source (Mic, Desktop Audio, etc.)</li>
+                        <li>Enter <code id="offset-copy">0</code> in the <strong>Sync Offset (ms)</strong> column</li>
+                        <li>Click <strong>Close</strong> and test!</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="info-section">
+            <h2>How Audio Sync Calculation Works</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-icon">📐</div>
+                    <h3>The Formula</h3>
+                    <p><code>Offset (ms) = (Frames ÷ FPS) × 1000</code></p>
+                    <p>This converts frame delay into the milliseconds OBS needs.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">🎬</div>
+                    <h3>Why It Happens</h3>
+                    <p>Capture cards, USB microphones, and webcams all have different latencies. This causes audio-video desync.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">✅</div>
+                    <h3>Quick Test</h3>
+                    <p>Record a short clip while clapping. In playback, count the frames between the clap and the sound.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h3>How do I know how many frames my audio is delayed?</h3>
+                    <p>Record a test video where you clap your hands. In a video editor (or VLC), step through frame-by-frame and count the frames between when your hands meet and when you hear the clap sound.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Should I use positive or negative offset?</h3>
+                    <p><strong>Positive (+)</strong>: Delays the audio. Use if audio plays BEFORE the video action.<br>
+                    <strong>Negative (-)</strong>: Advances the audio. Use if audio plays AFTER the video action.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What causes audio sync issues in OBS?</h3>
+                    <p>Common causes include: capture cards with inherent delay, USB microphones with processing latency, webcams with slow video pipelines, and mismatched sample rates.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="tool-footer">
+        <div class="footer-links">
+            <a href="/">OBS Mask Generator</a>
+            <a href="/bitrate-calculator/">Bitrate Calculator</a>
+            <a href="/settings-generator/">Settings Generator</a>
+            <a href="/privacy-policy.html">Privacy Policy</a>
+        </div>
+        <p>© 2024 OBS Mask Generator. Free tools for streamers.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
