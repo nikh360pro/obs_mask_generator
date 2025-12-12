@@ -123,7 +123,8 @@
     <header class="tool-header">
         <div class="tool-icon">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                <path
+                    d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
             </svg>
         </div>
         <h1>OBS Audio Sync Calculator</h1>
@@ -173,9 +174,9 @@
 
                 <button id="calculate-btn" class="primary-btn">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="4" y="4" width="16" height="16" rx="2"/>
-                        <line x1="8" y1="12" x2="16" y2="12"/>
-                        <line x1="12" y1="8" x2="12" y2="16"/>
+                        <rect x="4" y="4" width="16" height="16" rx="2" />
+                        <line x1="8" y1="12" x2="16" y2="12" />
+                        <line x1="12" y1="8" x2="12" y2="16" />
                     </svg>
                     Calculate Offset
                 </button>
@@ -191,9 +192,10 @@
 
                 <div id="action-buttons" class="action-buttons" style="display: none;">
                     <button id="copy-btn" class="secondary-btn">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="9" y="9" width="13" height="13" rx="2"/>
-                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" />
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                         </svg>
                         Copy Value
                     </button>
@@ -226,12 +228,14 @@
                 <div class="info-card">
                     <div class="info-icon">🎬</div>
                     <h3>Why It Happens</h3>
-                    <p>Capture cards, USB microphones, and webcams all have different latencies. This causes audio-video desync.</p>
+                    <p>Capture cards, USB microphones, and webcams all have different latencies. This causes audio-video
+                        desync.</p>
                 </div>
                 <div class="info-card">
                     <div class="info-icon">✅</div>
                     <h3>Quick Test</h3>
-                    <p>Record a short clip while clapping. In playback, count the frames between the clap and the sound.</p>
+                    <p>Record a short clip while clapping. In playback, count the frames between the clap and the sound.
+                    </p>
                 </div>
             </div>
         </section>
@@ -242,27 +246,54 @@
             <div class="faq-list">
                 <div class="faq-item">
                     <h3>How do I know how many frames my audio is delayed?</h3>
-                    <p>Record a test video where you clap your hands. In a video editor (or VLC), step through frame-by-frame and count the frames between when your hands meet and when you hear the clap sound.</p>
+                    <p>Record a test video where you clap your hands. In a video editor (or VLC), step through
+                        frame-by-frame and count the frames between when your hands meet and when you hear the clap
+                        sound.</p>
                 </div>
                 <div class="faq-item">
                     <h3>Should I use positive or negative offset?</h3>
                     <p><strong>Positive (+)</strong>: Delays the audio. Use if audio plays BEFORE the video action.<br>
-                    <strong>Negative (-)</strong>: Advances the audio. Use if audio plays AFTER the video action.</p>
+                        <strong>Negative (-)</strong>: Advances the audio. Use if audio plays AFTER the video action.
+                    </p>
                 </div>
                 <div class="faq-item">
                     <h3>What causes audio sync issues in OBS?</h3>
-                    <p>Common causes include: capture cards with inherent delay, USB microphones with processing latency, webcams with slow video pipelines, and mismatched sample rates.</p>
+                    <p>Common causes include: capture cards with inherent delay, USB microphones with processing
+                        latency, webcams with slow video pipelines, and mismatched sample rates.</p>
                 </div>
             </div>
         </section>
     </main>
 
     <footer class="tool-footer">
-        <div class="footer-links">
-            <a href="/">OBS Mask Generator</a>
-            <a href="/bitrate-calculator/">Bitrate Calculator</a>
-            <a href="/settings-generator/">Settings Generator</a>
-            <a href="/privacy-policy.html">Privacy Policy</a>
+        <div style="margin-bottom: 15px; font-size: 0.85em; line-height: 1.8;">
+            <p><strong>Calculators:</strong>
+                <a href="/bitrate-calculator/">Bitrate Calculator</a> |
+                <a href="/recording-size-calculator/">Recording Size</a> |
+                <a href="/quality-checker/">Quality Checker</a> |
+                <a href="/audio-sync-calculator/">Audio Sync</a>
+            </p>
+            <p><strong>Generators:</strong>
+                <a href="/settings-generator/">Settings Generator</a> |
+                <a href="/gamertag-generator/">Gamertag Generator</a> |
+                <a href="/stream-title-generator/">Stream Title</a> |
+                <a href="/channel-point-generator/">Channel Points</a> |
+                <a href="/chat-rules-generator/">Chat Rules</a> |
+                <a href="/schedule-generator/">Schedule</a>
+            </p>
+            <p><strong>Design Tools:</strong>
+                <a href="/">Webcam Mask</a> |
+                <a href="/overlay-generator/">Overlay Generator</a> |
+                <a href="/panel-maker/">Panel Maker</a> |
+                <a href="/banner-maker/">Banner Maker</a> |
+                <a href="/emote-resizer/">Emote Resizer</a> |
+                <a href="/sub-badge-maker/">Sub Badge Maker</a>
+            </p>
+            <p><strong>Utilities:</strong>
+                <a href="/webcam-test/">Webcam Test</a> |
+                <a href="/hotkey-reference/">OBS Hotkeys</a> |
+                <a href="/privacy-policy.html">Privacy Policy</a>
+            </p>
         </div>
         <p>© 2024 OBS Mask Generator. Free tools for streamers.</p>
     </footer>
