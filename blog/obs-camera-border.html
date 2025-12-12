@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-C84663S6K3');</script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Create Camera Borders for OBS (Round Webcam Frame) | OBS Tools</title>
+    <meta name="description"
+        content="Add rounded corners and custom borders to your webcam in OBS. Create professional camera masks with our free generator. No plugins needed.">
+    <meta name="keywords"
+        content="obs webcam border, camera frame obs, round webcam obs, webcam mask, obs facecam border, camera border generator">
+    <link rel="canonical" href="https://obsmaskgenerator.com/blog/obs-camera-border/">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="blog-style.css">
+</head>
+
+<body>
+    <header class="blog-header">
+        <div class="header-content"><a href="/" class="logo">OBS Tools</a>
+            <nav><a href="/">Tools</a><a href="/blog/" class="active">Blog</a></nav>
+        </div>
+    </header>
+
+    <main class="blog-container">
+        <article class="blog-article">
+            <div class="article-header">
+                <div class="breadcrumb"><a href="/">Home</a> › <a href="/blog/">Blog</a> › Camera Borders</div>
+                <h1>How to Create Camera Borders for OBS</h1>
+                <p class="article-meta">Updated December 2024 • 4 min read</p>
+            </div>
+
+            <div class="article-content">
+                <p class="intro">Want rounded corners on your webcam or a custom border frame? Here's how to create
+                    professional camera masks for OBS without plugins.</p>
+
+                <div class="cta-box">
+                    <h3>🎭 Create Camera Masks</h3>
+                    <p>Generate custom webcam borders with rounded corners, circles, or any shape.</p>
+                    <a href="/" class="cta-button">Open Mask Generator →</a>
+                </div>
+
+                <h2>What is a Camera Mask?</h2>
+                <p>A camera mask is an image that hides parts of your webcam. It's how streamers get:</p>
+                <ul>
+                    <li>Rounded corner webcams</li>
+                    <li>Circular facecams</li>
+                    <li>Custom shapes (hexagon, star, etc.)</li>
+                    <li>Decorative borders and frames</li>
+                </ul>
+
+                <h2>Method 1: Image Mask (Recommended)</h2>
+                <ol>
+                    <li>Create or download a mask image (black = visible, white = hidden)</li>
+                    <li>In OBS, right-click your webcam source</li>
+                    <li>Go to <strong>Filters → + → Image Mask/Blend</strong></li>
+                    <li>Select your mask image</li>
+                    <li>Type: <strong>Alpha Mask (Alpha Channel)</strong></li>
+                </ol>
+
+                <div class="info-box">
+                    <h4>💡 Mask Image Rules</h4>
+                    <p><strong>Black</strong> areas stay visible, <strong>white</strong> areas become transparent. Use
+                        PNG format with transparency for best results.</p>
+                </div>
+
+                <h2>Method 2: Overlay Frame</h2>
+                <ol>
+                    <li>Create a PNG frame with transparent center</li>
+                    <li>Add as Image source in OBS</li>
+                    <li>Position it over your webcam</li>
+                </ol>
+                <p>This method adds decoration but doesn't crop the webcam itself.</p>
+
+                <div class="cta-box secondary">
+                    <h3>🖼️ Generate Your Mask</h3>
+                    <p>Choose shape, size, and colors - download instantly.</p>
+                    <a href="/" class="cta-button">Create Mask →</a>
+                </div>
+
+                <h2>Common Webcam Shapes</h2>
+                <ul>
+                    <li><strong>Rounded Rectangle</strong> - Most popular, subtle and clean</li>
+                    <li><strong>Circle</strong> - Classic look, great for corner placement</li>
+                    <li><strong>Hexagon</strong> - Unique, tech/gaming aesthetic</li>
+                    <li><strong>Pill Shape</strong> - Modern, YouTube-style</li>
+                </ul>
+
+                <h2>Best Webcam Sizes for Streaming</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Placement</th>
+                            <th>Recommended Size</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Corner (1080p stream)</td>
+                            <td>320×240 to 480×360</td>
+                        </tr>
+                        <tr>
+                            <td>Full screen</td>
+                            <td>1920×1080</td>
+                        </tr>
+                        <tr>
+                            <td>Just Chatting</td>
+                            <td>960×540 or larger</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>FAQ</h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <h3>Does a camera mask affect performance?</h3>
+                        <p>No, image masks use minimal resources. It's just hiding pixels.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I animate the mask?</h3>
+                        <p>Yes! Use a video file instead of an image for animated borders.</p>
+                    </div>
+                </div>
+
+                <div class="cta-box">
+                    <h3>Create Your Camera Mask</h3>
+                    <a href="/" class="cta-button">Open Mask Generator →</a>
+                </div>
+            </div>
+        </article>
+    </main>
+    <footer class="blog-footer">
+        <div class="footer-content">
+            <div class="footer-links"><a href="/">OBS Mask Generator</a><a href="/overlay-generator/">Overlay
+                    Generator</a></div>
+            <p>© 2024 OBS Mask Generator.</p>
+        </div>
+    </footer>
+    <style>
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            overflow: hidden
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: .75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color)
+        }
+
+        .data-table th {
+            background: var(--bg-secondary);
+            color: var(--text-muted)
+        }
+
+        .data-table td {
+            color: var(--text-secondary)
+        }
+    </style>
+</body>
+
+</html>
