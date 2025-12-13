@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream Starting Soon Screen Maker | Free OBS Overlay | Starting Screen Generator</title>
+    <meta name="description"
+        content="Create professional Starting Soon screens for OBS and streaming. Generate free starting screen overlays with customizable text, colors, and countdown. Download as image or HTML.">
+    <meta name="keywords"
+        content="starting soon screen, stream starting screen, OBS starting screen, starting soon overlay, stream overlay maker, be right back screen, BRB screen">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://obsmaskgenerator.com/starting-screen/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/starting-screen/">
+    <meta property="og:title" content="Stream Starting Soon Screen Maker - Free Tool">
+    <meta property="og:description" content="Create professional Starting Soon screens for OBS streaming.">
+    <meta property="og:image" content="https://obsmaskgenerator.com/og-image.png">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Orbitron:wght@700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="url(#logo-gradient)" />
+                    <circle cx="16" cy="16" r="9" stroke="white" stroke-width="2" fill="none" />
+                    <polygon points="14,12 14,20 20,16" fill="white" />
+                    <defs>
+                        <linearGradient id="logo-gradient" x1="0" y1="0" x2="32" y2="32">
+                            <stop stop-color="#9146FF" />
+                            <stop offset="1" stop-color="#6441A5" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <h1>Starting Soon Screen Maker</h1>
+            </div>
+            <p class="tagline">Create professional starting screens for your stream</p>
+            <a href="/" class="back-link">← Back to Mask Generator</a>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Preview -->
+            <section class="preview-section">
+                <h2 class="section-title">Preview (1920×1080)</h2>
+                <div class="canvas-wrapper">
+                    <canvas id="screen-canvas" width="1920" height="1080"></canvas>
+                </div>
+                <div class="download-buttons">
+                    <button class="download-btn primary" id="download-png">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                        Download PNG
+                    </button>
+                    <button class="download-btn secondary" id="download-html">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="16 18 22 12 16 6" />
+                            <polyline points="8 6 2 12 8 18" />
+                        </svg>
+                        Download HTML
+                    </button>
+                </div>
+            </section>
+
+            <!-- Controls -->
+            <section class="controls-section">
+                <h2 class="section-title">Customize</h2>
+
+                <div class="control-group">
+                    <label>Screen Type</label>
+                    <select id="screen-type">
+                        <option value="starting">Starting Soon</option>
+                        <option value="brb">Be Right Back</option>
+                        <option value="ending">Stream Ending</option>
+                        <option value="offline">Offline</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label>Main Text</label>
+                    <input type="text" id="main-text" value="STARTING SOON" maxlength="30">
+                </div>
+
+                <div class="control-group">
+                    <label>Subtext</label>
+                    <input type="text" id="sub-text" value="Stream will begin shortly" maxlength="50">
+                </div>
+
+                <div class="control-group">
+                    <label>Primary Color</label>
+                    <div class="color-row">
+                        <input type="color" id="color1" value="#9146FF">
+                        <div class="color-presets">
+                            <button style="background:#9146FF" data-color="#9146FF"></button>
+                            <button style="background:#00D4AA" data-color="#00D4AA"></button>
+                            <button style="background:#FF6B6B" data-color="#FF6B6B"></button>
+                            <button style="background:#5865F2" data-color="#5865F2"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Background Color</label>
+                    <input type="color" id="color2" value="#0f0f0f">
+                </div>
+
+                <div class="control-group">
+                    <label>Style</label>
+                    <select id="style">
+                        <option value="minimal">Minimal</option>
+                        <option value="glow">Neon Glow</option>
+                        <option value="gradient">Gradient Fade</option>
+                        <option value="particles">Animated Particles (HTML only)</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label>Show Animated Dots</label>
+                    <label class="toggle">
+                        <input type="checkbox" id="show-dots" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </section>
+        </main>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2>How to Use</h2>
+            <div class="faq-item">
+                <h3>Adding to OBS</h3>
+                <p>Download the PNG for a static image, or HTML for animated effects. In OBS, add an Image source (for
+                    PNG) or Browser source (for HTML) and set to 1920×1080.</p>
+            </div>
+            <div class="faq-item">
+                <h3>When to use Starting Soon screens</h3>
+                <p>Display your Starting Soon screen while setting up before going live. It lets early viewers know
+                    you'll be starting shortly and looks more professional than a blank screen.</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Free Starting Screen Maker | Part of <a href="/">OBS Mask Generator</a></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

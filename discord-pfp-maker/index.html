@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Profile Picture Maker | Free PFP Generator | Gaming Avatar</title>
+    <meta name="description"
+        content="Create unique Discord profile pictures for free. Design custom gaming avatars with shapes, gradients, and icons. No signup required. Perfect for Discord, Steam, and gaming profiles.">
+    <meta name="keywords"
+        content="Discord PFP maker, Discord profile picture, gaming avatar maker, profile picture generator, Discord avatar, gaming PFP, free PFP maker">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://obsmaskgenerator.com/discord-pfp-maker/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/discord-pfp-maker/">
+    <meta property="og:title" content="Discord Profile Picture Maker - Free Gaming Avatar">
+    <meta property="og:description"
+        content="Create unique Discord profile pictures for free. Custom shapes, gradients, and gaming icons.">
+    <meta property="og:image" content="https://obsmaskgenerator.com/og-image.png">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Discord Profile Picture Maker",
+        "url": "https://obsmaskgenerator.com/discord-pfp-maker/",
+        "description": "Create unique Discord profile pictures with custom shapes, gradients, and gaming icons.",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What size should a Discord PFP be?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Discord profile pictures should be at least 128x128 pixels, but 512x512 or larger is recommended for best quality. This tool creates 512x512 PFPs for optimal quality."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I make a cool Discord profile picture?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Use our free PFP maker to create custom profile pictures with gradients, shapes, and gaming icons. Choose your colors, add an icon, and download your unique avatar instantly."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="url(#logo-gradient)" />
+                    <circle cx="16" cy="16" r="8" stroke="white" stroke-width="2" fill="none" />
+                    <circle cx="16" cy="16" r="4" fill="white" />
+                    <defs>
+                        <linearGradient id="logo-gradient" x1="0" y1="0" x2="32" y2="32">
+                            <stop stop-color="#5865F2" />
+                            <stop offset="1" stop-color="#7289DA" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <h1>Discord PFP Maker</h1>
+            </div>
+            <p class="tagline">Create unique profile pictures for Discord & gaming</p>
+            <a href="/" class="back-link">← Back to Mask Generator</a>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Canvas Preview -->
+            <section class="preview-section">
+                <h2 class="section-title">Preview</h2>
+                <div class="canvas-container">
+                    <canvas id="pfp-canvas" width="512" height="512"></canvas>
+                </div>
+                <div class="preview-sizes">
+                    <div class="preview-size" id="preview-128">
+                        <canvas width="128" height="128"></canvas>
+                        <span>128px</span>
+                    </div>
+                    <div class="preview-size" id="preview-64">
+                        <canvas width="64" height="64"></canvas>
+                        <span>64px</span>
+                    </div>
+                    <div class="preview-size" id="preview-32">
+                        <canvas width="32" height="32"></canvas>
+                        <span>32px</span>
+                    </div>
+                </div>
+                <button class="download-btn" id="download-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Download PFP (512x512)
+                </button>
+            </section>
+
+            <!-- Controls -->
+            <section class="controls-section">
+                <h2 class="section-title">Customize</h2>
+
+                <!-- Shape -->
+                <div class="control-group">
+                    <label>Shape</label>
+                    <div class="shape-buttons">
+                        <button class="shape-btn active" data-shape="circle" title="Circle">
+                            <svg viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" fill="currentColor" />
+                            </svg>
+                        </button>
+                        <button class="shape-btn" data-shape="square" title="Square">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="2" y="2" width="20" height="20" rx="2" fill="currentColor" />
+                            </svg>
+                        </button>
+                        <button class="shape-btn" data-shape="rounded" title="Rounded">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="2" y="2" width="20" height="20" rx="6" fill="currentColor" />
+                            </svg>
+                        </button>
+                        <button class="shape-btn" data-shape="hexagon" title="Hexagon">
+                            <svg viewBox="0 0 24 24">
+                                <polygon points="12,2 22,8 22,16 12,22 2,16 2,8" fill="currentColor" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Background Type -->
+                <div class="control-group">
+                    <label>Background</label>
+                    <select id="bg-type">
+                        <option value="gradient">Gradient</option>
+                        <option value="solid">Solid Color</option>
+                        <option value="radial">Radial Gradient</option>
+                    </select>
+                </div>
+
+                <!-- Colors -->
+                <div class="control-group">
+                    <label>Primary Color</label>
+                    <div class="color-row">
+                        <input type="color" id="color1" value="#5865F2">
+                        <div class="color-presets">
+                            <button class="color-preset" data-color="#5865F2" style="background:#5865F2"
+                                title="Discord"></button>
+                            <button class="color-preset" data-color="#9146FF" style="background:#9146FF"
+                                title="Twitch"></button>
+                            <button class="color-preset" data-color="#FF0000" style="background:#FF0000"
+                                title="YouTube"></button>
+                            <button class="color-preset" data-color="#00D4AA" style="background:#00D4AA"
+                                title="Kick"></button>
+                            <button class="color-preset" data-color="#1DB954" style="background:#1DB954"
+                                title="Spotify"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group" id="color2-group">
+                    <label>Secondary Color</label>
+                    <div class="color-row">
+                        <input type="color" id="color2" value="#7289DA">
+                        <div class="color-presets">
+                            <button class="color-preset" data-color="#7289DA" style="background:#7289DA"></button>
+                            <button class="color-preset" data-color="#6441A5" style="background:#6441A5"></button>
+                            <button class="color-preset" data-color="#FF4500" style="background:#FF4500"></button>
+                            <button class="color-preset" data-color="#00FF88" style="background:#00FF88"></button>
+                            <button class="color-preset" data-color="#1ED760" style="background:#1ED760"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Icon -->
+                <div class="control-group">
+                    <label>Icon</label>
+                    <div class="icon-grid">
+                        <button class="icon-btn active" data-icon="none">None</button>
+                        <button class="icon-btn" data-icon="gaming">🎮</button>
+                        <button class="icon-btn" data-icon="controller">🕹️</button>
+                        <button class="icon-btn" data-icon="headphones">🎧</button>
+                        <button class="icon-btn" data-icon="fire">🔥</button>
+                        <button class="icon-btn" data-icon="star">⭐</button>
+                        <button class="icon-btn" data-icon="lightning">⚡</button>
+                        <button class="icon-btn" data-icon="sword">⚔️</button>
+                        <button class="icon-btn" data-icon="crown">👑</button>
+                        <button class="icon-btn" data-icon="skull">💀</button>
+                        <button class="icon-btn" data-icon="diamond">💎</button>
+                        <button class="icon-btn" data-icon="rocket">🚀</button>
+                    </div>
+                </div>
+
+                <!-- Icon Size -->
+                <div class="control-group" id="icon-size-group">
+                    <label>Icon Size</label>
+                    <input type="range" id="icon-size" min="50" max="200" value="120">
+                </div>
+
+                <!-- Text -->
+                <div class="control-group">
+                    <label>Text (Optional)</label>
+                    <input type="text" id="text-input" placeholder="Enter initials or short text" maxlength="3">
+                </div>
+            </section>
+        </main>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>What size should a Discord PFP be?</h3>
+                <p>Discord profile pictures should be at least 128x128 pixels, but 512x512 or larger is recommended for
+                    best quality. This tool creates 512x512 PFPs for optimal quality on all devices.</p>
+            </div>
+            <div class="faq-item">
+                <h3>How do I make a cool Discord profile picture?</h3>
+                <p>Use this free PFP maker to create custom profile pictures with gradients, shapes, and gaming icons.
+                    Choose your colors, select a shape, add an icon or text, and download your unique avatar instantly.
+                </p>
+            </div>
+            <div class="faq-item">
+                <h3>Can I use these PFPs for Steam and other platforms?</h3>
+                <p>Yes! The 512x512 PNG images work perfectly for Discord, Steam, Xbox, PlayStation, Epic Games, and
+                    other gaming platforms.</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Free Discord PFP Maker | Part of <a href="/">OBS Mask Generator</a></p>
+            <div style="margin-top: 15px; font-size: 0.85em; line-height: 1.8;">
+                <p><strong>Design Tools:</strong>
+                    <a href="/discord-pfp-maker/">Discord PFP</a> |
+                    <a href="/">Webcam Mask</a> |
+                    <a href="/panel-maker/">Panel Maker</a> |
+                    <a href="/banner-maker/">Banner Maker</a>
+                </p>
+                <p><strong>Generators:</strong>
+                    <a href="/gamertag-generator/">Gamertag Generator</a> |
+                    <a href="/settings-generator/">Settings Generator</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

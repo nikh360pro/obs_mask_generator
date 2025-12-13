@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream Countdown Timer Generator | OBS Timer | Free Tool</title>
+    <meta name="description"
+        content="Create customizable countdown timers for OBS and streaming. Generate starting soon timers, break timers, and event countdowns. Free download as HTML or image.">
+    <meta name="keywords"
+        content="stream countdown timer, OBS timer, streaming timer, starting soon timer, stream countdown generator, Twitch timer, YouTube countdown">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://obsmaskgenerator.com/countdown-timer/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/countdown-timer/">
+    <meta property="og:title" content="Stream Countdown Timer Generator - Free Tool">
+    <meta property="og:description" content="Create customizable countdown timers for OBS streaming.">
+    <meta property="og:image" content="https://obsmaskgenerator.com/og-image.png">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Stream Countdown Timer Generator",
+        "url": "https://obsmaskgenerator.com/countdown-timer/",
+        "description": "Create customizable countdown timers for OBS and streaming platforms.",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="url(#logo-gradient)" />
+                    <circle cx="16" cy="16" r="10" stroke="white" stroke-width="2" fill="none" />
+                    <path d="M16 10v6l4 2" stroke="white" stroke-width="2" stroke-linecap="round" />
+                    <defs>
+                        <linearGradient id="logo-gradient" x1="0" y1="0" x2="32" y2="32">
+                            <stop stop-color="#9146FF" />
+                            <stop offset="1" stop-color="#6441A5" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <h1>Stream Countdown Timer</h1>
+            </div>
+            <p class="tagline">Create customizable timers for OBS & streaming</p>
+            <a href="/" class="back-link">← Back to Mask Generator</a>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Timer Preview -->
+            <section class="preview-section">
+                <h2 class="section-title">Preview</h2>
+
+                <div class="timer-preview" id="timer-preview">
+                    <div class="timer-label" id="preview-label">Stream Starting In</div>
+                    <div class="timer-display" id="preview-timer">05:00</div>
+                </div>
+
+                <div class="timer-controls">
+                    <button class="timer-btn" id="start-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="5 3 19 12 5 21 5 3" />
+                        </svg>
+                        Start
+                    </button>
+                    <button class="timer-btn" id="pause-btn" disabled>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <rect x="6" y="4" width="4" height="16" />
+                            <rect x="14" y="4" width="4" height="16" />
+                        </svg>
+                        Pause
+                    </button>
+                    <button class="timer-btn" id="reset-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path
+                                d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" />
+                        </svg>
+                        Reset
+                    </button>
+                </div>
+
+                <div class="download-section">
+                    <button class="download-btn primary" id="download-html">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                        Download as HTML (for OBS)
+                    </button>
+                    <p class="download-hint">Add as Browser Source in OBS with transparent background</p>
+                </div>
+            </section>
+
+            <!-- Controls -->
+            <section class="controls-section">
+                <h2 class="section-title">Customize</h2>
+
+                <!-- Duration -->
+                <div class="control-group">
+                    <label>Duration</label>
+                    <div class="duration-inputs">
+                        <div>
+                            <input type="number" id="minutes" value="5" min="0" max="60">
+                            <span>min</span>
+                        </div>
+                        <div>
+                            <input type="number" id="seconds" value="0" min="0" max="59">
+                            <span>sec</span>
+                        </div>
+                    </div>
+                    <div class="preset-durations">
+                        <button data-minutes="3" data-seconds="0">3:00</button>
+                        <button data-minutes="5" data-seconds="0">5:00</button>
+                        <button data-minutes="10" data-seconds="0">10:00</button>
+                        <button data-minutes="15" data-seconds="0">15:00</button>
+                    </div>
+                </div>
+
+                <!-- Label -->
+                <div class="control-group">
+                    <label>Timer Label</label>
+                    <input type="text" id="timer-label" value="Stream Starting In" maxlength="50">
+                    <div class="preset-labels">
+                        <button data-label="Stream Starting In">Starting Soon</button>
+                        <button data-label="Be Right Back">BRB</button>
+                        <button data-label="Stream Ends In">Ending</button>
+                    </div>
+                </div>
+
+                <!-- Font -->
+                <div class="control-group">
+                    <label>Font Style</label>
+                    <select id="font-style">
+                        <option value="digital">Digital (Orbitron)</option>
+                        <option value="modern">Modern (Inter)</option>
+                        <option value="bold">Bold Sans</option>
+                    </select>
+                </div>
+
+                <!-- Colors -->
+                <div class="control-group">
+                    <label>Text Color</label>
+                    <div class="color-row">
+                        <input type="color" id="text-color" value="#FFFFFF">
+                        <div class="color-presets">
+                            <button style="background:#FFFFFF" data-color="#FFFFFF"></button>
+                            <button style="background:#9146FF" data-color="#9146FF"></button>
+                            <button style="background:#00D4AA" data-color="#00D4AA"></button>
+                            <button style="background:#FF6B6B" data-color="#FF6B6B"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Background</label>
+                    <select id="bg-type">
+                        <option value="transparent">Transparent (for OBS)</option>
+                        <option value="solid">Solid Color</option>
+                        <option value="gradient">Gradient</option>
+                    </select>
+                </div>
+
+                <div class="control-group" id="bg-color-group" style="display:none">
+                    <label>Background Color</label>
+                    <input type="color" id="bg-color" value="#1F1F23">
+                </div>
+
+                <!-- Size -->
+                <div class="control-group">
+                    <label>Timer Size</label>
+                    <input type="range" id="timer-size" min="40" max="120" value="72">
+                </div>
+            </section>
+        </main>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>How do I add this timer to OBS?</h3>
+                <p>Download the HTML file, then in OBS add a "Browser Source". Set the Local File option and select the
+                    downloaded HTML file. Set width to 800 and height to 200.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Can I use a transparent background?</h3>
+                <p>Yes! Select "Transparent" background in the settings. In OBS Browser Source, the background will be
+                    transparent so the timer floats over your content.</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Free Stream Countdown Timer | Part of <a href="/">OBS Mask Generator</a></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

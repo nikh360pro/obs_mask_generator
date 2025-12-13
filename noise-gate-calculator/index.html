@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>OBS Noise Gate Calculator - Best Noise Gate Settings | Free Tool</title>
+    <meta name="title" content="OBS Noise Gate Calculator - Best Noise Gate Settings | Free Tool">
+    <meta name="description"
+        content="Calculate the perfect OBS noise gate settings for your microphone. Enter your noise floor level and get optimal open/close thresholds, attack, hold, and release times instantly.">
+    <meta name="keywords"
+        content="OBS noise gate, noise gate calculator, OBS audio settings, noise gate settings, microphone noise gate, OBS filters, background noise removal, stream audio settings">
+    <meta name="author" content="OBS Mask Generator">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <link rel="canonical" href="https://obsmaskgenerator.com/noise-gate-calculator/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/noise-gate-calculator/">
+    <meta property="og:title" content="OBS Noise Gate Calculator - Best Noise Gate Settings">
+    <meta property="og:description"
+        content="Calculate perfect noise gate settings for OBS. Free tool - enter your noise floor, get optimal settings.">
+    <meta property="og:image" content="https://obsmaskgenerator.com/og-image.png">
+    <meta property="og:site_name" content="OBS Mask Generator">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://obsmaskgenerator.com/noise-gate-calculator/">
+    <meta property="twitter:title" content="OBS Noise Gate Calculator - Best Noise Gate Settings">
+    <meta property="twitter:description" content="Calculate perfect noise gate settings for OBS. Free tool.">
+    <meta property="twitter:image" content="https://obsmaskgenerator.com/og-image.png">
+
+    <!-- Structured Data - WebApplication -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "OBS Noise Gate Calculator",
+        "url": "https://obsmaskgenerator.com/noise-gate-calculator/",
+        "description": "Calculate the perfect OBS noise gate settings based on your microphone's noise floor level.",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "featureList": [
+            "Noise floor analysis",
+            "Auto-calculate open/close thresholds",
+            "Attack, hold, release recommendations",
+            "Copy settings to clipboard",
+            "No signup required"
+        ]
+    }
+    </script>
+
+    <!-- Structured Data - FAQ -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is a noise gate in OBS?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "A noise gate is an audio filter that silences your microphone when the audio level drops below a certain threshold. This removes background noise like keyboard clicks, fans, and ambient sounds when you're not speaking."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I find my noise floor in OBS?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "In OBS, add your microphone as an audio source, then remain silent and watch the audio mixer. The level where the meter consistently peaks while you're quiet is your noise floor - typically between -60dB and -40dB."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What are the best OBS noise gate settings?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Set your Close Threshold about 5dB below your noise floor, and Open Threshold about 5-8dB above it. Use 6ms attack, 100ms hold, and 60-100ms release for natural-sounding results."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "OBS Tools", "item": "https://obsmaskgenerator.com/"},
+            {"@type": "ListItem", "position": 2, "name": "Noise Gate Calculator", "item": "https://obsmaskgenerator.com/noise-gate-calculator/"}
+        ]
+    }
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="url(#logo-gradient)" />
+                    <path d="M10 20V12M16 22V10M22 18V14" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                    <defs>
+                        <linearGradient id="logo-gradient" x1="0" y1="0" x2="32" y2="32">
+                            <stop stop-color="#9146FF" />
+                            <stop offset="1" stop-color="#6441A5" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <h1>OBS Noise Gate Calculator</h1>
+            </div>
+            <p class="tagline">Calculate the perfect noise gate settings for your microphone</p>
+            <a href="/" class="back-link">← Back to Mask Generator</a>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Input Section -->
+            <section class="input-section">
+                <h2 class="section-title">Enter Your Noise Floor</h2>
+
+                <div class="info-box">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 16v-4M12 8h.01"/>
+                    </svg>
+                    <p><strong>How to find your noise floor:</strong> In OBS, watch your audio mixer while staying silent. The level where the meter peaks when you're not speaking is your noise floor.</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="noise-floor">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                            <line x1="12" y1="19" x2="12" y2="23"/>
+                            <line x1="8" y1="23" x2="16" y2="23"/>
+                        </svg>
+                        Noise Floor Level (dB)
+                    </label>
+                    <div class="slider-container">
+                        <input type="range" id="noise-floor" min="-70" max="-20" value="-50" step="1">
+                        <span class="slider-value" id="noise-floor-value">-50 dB</span>
+                    </div>
+                    <span class="hint">Typical range: -60 dB (quiet room) to -40 dB (noisy room)</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="sensitivity">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                        </svg>
+                        Sensitivity
+                    </label>
+                    <select id="sensitivity">
+                        <option value="tight">Tight (Less background noise, may cut soft speech)</option>
+                        <option value="balanced" selected>Balanced (Recommended)</option>
+                        <option value="loose">Loose (More responsive, allows some noise)</option>
+                    </select>
+                </div>
+
+                <button class="generate-btn" id="calculate-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                    </svg>
+                    <span>Calculate Settings</span>
+                </button>
+            </section>
+
+            <!-- Output Section -->
+            <section class="output-section">
+                <h2 class="section-title">Recommended Noise Gate Settings</h2>
+
+                <div class="results-grid" id="results">
+                    <div class="result-card">
+                        <div class="result-label">Close Threshold</div>
+                        <div class="result-value" id="close-threshold">-55 dB</div>
+                        <div class="result-desc">Gate closes below this level</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-label">Open Threshold</div>
+                        <div class="result-value" id="open-threshold">-45 dB</div>
+                        <div class="result-desc">Gate opens above this level</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-label">Attack Time</div>
+                        <div class="result-value" id="attack-time">6 ms</div>
+                        <div class="result-desc">How fast gate opens</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-label">Hold Time</div>
+                        <div class="result-value" id="hold-time">100 ms</div>
+                        <div class="result-desc">Gate stays open after sound</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-label">Release Time</div>
+                        <div class="result-value" id="release-time">60 ms</div>
+                        <div class="result-desc">How fast gate closes</div>
+                    </div>
+                </div>
+
+                <button class="copy-btn" id="copy-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" />
+                        <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+                    </svg>
+                    Copy All Settings
+                </button>
+
+                <!-- Social Share Buttons -->
+                <div class="share-buttons" style="display: flex; gap: 0.5rem; margin-top: 1rem; justify-content: center;">
+                    <button onclick="window.open('https://twitter.com/intent/tweet?text=Just%20calculated%20my%20perfect%20OBS%20noise%20gate%20settings!%20%F0%9F%8E%99%EF%B8%8F&url=https://obsmaskgenerator.com/noise-gate-calculator/', '_blank')" 
+                        style="background: #1da1f2; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 0.4rem;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        Share
+                    </button>
+                    <button onclick="navigator.clipboard.writeText('https://obsmaskgenerator.com/noise-gate-calculator/').then(() => this.textContent = '✓ Copied!')" 
+                        style="background: #333; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.85rem; cursor: pointer;">
+                        📋 Copy Link
+                    </button>
+                    <button onclick="window.open('https://reddit.com/submit?url=https://obsmaskgenerator.com/noise-gate-calculator/&title=Free%20OBS%20Noise%20Gate%20Calculator', '_blank')" 
+                        style="background: #ff4500; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.85rem; cursor: pointer;">
+                        Reddit
+                    </button>
+                </div>
+
+                <div class="help-text">
+                    <strong>How to apply:</strong> In OBS, right-click your microphone → Filters → Add "Noise Gate" → Enter these values.
+                </div>
+            </section>
+        </main>
+
+        <!-- FAQ Section for SEO -->
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>What is a noise gate in OBS?</h3>
+                <p>A noise gate is an audio filter that silences your microphone when the audio level drops below a certain threshold. This removes background noise like keyboard clicks, fans, and ambient sounds when you're not speaking.</p>
+            </div>
+            <div class="faq-item">
+                <h3>How do I find my noise floor in OBS?</h3>
+                <p>In OBS, add your microphone as an audio source, then remain silent and watch the audio mixer. The level where the meter consistently peaks while you're quiet is your noise floor - typically between -60dB and -40dB.</p>
+            </div>
+            <div class="faq-item">
+                <h3>What are the best OBS noise gate settings?</h3>
+                <p>Set your Close Threshold about 5dB below your noise floor, and Open Threshold about 5-8dB above it. Use 6ms attack, 100ms hold, and 60-100ms release for natural-sounding results.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Should I use noise gate or noise suppression?</h3>
+                <p>Use both! Noise suppression (like RNNoise) reduces constant background noise, while noise gate cuts audio completely when you're not speaking. Apply noise suppression first, then noise gate.</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Free OBS Noise Gate Calculator | Part of <a href="/">OBS Mask Generator</a></p>
+            <div style="margin-top: 15px; font-size: 0.85em; line-height: 1.8;">
+                <p><strong>Audio Tools:</strong>
+                    <a href="/noise-gate-calculator/">Noise Gate Calculator</a> |
+                    <a href="/audio-sync-calculator/">Audio Sync</a> |
+                    <a href="/bitrate-calculator/">Bitrate Calculator</a>
+                </p>
+                <p><strong>Generators:</strong>
+                    <a href="/settings-generator/">Settings Generator</a> |
+                    <a href="/gamertag-generator/">Gamertag Generator</a> |
+                    <a href="/stream-title-generator/">Stream Title</a> |
+                    <a href="/channel-point-generator/">Channel Points</a>
+                </p>
+                <p><strong>Design Tools:</strong>
+                    <a href="/">Webcam Mask</a> |
+                    <a href="/overlay-generator/">Overlay Generator</a> |
+                    <a href="/panel-maker/">Panel Maker</a> |
+                    <a href="/banner-maker/">Banner Maker</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

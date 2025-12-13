@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream Thumbnail Maker | YouTube Thumbnail Generator | Free Tool</title>
+    <meta name="description"
+        content="Create eye-catching thumbnails for YouTube and Twitch streams. Generate 1280x720 thumbnails with text, gradients, and effects. Free thumbnail maker.">
+    <meta name="keywords"
+        content="stream thumbnail maker, YouTube thumbnail generator, Twitch thumbnail, thumbnail creator, gaming thumbnail maker, free thumbnail generator">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://obsmaskgenerator.com/thumbnail-maker/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/thumbnail-maker/">
+    <meta property="og:title" content="Stream Thumbnail Maker - Free Tool">
+    <meta property="og:description" content="Create eye-catching thumbnails for YouTube and Twitch streams.">
+    <meta property="og:image" content="https://obsmaskgenerator.com/og-image.png">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="url(#logo-gradient)" />
+                    <rect x="6" y="10" width="20" height="12" rx="2" stroke="white" stroke-width="2" fill="none" />
+                    <polygon points="13,13 13,19 18,16" fill="white" />
+                    <defs>
+                        <linearGradient id="logo-gradient" x1="0" y1="0" x2="32" y2="32">
+                            <stop stop-color="#FF0000" />
+                            <stop offset="1" stop-color="#CC0000" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <h1>Stream Thumbnail Maker</h1>
+            </div>
+            <p class="tagline">Create eye-catching thumbnails for YouTube & Twitch</p>
+            <a href="/" class="back-link">← Back to Mask Generator</a>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Preview -->
+            <section class="preview-section">
+                <h2 class="section-title">Preview (1280×720)</h2>
+                <div class="canvas-wrapper">
+                    <canvas id="thumbnail-canvas" width="1280" height="720"></canvas>
+                </div>
+                <button class="download-btn" id="download-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Download Thumbnail
+                </button>
+            </section>
+
+            <!-- Controls -->
+            <section class="controls-section">
+                <h2 class="section-title">Customize</h2>
+
+                <div class="control-group">
+                    <label>Title Text</label>
+                    <input type="text" id="title-text" value="LIVE NOW" maxlength="30">
+                </div>
+
+                <div class="control-group">
+                    <label>Subtitle</label>
+                    <input type="text" id="subtitle-text" value="Playing Fortnite" maxlength="40">
+                </div>
+
+                <div class="control-group">
+                    <label>Background</label>
+                    <select id="bg-style">
+                        <option value="gradient">Gradient</option>
+                        <option value="solid">Solid Color</option>
+                        <option value="pattern">Pattern</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label>Primary Color</label>
+                    <div class="color-row">
+                        <input type="color" id="color1" value="#9146FF">
+                        <div class="color-presets">
+                            <button style="background:#9146FF" data-color="#9146FF"></button>
+                            <button style="background:#FF0000" data-color="#FF0000"></button>
+                            <button style="background:#00D4AA" data-color="#00D4AA"></button>
+                            <button style="background:#FF6B6B" data-color="#FF6B6B"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Secondary Color</label>
+                    <input type="color" id="color2" value="#1a1a2e">
+                </div>
+
+                <div class="control-group">
+                    <label>Text Style</label>
+                    <select id="text-style">
+                        <option value="bold">Bold Impact</option>
+                        <option value="neon">Neon Glow</option>
+                        <option value="clean">Clean Modern</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label>Add "LIVE" Badge</label>
+                    <label class="toggle">
+                        <input type="checkbox" id="show-live" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Free Stream Thumbnail Maker | Part of <a href="/">OBS Mask Generator</a></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,300 @@
+/* Emote Size Checker Styles */
+:root {
+    --bg-primary: #0f0f0f;
+    --bg-secondary: #1a1a1a;
+    --bg-tertiary: #252525;
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --accent-primary: #9146ff;
+    --accent-secondary: #6441a5;
+    --success: #10b981;
+    --error: #ef4444;
+    --warning: #f59e0b;
+    --border-color: #333;
+    --border-radius: 12px;
+    --transition: 0.2s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.app-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.tagline {
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+}
+
+.back-link {
+    color: var(--accent-primary);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.upload-section,
+.results-section {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+}
+
+.section-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+}
+
+/* Drop Zone */
+.drop-zone {
+    border: 2px dashed var(--border-color);
+    border-radius: 12px;
+    padding: 3rem 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-bottom: 1.5rem;
+}
+
+.drop-zone:hover,
+.drop-zone.dragover {
+    border-color: var(--accent-primary);
+    background: rgba(145, 70, 255, 0.05);
+}
+
+.drop-zone svg {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.drop-zone p {
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.drop-zone span {
+    color: var(--accent-primary);
+    text-decoration: underline;
+}
+
+.drop-zone small {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+/* Requirements Table */
+.requirements-table h3 {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+}
+
+.requirements-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.requirements-table th,
+.requirements-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.requirements-table th {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.requirements-table td {
+    font-size: 0.9rem;
+}
+
+/* Results */
+.emote-preview {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.emote-preview img {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 8px;
+    background: repeating-conic-gradient(#333 0% 25%, #444 0% 50%) 50% / 20px 20px;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.result-card {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.result-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+}
+
+.result-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* Status Messages */
+.status-messages {
+    margin-bottom: 1.5rem;
+}
+
+.status-message {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.status-message.success {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid var(--success);
+    color: var(--success);
+}
+
+.status-message.error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid var(--error);
+    color: var(--error);
+}
+
+.status-message.warning {
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid var(--warning);
+    color: var(--warning);
+}
+
+/* Resize Section */
+.resize-section h3 {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+}
+
+.resize-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.resize-btn {
+    flex: 1;
+    min-width: 120px;
+    padding: 0.75rem;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.resize-btn:hover {
+    border-color: var(--accent-primary);
+    background: rgba(145, 70, 255, 0.1);
+}
+
+/* FAQ & Footer */
+.faq-section {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+}
+
+.faq-section h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.faq-item {
+    margin-bottom: 1rem;
+}
+
+.faq-item h3 {
+    font-size: 1rem;
+    color: var(--accent-primary);
+    margin-bottom: 0.5rem;
+}
+
+.faq-item p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.footer {
+    margin-top: 2rem;
+    text-align: center;
+    padding: 1.5rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    color: var(--text-secondary);
+}
+
+.footer a {
+    color: var(--accent-primary);
+    text-decoration: none;
+}

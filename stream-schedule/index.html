@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream Schedule Image Generator | Free Twitch Schedule Maker</title>
+    <meta name="description"
+        content="Create beautiful stream schedule graphics for Twitch and YouTube. Generate downloadable schedule images for your panels. Free stream schedule maker.">
+    <meta name="keywords"
+        content="stream schedule maker, Twitch schedule generator, streaming schedule image, stream schedule graphic, Twitch panel schedule">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://obsmaskgenerator.com/stream-schedule/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/stream-schedule/">
+    <meta property="og:title" content="Stream Schedule Image Generator - Free Tool">
+    <meta property="og:description" content="Create beautiful schedule graphics for your stream panels.">
+    <meta property="og:image" content="https://obsmaskgenerator.com/og-image.png">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="url(#logo-gradient)" />
+                    <rect x="8" y="8" width="16" height="16" rx="2" stroke="white" stroke-width="2" fill="none" />
+                    <line x1="8" y1="13" x2="24" y2="13" stroke="white" stroke-width="2" />
+                    <line x1="13" y1="8" x2="13" y2="24" stroke="white" stroke-width="2" />
+                    <defs>
+                        <linearGradient id="logo-gradient" x1="0" y1="0" x2="32" y2="32">
+                            <stop stop-color="#9146FF" />
+                            <stop offset="1" stop-color="#6441A5" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <h1>Stream Schedule Generator</h1>
+            </div>
+            <p class="tagline">Create beautiful schedule graphics for your stream</p>
+            <a href="/" class="back-link">← Back to Mask Generator</a>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Preview -->
+            <section class="preview-section">
+                <h2 class="section-title">Preview</h2>
+                <div class="canvas-wrapper">
+                    <canvas id="schedule-canvas" width="320" height="400"></canvas>
+                </div>
+                <button class="download-btn" id="download-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Download Schedule (320×400)
+                </button>
+            </section>
+
+            <!-- Controls -->
+            <section class="controls-section">
+                <h2 class="section-title">Your Schedule</h2>
+
+                <div id="schedule-days">
+                    <div class="day-row" data-day="monday">
+                        <label><input type="checkbox" checked> Monday</label>
+                        <input type="time" value="19:00">
+                    </div>
+                    <div class="day-row" data-day="tuesday">
+                        <label><input type="checkbox"> Tuesday</label>
+                        <input type="time" value="19:00">
+                    </div>
+                    <div class="day-row" data-day="wednesday">
+                        <label><input type="checkbox" checked> Wednesday</label>
+                        <input type="time" value="19:00">
+                    </div>
+                    <div class="day-row" data-day="thursday">
+                        <label><input type="checkbox"> Thursday</label>
+                        <input type="time" value="19:00">
+                    </div>
+                    <div class="day-row" data-day="friday">
+                        <label><input type="checkbox" checked> Friday</label>
+                        <input type="time" value="20:00">
+                    </div>
+                    <div class="day-row" data-day="saturday">
+                        <label><input type="checkbox" checked> Saturday</label>
+                        <input type="time" value="14:00">
+                    </div>
+                    <div class="day-row" data-day="sunday">
+                        <label><input type="checkbox"> Sunday</label>
+                        <input type="time" value="14:00">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Timezone Display</label>
+                    <input type="text" id="timezone" value="EST" maxlength="10">
+                </div>
+
+                <div class="control-group">
+                    <label>Accent Color</label>
+                    <div class="color-row">
+                        <input type="color" id="accent-color" value="#9146FF">
+                        <div class="color-presets">
+                            <button style="background:#9146FF" data-color="#9146FF"></button>
+                            <button style="background:#00D4AA" data-color="#00D4AA"></button>
+                            <button style="background:#FF0000" data-color="#FF0000"></button>
+                            <button style="background:#1DB954" data-color="#1DB954"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Background Style</label>
+                    <select id="bg-style">
+                        <option value="dark">Dark</option>
+                        <option value="gradient">Gradient</option>
+                        <option value="transparent">Transparent</option>
+                    </select>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Free Stream Schedule Generator | Part of <a href="/">OBS Mask Generator</a></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

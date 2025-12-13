@@ -1,0 +1,359 @@
+/* Discord PFP Maker Styles */
+:root {
+    --bg-primary: #0f0f0f;
+    --bg-secondary: #1a1a1a;
+    --bg-tertiary: #252525;
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --accent-primary: #5865F2;
+    --accent-secondary: #7289DA;
+    --success: #10b981;
+    --border-color: #333;
+    --border-radius: 12px;
+    --transition: 0.2s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.app-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.tagline {
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+}
+
+.back-link {
+    color: var(--accent-primary);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* Main Content */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .main-content {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Sections */
+.preview-section,
+.controls-section {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+}
+
+.section-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+}
+
+/* Canvas */
+.canvas-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+#pfp-canvas {
+    width: 256px;
+    height: 256px;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Preview Sizes */
+.preview-sizes {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.preview-size {
+    text-align: center;
+}
+
+.preview-size canvas {
+    border-radius: 50%;
+    margin-bottom: 0.25rem;
+}
+
+.preview-size span {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+/* Download Button */
+.download-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+}
+
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(88, 101, 242, 0.3);
+}
+
+/* Control Groups */
+.control-group {
+    margin-bottom: 1.25rem;
+}
+
+.control-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+/* Shape Buttons */
+.shape-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.shape-btn {
+    width: 48px;
+    height: 48px;
+    background: var(--bg-tertiary);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+}
+
+.shape-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+.shape-btn:hover {
+    border-color: var(--accent-primary);
+}
+
+.shape-btn.active {
+    border-color: var(--accent-primary);
+    background: rgba(88, 101, 242, 0.2);
+    color: var(--accent-primary);
+}
+
+/* Color Row */
+.color-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+input[type="color"] {
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: var(--bg-tertiary);
+    padding: 4px;
+}
+
+.color-presets {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.color-preset {
+    width: 32px;
+    height: 32px;
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.color-preset:hover {
+    transform: scale(1.1);
+    border-color: white;
+}
+
+/* Icon Grid */
+.icon-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.5rem;
+}
+
+.icon-btn {
+    aspect-ratio: 1;
+    background: var(--bg-tertiary);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.icon-btn:hover {
+    border-color: var(--accent-primary);
+}
+
+.icon-btn.active {
+    border-color: var(--accent-primary);
+    background: rgba(88, 101, 242, 0.2);
+}
+
+/* Range Input */
+input[type="range"] {
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: var(--bg-tertiary);
+    -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--accent-primary);
+    cursor: pointer;
+}
+
+/* Text Input */
+input[type="text"],
+select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+input:focus,
+select:focus {
+    border-color: var(--accent-primary);
+    outline: none;
+}
+
+/* FAQ & Footer - Same as other tools */
+.faq-section {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+}
+
+.faq-section h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.faq-item {
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.faq-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.faq-item h3 {
+    font-size: 1rem;
+    color: var(--accent-primary);
+    margin-bottom: 0.5rem;
+}
+
+.faq-item p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.footer {
+    margin-top: 2rem;
+    text-align: center;
+    padding: 1.5rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.footer a {
+    color: var(--accent-primary);
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}

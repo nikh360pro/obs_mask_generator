@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video File Size Calculator | Estimate Recording Size | Free Tool</title>
+    <meta name="description"
+        content="Calculate video file size before recording. Enter bitrate and duration to estimate file size for OBS recordings, streams, and video exports. Free video size estimator.">
+    <meta name="keywords"
+        content="video file size calculator, recording size calculator, video size estimator, bitrate to file size, OBS recording size, video storage calculator">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://obsmaskgenerator.com/file-size-calculator/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/file-size-calculator/">
+    <meta property="og:title" content="Video File Size Calculator - Free Tool">
+    <meta property="og:description"
+        content="Calculate video file size before recording. Free bitrate to file size converter.">
+    <meta property="og:image" content="https://obsmaskgenerator.com/og-image.png">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Video File Size Calculator",
+        "url": "https://obsmaskgenerator.com/file-size-calculator/",
+        "description": "Calculate video file size based on bitrate and duration.",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How do I calculate video file size from bitrate?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Multiply bitrate (in Kbps) by duration (in seconds), then divide by 8000 to get megabytes. Formula: File Size (MB) = (Bitrate × Duration) / 8000"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How big is a 1 hour video at 6000 Kbps?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "A 1-hour video at 6000 Kbps is approximately 2.7 GB. Add audio bitrate (usually 160-320 Kbps) for total file size."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="url(#logo-gradient)" />
+                    <path d="M8 10h16v12H8z" stroke="white" stroke-width="2" fill="none" />
+                    <path d="M12 16l4-3v6l-4-3z" fill="white" />
+                    <defs>
+                        <linearGradient id="logo-gradient" x1="0" y1="0" x2="32" y2="32">
+                            <stop stop-color="#9146FF" />
+                            <stop offset="1" stop-color="#6441A5" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <h1>Video File Size Calculator</h1>
+            </div>
+            <p class="tagline">Estimate recording and video file sizes</p>
+            <a href="/" class="back-link">← Back to Mask Generator</a>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Input Section -->
+            <section class="input-section">
+                <h2 class="section-title">Enter Recording Settings</h2>
+
+                <div class="form-group">
+                    <label for="video-bitrate">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                        </svg>
+                        Video Bitrate (Kbps)
+                    </label>
+                    <input type="number" id="video-bitrate" value="6000" min="1" max="100000">
+                    <div class="preset-buttons">
+                        <button class="preset-btn" data-value="2500">2.5 Mbps</button>
+                        <button class="preset-btn" data-value="6000">6 Mbps</button>
+                        <button class="preset-btn" data-value="12000">12 Mbps</button>
+                        <button class="preset-btn" data-value="50000">50 Mbps</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="audio-bitrate">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+                            <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                        </svg>
+                        Audio Bitrate (Kbps)
+                    </label>
+                    <select id="audio-bitrate">
+                        <option value="128">128 Kbps (Standard)</option>
+                        <option value="160" selected>160 Kbps (Recommended)</option>
+                        <option value="192">192 Kbps (High)</option>
+                        <option value="256">256 Kbps (Very High)</option>
+                        <option value="320">320 Kbps (Maximum)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="duration">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <polyline points="12 6 12 12 16 14" />
+                        </svg>
+                        Duration
+                    </label>
+                    <div class="duration-inputs">
+                        <div>
+                            <input type="number" id="hours" value="1" min="0" max="24">
+                            <span class="unit-label">hours</span>
+                        </div>
+                        <div>
+                            <input type="number" id="minutes" value="0" min="0" max="59">
+                            <span class="unit-label">min</span>
+                        </div>
+                        <div>
+                            <input type="number" id="seconds" value="0" min="0" max="59">
+                            <span class="unit-label">sec</span>
+                        </div>
+                    </div>
+                    <div class="quick-duration">
+                        <button class="duration-btn" data-hours="0" data-minutes="30">30 min</button>
+                        <button class="duration-btn" data-hours="1" data-minutes="0">1 hour</button>
+                        <button class="duration-btn" data-hours="2" data-minutes="0">2 hours</button>
+                        <button class="duration-btn" data-hours="3" data-minutes="0">3 hours</button>
+                    </div>
+                </div>
+
+                <button class="generate-btn" id="calculate-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="17 8 12 3 7 8" />
+                        <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>
+                    <span>Calculate File Size</span>
+                </button>
+            </section>
+
+            <!-- Output Section -->
+            <section class="output-section">
+                <h2 class="section-title">Estimated File Size</h2>
+
+                <div class="file-size-display">
+                    <div class="size-value" id="file-size">2.70 GB</div>
+                    <div class="size-breakdown" id="size-breakdown">
+                        Video: 2.63 GB | Audio: 72 MB
+                    </div>
+                </div>
+
+                <div class="results-grid">
+                    <div class="result-card">
+                        <div class="result-label">Total Bitrate</div>
+                        <div class="result-value" id="total-bitrate">6,160 Kbps</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-label">Per Minute</div>
+                        <div class="result-value" id="per-minute">46.2 MB</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-label">Per Hour</div>
+                        <div class="result-value" id="per-hour">2.70 GB</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-label">Duration</div>
+                        <div class="result-value" id="display-duration">1:00:00</div>
+                    </div>
+                </div>
+
+                <div class="storage-info">
+                    <h3>Storage Requirements</h3>
+                    <div class="storage-grid" id="storage-grid">
+                        <div class="storage-item">
+                            <span class="storage-label">This recording:</span>
+                            <span class="storage-value" id="storage-this">2.70 GB</span>
+                        </div>
+                        <div class="storage-item">
+                            <span class="storage-label">10 recordings:</span>
+                            <span class="storage-value" id="storage-10">27 GB</span>
+                        </div>
+                        <div class="storage-item">
+                            <span class="storage-label">30 recordings:</span>
+                            <span class="storage-value" id="storage-30">81 GB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="help-text">
+                    <strong>Note:</strong> Actual file size may vary slightly based on encoding settings, scene
+                    complexity, and codec efficiency.
+                </div>
+            </section>
+        </main>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>How do I calculate video file size from bitrate?</h3>
+                <p>Multiply bitrate (in Kbps) by duration (in seconds), then divide by 8000 to get megabytes. Formula:
+                    File Size (MB) = (Bitrate × Duration) / 8000</p>
+            </div>
+            <div class="faq-item">
+                <h3>How big is a 1 hour video at 6000 Kbps?</h3>
+                <p>A 1-hour video at 6000 Kbps is approximately 2.7 GB (video only). Add audio bitrate (usually 160-320
+                    Kbps) for total file size.</p>
+            </div>
+            <div class="faq-item">
+                <h3>What bitrate should I use for recording?</h3>
+                <p>For high-quality recordings: 30,000-50,000 Kbps. For streaming archives: 6,000-12,000 Kbps. Higher
+                    bitrate = larger files but better quality.</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Free Video File Size Calculator | Part of <a href="/">OBS Mask Generator</a></p>
+            <div style="margin-top: 15px; font-size: 0.85em; line-height: 1.8;">
+                <p><strong>Calculators:</strong>
+                    <a href="/bitrate-calculator/">Bitrate</a> |
+                    <a href="/file-size-calculator/">File Size</a> |
+                    <a href="/aspect-ratio-calculator/">Aspect Ratio</a> |
+                    <a href="/noise-gate-calculator/">Noise Gate</a>
+                </p>
+                <p><strong>Generators:</strong>
+                    <a href="/settings-generator/">Settings</a> |
+                    <a href="/gamertag-generator/">Gamertag</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
