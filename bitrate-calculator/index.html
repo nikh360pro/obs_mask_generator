@@ -297,6 +297,64 @@
             </section>
         </main>
 
+        <!-- SEO Content Guide -->
+        <article class="seo-guide">
+            <h2>The Definitive Guide to Streaming Bitrate</h2>
+
+            <p><strong>"What bitrate should I use?"</strong> is the single most common question new streamers ask. And
+                for good reason—bitrate is the heartbeat of your stream. Set it too low, and your game looks like a
+                blurry mess of pixels. Set it too high, and your viewers will suffer from constant buffering (lag).</p>
+
+            <h3>What Exactly is Bitrate?</h3>
+            <p>Bitrate is the amount of data you send to Twitch or YouTube every second. It is measured in
+                <strong>Kilobits per second (Kbps)</strong>. Think of it like a water pipe: a bigger pipe (higher
+                bitrate) allows more water (visual detail) to flow through. But if the pipe is too big for your internet
+                connection, it will burst (dropped frames).</p>
+
+            <h3>Twitch vs. YouTube vs. Kick</h3>
+            <p>Each platform has different rules, which is why we built this calculator. Here is the breakdown:</p>
+            <ul>
+                <li><strong>Twitch:</strong> Has a "soft cap" of <strong>6,000 Kbps</strong>. Non-partners can
+                    technically push to 8,000 Kbps from time to time, but 6,000 is the safe official limit. This is why
+                    1080p 60fps often looks pixelated on Twitch during fast motion—6,000 Kbps just isn't enough data for
+                    that many pixels.</li>
+                <li><strong>YouTube:</strong> Is much more generous. You can stream up to <strong>51,000 Kbps</strong>
+                    for 4K content. This makes YouTube the king of visual fidelity. However, YouTube re-encodes your
+                    stream, so you need higher bitrate to overcome their compression.</li>
+                <li><strong>Kick:</strong> Similar to Twitch, but slightly more lenient, officially supporting up to
+                    <strong>8,000 Kbps</strong>.</li>
+            </ul>
+
+            <div class="guide-highlight">
+                <h4>The Golden Rule of Upload Speed</h4>
+                <p>You can never set your bitrate higher than your internet's upload speed. In fact, you should leave
+                    <strong>20-30% headroom</strong>. If your speed test shows 10 Mbps (10,000 Kbps) upload, don't
+                    stream at 10,000. Stream at 7,000 or 8,000 Kbps to leave room for game data, Discord, and network
+                    fluctuations.</p>
+            </div>
+
+            <h3>Best Bitrate Settings by Resolution</h3>
+            <p>If you have stable internet (10+ Mbps upload), here are the industry standards:</p>
+
+            <h4>1080p 60fps (High End)</h4>
+            <p> Requires <strong>6,000 - 8,000 Kbps</strong>. On Twitch, this is the limit. Fast-paced games (Apex, COD)
+                will still look slightly blocky. To fix this, consider lowering your resolution to 936p.</p>
+
+            <h4>936p 60fps (The Streamer's Secret)</h4>
+            <p>Streaming at <strong>1664x936</strong> is extremely popular. Why? It looks almost as sharp as 1080p, but
+                it requires much less data. 6,000 Kbps at 936p looks <em>crisper</em> than 6,000 Kbps at 1080p because
+                the bits per pixel is higher.</p>
+
+            <h4>720p 60fps (Reliable Choice)</h4>
+            <p>Requires <strong>4,500 Kbps</strong>. This is the best setting for non-partners or streamers with modest
+                internet. It looks smooth and rarely buffers for viewers on mobile usage.</p>
+
+            <h3>CBR vs. VBR: Which Should I Choose?</h3>
+            <p>Always choose <strong>CBR (Constant Bitrate)</strong> for streaming. VBR (Variable Bitrate) drops the
+                quality during slow scenes to save data, but this fluctuation can cause stability issues with Twitch's
+                ingest servers. CBR keeps the data flow steady, ensuring a stable connection.</p>
+        </article>
+
         <!-- FAQ Section for SEO -->
         <section class="faq-section">
             <h2>Frequently Asked Questions</h2>
@@ -324,29 +382,29 @@
 
         <!-- Footer -->
         <footer class="footer">
-            <p>Free OBS Bitrate Calculator | Part of <a href="/">OBS Mask Generator</a></p>
+            <p>Free OBS Tools & Generators | No signup required | <a href="/privacy-policy.html"
+                    style="color: var(--accent-primary, #9146ff);">Privacy Policy</a></p>
             <div style="margin-top: 15px; font-size: 0.85em; line-height: 1.8;">
-                <p><strong>OBS Calculators:</strong>
-                    <a href="/bitrate-calculator/">Bitrate Calculator</a> |
-                    <a href="/recording-size-calculator/">Recording Size</a> |
-                    <a href="/quality-checker/">Quality Checker</a> |
-                    <a href="/audio-sync-calculator/">Audio Sync</a> |
-                    <a href="/noise-gate-calculator/">Noise Gate</a> |
-                    <a href="/aspect-ratio-calculator/">Aspect Ratio</a> |
-                    <a href="/file-size-calculator/">File Size</a>
+                <p><strong style="color: #a78bfa;">OBS Calculators:</strong>
+                    <a href="/bitrate-calculator/" style="color: #9146ff;">Bitrate</a> |
+                    <a href="/recording-size-calculator/" style="color: #9146ff;">Recording Size</a> |
+                    <a href="/quality-checker/" style="color: #9146ff;">Quality Checker</a> |
+                    <a href="/audio-sync-calculator/" style="color: #9146ff;">Audio Sync</a> |
+                    <a href="/noise-gate-calculator/" style="color: #9146ff;">Noise Gate</a> |
+                    <a href="/aspect-ratio-calculator/" style="color: #9146ff;">Aspect Ratio</a> |
+                    <a href="/file-size-calculator/" style="color: #9146ff;">File Size</a>
                 </p>
-                <p><strong>OBS Tools:</strong>
-                    <a href="/">Webcam Mask</a> |
-                    <a href="/settings-generator/">Settings Generator</a> |
-                    <a href="/overlay-generator/">Overlay Generator</a> |
-                    <a href="/hotkey-reference/">OBS Hotkeys</a> |
-                    <a href="/webcam-test/">Webcam Test</a>
+                <p><strong style="color: #a78bfa;">Generators & Assets:</strong>
+                    <a href="/" style="color: #9146ff;">Webcam Mask</a> |
+                    <a href="/settings-generator/" style="color: #9146ff;">Settings Generator</a> |
+                    <a href="/overlay-generator/" style="color: #9146ff;">Overlay Generator</a> |
+                    <a href="/starting-screen/" style="color: #9146ff;">Starting Screen</a> |
+                    <a href="/stream-schedule/" style="color: #9146ff;">Stream Schedule</a>
                 </p>
-                <p><strong>Stream Tools:</strong>
-                    <a href="/countdown-timer/">Countdown Timer</a> |
-                    <a href="/starting-screen/">Starting Screen</a> |
-                    <a href="/stream-schedule/">Stream Schedule</a> |
-                    <a href="/privacy-policy.html">Privacy Policy</a>
+                <p><strong style="color: #a78bfa;">Useful Utilities:</strong>
+                    <a href="/countdown-timer/" style="color: #9146ff;">Countdown Timer</a> |
+                    <a href="/webcam-test/" style="color: #9146ff;">Webcam Test</a> |
+                    <a href="/hotkey-reference/" style="color: #9146ff;">OBS Hotkeys</a>
                 </p>
             </div>
         </footer>

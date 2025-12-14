@@ -267,6 +267,74 @@
             </section>
         </main>
 
+        <!-- SEO Content Guide -->
+        <article class="seo-guide">
+            <h2>Mastering Audio: The Complete Guide to OBS Noise Gates</h2>
+
+            <p>Audio is often more important than video in streaming. While viewers might forgive a slightly pixelated
+                webcam, they will instantly leave if your audio is filled with background hiss, keyboard clacking, or
+                fan noise. That's where the <strong>Noise Gate</strong> comes in—your first line of defense against
+                unwanted sound.</p>
+
+            <h3>What is a Noise Gate?</h3>
+            <p>Think of a Noise Gate like a literal gate for your audio. When you speak loudly (above a certain volume),
+                the gate opens and lets the sound through. When you stop speaking and the volume drops (below a
+                threshold), the gate slams shut, silencing everything completely.</p>
+            <p>Unlike <strong>Noise Suppression</strong> (which uses AI to filter out background noise while you talk),
+                a Noise Gate simply mutes the microphone when you aren't talking. It is perfect for eliminating:</p>
+            <ul>
+                <li>Mechanical keyboard clicks between sentences.</li>
+                <li>PC fan hum or air conditioner noise when you are silent.</li>
+                <li>Room reverb or distant conversations.</li>
+            </ul>
+
+            <div class="guide-highlight">
+                <h4>Why Use a Calculator?</h4>
+                <p>Setting up a noise gate improperly is a disaster. Set usage thresholds too high, and your voice will
+                    cut out. Set them too low, and the background noise will never be muted. Our calculator helps you
+                    find the mathematical "sweet spot" based on your specific room noise levels.</p>
+            </div>
+
+            <h3>Understanding the Settings</h3>
+            <p>OBS Studio's Noise Gate filter has several confusing parameters. Here is what they actually do:</p>
+
+            <h4>1. Close Threshold</h4>
+            <p>This is the "shut the gate" level. When your audio volume drops <em>below</em> this decibel (dB) number,
+                the microphone mutes. It needs to be slightly higher than your background noise but lower than your
+                whisper.</p>
+
+            <h4>2. Open Threshold</h4>
+            <p>This is the "open the gate" level. Your voice must get <em>louder</em> than this number to unmute the
+                microphone. We recommend setting this about <strong>4-8 dB higher</strong> than the Close Threshold.
+                This "hysteresis" prevents the gate from rapidly flickering open and closed if your volume hovers right
+                on the edge.</p>
+
+            <h4>3. Attack Time (ms)</h4>
+            <p>How fast the gate opens when you start talking. A fast attack (1-10ms) is crucial so the first syllable
+                of your sentence ("<strong>H</strong>ello") doesn't get cut off. If you notice your words sound clipped
+                at the start, lower this value.</p>
+
+            <h4>4. Hold Time (ms)</h4>
+            <p>How long the gate stays open <em>after</em> you stop talking, even if the volume drops below the Close
+                Threshold. This is vital to prevent the gate from cutting off the natural decay of your voice or pauses
+                between words. A value of <strong>100-200ms</strong> is usually perfect.</p>
+
+            <h4>5. Release Time (ms)</h4>
+            <p>How essentially the gate fades out after the Hold Time. A very fast release sounds unnatural and abrupt.
+                A slower release (50-100ms) provides a smooth fade-out to silence.</p>
+
+            <h3>Common Mistakes to Avoid</h3>
+            <ul>
+                <li><strong>Gate Chattering:</strong> If your Open and Close thresholds are too close together (e.g.,
+                    -40dB and -41dB), the gate will flutter open and shut rapidly. Keep them at least 4dB apart.</li>
+                <li><strong>Cutting Off Laughs:</strong> Quiet laughter often gets gated out. If you are an expressive
+                    streamer, you might need a "Looser" sensitivity setting.</li>
+                <li><strong>Wrong Filter Order:</strong> Always place your Noise Suppression filter <em>before</em> your
+                    Noise Gate in the OBS filters list. This cleans the audio before the gate decides whether to open or
+                    close.</li>
+            </ul>
+        </article>
+
         <!-- FAQ Section for SEO -->
         <section class="faq-section">
             <h2>Frequently Asked Questions</h2>
@@ -296,20 +364,29 @@
 
         <!-- Footer -->
         <footer class="footer">
-            <p>Free OBS Noise Gate Calculator | Part of <a href="/">OBS Mask Generator</a></p>
+            <p>Free OBS Tools & Generators | No signup required | <a href="/privacy-policy.html"
+                    style="color: var(--accent-primary, #9146ff);">Privacy Policy</a></p>
             <div style="margin-top: 15px; font-size: 0.85em; line-height: 1.8;">
-                <p><strong>OBS Calculators:</strong>
-                    <a href="/noise-gate-calculator/">Noise Gate</a> |
-                    <a href="/audio-sync-calculator/">Audio Sync</a> |
-                    <a href="/bitrate-calculator/">Bitrate</a> |
-                    <a href="/quality-checker/">Quality Checker</a> |
-                    <a href="/recording-size-calculator/">Recording Size</a>
+                <p><strong style="color: #a78bfa;">OBS Calculators:</strong>
+                    <a href="/bitrate-calculator/" style="color: #9146ff;">Bitrate</a> |
+                    <a href="/recording-size-calculator/" style="color: #9146ff;">Recording Size</a> |
+                    <a href="/quality-checker/" style="color: #9146ff;">Quality Checker</a> |
+                    <a href="/audio-sync-calculator/" style="color: #9146ff;">Audio Sync</a> |
+                    <a href="/noise-gate-calculator/" style="color: #9146ff;">Noise Gate</a> |
+                    <a href="/aspect-ratio-calculator/" style="color: #9146ff;">Aspect Ratio</a> |
+                    <a href="/file-size-calculator/" style="color: #9146ff;">File Size</a>
                 </p>
-                <p><strong>OBS Tools:</strong>
-                    <a href="/">Webcam Mask</a> |
-                    <a href="/settings-generator/">Settings Generator</a> |
-                    <a href="/overlay-generator/">Overlay Generator</a> |
-                    <a href="/hotkey-reference/">OBS Hotkeys</a>
+                <p><strong style="color: #a78bfa;">Generators & Assets:</strong>
+                    <a href="/" style="color: #9146ff;">Webcam Mask</a> |
+                    <a href="/settings-generator/" style="color: #9146ff;">Settings Generator</a> |
+                    <a href="/overlay-generator/" style="color: #9146ff;">Overlay Generator</a> |
+                    <a href="/starting-screen/" style="color: #9146ff;">Starting Screen</a> |
+                    <a href="/stream-schedule/" style="color: #9146ff;">Stream Schedule</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Useful Utilities:</strong>
+                    <a href="/countdown-timer/" style="color: #9146ff;">Countdown Timer</a> |
+                    <a href="/webcam-test/" style="color: #9146ff;">Webcam Test</a> |
+                    <a href="/hotkey-reference/" style="color: #9146ff;">OBS Hotkeys</a>
                 </p>
             </div>
         </footer>

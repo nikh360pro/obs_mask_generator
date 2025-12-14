@@ -451,12 +451,142 @@
             </div>
         </section>
 
+        <!-- SEO Content Guide -->
+        <article class="seo-guide">
+            <h2>The Ultimate Guide to OBS Webcam Masks</h2>
+
+            <p>If you're looking to upgrade your stream's visual appeal, one of the easiest and most effective changes
+                you can make is applying a <strong>webcam mask</strong>. Gone are the days of the boring, standard 16:9
+                rectangular camera feed that clutters up your scene. In this comprehensive guide, we'll explore
+                everything you need to know about OBS webcam masks—from what they are to how you can create and apply
+                them to give your stream a professional polish.</p>
+
+            <h3>What is an OBS Webcam Mask?</h3>
+            <p>An <strong>OBS Webcam Mask</strong> (or Image Mask) is a black-and-white image file that tells OBS Studio
+                which parts of your webcam to show and which parts to hide. It works on a simple principle:
+                <strong>White reveals, and Black conceals</strong>. Gray areas create transparency.</p>
+            <p>By applying a mask filter to your video capture device, you can change your camera shape from a rectangle
+                to a circle, a rounded square, a hexagon, or any custom shape you can imagine—without needing a green
+                screen.</p>
+
+            <div class="guide-highlight">
+                <h4>Key Benefits of Using a Mask:</h4>
+                <ul>
+                    <li><strong>Saves Screen Real Estate:</strong> Cropping unnecessary background clutter allows your
+                        gameplay or content to take center stage.</li>
+                    <li><strong>Professional Branding:</strong> Unique shapes like hexagons or squircles can match your
+                        channel's overlay theme.</li>
+                    <li><strong>Clean Look:</strong> Rounded corners feel more modern and polished than sharp, harsh
+                        edges.</li>
+                    <li><strong>No Performance Cost:</strong> Unlike complex shaders, static image masks use virtually
+                        zero CPU/GPU resources.</li>
+                </ul>
+            </div>
+
+            <h3>Top 5 Popular Webcam Shapes for Streamers</h3>
+            <p>Choosing the right shape depends on your layout and personal style. Here are the most popular choices
+                used by top streamers on Twitch and YouTube:</p>
+
+            <h4>1. The Circle (Circular Mask)</h4>
+            <p>The classic circle is perfect for "Just Chatting" scenes or minimal gameplay intermissions. It focuses
+                entirely on your face and removes distracting background elements like messy rooms or doors. It's often
+                used by VTubers and speedrunners who need a compact camera footprint.</p>
+
+            <h4>2. The Rounded Square (Squircle)</h4>
+            <p>A "squircle" or rounded square is the modern standard. It preserves more of your camera's field of view
+                than a circle but eliminates the sharp, aggressive corners of a standard rectangle. It fits seamlessly
+                into almost any overlay.</p>
+
+            <h4>3. The Hexagon</h4>
+            <p>Hexagons are a favorite among sci-fi, tech, and FPS streamers. The angular geometry communicates a
+                "gamer" aesthetic and tiles well with other UI elements like mini-maps or health bars.</p>
+
+            <h4>4. The Vertical Portrait (9:16)</h4>
+            <p>With the rise of TikTok and YouTube Shorts, many streamers are opting for a vertical crop. This is ideal
+                for repurposing clips for social media without needing to re-crop your camera later.</p>
+
+            <h4>5. Custom Shapes</h4>
+            <p>The sky's the limit! You can use hearts for cozy streams, brush-stroke edges for art streams, or even
+                your logo's silhouette.</p>
+
+            <h3>How to Add a Webcam Mask in OBS Studio (Step-by-Step)</h3>
+            <p>Adding a mask is incredibly simple in OBS Studio using the native "Image Mask/Blend" filter. Follow these
+                steps:</p>
+
+            <ol>
+                <li><strong>Create or Download a Mask:</strong> Use our free <a href="/">OBS Mask Generator</a> tool
+                    above to create your perfect shape. Adjust the corner radius, border width, and aspect ratio, then
+                    click "Download Mask".</li>
+                <li><strong>Open OBS Studio:</strong> Launch OBS and go to your "Sources" dock.</li>
+                <li><strong>Select Your Camera:</strong> Right-click on your webcam source (usually named "Video Capture
+                    Device") and select <strong>"Filters"</strong>.</li>
+                <li><strong>Add the Filter:</strong> In the "Effect Filters" section (bottom half), click the <strong>+
+                        (Plus)</strong> icon and choose <strong>"Image Mask/Blend"</strong>. Give it a name like "Circle
+                    Mask".</li>
+                <li><strong>Configure Settings:</strong>
+                    <ul>
+                        <li><strong>Type:</strong> Select "Alpha Mask (Alpha Channel)" if your PNG has transparency, or
+                            "Alpha Mask (Color Channel)" if it's a black/white JPG. Our generator produces PNGs, so
+                            generally, "Alpha Mask (Alpha Channel)" is the safest bet, but if it looks wrong, try "Alpha
+                            Mask (Luminance)".</li>
+                        <li><strong>Path:</strong> Click "Browse" and select the mask file you just downloaded.</li>
+                    </ul>
+                </li>
+                <li><strong>Close and Verify:</strong> Click "Close". Your webcam should now be shaped according to the
+                    mask!</li>
+            </ol>
+
+            <div class="guide-highlight">
+                <h4>Pro Tip: Adding a Border</h4>
+                <p>A mask hides part of your video, but it doesn't add a colored outline. To add a border:</p>
+                <ol>
+                    <li>In our generator, click <strong>"Download Border Overlay"</strong> after creating your mask.
+                    </li>
+                    <li>In OBS, add a new <strong>"Image"</strong> source <em>above</em> your webcam source.</li>
+                    <li>Select the border file.</li>
+                    <li>It should align perfectly on top of your masked camera!</li>
+                </ol>
+            </div>
+
+            <h3>Troubleshooting Common Issues</h3>
+
+            <h4>My Mask looks inverted or weird!</h4>
+            <p>If your camera looks ghostly or the wrong parts are transparent, go back to the Filter settings in OBS.
+                Change the <strong>"Type"</strong> dropdown. Usually, switching from "Alpha Mask (Alpha Channel)" to
+                "Alpha Mask (Luminance)" or vice versa fixes this immediately.</p>
+
+            <h4>The Mask is stretching or squishing my camera</h4>
+            <p>This happens if the aspect ratio of your mask doesn't match your camera. For example, applying a 1:1
+                square mask to a 16:9 widescreen camera will stretch the circle into an oval. Ensure your mask
+                resolution (e.g., 1920x1080) matches your camera's base resolution.</p>
+
+            <h3>Why Use Our OBS Mask Generator?</h3>
+            <p>While you can make masks in Photoshop or GIMP, it takes time to get the dimensions and corner radii
+                exactly right. Our tool is designed specifically for streamers:</p>
+            <ul>
+                <li><strong>Instant Preview:</strong> See exactly how the mask looks on a 16:9 canvas before
+                    downloading.</li>
+                <li><strong>Perfect Ratios:</strong> We handle the math to ensure your curves are smooth and your
+                    borders are even.</li>
+                <li><strong>No Watermarks:</strong> Every file you download is 100% free and yours to keep.</li>
+                <li><strong>Browser-Based:</strong> No software to install—generate a mask in seconds from any device.
+                </li>
+            </ul>
+
+            <h3>Conclusion</h3>
+            <p>Visual polish is what separates amateur streams from professional broadcasts. A consistent, well-styled
+                webcam frame is a subtle detail that signals quality to new viewers. Whether you choose a sleek squircle
+                or a dynamic hexagon, our <strong>OBS Mask Generator</strong> makes it effortless to upgrade your look
+                today. Try it out above—it's completely free!</p>
+        </article>
+
         <!-- Footer -->
         <footer class="footer">
-            <p>Free OBS Mask Generator | No watermarks | No signup required</p>
+            <p>Free OBS Tools & Generators | No signup required | <a href="/privacy-policy.html"
+                    style="color: var(--accent-primary, #9146ff);">Privacy Policy</a></p>
             <div style="margin-top: 15px; font-size: 0.85em; line-height: 1.8;">
                 <p><strong style="color: #a78bfa;">OBS Calculators:</strong>
-                    <a href="/bitrate-calculator/" style="color: #9146ff;">Bitrate Calculator</a> |
+                    <a href="/bitrate-calculator/" style="color: #9146ff;">Bitrate</a> |
                     <a href="/recording-size-calculator/" style="color: #9146ff;">Recording Size</a> |
                     <a href="/quality-checker/" style="color: #9146ff;">Quality Checker</a> |
                     <a href="/audio-sync-calculator/" style="color: #9146ff;">Audio Sync</a> |
@@ -464,18 +594,17 @@
                     <a href="/aspect-ratio-calculator/" style="color: #9146ff;">Aspect Ratio</a> |
                     <a href="/file-size-calculator/" style="color: #9146ff;">File Size</a>
                 </p>
-                <p><strong style="color: #a78bfa;">OBS Tools:</strong>
+                <p><strong style="color: #a78bfa;">Generators & Assets:</strong>
                     <a href="/" style="color: #9146ff;">Webcam Mask</a> |
                     <a href="/settings-generator/" style="color: #9146ff;">Settings Generator</a> |
                     <a href="/overlay-generator/" style="color: #9146ff;">Overlay Generator</a> |
-                    <a href="/hotkey-reference/" style="color: #9146ff;">OBS Hotkeys</a> |
-                    <a href="/webcam-test/" style="color: #9146ff;">Webcam Test</a>
-                </p>
-                <p><strong style="color: #a78bfa;">Stream Tools:</strong>
-                    <a href="/countdown-timer/" style="color: #9146ff;">Countdown Timer</a> |
                     <a href="/starting-screen/" style="color: #9146ff;">Starting Screen</a> |
-                    <a href="/stream-schedule/" style="color: #9146ff;">Stream Schedule</a> |
-                    <a href="/privacy-policy.html" style="color: #60a5fa;">Privacy Policy</a>
+                    <a href="/stream-schedule/" style="color: #9146ff;">Stream Schedule</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Useful Utilities:</strong>
+                    <a href="/countdown-timer/" style="color: #9146ff;">Countdown Timer</a> |
+                    <a href="/webcam-test/" style="color: #9146ff;">Webcam Test</a> |
+                    <a href="/hotkey-reference/" style="color: #9146ff;">OBS Hotkeys</a>
                 </p>
             </div>
         </footer>
