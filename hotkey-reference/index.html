@@ -38,6 +38,41 @@
     }
     </script>
 
+    <!-- Structured Data - FAQ -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How do I find hotkeys in OBS?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Go to Settings > Hotkeys. You can use the search bar at the top to find specific functions."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Why are my OBS hotkeys not working?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "If hotkeys don't work while you are gaming, try running OBS as Administrator. This gives OBS priority to listen to key presses."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I use a controller for hotkeys?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "OBS natively supports keyboard hotkeys. For game controllers, you might need third-party plugins or mapping software."
+                }
+            }
+        ]
+    }
+    </script>
+
+
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -141,32 +176,100 @@
             </div>
         </main>
 
+        <!-- SEO Content Guide -->
+        <article class="seo-guide">
+            <h2>The Ultimate Guide to OBS Studio Hotkeys</h2>
+
+            <p>Streaming requires multitasking. You are playing a game, reading chat, and managing your broadcast all at
+                once. Fumbling with your mouse to switch scenes or mute your mic looks unprofessional. The solution?
+                <strong>Hotkeys</strong>.
+            </p>
+
+            <h3>Why You Need Hotkeys</h3>
+            <p>Hotkeys (keyboard shortcuts) allow you to control OBS without leaving your game window. They are the poor
+                man's Stream Deck. Instead of $150 hardware, you just use the keys you already have.</p>
+
+            <h3>Essential Hotkeys Every Streamer Needs</h3>
+            <ul>
+                <li><strong>Switch Scenes (BRB / Game / Chatting):</strong> Instantly cut away if you need to sneeze or
+                    answer the door.</li>
+                <li><strong>Mute Mic (Toggle):</strong> Crucial for coughs or private conversations.</li>
+                <li><strong>Save Replay Buffer:</strong> If you hit a cool clip, press a key to save the last 60 seconds
+                    of gameplay to your hard drive immediately.</li>
+            </ul>
+
+            <div class="guide-highlight">
+                <h4>How to Set Hotkeys in OBS</h4>
+                <ol>
+                    <li>Open OBS Studio.</li>
+                    <li>Go to <strong>Settings</strong> > <strong>Hotkeys</strong>.</li>
+                    <li>Scroll to the action you want (e.g., "Start Recording").</li>
+                    <li>Click the empty box and press your desired key combination (e.g.,
+                        <code>Ctrl + Shift + R</code>).
+                    </li>
+                    <li>Click <strong>Apply</strong>.</li>
+                </ol>
+            </div>
+
+            <h3>Best Practices</h3>
+            <p>Avoid using single keys like "M" for mute, as you will accidentally trigger it while typing in chat.
+                Always use combinations like <code>Ctrl + Shift + Key</code> or <code>Alt + Key</code> to prevent
+                accidents.</p>
+        </article>
+
+        <!-- FAQ Section -->
+        <section class="faq-section" style="max-width: 900px; margin: 4rem auto; padding: 0 1.5rem;">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item" style="margin-bottom: 2rem;">
+                <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text-primary);">How do I find hotkeys
+                    in OBS?</h3>
+                <p style="color: var(--text-secondary);">Go to Settings > Hotkeys. You can use the search bar at the top
+                    to find specific functions like 'Studio Mode' or 'Start Recording'.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 2rem;">
+                <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text-primary);">Why are my OBS hotkeys
+                    not working?</h3>
+                <p style="color: var(--text-secondary);">If hotkeys don't work while you are gaming, try running OBS as
+                    Administrator (Right-click icon > Run as Administrator). This gives OBS priority to listen to key
+                    presses.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 2rem;">
+                <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text-primary);">Can I use a controller
+                    for hotkeys?</h3>
+                <p style="color: var(--text-secondary);">OBS natively supports keyboard hotkeys. For game controllers or
+                    MIDI devices, you might need third-party plugins or mapping software like JoyToKey.</p>
+            </div>
+        </section>
+
+
+
         <footer class="footer">
-    <p>Free OBS Tools & Generators | No signup required | <a href="/privacy-policy.html" style="color: var(--accent-primary, #9146ff);">Privacy Policy</a></p>
-    <div style="margin-top: 15px; font-size: 0.85em; line-height: 1.8;">
-        <p><strong style="color: #a78bfa;">OBS Calculators:</strong>
-            <a href="/bitrate-calculator/" style="color: #9146ff;">Bitrate</a> |
-            <a href="/recording-size-calculator/" style="color: #9146ff;">Recording Size</a> |
-            <a href="/quality-checker/" style="color: #9146ff;">Quality Checker</a> |
-            <a href="/audio-sync-calculator/" style="color: #9146ff;">Audio Sync</a> |
-            <a href="/noise-gate-calculator/" style="color: #9146ff;">Noise Gate</a> |
-            <a href="/aspect-ratio-calculator/" style="color: #9146ff;">Aspect Ratio</a> |
-            <a href="/file-size-calculator/" style="color: #9146ff;">File Size</a>
-        </p>
-        <p><strong style="color: #a78bfa;">Generators & Assets:</strong>
-            <a href="/" style="color: #9146ff;">Webcam Mask</a> |
-            <a href="/settings-generator/" style="color: #9146ff;">Settings Generator</a> |
-            <a href="/overlay-generator/" style="color: #9146ff;">Overlay Generator</a> |
-            <a href="/starting-screen/" style="color: #9146ff;">Starting Screen</a> |
-            <a href="/stream-schedule/" style="color: #9146ff;">Stream Schedule</a>
-        </p>
-        <p><strong style="color: #a78bfa;">Useful Utilities:</strong>
-            <a href="/countdown-timer/" style="color: #9146ff;">Countdown Timer</a> |
-            <a href="/webcam-test/" style="color: #9146ff;">Webcam Test</a> |
-            <a href="/hotkey-reference/" style="color: #9146ff;">OBS Hotkeys</a>
-        </p>
-    </div>
-</footer>
+            <p>Free OBS Tools & Generators | No signup required | <a href="/privacy-policy.html"
+                    style="color: var(--accent-primary, #9146ff);">Privacy Policy</a></p>
+            <div style="margin-top: 15px; font-size: 0.85em; line-height: 1.8;">
+                <p><strong style="color: #a78bfa;">OBS Calculators:</strong>
+                    <a href="/bitrate-calculator/" style="color: #9146ff;">Bitrate</a> |
+                    <a href="/recording-size-calculator/" style="color: #9146ff;">Recording Size</a> |
+                    <a href="/quality-checker/" style="color: #9146ff;">Quality Checker</a> |
+                    <a href="/audio-sync-calculator/" style="color: #9146ff;">Audio Sync</a> |
+                    <a href="/noise-gate-calculator/" style="color: #9146ff;">Noise Gate</a> |
+                    <a href="/aspect-ratio-calculator/" style="color: #9146ff;">Aspect Ratio</a> |
+                    <a href="/file-size-calculator/" style="color: #9146ff;">File Size</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Generators & Assets:</strong>
+                    <a href="/" style="color: #9146ff;">Webcam Mask</a> |
+                    <a href="/settings-generator/" style="color: #9146ff;">Settings Generator</a> |
+                    <a href="/overlay-generator/" style="color: #9146ff;">Overlay Generator</a> |
+                    <a href="/starting-screen/" style="color: #9146ff;">Starting Screen</a> |
+                    <a href="/stream-schedule/" style="color: #9146ff;">Stream Schedule</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Useful Utilities:</strong>
+                    <a href="/countdown-timer/" style="color: #9146ff;">Countdown Timer</a> |
+                    <a href="/webcam-test/" style="color: #9146ff;">Webcam Test</a> |
+                    <a href="/hotkey-reference/" style="color: #9146ff;">OBS Hotkeys</a>
+                </p>
+            </div>
+        </footer>
     </div>
 
     <script src="script.js"></script>

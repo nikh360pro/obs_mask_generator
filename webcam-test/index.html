@@ -41,6 +41,41 @@
     }
     </script>
 
+    <!-- Structured Data - FAQ -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Is this webcam test safe?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. The video feed is processed 100% locally in your browser. No video is ever sent to our servers or recorded."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Why is my webcam black in OBS?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "If your webcam works here but shows black in OBS, it usually means another app is 'holding' the camera. Close other apps and restart OBS."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I improve my webcam quality?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Lighting is key. Even a cheap webcam looks great with bright, soft light. Avoid having a bright window behind you."
+                }
+            }
+        ]
+    }
+    </script>
+
+
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -128,32 +163,101 @@
             </section>
         </main>
 
+        <!-- SEO Content Guide -->
+        <article class="seo-guide">
+            <h2>Free Webcam Test: Check Your Camera & Mic Before Streaming</h2>
+
+            <p>Nothing kills a stream vibe faster than a frozen camera or a muted microphone. This free online tool lets
+                you test your webcam and mic directly in your browser, so you can verify your equipment works
+                <em>before</em> you hit "Start Streaming" in OBS.
+            </p>
+
+            <h3>Why Test Your Webcam Online?</h3>
+            <p>OBS Studio sometimes "hogs" the camera resource, making it hard to debug if it's not showing up. By
+                testing here first, you can confirm:</p>
+            <ul>
+                <li><strong>Hardware Connection:</strong> Is the USB cable loose?</li>
+                <li><strong>Driver Status:</strong> Is Windows recognizing the device?</li>
+                <li><strong>Quality Check:</strong> Is the lighting good? Is the focus sharp?</li>
+            </ul>
+
+            <h3>Troubleshooting Common Issues</h3>
+
+            <div class="guide-highlight">
+                <h4>Black Screen?</h4>
+                <p>If you see a black screen here, check if another app (like Zoom, Discord, or OBS) is already using
+                    the camera. Windows only allows one app to access the webcam at a time.</p>
+            </div>
+
+            <h4>Low FPS / Laggy Video</h4>
+            <p>If the "Frame Rate" reading above is below 30 FPS, try these fixes:</p>
+            <ol>
+                <li><strong>Lighting:</strong> Webcams reduce their shutter speed in low light to make the image
+                    brighter, which kills the frame rate. Add a ring light or desk lamp!</li>
+                <li><strong>USB Port:</strong> Plug directly into your PC's motherboard (USB 3.0 blue port), not a cheap
+                    USB hub.</li>
+                <li><strong>Drivers:</strong> Update your Logitech/Elgato drivers.</li>
+            </ol>
+
+            <h3>Understanding Resolution</h3>
+            <p>Most streams run at <strong>1080p (1920x1080)</strong> or <strong>720p (1280x720)</strong>. Using a 4K
+                webcam is great, but remember that downscaling it to a tiny box in the corner of your screen doesn't add
+                much detail—but good lighting always does.</p>
+        </article>
+
+        <!-- FAQ Section -->
+        <section class="faq-section" style="max-width: 900px; margin: 4rem auto; padding: 0 1.5rem;">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item" style="margin-bottom: 2rem;">
+                <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text-primary);">Is this webcam test
+                    safe?</h3>
+                <p style="color: var(--text-secondary);">Yes. The video feed is processed 100% locally in your browser.
+                    No video is ever sent to our servers or recorded.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 2rem;">
+                <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text-primary);">Why is my webcam black
+                    in OBS?</h3>
+                <p style="color: var(--text-secondary);">If your webcam works here but shows black in OBS, it usually
+                    means another app (like Chrome or Zoom) is 'holding' the camera. Close other apps and restart OBS.
+                </p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 2rem;">
+                <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text-primary);">How do I improve my
+                    webcam quality?</h3>
+                <p style="color: var(--text-secondary);">Lighting is key. Even a cheap webcam looks great with bright,
+                    soft light. Avoid having a bright window behind you (backlighting).</p>
+            </div>
+        </section>
+
+
+
         <footer class="footer">
-    <p>Free OBS Tools & Generators | No signup required | <a href="/privacy-policy.html" style="color: var(--accent-primary, #9146ff);">Privacy Policy</a></p>
-    <div style="margin-top: 15px; font-size: 0.85em; line-height: 1.8;">
-        <p><strong style="color: #a78bfa;">OBS Calculators:</strong>
-            <a href="/bitrate-calculator/" style="color: #9146ff;">Bitrate</a> |
-            <a href="/recording-size-calculator/" style="color: #9146ff;">Recording Size</a> |
-            <a href="/quality-checker/" style="color: #9146ff;">Quality Checker</a> |
-            <a href="/audio-sync-calculator/" style="color: #9146ff;">Audio Sync</a> |
-            <a href="/noise-gate-calculator/" style="color: #9146ff;">Noise Gate</a> |
-            <a href="/aspect-ratio-calculator/" style="color: #9146ff;">Aspect Ratio</a> |
-            <a href="/file-size-calculator/" style="color: #9146ff;">File Size</a>
-        </p>
-        <p><strong style="color: #a78bfa;">Generators & Assets:</strong>
-            <a href="/" style="color: #9146ff;">Webcam Mask</a> |
-            <a href="/settings-generator/" style="color: #9146ff;">Settings Generator</a> |
-            <a href="/overlay-generator/" style="color: #9146ff;">Overlay Generator</a> |
-            <a href="/starting-screen/" style="color: #9146ff;">Starting Screen</a> |
-            <a href="/stream-schedule/" style="color: #9146ff;">Stream Schedule</a>
-        </p>
-        <p><strong style="color: #a78bfa;">Useful Utilities:</strong>
-            <a href="/countdown-timer/" style="color: #9146ff;">Countdown Timer</a> |
-            <a href="/webcam-test/" style="color: #9146ff;">Webcam Test</a> |
-            <a href="/hotkey-reference/" style="color: #9146ff;">OBS Hotkeys</a>
-        </p>
-    </div>
-</footer>
+            <p>Free OBS Tools & Generators | No signup required | <a href="/privacy-policy.html"
+                    style="color: var(--accent-primary, #9146ff);">Privacy Policy</a></p>
+            <div style="margin-top: 15px; font-size: 0.85em; line-height: 1.8;">
+                <p><strong style="color: #a78bfa;">OBS Calculators:</strong>
+                    <a href="/bitrate-calculator/" style="color: #9146ff;">Bitrate</a> |
+                    <a href="/recording-size-calculator/" style="color: #9146ff;">Recording Size</a> |
+                    <a href="/quality-checker/" style="color: #9146ff;">Quality Checker</a> |
+                    <a href="/audio-sync-calculator/" style="color: #9146ff;">Audio Sync</a> |
+                    <a href="/noise-gate-calculator/" style="color: #9146ff;">Noise Gate</a> |
+                    <a href="/aspect-ratio-calculator/" style="color: #9146ff;">Aspect Ratio</a> |
+                    <a href="/file-size-calculator/" style="color: #9146ff;">File Size</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Generators & Assets:</strong>
+                    <a href="/" style="color: #9146ff;">Webcam Mask</a> |
+                    <a href="/settings-generator/" style="color: #9146ff;">Settings Generator</a> |
+                    <a href="/overlay-generator/" style="color: #9146ff;">Overlay Generator</a> |
+                    <a href="/starting-screen/" style="color: #9146ff;">Starting Screen</a> |
+                    <a href="/stream-schedule/" style="color: #9146ff;">Stream Schedule</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Useful Utilities:</strong>
+                    <a href="/countdown-timer/" style="color: #9146ff;">Countdown Timer</a> |
+                    <a href="/webcam-test/" style="color: #9146ff;">Webcam Test</a> |
+                    <a href="/hotkey-reference/" style="color: #9146ff;">OBS Hotkeys</a>
+                </p>
+            </div>
+        </footer>
     </div>
 
     <script src="script.js"></script>

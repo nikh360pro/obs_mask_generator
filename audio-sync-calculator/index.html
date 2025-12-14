@@ -240,6 +240,62 @@
             </div>
         </section>
 
+        <!-- SEO Content Guide -->
+        <article class="seo-guide">
+            <h2>Ultimate Guide to Fixing OBS Audio Sync Issues</h2>
+
+            <p>Nothing ruins a stream faster than out-of-sync audio. If your webcam mouth movements don't match your
+                voice, or your gunshot sound effect plays half a second after the visual muzzle flash, your production
+                quality takes a nosedive. This mismatch is called <strong>Audio Desync</strong> or Latency.</p>
+
+            <h3>Why Does Audio Desync Happen?</h3>
+            <p>In the digital world, every device takes a tiny amount of time to process data. This processing time is
+                called "latency."</p>
+            <ul>
+                <li><strong>Microphones:</strong> Usually very fast (low latency).</li>
+                <li><strong>Webcams:</strong> Slower. They have to capture light, process the image, and send it over
+                    USB.</li>
+                <li><strong>Capture Cards:</strong> The slowest. Converting HDMI signals from a console to your PC takes
+                    significant time (often 30ms to 200ms).</li>
+            </ul>
+            <p>Because your microphone is faster than your capture card, your voice arrives at OBS <em>before</em> your
+                gameplay video. The result? You react to a jump scare before the viewers see it happen.</p>
+
+            <h3>How to Measure Your Audio Delay</h3>
+            <p>You can't fix it if you don't know the exact number. Here is the foolproof "Clap Test":</p>
+            <ol>
+                <li>Open OBS and start a <strong>Local Recording</strong>.</li>
+                <li>Look at your camera and clap your hands loudly once.</li>
+                <li>Stop recording and open the file in a video editor (like Premiere, Davinci Resolve, or even VLC
+                    frame-by-frame).</li>
+                <li>Find the frame where your hands <em>visually</em> touch.</li>
+                <li>Find the frame where the audio waveform <em>spikes</em> (the sound).</li>
+                <li>Count the frames between the visual touch and the audio sound.</li>
+                <li>Enter that number into our calculator above to get the exact millisecond offset.</li>
+            </ol>
+
+            <div class="guide-highlight">
+                <h4>Positive vs. Negative Offset</h4>
+                <p>This is where everyone gets confused. In OBS Advanced Audio Properties:</p>
+                <ul>
+                    <li><strong>Positive Offset (e.g., 200ms):</strong> DELAYS the audio source. Use this if the audio
+                        is <em>too fast</em> (heard before seen). This is 99% of cases (delaying Mic to match Capture
+                        Card).</li>
+                    <li><strong>Negative Offset (e.g., -200ms):</strong> ADVANCES the audio. This uses a buffer and is
+                        rarely needed unless your video is somehow faster than your audio (rare).</li>
+                </ul>
+            </div>
+
+            <h3>Common Sync Values</h3>
+            <p>While every setup is unique, here are some typical offsets for popular hardware:</p>
+            <ul>
+                <li><strong>Elgato HD60 S:</strong> ~650ms (on older PCs) or ~0ms (Instant Gameview)</li>
+                <li><strong>Generic USB 2.0 Capture Cards:</strong> ~50ms to ~150ms</li>
+                <li><strong>IP Cameras (NDI/RTMP):</strong> 200ms to 2000ms (High latency!)</li>
+                <li><strong>Bluetooth Headphones:</strong> Do not use for monitoring! They add 100-300ms of lag.</li>
+            </ul>
+        </article>
+
         <!-- FAQ Section -->
         <section class="faq-section">
             <h2>Frequently Asked Questions</h2>
@@ -266,31 +322,32 @@
     </main>
 
     <footer class="footer">
-    <p>Free OBS Tools & Generators | No signup required | <a href="/privacy-policy.html" style="color: var(--accent-primary, #9146ff);">Privacy Policy</a></p>
-    <div style="margin-top: 15px; font-size: 0.85em; line-height: 1.8;">
-        <p><strong style="color: #a78bfa;">OBS Calculators:</strong>
-            <a href="/bitrate-calculator/" style="color: #9146ff;">Bitrate</a> |
-            <a href="/recording-size-calculator/" style="color: #9146ff;">Recording Size</a> |
-            <a href="/quality-checker/" style="color: #9146ff;">Quality Checker</a> |
-            <a href="/audio-sync-calculator/" style="color: #9146ff;">Audio Sync</a> |
-            <a href="/noise-gate-calculator/" style="color: #9146ff;">Noise Gate</a> |
-            <a href="/aspect-ratio-calculator/" style="color: #9146ff;">Aspect Ratio</a> |
-            <a href="/file-size-calculator/" style="color: #9146ff;">File Size</a>
-        </p>
-        <p><strong style="color: #a78bfa;">Generators & Assets:</strong>
-            <a href="/" style="color: #9146ff;">Webcam Mask</a> |
-            <a href="/settings-generator/" style="color: #9146ff;">Settings Generator</a> |
-            <a href="/overlay-generator/" style="color: #9146ff;">Overlay Generator</a> |
-            <a href="/starting-screen/" style="color: #9146ff;">Starting Screen</a> |
-            <a href="/stream-schedule/" style="color: #9146ff;">Stream Schedule</a>
-        </p>
-        <p><strong style="color: #a78bfa;">Useful Utilities:</strong>
-            <a href="/countdown-timer/" style="color: #9146ff;">Countdown Timer</a> |
-            <a href="/webcam-test/" style="color: #9146ff;">Webcam Test</a> |
-            <a href="/hotkey-reference/" style="color: #9146ff;">OBS Hotkeys</a>
-        </p>
-    </div>
-</footer>
+        <p>Free OBS Tools & Generators | No signup required | <a href="/privacy-policy.html"
+                style="color: var(--accent-primary, #9146ff);">Privacy Policy</a></p>
+        <div style="margin-top: 15px; font-size: 0.85em; line-height: 1.8;">
+            <p><strong style="color: #a78bfa;">OBS Calculators:</strong>
+                <a href="/bitrate-calculator/" style="color: #9146ff;">Bitrate</a> |
+                <a href="/recording-size-calculator/" style="color: #9146ff;">Recording Size</a> |
+                <a href="/quality-checker/" style="color: #9146ff;">Quality Checker</a> |
+                <a href="/audio-sync-calculator/" style="color: #9146ff;">Audio Sync</a> |
+                <a href="/noise-gate-calculator/" style="color: #9146ff;">Noise Gate</a> |
+                <a href="/aspect-ratio-calculator/" style="color: #9146ff;">Aspect Ratio</a> |
+                <a href="/file-size-calculator/" style="color: #9146ff;">File Size</a>
+            </p>
+            <p><strong style="color: #a78bfa;">Generators & Assets:</strong>
+                <a href="/" style="color: #9146ff;">Webcam Mask</a> |
+                <a href="/settings-generator/" style="color: #9146ff;">Settings Generator</a> |
+                <a href="/overlay-generator/" style="color: #9146ff;">Overlay Generator</a> |
+                <a href="/starting-screen/" style="color: #9146ff;">Starting Screen</a> |
+                <a href="/stream-schedule/" style="color: #9146ff;">Stream Schedule</a>
+            </p>
+            <p><strong style="color: #a78bfa;">Useful Utilities:</strong>
+                <a href="/countdown-timer/" style="color: #9146ff;">Countdown Timer</a> |
+                <a href="/webcam-test/" style="color: #9146ff;">Webcam Test</a> |
+                <a href="/hotkey-reference/" style="color: #9146ff;">OBS Hotkeys</a>
+            </p>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>

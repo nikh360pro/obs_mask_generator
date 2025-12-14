@@ -226,3 +226,63 @@ body {
         color: #333;
     }
 }
+
+
+/* SEO Guide Section */
+.seo-guide {
+    max-width: 900px;
+    margin: 4rem auto;
+    padding: 0 1.5rem;
+    color: var(--text-secondary);
+}
+
+.seo-guide h2 {
+    color: var(--text-primary);
+    font-size: 2rem;
+    margin: 3rem 0 1.5rem;
+    text-align: center;
+}
+
+.seo-guide h3 {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    margin: 2rem 0 1rem;
+}
+
+.seo-guide p {
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+.seo-guide ul,
+.seo-guide ol {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+}
+
+.seo-guide li {
+    margin-bottom: 0.75rem;
+    font-size: 1.05rem;
+}
+
+.seo-guide a {
+    color: var(--accent-primary);
+    text-decoration: none;
+}
+
+.seo-guide a:hover {
+    text-decoration: underline;
+}
+
+.seo-guide strong {
+    color: var(--text-primary);
+}
+
+.guide-highlight {
+    background: var(--bg-secondary);
+    border-left: 4px solid var(--accent-primary);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 0 12px 12px 0;
+}

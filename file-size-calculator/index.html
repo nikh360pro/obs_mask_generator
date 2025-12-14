@@ -236,6 +236,64 @@
             </section>
         </main>
 
+        <!-- SEO Content Guide -->
+        <article class="seo-guide">
+            <h2>Understanding Video File Sizes: The Complete Guide</h2>
+
+            <p>Whether you are recording gameplay for YouTube or archiving your Twitch streams, running out of hard
+                drive space is a nightmare. This calculator helps you predict exactly how much storage you need
+                <em>before</em> you hit record.</p>
+
+            <h3>The Two Kings of File Size</h3>
+            <p>Many people think 4K video is always bigger than 1080p. While usually true, resolution itself isn't what
+                takes up space. It all comes down to two variables:</p>
+            <ul>
+                <li><strong>Bitrate (Quality):</strong> How much data is allowed per second. Higher bitrate = better
+                    quality = larger file.</li>
+                <li><strong>Duration (Time):</strong> How long the recording is.</li>
+            </ul>
+            <p>A 1080p video at 50,000 Kbps will be <strong>5x larger</strong> than a 4K video at 10,000 Kbps. The
+                bitrate controls the size, the resolution controls the pixel count.</p>
+
+            <h3>What Bitrate Should I Used?</h3>
+            <p>Here are the industry standards for different purposes:</p>
+
+            <h4>For YouTube Uploads (High Quality)</h4>
+            <p>If you edit and upload to YouTube, you want the highest quality possible before YouTube compresses it.
+            </p>
+            <ul>
+                <li><strong>1080p 60fps:</strong> 15,000 - 20,000 Kbps</li>
+                <li><strong>1440p 60fps:</strong> 30,000 - 40,000 Kbps</li>
+                <li><strong>4K 60fps:</strong> 60,000 - 80,000 Kbps</li>
+            </ul>
+
+            <h4>For Twitch VODs / Streaming Archives</h4>
+            <p>If you are just saving a copy of your stream, match your streaming bitrate.</p>
+            <ul>
+                <li><strong>Twitch:</strong> 6,000 Kbps (CBR)</li>
+                <li><strong>YouTube Live:</strong> 10,000 - 15,000 Kbps</li>
+            </ul>
+
+            <div class="guide-highlight">
+                <h4>Pro Tip: Use CQP for Local Recordings</h4>
+                <p>If you are recording locally, don't use a fixed bitrate (CBR). Use <strong>CQP (Constant Quantization
+                        Parameter)</strong> on NVIDIA cards or <strong>CRF</strong> on x264. This adjusts the bitrate
+                    dynamically—using less data for simple scenes (like menus) and more for action. It's much more
+                    efficient!</p>
+            </div>
+
+            <h3>How to Reduce File Size</h3>
+            <p>Running low on space? Here is how to shrink your files without ruining quality:</p>
+            <ol>
+                <li><strong>Switch to H.265 (HEVC):</strong> This modern codec is 50% more efficient than the standard
+                    H.264. You get the same quality at half the file size.</li>
+                <li><strong>Lower the Framerate:</strong> Dropping from 60fps to 30fps cuts the required data
+                    significantly (though it won't look as smooth).</li>
+                <li><strong>Use MKV Format:</strong> Recording in MP4 is risky (files corrupt if OBS crashes). Record in
+                    MKV, then use OBS's "Remux Recordings" feature to convert to MP4 later if needed.</li>
+            </ol>
+        </article>
+
         <!-- FAQ Section -->
         <section class="faq-section">
             <h2>Frequently Asked Questions</h2>
@@ -258,31 +316,32 @@
 
         <!-- Footer -->
         <footer class="footer">
-    <p>Free OBS Tools & Generators | No signup required | <a href="/privacy-policy.html" style="color: var(--accent-primary, #9146ff);">Privacy Policy</a></p>
-    <div style="margin-top: 15px; font-size: 0.85em; line-height: 1.8;">
-        <p><strong style="color: #a78bfa;">OBS Calculators:</strong>
-            <a href="/bitrate-calculator/" style="color: #9146ff;">Bitrate</a> |
-            <a href="/recording-size-calculator/" style="color: #9146ff;">Recording Size</a> |
-            <a href="/quality-checker/" style="color: #9146ff;">Quality Checker</a> |
-            <a href="/audio-sync-calculator/" style="color: #9146ff;">Audio Sync</a> |
-            <a href="/noise-gate-calculator/" style="color: #9146ff;">Noise Gate</a> |
-            <a href="/aspect-ratio-calculator/" style="color: #9146ff;">Aspect Ratio</a> |
-            <a href="/file-size-calculator/" style="color: #9146ff;">File Size</a>
-        </p>
-        <p><strong style="color: #a78bfa;">Generators & Assets:</strong>
-            <a href="/" style="color: #9146ff;">Webcam Mask</a> |
-            <a href="/settings-generator/" style="color: #9146ff;">Settings Generator</a> |
-            <a href="/overlay-generator/" style="color: #9146ff;">Overlay Generator</a> |
-            <a href="/starting-screen/" style="color: #9146ff;">Starting Screen</a> |
-            <a href="/stream-schedule/" style="color: #9146ff;">Stream Schedule</a>
-        </p>
-        <p><strong style="color: #a78bfa;">Useful Utilities:</strong>
-            <a href="/countdown-timer/" style="color: #9146ff;">Countdown Timer</a> |
-            <a href="/webcam-test/" style="color: #9146ff;">Webcam Test</a> |
-            <a href="/hotkey-reference/" style="color: #9146ff;">OBS Hotkeys</a>
-        </p>
-    </div>
-</footer>
+            <p>Free OBS Tools & Generators | No signup required | <a href="/privacy-policy.html"
+                    style="color: var(--accent-primary, #9146ff);">Privacy Policy</a></p>
+            <div style="margin-top: 15px; font-size: 0.85em; line-height: 1.8;">
+                <p><strong style="color: #a78bfa;">OBS Calculators:</strong>
+                    <a href="/bitrate-calculator/" style="color: #9146ff;">Bitrate</a> |
+                    <a href="/recording-size-calculator/" style="color: #9146ff;">Recording Size</a> |
+                    <a href="/quality-checker/" style="color: #9146ff;">Quality Checker</a> |
+                    <a href="/audio-sync-calculator/" style="color: #9146ff;">Audio Sync</a> |
+                    <a href="/noise-gate-calculator/" style="color: #9146ff;">Noise Gate</a> |
+                    <a href="/aspect-ratio-calculator/" style="color: #9146ff;">Aspect Ratio</a> |
+                    <a href="/file-size-calculator/" style="color: #9146ff;">File Size</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Generators & Assets:</strong>
+                    <a href="/" style="color: #9146ff;">Webcam Mask</a> |
+                    <a href="/settings-generator/" style="color: #9146ff;">Settings Generator</a> |
+                    <a href="/overlay-generator/" style="color: #9146ff;">Overlay Generator</a> |
+                    <a href="/starting-screen/" style="color: #9146ff;">Starting Screen</a> |
+                    <a href="/stream-schedule/" style="color: #9146ff;">Stream Schedule</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Useful Utilities:</strong>
+                    <a href="/countdown-timer/" style="color: #9146ff;">Countdown Timer</a> |
+                    <a href="/webcam-test/" style="color: #9146ff;">Webcam Test</a> |
+                    <a href="/hotkey-reference/" style="color: #9146ff;">OBS Hotkeys</a>
+                </p>
+            </div>
+        </footer>
     </div>
 
     <script src="script.js"></script>

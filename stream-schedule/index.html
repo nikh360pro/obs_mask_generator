@@ -31,6 +31,59 @@
     <meta property="og:description" content="Create beautiful schedule graphics for your stream panels.">
     <meta property="og:image" content="https://obsmaskgenerator.com/og-image.png">
 
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Stream Schedule Generator",
+        "url": "https://obsmaskgenerator.com/stream-schedule/",
+        "description": "Free tool to create professional stream schedule images for Twitch panels and social media.",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "featureList": [
+            "Twitch panel sized output",
+            "Custom brand colors",
+            "Timezone support",
+            "Dark and transparent modes"
+        ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How do I put this schedule on Twitch?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Go to your Twitch channel profile > click 'Edit Panels' > click '+' > 'Add Text or Image Panel'. Upload the image you downloaded from this tool."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is the best size for a Twitch schedule?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Twitch panels are 320px wide. Our generator automatically creates images at 320px width so they fit perfectly."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is this tool free?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, it is 100% free with no watermarks."
+                }
+            }
+        ]
+    }
+    </script>
+
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -142,33 +195,92 @@
             </section>
         </main>
 
+        <!-- SEO Content Guide -->
+        <article class="seo-guide">
+            <h2>How to Create a Professional Twitch Stream Schedule</h2>
+
+            <p>Consistency is the #1 rule of growing on Twitch. If viewers don't know when you will be online, they
+                can't make time for you. A visual schedule panel on your profile is a commitment to your audience.</p>
+
+            <h3>What to Include in Your Schedule</h3>
+            <ul>
+                <li><strong>Days & Times:</strong> Be specific. "Mon/Wed/Fri at 7 PM EST".</li>
+                <li><strong>Timezone:</strong> Always include your timezone (EST, PST, GMT, CET). Your viewers are
+                    global!</li>
+                <li><strong>Content Type:</strong> "Minecraft Mondays", "Horror Fridays". Give them a reason to tune in
+                    for specific days.</li>
+            </ul>
+
+            <div class="guide-highlight">
+                <h4>Where to Post Your Schedule</h4>
+                <p>Don't just hide it in your Twitch panels. Post this image on:</p>
+                <ul>
+                    <li><strong>Twitter/X:</strong> Pin it to your profile.</li>
+                    <li><strong>Discord:</strong> Post it in your #announcements channel every Sunday.</li>
+                    <li><strong>Twitch Offline Screen:</strong> Use it as your offline banner so people see it when you
+                        aren't live.</li>
+                </ul>
+            </div>
+
+            <h3>How to Use This Generator</h3>
+            <p>This tool creates a clean, readable PNG image perfect for Twitch Panels (320px width). Simply check the
+                days you stream, set the times, pick your brand color, and download. It's much faster than opening
+                Photoshop every week!</p>
+        </article>
+
+        <!-- FAQ Section -->
+        <section class="faq-section" style="max-width: 900px; margin: 4rem auto; padding: 0 1.5rem;">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item" style="margin-bottom: 2rem;">
+                <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text-primary);">How do I put this
+                    schedule on Twitch?</h3>
+                <p style="color: var(--text-secondary);">Go to your Twitch channel profile > click "Edit Panels" > click
+                    "+" > "Add Text or Image Panel". Upload the image you downloaded from this tool, and link it to your
+                    Twitter or Discord.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 2rem;">
+                <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text-primary);">What is the best size
+                    for a Twitch schedule?</h3>
+                <p style="color: var(--text-secondary);">Twitch panels are 320px wide. Our generator automatically
+                    creates images at 320px width so they fit perfectly without becoming blurry or resized.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 2rem;">
+                <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text-primary);">Is this tool free?
+                </h3>
+                <p style="color: var(--text-secondary);">Yes, it is 100% free with no watermarks.</p>
+            </div>
+        </section>
+
+
+
         <!-- Footer -->
         <footer class="footer">
-    <p>Free OBS Tools & Generators | No signup required | <a href="/privacy-policy.html" style="color: var(--accent-primary, #9146ff);">Privacy Policy</a></p>
-    <div style="margin-top: 15px; font-size: 0.85em; line-height: 1.8;">
-        <p><strong style="color: #a78bfa;">OBS Calculators:</strong>
-            <a href="/bitrate-calculator/" style="color: #9146ff;">Bitrate</a> |
-            <a href="/recording-size-calculator/" style="color: #9146ff;">Recording Size</a> |
-            <a href="/quality-checker/" style="color: #9146ff;">Quality Checker</a> |
-            <a href="/audio-sync-calculator/" style="color: #9146ff;">Audio Sync</a> |
-            <a href="/noise-gate-calculator/" style="color: #9146ff;">Noise Gate</a> |
-            <a href="/aspect-ratio-calculator/" style="color: #9146ff;">Aspect Ratio</a> |
-            <a href="/file-size-calculator/" style="color: #9146ff;">File Size</a>
-        </p>
-        <p><strong style="color: #a78bfa;">Generators & Assets:</strong>
-            <a href="/" style="color: #9146ff;">Webcam Mask</a> |
-            <a href="/settings-generator/" style="color: #9146ff;">Settings Generator</a> |
-            <a href="/overlay-generator/" style="color: #9146ff;">Overlay Generator</a> |
-            <a href="/starting-screen/" style="color: #9146ff;">Starting Screen</a> |
-            <a href="/stream-schedule/" style="color: #9146ff;">Stream Schedule</a>
-        </p>
-        <p><strong style="color: #a78bfa;">Useful Utilities:</strong>
-            <a href="/countdown-timer/" style="color: #9146ff;">Countdown Timer</a> |
-            <a href="/webcam-test/" style="color: #9146ff;">Webcam Test</a> |
-            <a href="/hotkey-reference/" style="color: #9146ff;">OBS Hotkeys</a>
-        </p>
-    </div>
-</footer>
+            <p>Free OBS Tools & Generators | No signup required | <a href="/privacy-policy.html"
+                    style="color: var(--accent-primary, #9146ff);">Privacy Policy</a></p>
+            <div style="margin-top: 15px; font-size: 0.85em; line-height: 1.8;">
+                <p><strong style="color: #a78bfa;">OBS Calculators:</strong>
+                    <a href="/bitrate-calculator/" style="color: #9146ff;">Bitrate</a> |
+                    <a href="/recording-size-calculator/" style="color: #9146ff;">Recording Size</a> |
+                    <a href="/quality-checker/" style="color: #9146ff;">Quality Checker</a> |
+                    <a href="/audio-sync-calculator/" style="color: #9146ff;">Audio Sync</a> |
+                    <a href="/noise-gate-calculator/" style="color: #9146ff;">Noise Gate</a> |
+                    <a href="/aspect-ratio-calculator/" style="color: #9146ff;">Aspect Ratio</a> |
+                    <a href="/file-size-calculator/" style="color: #9146ff;">File Size</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Generators & Assets:</strong>
+                    <a href="/" style="color: #9146ff;">Webcam Mask</a> |
+                    <a href="/settings-generator/" style="color: #9146ff;">Settings Generator</a> |
+                    <a href="/overlay-generator/" style="color: #9146ff;">Overlay Generator</a> |
+                    <a href="/starting-screen/" style="color: #9146ff;">Starting Screen</a> |
+                    <a href="/stream-schedule/" style="color: #9146ff;">Stream Schedule</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Useful Utilities:</strong>
+                    <a href="/countdown-timer/" style="color: #9146ff;">Countdown Timer</a> |
+                    <a href="/webcam-test/" style="color: #9146ff;">Webcam Test</a> |
+                    <a href="/hotkey-reference/" style="color: #9146ff;">OBS Hotkeys</a>
+                </p>
+            </div>
+        </footer>
     </div>
 
     <script src="script.js"></script>

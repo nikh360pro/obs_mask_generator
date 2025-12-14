@@ -314,55 +314,53 @@
         </main>
 
         <!-- SEO Content Section -->
-        <section class="seo-content" style="max-width: 800px; margin: 3rem auto; padding: 0 1rem; line-height: 1.8;">
-            <h2 style="color: #9146FF; margin-bottom: 1rem;">About the OBS Settings Generator</h2>
+        <article class="seo-guide">
+            <h2>About the OBS Settings Generator</h2>
 
             <h3>What This Tool Does</h3>
-            <p>The <strong>OBS Settings Generator</strong> is a free online calculator that provides the optimal OBS
-                Studio streaming settings based on your specific hardware and internet connection. Instead of guessing
-                your encoder settings, bitrate, and resolution, this tool analyzes your GPU type, upload speed, and
-                streaming platform to give you personalized recommendations that will maximize your stream quality.</p>
+            <p>The <strong>OBS Settings Generator</strong> is a free calculator that solves the most common problem for
+                new streamers: "What settings should I use?" Instead of guessing your encoder presets, bitrate, and
+                resolution, this tool analyzes your specific hardware (GPU/CPU) and internet upload speed to give you a
+                tailored configuration.</p>
 
             <h3>Who This Tool Is For</h3>
-            <p>This OBS settings calculator is designed for:</p>
-            <ul style="margin: 1rem 0; padding-left: 1.5rem;">
-                <li><strong>New streamers</strong> who need help setting up OBS for the first time</li>
-                <li><strong>Experienced streamers</strong> looking to optimize their stream quality</li>
-                <li><strong>Content creators</strong> switching platforms (Twitch, YouTube, Kick)</li>
-                <li><strong>Anyone troubleshooting</strong> blurry, laggy, or buffering streams</li>
+            <p>This calculator is perfect for:</p>
+            <ul>
+                <li><strong>Beginners:</strong> Who are overwhelmed by the hundreds of options in OBS Studio.</li>
+                <li><strong>Troubleshooters:</strong> Who are experiencing lag, dropped frames, or blurry streams and
+                    want a "safe" baseline.</li>
+                <li><strong>Platform Switchers:</strong> Moving from Twitch (6000 Kbps cap) to YouTube (High Bitrate
+                    support).</li>
             </ul>
 
-            <h3>How to Use the OBS Settings Generator</h3>
-            <ol style="margin: 1rem 0; padding-left: 1.5rem;">
-                <li><strong>Select your GPU:</strong> Choose NVIDIA, AMD, Intel, or CPU-only encoding</li>
-                <li><strong>Enter your upload speed:</strong> Run a speed test at speedtest.net if unsure</li>
-                <li><strong>Choose your platform:</strong> Twitch, YouTube, Kick, or Facebook Gaming</li>
-                <li><strong>Pick content type:</strong> Gaming, Just Chatting, IRL, or Creative</li>
-                <li><strong>Click Generate:</strong> Get your recommended encoder, bitrate, resolution, and preset</li>
-                <li><strong>Apply in OBS:</strong> Go to Settings → Output → Streaming and enter the values</li>
+            <div class="guide-highlight">
+                <h4>Why Hardware Matters</h4>
+                <p>OBS video encoding is heavy work. If you have an NVIDIA card, you should almost always use the
+                    <strong>NVENC</strong> encoder. It uses a dedicated physical chip on your graphics card to do the
+                    video processing, leaving your main GPU power free for gaming. This tool prioritizes NVENC whenever
+                    available.</p>
+            </div>
+
+            <h3>How to Use These Settings</h3>
+            <ol>
+                <li><strong>Select your GPU:</strong> Choose NVIDIA, AMD, or CPU (x264).</li>
+                <li><strong>Enter Upload Speed:</strong> Result from a speed test (e.g., speedtest.net).</li>
+                <li><strong>Choose Platform:</strong> Twitch, YouTube, Kick, etc.</li>
+                <li><strong>Click Generate:</strong> Get your optimal settings.</li>
+                <li><strong>Apply in OBS:</strong> Go to <strong>Settings > Output > Streaming</strong> and copy the
+                    values exactly.</li>
             </ol>
 
-            <h3>Why You Need Optimized OBS Settings</h3>
-            <p>Using the wrong OBS settings can result in:</p>
-            <ul style="margin: 1rem 0; padding-left: 1.5rem;">
-                <li><strong>Pixelated or blurry streams</strong> from insufficient bitrate</li>
-                <li><strong>Dropped frames</strong> from wrong encoder or preset choice</li>
-                <li><strong>Buffering for viewers</strong> from bitrate exceeding upload capacity</li>
-                <li><strong>Poor stream quality</strong> compared to other streamers at same resolution</li>
+            <h3>The "Quality Priority" Explaination</h3>
+            <p>We offer three modes:</p>
+            <ul>
+                <li><strong>Performance:</strong> Uses faster presets (e.g., P1/P2 for NVENC, veryfast for x264). Best
+                    for older PCs or competitive gaming where FPS matters most.</li>
+                <li><strong>Balanced:</strong> The sweet spot. Good quality, reasonable usage.</li>
+                <li><strong>Quality:</strong> Uses slower presets (P6/P7, slow). Visuals look amazing, but it uses more
+                    system resources.</li>
             </ul>
-            <p>The best OBS settings balance your hardware capabilities, internet speed, and platform requirements to
-                deliver the smoothest, clearest stream possible.</p>
-
-            <h3>Key Features</h3>
-            <ul style="margin: 1rem 0; padding-left: 1.5rem;">
-                <li>Supports <strong>NVENC, x264, AMF, and QuickSync</strong> encoders</li>
-                <li>Recommends optimal <strong>bitrate for Twitch</strong> (6000 Kbps max) and YouTube (up to 12000
-                    Kbps)</li>
-                <li>Calculates proper <strong>keyframe interval</strong> for each platform</li>
-                <li>Suggests best <strong>encoder preset</strong> based on your priorities</li>
-                <li>One-click copy to easily transfer settings to OBS</li>
-            </ul>
-        </section>
+        </article>
 
         <!-- FAQ Section for SEO -->
         <section class="faq-section">
@@ -386,31 +384,32 @@
 
         <!-- Footer -->
         <footer class="footer">
-    <p>Free OBS Tools & Generators | No signup required | <a href="/privacy-policy.html" style="color: var(--accent-primary, #9146ff);">Privacy Policy</a></p>
-    <div style="margin-top: 15px; font-size: 0.85em; line-height: 1.8;">
-        <p><strong style="color: #a78bfa;">OBS Calculators:</strong>
-            <a href="/bitrate-calculator/" style="color: #9146ff;">Bitrate</a> |
-            <a href="/recording-size-calculator/" style="color: #9146ff;">Recording Size</a> |
-            <a href="/quality-checker/" style="color: #9146ff;">Quality Checker</a> |
-            <a href="/audio-sync-calculator/" style="color: #9146ff;">Audio Sync</a> |
-            <a href="/noise-gate-calculator/" style="color: #9146ff;">Noise Gate</a> |
-            <a href="/aspect-ratio-calculator/" style="color: #9146ff;">Aspect Ratio</a> |
-            <a href="/file-size-calculator/" style="color: #9146ff;">File Size</a>
-        </p>
-        <p><strong style="color: #a78bfa;">Generators & Assets:</strong>
-            <a href="/" style="color: #9146ff;">Webcam Mask</a> |
-            <a href="/settings-generator/" style="color: #9146ff;">Settings Generator</a> |
-            <a href="/overlay-generator/" style="color: #9146ff;">Overlay Generator</a> |
-            <a href="/starting-screen/" style="color: #9146ff;">Starting Screen</a> |
-            <a href="/stream-schedule/" style="color: #9146ff;">Stream Schedule</a>
-        </p>
-        <p><strong style="color: #a78bfa;">Useful Utilities:</strong>
-            <a href="/countdown-timer/" style="color: #9146ff;">Countdown Timer</a> |
-            <a href="/webcam-test/" style="color: #9146ff;">Webcam Test</a> |
-            <a href="/hotkey-reference/" style="color: #9146ff;">OBS Hotkeys</a>
-        </p>
-    </div>
-</footer>
+            <p>Free OBS Tools & Generators | No signup required | <a href="/privacy-policy.html"
+                    style="color: var(--accent-primary, #9146ff);">Privacy Policy</a></p>
+            <div style="margin-top: 15px; font-size: 0.85em; line-height: 1.8;">
+                <p><strong style="color: #a78bfa;">OBS Calculators:</strong>
+                    <a href="/bitrate-calculator/" style="color: #9146ff;">Bitrate</a> |
+                    <a href="/recording-size-calculator/" style="color: #9146ff;">Recording Size</a> |
+                    <a href="/quality-checker/" style="color: #9146ff;">Quality Checker</a> |
+                    <a href="/audio-sync-calculator/" style="color: #9146ff;">Audio Sync</a> |
+                    <a href="/noise-gate-calculator/" style="color: #9146ff;">Noise Gate</a> |
+                    <a href="/aspect-ratio-calculator/" style="color: #9146ff;">Aspect Ratio</a> |
+                    <a href="/file-size-calculator/" style="color: #9146ff;">File Size</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Generators & Assets:</strong>
+                    <a href="/" style="color: #9146ff;">Webcam Mask</a> |
+                    <a href="/settings-generator/" style="color: #9146ff;">Settings Generator</a> |
+                    <a href="/overlay-generator/" style="color: #9146ff;">Overlay Generator</a> |
+                    <a href="/starting-screen/" style="color: #9146ff;">Starting Screen</a> |
+                    <a href="/stream-schedule/" style="color: #9146ff;">Stream Schedule</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Useful Utilities:</strong>
+                    <a href="/countdown-timer/" style="color: #9146ff;">Countdown Timer</a> |
+                    <a href="/webcam-test/" style="color: #9146ff;">Webcam Test</a> |
+                    <a href="/hotkey-reference/" style="color: #9146ff;">OBS Hotkeys</a>
+                </p>
+            </div>
+        </footer>
     </div>
 
     <script src="script.js"></script>
