@@ -281,3 +281,43 @@ input[type="color"] {
     color: var(--accent-primary);
     text-decoration: none;
 }
+
+/* Social Icons Group */
+.social-icons-group {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.social-input {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.social-input .social-icon {
+    width: 28px;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.social-input input {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+}
+
+.social-input input:focus {
+    border-color: var(--accent-primary);
+    outline: none;
+}
+
+.social-input input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.6;
+}
