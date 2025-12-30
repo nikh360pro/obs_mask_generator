@@ -136,15 +136,16 @@ function drawSceneScreen(width, height, primary, secondary, radius, glow, text, 
     // Draw icon
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.font = `${Math.min(width, height) * 0.15}px Arial, sans-serif`;
+    const iconSize = Math.min(width, height) * 0.12;
+    ctx.font = `${iconSize}px Arial, sans-serif`;
     ctx.fillStyle = 'white';
-    ctx.fillText(icon, width / 2, height / 2 - 30);
+    ctx.fillText(icon, width / 2, height / 2 - iconSize);
 
     // Draw text
-    const fontSize = Math.min(width * 0.06, 48);
+    const fontSize = Math.min(width * 0.05, 42);
     ctx.font = `800 ${fontSize}px Inter, sans-serif`;
     ctx.fillStyle = 'white';
-    ctx.fillText(text.toUpperCase(), width / 2, height / 2 + 40);
+    ctx.fillText(text.toUpperCase(), width / 2, height / 2 + fontSize * 0.8);
 
     // Add subtle pattern overlay
     ctx.globalAlpha = 0.05;
