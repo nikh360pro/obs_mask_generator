@@ -154,6 +154,22 @@ const ctx = elements.canvas.getContext('2d');
 // Drawing Functions
 // ============================
 
+let isDrawScheduled = false;
+
+/**
+ * Schedule a draw on the next animation frame
+ * Optimizes INP by preventing main thread blocking during rapid inputs
+ */
+function requestDraw() {
+    if (!isDrawScheduled) {
+        isDrawScheduled = true;
+        requestAnimationFrame(() => {
+            draw();
+            isDrawScheduled = false;
+        });
+    }
+}
+
 /**
  * Main draw function - renders the mask to canvas
  */
@@ -535,14 +551,14 @@ function setupEventListeners() {
     elements.widthInput.addEventListener('input', () => {
         config.width = parseInt(elements.widthInput.value) || 1920;
         applyAspectRatio('width');
-        draw();
+        requestDraw();
     });
 
     // Height input
     elements.heightInput.addEventListener('input', () => {
         config.height = parseInt(elements.heightInput.value) || 1080;
         applyAspectRatio('height');
-        draw();
+        requestDraw();
     });
 
     // Aspect ratio buttons
@@ -552,7 +568,7 @@ function setupEventListeners() {
             config.aspectLocked = config.aspectRatio !== 'free';
             updateAspectButtons();
             applyAspectRatio('width');
-            draw();
+            requestDraw();
         });
     });
 
@@ -562,7 +578,7 @@ function setupEventListeners() {
             config.shape = btn.dataset.shape;
             updateShapeButtons();
             updateControlsVisibility();
-            draw();
+            requestDraw();
         });
     });
 
@@ -570,7 +586,7 @@ function setupEventListeners() {
     elements.cornerRadius.addEventListener('input', () => {
         config.cornerRadius = parseInt(elements.cornerRadius.value);
         syncSliderAndInput(elements.cornerRadius, elements.cornerRadiusValue);
-        draw();
+        requestDraw();
     });
 
     elements.cornerRadiusValue.addEventListener('input', () => {
@@ -578,14 +594,14 @@ function setupEventListeners() {
         config.cornerRadius = value;
         elements.cornerRadius.value = value;
         elements.cornerRadiusValue.value = value;
-        draw();
+        requestDraw();
     });
 
     // Polygon sides slider
     elements.polygonSides.addEventListener('input', () => {
         config.polygonSides = parseInt(elements.polygonSides.value);
         syncSliderAndInput(elements.polygonSides, elements.polygonSidesValue);
-        draw();
+        requestDraw();
     });
 
     elements.polygonSidesValue.addEventListener('input', () => {
@@ -593,14 +609,14 @@ function setupEventListeners() {
         config.polygonSides = value;
         elements.polygonSides.value = value;
         elements.polygonSidesValue.value = value;
-        draw();
+        requestDraw();
     });
 
     // Rotation slider
     elements.rotation.addEventListener('input', () => {
         config.rotation = parseInt(elements.rotation.value);
         syncSliderAndInput(elements.rotation, elements.rotationValue);
-        draw();
+        requestDraw();
     });
 
     elements.rotationValue.addEventListener('input', () => {
@@ -608,14 +624,14 @@ function setupEventListeners() {
         config.rotation = value;
         elements.rotation.value = value;
         elements.rotationValue.value = value;
-        draw();
+        requestDraw();
     });
 
     // Feathering slider
     elements.feathering.addEventListener('input', () => {
         config.feathering = parseInt(elements.feathering.value);
         syncSliderAndInput(elements.feathering, elements.featheringValue);
-        draw();
+        requestDraw();
     });
 
     elements.featheringValue.addEventListener('input', () => {
@@ -623,13 +639,13 @@ function setupEventListeners() {
         config.feathering = value;
         elements.feathering.value = value;
         elements.featheringValue.value = value;
-        draw();
+        requestDraw();
     });
 
     // Invert mode toggle
     elements.invertMode.addEventListener('change', () => {
         config.inverted = elements.invertMode.checked;
-        draw();
+        requestDraw();
     });
 
     // Border toggle

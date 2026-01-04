@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBS & Streaming Glossary of Terms (2026) | OBS Tools</title>
+    <meta name="description"
+        content="The complete dictionary of streaming terms. Average Bitrate, CBR vs VBR, Keyframe Interval, AV1, NVENC, and more explained simply.">
+    <meta name="keywords"
+        content="obs glossary, streaming terms, what is bitrate, cbr vs vbr, keyframe interval explained, nvenc definition">
+    <meta name="author" content="OBS Mask Generator">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://obsmaskgenerator.com/glossary/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/glossary/">
+    <meta property="og:title" content="Streaming Glossary: Every Term Explained">
+    <meta property="og:description" content="Simple definitions for complex streaming tech.">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "DefinedTermSet",
+        "name": "OBS & Streaming Glossary",
+        "description": "Definitions of technical terms related to live streaming and OBS Studio.",
+        "hasDefinedTerm": [
+            {
+                "@type": "DefinedTerm",
+                "termCode": "Bitrate",
+                "name": "Bitrate",
+                "description": "The amount of data transmitted per second, usually measured in Kilobits per second (Kbps). Higher bitrate generally means better quality but requires more upload speed."
+            },
+            {
+                "@type": "DefinedTerm",
+                "termCode": "CBR",
+                "name": "CBR (Constant Bitrate)",
+                "description": "A rate control method where the encoder tries to maintain a consistent bitrate throughout the stream. This is the recommended standard for Twitch and YouTube Live."
+            },
+            {
+                "@type": "DefinedTerm",
+                "termCode": "Keyframe Interval",
+                "name": "Keyframe Interval",
+                "description": "The frequency at which a full video frame (I-frame) is sent. For live streaming, this must be set to 2 Seconds to ensure viewers stay in sync."
+            }
+        ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/blog/blog-style.css">
+    <link rel="stylesheet" href="/assets/css/common.css">
+    <style>
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .term-card {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .term-card h3 {
+            color: var(--accent-primary);
+            margin-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="blog-header">
+        <div class="header-content">
+            <a href="/" class="logo">OBS Tools</a>
+            <nav>
+                <a href="/">Tools</a>
+                <a href="/blog/">Blog</a>
+                <a href="/glossary/" class="active">Glossary</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="blog-container">
+        <article class="blog-article">
+            <div class="article-header">
+                <h1>Streaming Tech Glossary</h1>
+                <p class="article-meta">Updated for 2026</p>
+            </div>
+
+            <div class="article-content">
+                <p class="intro">
+                    Streaming tech is full of confusing acronyms. Here is the definitive guide to what they all mean.
+                </p>
+
+                <div class="glossary-grid">
+                    <div class="term-card">
+                        <h3>AV1</h3>
+                        <p><strong>AOMedia Video 1</strong>. A modern, open-source video codec that is ~40% more
+                            efficient than H.264. It provides much higher quality at the same bitrate but requires newer
+                            hardware (RTX 40-series / RX 7000-series) to encode.</p>
+                    </div>
+
+                    <div class="term-card">
+                        <h3>Bitrate</h3>
+                        <p>The "speed" of your video data, measured in Kbps. Think of it like water in a pipe: higher
+                            bitrate = larger pipe = better quality. Twitch caps this at 6,000 Kbps.</p>
+                    </div>
+
+                    <div class="term-card">
+                        <h3>CBR (Constant Bitrate)</h3>
+                        <p>An encoding mode where the data rate stays flat. It's mandatory for live streaming
+                            (Twitch/YouTube) because it prevents network instability.</p>
+                    </div>
+
+                    <div class="term-card">
+                        <h3>CQP (Constant Quantization Parameter)</h3>
+                        <p>A rate control mode based on *quality* rather than bitrate. It tells the encoder: "maintain
+                            this level of quality, use as much data as needed." Best for <strong>local
+                                recording</strong>.</p>
+                    </div>
+
+                    <div class="term-card">
+                        <h3>Keyframe Interval</h3>
+                        <p>How often a complete picture is sent. Streaming platforms require this to be <strong>2
+                                seconds</strong>. If set to "auto" or "0", your stream may fail or buffer endlessly.</p>
+                    </div>
+
+                    <div class="term-card">
+                        <h3>NVENC</h3>
+                        <p>NVIDIA's dedicated physical chip on their GPUs for video encoding. It allows you to stream
+                            with high quality without using your CPU or slowing down your game.</p>
+                    </div>
+
+                    <div class="term-card">
+                        <h3>VBR (Variable Bitrate)</h3>
+                        <p>An encoding mode where bitrate fluctuates based on scene complexity. Great for saving space
+                            on local recordings, but <strong>bad for streaming</strong>.</p>
+                    </div>
+
+                    <div class="term-card">
+                        <h3>x264</h3>
+                        <p>A software-based encoder that uses your CPU. It can offer slightly better quality per bit
+                            than older GPUs, but uses a lot of processing power.</p>
+                    </div>
+                </div>
+
+                <div class="cta-box">
+                    <h3>Put Knowledge into Action</h3>
+                    <p>Now that you know the terms, find your perfect settings.</p>
+                    <a href="/settings-generator/" class="cta-button">Open Settings Generator →</a>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <p>Free OBS Tools & Generators | No signup required | <a href="/privacy-policy.html"
+                style="color: var(--accent-primary, #9146ff);">Privacy Policy</a></p>
+    </footer>
+</body>
+
+</html>
