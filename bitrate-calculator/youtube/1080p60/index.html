@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-C84663S6K3');</script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Live Bitrate for 1080p 60fps (2026) | OBS Tools</title>
+    <meta name="description"
+        content="Best YouTube Live streaming bitrate for 1080p 60fps. Recommended: 9000-12000 Kbps with AV1 or H.264. Complete settings guide.">
+    <meta name="keywords"
+        content="youtube live bitrate 1080p 60fps, youtube streaming settings, obs youtube settings 2026">
+    <link rel="canonical" href="https://obsmaskgenerator.com/bitrate-calculator/youtube/1080p60/">
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What bitrate for YouTube 1080p 60fps?","acceptedAnswer":{"@type":"Answer","text":"Use 9000-12000 Kbps for excellent quality. YouTube allows much higher bitrates than Twitch."}},{"@type":"Question","name":"Should I use AV1 for YouTube?","acceptedAnswer":{"@type":"Answer","text":"Yes, if you have an RTX 40 series GPU. AV1 provides ~40% better quality at the same bitrate."}}]}</script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/blog/blog-style.css">
+    <link rel="stylesheet" href="/assets/css/common.css">
+    <style>
+        .quick-answer {
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.1), rgba(200, 0, 0, 0.05));
+            border-left: 4px solid #ff0000;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0
+        }
+
+        .quick-answer h3 {
+            margin-top: 0;
+            color: #ff0000
+        }
+
+        .settings-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            overflow: hidden
+        }
+
+        .settings-table th,
+        .settings-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color)
+        }
+
+        .settings-table th {
+            background: var(--bg-secondary)
+        }
+
+        .related-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin: 1rem 0
+        }
+
+        .related-link {
+            background: var(--bg-tertiary);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            color: var(--accent-primary);
+            text-decoration: none
+        }
+    </style>
+</head>
+
+<body>
+    <header class="blog-header">
+        <div class="header-content"><a href="/" class="logo">OBS Tools</a>
+            <nav><a href="/">Tools</a><a href="/blog/">Blog</a><a href="/glossary/">Glossary</a></nav>
+        </div>
+    </header>
+    <main class="blog-container">
+        <article class="blog-article">
+            <div class="article-header">
+                <div class="breadcrumb"><a href="/">Home</a> › <a href="/bitrate-calculator/">Bitrate Calculator</a> ›
+                    YouTube 1080p60</div>
+                <h1>YouTube Live Bitrate for 1080p 60fps</h1>
+                <p class="article-meta">Updated January 2026</p>
+            </div>
+            <div class="article-content">
+                <div class="quick-answer">
+                    <h3>🎯 Quick Answer</h3>
+                    <p><strong>YouTube 1080p 60fps:</strong> Use <strong>9000-12000 Kbps</strong> (CBR), <strong>NVENC
+                            AV1</strong> (or H.264), <strong>P5 preset</strong>. YouTube allows higher bitrates than
+                        Twitch for superior quality.</p>
+                </div>
+
+                <h2>Recommended YouTube Settings (1080p 60fps)</h2>
+                <table class="settings-table">
+                    <tr>
+                        <th>Setting</th>
+                        <th>H.264</th>
+                        <th>AV1 (Preferred)</th>
+                    </tr>
+                    <tr>
+                        <td>Resolution</td>
+                        <td>1920x1080</td>
+                        <td>1920x1080</td>
+                    </tr>
+                    <tr>
+                        <td>Frame Rate</td>
+                        <td>60 fps</td>
+                        <td>60 fps</td>
+                    </tr>
+                    <tr>
+                        <td>Encoder</td>
+                        <td>NVENC H.264</td>
+                        <td>NVENC AV1</td>
+                    </tr>
+                    <tr>
+                        <td>Rate Control</td>
+                        <td>CBR</td>
+                        <td>CBR</td>
+                    </tr>
+                    <tr>
+                        <td>Bitrate</td>
+                        <td><strong>12000 Kbps</strong></td>
+                        <td><strong>9000 Kbps</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Keyframe</td>
+                        <td>2 seconds</td>
+                        <td>2 seconds</td>
+                    </tr>
+                </table>
+
+                <div class="cta-box">
+                    <h3>📊 Calculate Your Bitrate</h3><a href="/bitrate-calculator/" class="cta-button">Open Calculator
+                        →</a>
+                </div>
+
+                <h2>Why Higher Bitrate on YouTube?</h2>
+                <p>YouTube doesn't cap bitrate like Twitch. More bitrate = better quality. With AV1 encoding, you can
+                    achieve excellent quality at 9000 Kbps. With H.264, 12000 Kbps is recommended.</p>
+
+                <h2>AV1 vs H.264 for YouTube</h2>
+                <p><strong>AV1 is preferred</strong> if you have RTX 40 series GPU. It provides ~40% better quality at
+                    the same bitrate. YouTube fully supports AV1 for live streaming.</p>
+
+                <h2>FAQ</h2>
+                <h3>What bitrate for YouTube 1080p 60fps?</h3>
+                <p>9000 Kbps with AV1, or 12000 Kbps with H.264. Both provide excellent quality.</p>
+
+                <h3>Should I use AV1 for YouTube?</h3>
+                <p>Yes, if your GPU supports it (RTX 40 series, RX 7000 series). AV1 is more efficient than H.264.</p>
+
+                <h2>Related Guides</h2>
+                <div class="related-links">
+                    <a href="/bitrate-calculator/youtube/4k60/" class="related-link">YouTube 4K 60fps</a>
+                    <a href="/bitrate-calculator/twitch/1080p60/" class="related-link">Twitch 1080p 60fps</a>
+                    <a href="/settings-generator/rtx-4070/" class="related-link">RTX 4070 Settings</a>
+                </div>
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <p>Free OBS Tools | <a href="/privacy-policy.html">Privacy</a></p>
+    </footer>
+</body>
+
+</html>

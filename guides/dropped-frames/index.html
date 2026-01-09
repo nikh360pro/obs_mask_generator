@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-C84663S6K3');</script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix OBS Dropped Frames (2026 Guide) | OBS Tools</title>
+    <meta name="description"
+        content="How to fix dropped frames in OBS. Network vs rendering issues. Step-by-step solutions for smooth streaming.">
+    <meta name="keywords" content="obs dropped frames, obs dropping frames fix, obs network issues, obs lagging">
+    <link rel="canonical" href="https://obsmaskgenerator.com/guides/dropped-frames/">
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why is OBS dropping frames?","acceptedAnswer":{"@type":"Answer","text":"Either network issues (upload speed) or rendering issues (PC can't keep up). Check which counter is increasing in OBS."}},{"@type":"Question","name":"How do I fix dropped frames in OBS?","acceptedAnswer":{"@type":"Answer","text":"For network: lower bitrate. For rendering: use NVENC, lower resolution, close background apps."}}]}</script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/blog/blog-style.css">
+    <link rel="stylesheet" href="/assets/css/common.css">
+    <style>
+        .quick-answer {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(200, 0, 0, 0.05));
+            border-left: 4px solid #ef4444;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0
+        }
+
+        .quick-answer h3 {
+            margin-top: 0;
+            color: #ef4444
+        }
+
+        .fix-step {
+            background: var(--bg-tertiary);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            border-left: 3px solid #22c55e
+        }
+
+        .fix-step h4 {
+            margin: 0 0 0.5rem 0;
+            color: #22c55e
+        }
+
+        .issue-type {
+            background: var(--bg-tertiary);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px
+        }
+
+        .issue-type h4 {
+            margin: 0 0 0.5rem 0
+        }
+
+        .related-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin: 1rem 0
+        }
+
+        .related-link {
+            background: var(--bg-tertiary);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            color: var(--accent-primary);
+            text-decoration: none
+        }
+    </style>
+</head>
+
+<body>
+    <header class="blog-header">
+        <div class="header-content"><a href="/" class="logo">OBS Tools</a>
+            <nav><a href="/">Tools</a><a href="/blog/">Blog</a><a href="/glossary/">Glossary</a></nav>
+        </div>
+    </header>
+    <main class="blog-container">
+        <article class="blog-article">
+            <div class="article-header">
+                <div class="breadcrumb"><a href="/">Home</a> › <a href="/blog/">Guides</a> › Dropped Frames Fix</div>
+                <h1>Fix OBS Dropped Frames</h1>
+                <p class="article-meta">Updated January 2026 • Troubleshooting Guide</p>
+            </div>
+            <div class="article-content">
+                <div class="quick-answer">
+                    <h3>⚡ Quick Diagnosis</h3>
+                    <p>Check which counter is increasing in OBS (bottom right):<br>
+                        <strong>"Dropped frames"</strong> = Network issue (lower bitrate)<br>
+                        <strong>"Frames missed due to rendering lag"</strong> = PC issue (use NVENC, lower settings)
+                    </p>
+                </div>
+
+                <h2>Two Types of Dropped Frames</h2>
+
+                <div class="issue-type">
+                    <h4>🌐 Network Dropped Frames</h4>
+                    <p>Your upload speed can't handle the bitrate. Frames are lost during transmission to
+                        Twitch/YouTube.</p>
+                    <p><strong>Fix:</strong> Lower bitrate. Test upload speed. Try a different server.</p>
+                </div>
+
+                <div class="issue-type">
+                    <h4>🖥️ Rendering Lag (Missed Frames)</h4>
+                    <p>Your PC can't render/encode frames fast enough. Common when gaming + streaming.</p>
+                    <p><strong>Fix:</strong> Use NVENC, lower game settings, close background apps.</p>
+                </div>
+
+                <h2>Fixes for Network Dropped Frames</h2>
+
+                <div class="fix-step">
+                    <h4>Fix 1: Lower Bitrate</h4>
+                    <p>Settings → Output → Bitrate → Try <strong>4500 Kbps</strong> instead of 6000. Test stability.</p>
+                </div>
+
+                <div class="fix-step">
+                    <h4>Fix 2: Change Ingest Server</h4>
+                    <p>Settings → Stream → Server → Try a different/closer server.</p>
+                </div>
+
+                <div class="fix-step">
+                    <h4>Fix 3: Use Ethernet</h4>
+                    <p>WiFi is unstable. Use a wired connection for streaming.</p>
+                </div>
+
+                <h2>Fixes for Rendering Lag</h2>
+
+                <div class="fix-step">
+                    <h4>Fix 1: Switch to NVENC</h4>
+                    <p>Settings → Output → Encoder → NVIDIA NVENC. Uses GPU instead of CPU.</p>
+                </div>
+
+                <div class="fix-step">
+                    <h4>Fix 2: Lower Game Settings</h4>
+                    <p>Reduce in-game graphics. Cap FPS at 144 or lower.</p>
+                </div>
+
+                <div class="cta-box">
+                    <h3>📊 Check Your Bitrate</h3><a href="/bitrate-calculator/" class="cta-button">Open Calculator
+                        →</a>
+                </div>
+
+                <h2>FAQ</h2>
+                <h3>Why is OBS dropping frames?</h3>
+                <p>Either network issues (upload speed) or rendering issues (PC performance). Check which counter is
+                    increasing.</p>
+
+                <h2>Related Guides</h2>
+                <div class="related-links">
+                    <a href="/guides/encoding-overloaded/" class="related-link">Fix Encoding Overloaded</a>
+                    <a href="/bitrate-calculator/twitch/1080p60/" class="related-link">Twitch Bitrate Guide</a>
+                    <a href="/settings-generator/" class="related-link">Settings Generator</a>
+                </div>
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <p>Free OBS Tools | <a href="/privacy-policy.html">Privacy</a></p>
+    </footer>
+</body>
+
+</html>

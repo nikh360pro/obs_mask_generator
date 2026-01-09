@@ -225,4 +225,32 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  
+  <!-- Platform-Specific Bitrate Pages -->
+  <url>
+    <loc>https://obsmaskgenerator.com/bitrate-calculator/twitch/1080p60/</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://obsmaskgenerator.com/bitrate-calculator/youtube/1080p60/</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Problem-Based Guides -->
+  <url>
+    <loc>https://obsmaskgenerator.com/guides/encoding-overloaded/</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://obsmaskgenerator.com/guides/dropped-frames/</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
