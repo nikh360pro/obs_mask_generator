@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best OBS Settings for GTX 1660 Super (2026 Guide) | OBS Tools</title>
+    <meta name="description"
+        content="Optimal OBS settings for NVIDIA GeForce GTX 1660 Super. Best NVENC encoder settings for budget-friendly 1080p streaming.">
+    <meta name="keywords"
+        content="GTX 1660 Super OBS settings, best obs settings gtx 1660, gtx 1660 super streaming, nvenc gtx 1660">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://obsmaskgenerator.com/settings-generator/gtx-1660-super/">
+
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://obsmaskgenerator.com/settings-generator/gtx-1660-super/">
+    <meta property="og:title" content="Best OBS Settings for GTX 1660 Super (2026)">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {"@type": "Question", "name": "Is GTX 1660 Super good for streaming?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, the GTX 1660 Super is a solid budget option for 1080p streaming with its Turing NVENC encoder."}},
+            {"@type": "Question", "name": "GTX 1660 Super vs RTX 3060 for streaming?", "acceptedAnswer": {"@type": "Answer", "text": "RTX 3060 is better with newer NVENC and more VRAM, but GTX 1660 Super is adequate for 1080p streaming on a budget."}}
+        ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/blog/blog-style.css">
+    <link rel="stylesheet" href="/assets/css/common.css">
+    <style>
+        .quick-answer {
+            background: linear-gradient(135deg, rgba(145, 70, 255, 0.15), rgba(88, 28, 135, 0.1));
+            border-left: 4px solid #9146ff;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .quick-answer h3 {
+            margin-top: 0;
+            color: #9146ff;
+        }
+
+        .settings-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .settings-table th,
+        .settings-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .settings-table th {
+            background: var(--bg-secondary);
+            color: var(--text-muted);
+        }
+
+        .gpu-specs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .spec-card {
+            background: var(--bg-tertiary);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .spec-card .label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .spec-card .value {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-yellow {
+            background: rgba(234, 179, 8, 0.2);
+            color: #eab308;
+        }
+
+        .related-gpus {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+
+        .related-gpu-link {
+            background: var(--bg-tertiary);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="blog-header">
+        <div class="header-content">
+            <a href="/" class="logo">OBS Tools</a>
+            <nav>
+                <a href="/">Tools</a>
+                <a href="/blog/">Blog</a>
+                <a href="/glossary/">Glossary</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="blog-container">
+        <article class="blog-article">
+            <div class="article-header">
+                <div class="breadcrumb">
+                    <a href="/">Home</a> › <a href="/settings-generator/">Settings Generator</a> › GTX 1660 Super
+                </div>
+                <h1>Best OBS Settings for GTX 1660 Super</h1>
+                <p class="article-meta">Updated January 2026 • 4 min read</p>
+            </div>
+
+            <div class="article-content">
+                <div class="quick-answer">
+                    <h3>🚀 Quick Answer</h3>
+                    <p><strong>For GTX 1660 Super streaming at 1080p 60fps:</strong> Use <strong>NVENC H.264</strong>,
+                        <strong>6000 Kbps</strong> (CBR), <strong>Quality preset</strong>, and <strong>2-second keyframe
+                            interval</strong>. The GTX 1660 Super has <strong>no AV1 or HEVC encoding</strong> - stick
+                        to H.264.</p>
+                </div>
+
+                <div class="gpu-specs">
+                    <div class="spec-card">
+                        <div class="label">Encoder</div>
+                        <div class="value">NVENC</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="label">Encoder Gen</div>
+                        <div class="value">6th Gen (Turing)</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="label">AV1 Support</div>
+                        <div class="value"><span class="badge badge-yellow">✗ No</span></div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="label">Tier</div>
+                        <div class="value">Budget</div>
+                    </div>
+                </div>
+
+                <h2>Recommended OBS Settings for GTX 1660 Super</h2>
+                <table class="settings-table">
+                    <thead>
+                        <tr>
+                            <th>Setting</th>
+                            <th>Twitch (1080p60)</th>
+                            <th>YouTube (1080p60)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Encoder</td>
+                            <td>NVIDIA NVENC H.264</td>
+                            <td>NVIDIA NVENC H.264</td>
+                        </tr>
+                        <tr>
+                            <td>Rate Control</td>
+                            <td>CBR</td>
+                            <td>CBR</td>
+                        </tr>
+                        <tr>
+                            <td>Bitrate</td>
+                            <td>6000 Kbps</td>
+                            <td>8000 Kbps</td>
+                        </tr>
+                        <tr>
+                            <td>Keyframe Interval</td>
+                            <td>2 seconds</td>
+                            <td>2 seconds</td>
+                        </tr>
+                        <tr>
+                            <td>Preset</td>
+                            <td>Quality</td>
+                            <td>Quality</td>
+                        </tr>
+                        <tr>
+                            <td>Profile</td>
+                            <td>High</td>
+                            <td>High</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="cta-box">
+                    <h3>⚙️ Generate Custom Settings</h3>
+                    <p>Get personalized settings for your setup.</p>
+                    <a href="/settings-generator/" class="cta-button">Open Settings Generator →</a>
+                </div>
+
+                <h2>Why These Settings Work for GTX 1660 Super</h2>
+                <p>The GTX 1660 Super features the <strong>6th generation Turing NVENC encoder</strong>, which is still
+                    capable for 1080p streaming. While not as efficient as newer RTX series, it provides good quality
+                    with minimal CPU impact.</p>
+
+                <p>The <strong>6GB VRAM</strong> is the main limitation - you may need to lower in-game texture settings
+                    for newer games while streaming. For pure streaming performance, however, the encoder handles
+                    1080p60 at 6000 Kbps without issues.</p>
+
+                <h2>Common Issues with GTX 1660 Super Streaming</h2>
+                <ul>
+                    <li><strong>6GB VRAM:</strong> Limited memory means you may need to lower game settings while
+                        streaming.</li>
+                    <li><strong>Older Encoder:</strong> Quality slightly below RTX 30/40 series at the same bitrate.
+                    </li>
+                    <li><strong>No AV1/HEVC:</strong> H.264 only - no codec flexibility.</li>
+                    <li><strong>Consider Upgrading:</strong> RTX 4060 offers significantly better features at similar
+                        power consumption.</li>
+                </ul>
+
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <h3>Is GTX 1660 Super good for streaming?</h3>
+                        <p>It's adequate for 1080p streaming but aging. For new streamers, consider the RTX 4060 for
+                            better long-term value with AV1 support.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>GTX 1660 Super vs RTX 3060 for streaming?</h3>
+                        <p>RTX 3060 is significantly better with newer NVENC, 12GB VRAM, and better game performance.
+                            Upgrade if budget allows.</p>
+                    </div>
+                </div>
+
+                <h2>Compare with Other GPUs</h2>
+                <div class="related-gpus">
+                    <a href="/settings-generator/gtx-1650/" class="related-gpu-link">GTX 1650</a>
+                    <a href="/settings-generator/rtx-3060/" class="related-gpu-link">RTX 3060</a>
+                    <a href="/settings-generator/rtx-4060/" class="related-gpu-link">RTX 4060</a>
+                    <a href="/settings-generator/rx-6600/" class="related-gpu-link">RX 6600</a>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <p>Free OBS Tools & Generators | <a href="/privacy-policy.html" style="color: #9146ff;">Privacy Policy</a></p>
+    </footer>
+</body>
+
+</html>

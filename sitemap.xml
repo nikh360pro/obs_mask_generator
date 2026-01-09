@@ -163,4 +163,36 @@
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
+  
+  <!-- GPU-Specific Settings Pages (Programmatic SEO) -->
+  <url>
+    <loc>https://obsmaskgenerator.com/settings-generator/rtx-4060/</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://obsmaskgenerator.com/settings-generator/rtx-4070/</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://obsmaskgenerator.com/settings-generator/rtx-3060/</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://obsmaskgenerator.com/settings-generator/gtx-1660-super/</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://obsmaskgenerator.com/settings-generator/rx-7600/</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
