@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-C84663S6K3');</script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best OBS Settings for RTX 3080 (2026) | OBS Tools</title>
+    <meta name="description"
+        content="Optimal OBS settings for RTX 3080. NVENC encoder settings for 1080p/1440p streaming.">
+    <meta name="keywords" content="RTX 3080 OBS settings, best obs settings rtx 3080, rtx 3080 streaming">
+    <link rel="canonical" href="https://obsmaskgenerator.com/settings-generator/rtx-3080/">
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is RTX 3080 good for streaming?","acceptedAnswer":{"@type":"Answer","text":"Yes, dual NVENC encoders handle 1440p streaming easily. Only lacks AV1."}},{"@type":"Question","name":"RTX 3080 vs 4070?","acceptedAnswer":{"@type":"Answer","text":"4070 has AV1, 3080 has more VRAM. Similar performance."}}]}</script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/blog/blog-style.css">
+    <link rel="stylesheet" href="/assets/css/common.css">
+    <style>
+        .quick-answer {
+            background: linear-gradient(135deg, rgba(145, 70, 255, 0.15), rgba(88, 28, 135, 0.1));
+            border-left: 4px solid #9146ff;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0
+        }
+
+        .quick-answer h3 {
+            margin-top: 0;
+            color: #9146ff
+        }
+
+        .settings-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            overflow: hidden
+        }
+
+        .settings-table th,
+        .settings-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color)
+        }
+
+        .settings-table th {
+            background: var(--bg-secondary)
+        }
+
+        .gpu-specs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0
+        }
+
+        .spec-card {
+            background: var(--bg-tertiary);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center
+        }
+
+        .related-gpus {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin: 1rem 0
+        }
+
+        .related-gpu-link {
+            background: var(--bg-tertiary);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            color: var(--accent-primary);
+            text-decoration: none
+        }
+    </style>
+</head>
+
+<body>
+    <header class="blog-header">
+        <div class="header-content"><a href="/" class="logo">OBS Tools</a>
+            <nav><a href="/">Tools</a><a href="/blog/">Blog</a><a href="/glossary/">Glossary</a></nav>
+        </div>
+    </header>
+    <main class="blog-container">
+        <article class="blog-article">
+            <div class="article-header">
+                <div class="breadcrumb"><a href="/">Home</a> › <a href="/settings-generator/">Settings</a> › RTX 3080
+                </div>
+                <h1>Best OBS Settings for RTX 3080</h1>
+                <p class="article-meta">Updated January 2026</p>
+            </div>
+            <div class="article-content">
+                <div class="quick-answer">
+                    <h3>🚀 Quick Answer</h3>
+                    <p><strong>RTX 3080:</strong> Use <strong>NVENC H.264</strong>, <strong>6000-9000 Kbps</strong>
+                        (CBR), <strong>P5 preset</strong>. Dual encoders, no AV1.</p>
+                </div>
+                <div class="gpu-specs">
+                    <div class="spec-card">
+                        <div>Encoder</div>
+                        <div><strong>NVENC (Dual)</strong></div>
+                    </div>
+                    <div class="spec-card">
+                        <div>Gen</div>
+                        <div><strong>7th (Ampere)</strong></div>
+                    </div>
+                    <div class="spec-card">
+                        <div>AV1</div>
+                        <div><strong>✗ No</strong></div>
+                    </div>
+                    <div class="spec-card">
+                        <div>Tier</div>
+                        <div><strong>High-End</strong></div>
+                    </div>
+                </div>
+                <h2>Recommended Settings</h2>
+                <table class="settings-table">
+                    <tr>
+                        <th>Setting</th>
+                        <th>Twitch</th>
+                        <th>YouTube</th>
+                    </tr>
+                    <tr>
+                        <td>Encoder</td>
+                        <td>NVENC H.264</td>
+                        <td>NVENC H.264</td>
+                    </tr>
+                    <tr>
+                        <td>Bitrate</td>
+                        <td>6000 Kbps</td>
+                        <td>9000 Kbps</td>
+                    </tr>
+                    <tr>
+                        <td>Preset</td>
+                        <td>P5</td>
+                        <td>P5</td>
+                    </tr>
+                    <tr>
+                        <td>Keyframe</td>
+                        <td>2 sec</td>
+                        <td>2 sec</td>
+                    </tr>
+                </table>
+                <div class="cta-box">
+                    <h3>⚙️ Custom Settings</h3><a href="/settings-generator/" class="cta-button">Open Generator →</a>
+                </div>
+                <h2>Why It Works</h2>
+                <p>The RTX 3080's dual 7th-gen NVENC delivers excellent 1080p/1440p streaming. 10GB VRAM handles most
+                    games while streaming.</p>
+                <h2>FAQ</h2>
+                <h3>Is RTX 3080 good for streaming?</h3>
+                <p>Yes, dual encoders and high-end performance make it excellent even in 2026.</p>
+                <h3>RTX 3080 vs RTX 4070?</h3>
+                <p>RTX 4070 has AV1 support. RTX 3080 has more raw power. Similar streaming quality with H.264.</p>
+                <h2>Related GPUs</h2>
+                <div class="related-gpus">
+                    <a href="/settings-generator/rtx-3070/" class="related-gpu-link">RTX 3070</a>
+                    <a href="/settings-generator/rtx-4070/" class="related-gpu-link">RTX 4070</a>
+                    <a href="/settings-generator/rtx-4080/" class="related-gpu-link">RTX 4080</a>
+                </div>
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <p>Free OBS Tools | <a href="/privacy-policy.html">Privacy</a></p>
+    </footer>
+</body>
+
+</html>

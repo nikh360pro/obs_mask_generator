@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-C84663S6K3');</script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best OBS Settings for RX 7800 XT (2026) | OBS Tools</title>
+    <meta name="description" content="Optimal OBS settings for AMD RX 7800 XT. AMF encoder settings with AV1 support.">
+    <meta name="keywords" content="RX 7800 XT OBS settings, best obs settings rx 7800 xt, amd streaming">
+    <link rel="canonical" href="https://obsmaskgenerator.com/settings-generator/rx-7800-xt/">
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is RX 7800 XT good for streaming?","acceptedAnswer":{"@type":"Answer","text":"Yes, RDNA 3 AMF with AV1 support. 16GB VRAM is excellent."}},{"@type":"Question","name":"RX 7800 XT vs RTX 4070?","acceptedAnswer":{"@type":"Answer","text":"Similar streaming quality. RTX 4070 has slightly better encoder, RX 7800 XT has more VRAM."}}]}</script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/blog/blog-style.css">
+    <link rel="stylesheet" href="/assets/css/common.css">
+    <style>
+        .quick-answer {
+            background: linear-gradient(135deg, rgba(237, 28, 36, 0.1), rgba(200, 0, 0, 0.05));
+            border-left: 4px solid #ed1c24;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0
+        }
+
+        .quick-answer h3 {
+            margin-top: 0;
+            color: #ed1c24
+        }
+
+        .settings-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            overflow: hidden
+        }
+
+        .settings-table th,
+        .settings-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color)
+        }
+
+        .settings-table th {
+            background: var(--bg-secondary)
+        }
+
+        .gpu-specs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0
+        }
+
+        .spec-card {
+            background: var(--bg-tertiary);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center
+        }
+
+        .related-gpus {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin: 1rem 0
+        }
+
+        .related-gpu-link {
+            background: var(--bg-tertiary);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            color: var(--accent-primary);
+            text-decoration: none
+        }
+    </style>
+</head>
+
+<body>
+    <header class="blog-header">
+        <div class="header-content"><a href="/" class="logo">OBS Tools</a>
+            <nav><a href="/">Tools</a><a href="/blog/">Blog</a><a href="/glossary/">Glossary</a></nav>
+        </div>
+    </header>
+    <main class="blog-container">
+        <article class="blog-article">
+            <div class="article-header">
+                <div class="breadcrumb"><a href="/">Home</a> › <a href="/settings-generator/">Settings</a> › RX 7800 XT
+                </div>
+                <h1>Best OBS Settings for RX 7800 XT</h1>
+                <p class="article-meta">Updated January 2026</p>
+            </div>
+            <div class="article-content">
+                <div class="quick-answer">
+                    <h3>🚀 Quick Answer (AMD)</h3>
+                    <p><strong>RX 7800 XT:</strong> Use <strong>AMD HW H.264</strong> or <strong>AMD AV1</strong>,
+                        <strong>6000-8000 Kbps</strong> (CBR), <strong>Quality preset</strong>. Enable Pre-Analysis and
+                        VBAQ.</p>
+                </div>
+                <div class="gpu-specs">
+                    <div class="spec-card">
+                        <div>Encoder</div>
+                        <div><strong>AMF</strong></div>
+                    </div>
+                    <div class="spec-card">
+                        <div>Arch</div>
+                        <div><strong>RDNA 3</strong></div>
+                    </div>
+                    <div class="spec-card">
+                        <div>AV1</div>
+                        <div><strong>✓ Yes</strong></div>
+                    </div>
+                    <div class="spec-card">
+                        <div>Tier</div>
+                        <div><strong>Mid-High</strong></div>
+                    </div>
+                </div>
+                <h2>Recommended Settings</h2>
+                <table class="settings-table">
+                    <tr>
+                        <th>Setting</th>
+                        <th>Twitch</th>
+                        <th>YouTube</th>
+                    </tr>
+                    <tr>
+                        <td>Encoder</td>
+                        <td>AMD HW H.264</td>
+                        <td>AMD AV1</td>
+                    </tr>
+                    <tr>
+                        <td>Bitrate</td>
+                        <td>6000 Kbps</td>
+                        <td>8000 Kbps</td>
+                    </tr>
+                    <tr>
+                        <td>Preset</td>
+                        <td>Quality</td>
+                        <td>Quality</td>
+                    </tr>
+                    <tr>
+                        <td>Pre-Analysis</td>
+                        <td>Enabled</td>
+                        <td>Enabled</td>
+                    </tr>
+                    <tr>
+                        <td>VBAQ</td>
+                        <td>Enabled</td>
+                        <td>Enabled</td>
+                    </tr>
+                </table>
+                <div class="cta-box">
+                    <h3>⚙️ Custom Settings</h3><a href="/settings-generator/" class="cta-button">Open Generator →</a>
+                </div>
+                <h2>Why It Works</h2>
+                <p>The RX 7800 XT's RDNA 3 AMF encoder with AV1 support rivals NVENC. 16GB VRAM is excellent for gaming
+                    + streaming.</p>
+                <h2>FAQ</h2>
+                <h3>Is RX 7800 XT good for streaming?</h3>
+                <p>Yes, RDNA 3 significantly improved AMF quality. AV1 support makes it competitive with RTX 40 series.
+                </p>
+                <h3>RX 7800 XT vs RTX 4070?</h3>
+                <p>Similar streaming quality. NVENC has slight edge. RX 7800 XT has 16GB vs 12GB VRAM.</p>
+                <h2>Related GPUs</h2>
+                <div class="related-gpus">
+                    <a href="/settings-generator/rx-7900-xtx/" class="related-gpu-link">RX 7900 XTX</a>
+                    <a href="/settings-generator/rx-7600/" class="related-gpu-link">RX 7600</a>
+                    <a href="/settings-generator/rtx-4070/" class="related-gpu-link">RTX 4070</a>
+                </div>
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <p>Free OBS Tools | <a href="/privacy-policy.html">Privacy</a></p>
+    </footer>
+</body>
+
+</html>
