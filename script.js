@@ -717,10 +717,32 @@ function setupEventListeners() {
 // Initialization
 // ============================
 
+// ============================
+// Cookie Consent
+// ============================
+
+function initCookieBanner() {
+    if (localStorage.getItem('cookieConsent') === 'true') return;
+
+    const banner = document.createElement('div');
+    banner.id = 'cookie-banner';
+    banner.innerHTML = `
+        <p>We use cookies to improve your experience and show personalized ads.</p>
+        <button id="cookie-accept">Accept</button>
+    `;
+    document.body.appendChild(banner);
+
+    document.getElementById('cookie-accept').addEventListener('click', () => {
+        localStorage.setItem('cookieConsent', 'true');
+        banner.style.display = 'none';
+    });
+}
+
 function init() {
     setupEventListeners();
     updateControlsVisibility();
     draw();
+    initCookieBanner();
 }
 
 // Start the app
