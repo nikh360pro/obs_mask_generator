@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBS Studio Troubleshooting Hub & Fixes (2026 Guide)</title>
+    <meta name="description"
+        content="The complete library of fixes for OBS Studio errors. Solve encoding overloaded, dropped frames, black screen, and audio sync issues instantly.">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <style>
+        .hub-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .hub-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 12px;
+            transition: transform 0.2s, border-color 0.2s;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .hub-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-primary);
+        }
+
+        .hub-card h3 {
+            color: var(--accent-primary);
+            margin-top: 0;
+        }
+
+        .hub-card p {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+            margin-bottom: 0;
+        }
+    </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4560264570048889"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <nav class="navbar">
+            <div class="nav-content">
+                <a href="/" class="nav-logo">OBS Mask Generator</a>
+                <div class="nav-links">
+                    <a href="/">Home</a>
+                    <a href="/settings-generator/">Settings Generator</a>
+                    <a href="/bitrate-calculator/">Bitrate Calc</a>
+                    <a href="/guides/" class="active">Guides</a>
+                </div>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <h1 style="text-align: center; margin-bottom: 10px;">OBS Studio Troubleshooting Hub</h1>
+            <p style="text-align: center; color: var(--text-secondary); max-width: 600px; margin: 0 auto 40px;">
+                Don't let errors ruin your stream. Find the instant fix for your specific OBS problem below.
+            </p>
+
+            <h2 style="border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Common Streaming Errors</h2>
+            <div class="hub-grid">
+                <a href="/guides/encoding-overloaded/" class="hub-card">
+                    <h3>Encoding Overloaded ⚠️</h3>
+                    <p>Fix "Encoding overloaded! Consider turning down video settings or using a faster encoding
+                        preset."
+                    </p>
+                </a>
+                <a href="/guides/dropped-frames/" class="hub-card">
+                    <h3>Dropped Frames (Lag) 📉</h3>
+                    <p>Solve network-related dropped frames and connection instability on Twitch/YouTube.</p>
+                </a>
+                <a href="/guides/black-screen-fix/" class="hub-card">
+                    <h3>Black Screen Fix ⬛</h3>
+                    <p>Game Capture or Display Capture showing a black screen? Here are 3 proven solutions.</p>
+                </a>
+                <a href="/guides/nvenc-error/" class="hub-card">
+                    <h3>NVENC Error Fix 📹</h3>
+                    <p>Fix "Failed to open NVENC codec" errors and driver compatibility issues.</p>
+                </a>
+            </div>
+
+            <h2 style="border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-top: 40px;">Audio &
+                Video
+                Quality</h2>
+            <div class="hub-grid">
+                <a href="/guides/blurry-webcam/" class="hub-card">
+                    <h3>Blurry Webcam Fix 📷</h3>
+                    <p>Why your 1080p webcam looks pixelated and how to make it crystal clear.</p>
+                </a>
+                <a href="/guides/audio-desync/" class="hub-card">
+                    <h3>Audio Desync Fix 🔊</h3>
+                    <p>Sync your mic and game audio perfectly. No more "mouth moving before voice" issues.</p>
+                </a>
+                <a href="/guides/reduce-cpu-usage/" class="hub-card">
+                    <h3>High CPU Usage Fix 💻</h3>
+                    <p>Optimize OBS to use less CPU so your games run smoother while streaming.</p>
+                </a>
+            </div>
+
+            <!-- Sticky Tool Widget (Static Version for Hub) -->
+            <div
+                style="background: linear-gradient(45deg, #1a1a1a, #2a2a2a); border: 1px solid #9146ff; border-radius: 12px; padding: 30px; margin-top: 60px; text-align: center;">
+                <h2 style="color: #fff; margin-top: 0;">Need to Optimize Your Stream Settings?</h2>
+                <p style="color: #ccc; margin-bottom: 25px;">Stop guessing bitrates and presets. Use our free
+                    calculators to
+                    get the perfect settings for your hardware.</p>
+                <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                    <a href="/settings-generator/"
+                        style="background: #9146ff; color: white; padding: 12px 25px; text-decoration: none; border-radius: 6px; font-weight: bold;">➜
+                        OBS Settings Generator</a>
+                    <a href="/bitrate-calculator/"
+                        style="background: transparent; border: 2px solid #9146ff; color: #9146ff; padding: 10px 23px; text-decoration: none; border-radius: 6px; font-weight: bold;">Bitrate
+                        Calculator</a>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>Free OBS Tools & Generators | No signup required</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">
+                <a href="../privacy-policy.html">Privacy Policy</a> |
+                <a href="../terms.html">Terms</a> |
+                <a href="../about.html">About</a> |
+                <a href="../contact.html">Contact</a>
+            </p>
+            <div style="margin-top: 15px; font-size: 0.85em; line-height: 1.8;">
+                <p><strong style="color: #a78bfa;">OBS Calculators:</strong>
+                    <a href="../bitrate-calculator/" style="color: #9146ff;">Bitrate</a> |
+                    <a href="../recording-size-calculator/" style="color: #9146ff;">Recording Size</a> |
+                    <a href="../quality-checker/" style="color: #9146ff;">Quality Checker</a> |
+                    <a href="../audio-sync-calculator/" style="color: #9146ff;">Audio Sync</a> |
+                    <a href="../noise-gate-calculator/" style="color: #9146ff;">Noise Gate</a> |
+                    <a href="../aspect-ratio-calculator/" style="color: #9146ff;">Aspect Ratio</a> |
+                    <a href="../file-size-calculator/" style="color: #9146ff;">File Size</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Generators & Assets:</strong>
+                    <a href="../" style="color: #9146ff;">Webcam Mask</a> |
+                    <a href="../settings-generator/" style="color: #9146ff;">Settings Generator</a> |
+                    <a href="../overlay-generator/" style="color: #9146ff;">Overlay Generator</a> |
+                    <a href="../starting-screen/" style="color: #9146ff;">Starting Screen</a> |
+                    <a href="../stream-schedule/" style="color: #9146ff;">Stream Schedule</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Useful Utilities:</strong>
+                    <a href="../countdown-timer/" style="color: #9146ff;">Countdown Timer</a> |
+                    <a href="../webcam-test/" style="color: #9146ff;">Webcam Test</a> |
+                    <a href="../hotkey-reference/" style="color: #9146ff;">OBS Hotkeys</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

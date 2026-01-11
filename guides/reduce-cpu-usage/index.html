@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Reduce High CPU Usage in OBS (Encoding Overloaded Fix)</title>
+    <meta name="description"
+        content="Is OBS using 100% CPU? Learn how to switch to GPU encoding (NVENC), lower settings, and fix 'Encoding Overloaded' errors forever.">
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="../../assets/css/common.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4560264570048889"
+        crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Reduce OBS CPU Usage",
+      "step": [
+        {"@type": "HowToStep", "text": "Switch Encoder to Hardware (NVENC or AMF)."},
+        {"@type": "HowToStep", "text": "Lower Output Resolution to 720p."},
+        {"@type": "HowToStep", "text": "Cap in-game FPS."}
+      ]
+    }
+    </script>
+</head>
+
+<body>
+    <div class="app-container">
+        <nav class="navbar">
+            <div class="nav-content">
+                <a href="/" class="nav-logo">OBS Mask Generator</a>
+                <div class="nav-links">
+                    <a href="/">Home</a>
+                    <a href="/settings-generator/">Settings Generator</a>
+                    <a href="/bitrate-calculator/">Bitrate Calc</a>
+                    <a href="/guides/">Guides</a>
+                </div>
+            </div>
+        </nav>
+
+        <main class="main-content" style="max-width: 800px; margin: 40px auto 0;">
+            <h1>How to Reduce High CPU Usage in OBS</h1>
+            <div class="quick-answer"
+                style="background: #e6fffa; border: 1px solid #38b2ac; padding: 15px; border-radius: 8px; margin-bottom: 30px; color: #234e52;">
+                <strong>Quick Answer:</strong> The biggest CPU saver is switching from <strong>x264 (Software)</strong>
+                to
+                <strong>Hardware Encoding</strong>. Go to Settings > Output > Encoder > select <strong>NVIDIA NVENC
+                    H.264</strong> (or AMD AMF). This moves the load to your GPU.
+            </div>
+
+            <h2>Why is CPU Usage High?</h2>
+            <p>Streaming video is math-heavy. If you use x264 (Software), your CPU has to calculate every pixel of every
+                frame 60 times a second. If you play a CPU-heavy game at the same time, your computer chokes.</p>
+
+            <h2>Step 1: Switch to GPU Encoding</h2>
+            <p>Modern GPUs (NVIDIA RTX/GTX, AMD Radeon) have dedicated chips just for streaming. They do this work with
+                almost 0% impact on gaming performance.</p>
+            <ul>
+                <li><strong>NVIDIA:</strong> Select "Hardware (NVENC)".</li>
+                <li><strong>AMD:</strong> Select "Hardware (AMF)".</li>
+                <li><strong>Intel:</strong> Select "Hardware (QSV)".</li>
+            </ul>
+
+            <h2>Step 2: Cap Your In-Game FPS</h2>
+            <p>If your GPU is running at 100% usage rendering the game, it has no room left for OBS to compose scenes.
+                This
+                causes "Rendering Lag".</p>
+            <p><strong>Fix:</strong> If your monitor is 144Hz, cap your game FPS at 144 (or even 120). This leaves
+                breathing
+                room for OBS.</p>
+
+            <!-- Sticky Tool Widget -->
+            <div
+                style="background: linear-gradient(45deg, #1a1a1a, #2a2a2a); border: 1px solid #9146ff; border-radius: 12px; padding: 30px; margin-top: 60px; text-align: center;">
+                <h2 style="color: #fff; margin-top: 0;">Unsure if your PC can handle it?</h2>
+                <p style="color: #ccc; margin-bottom: 25px;">Use our Quality Checker to see if your bitrate matches your
+                    resolution.</p>
+                <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                    <a href="/settings-generator/"
+                        style="background: #9146ff; color: white; padding: 12px 25px; text-decoration: none; border-radius: 6px; font-weight: bold;">➜
+                        Generate Low-CPU Settings</a>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>Free OBS Tools & Generators | No signup required</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">
+                <a href="../../privacy-policy.html">Privacy Policy</a> |
+                <a href="../../terms.html">Terms</a> |
+                <a href="../../about.html">About</a> |
+                <a href="../../contact.html">Contact</a>
+            </p>
+            <div style="margin-top: 15px; font-size: 0.85em; line-height: 1.8;">
+                <p><strong style="color: #a78bfa;">OBS Calculators:</strong>
+                    <a href="../../bitrate-calculator/" style="color: #9146ff;">Bitrate</a> |
+                    <a href="../../recording-size-calculator/" style="color: #9146ff;">Recording Size</a> |
+                    <a href="../../quality-checker/" style="color: #9146ff;">Quality Checker</a> |
+                    <a href="../../audio-sync-calculator/" style="color: #9146ff;">Audio Sync</a> |
+                    <a href="../../noise-gate-calculator/" style="color: #9146ff;">Noise Gate</a> |
+                    <a href="../../aspect-ratio-calculator/" style="color: #9146ff;">Aspect Ratio</a> |
+                    <a href="../../file-size-calculator/" style="color: #9146ff;">File Size</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Generators & Assets:</strong>
+                    <a href="../../" style="color: #9146ff;">Webcam Mask</a> |
+                    <a href="../../settings-generator/" style="color: #9146ff;">Settings Generator</a> |
+                    <a href="../../overlay-generator/" style="color: #9146ff;">Overlay Generator</a> |
+                    <a href="../../starting-screen/" style="color: #9146ff;">Starting Screen</a> |
+                    <a href="../../stream-schedule/" style="color: #9146ff;">Stream Schedule</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Useful Utilities:</strong>
+                    <a href="../../countdown-timer/" style="color: #9146ff;">Countdown Timer</a> |
+                    <a href="../../webcam-test/" style="color: #9146ff;">Webcam Test</a> |
+                    <a href="../../hotkey-reference/" style="color: #9146ff;">OBS Hotkeys</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
