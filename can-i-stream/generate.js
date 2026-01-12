@@ -18,6 +18,8 @@ const template = (game, gpu) => `<!DOCTYPE html>
     <link rel="canonical" href="https://obsmaskgenerator.com/can-i-stream/${game.id}/${gpu.id}/">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4560264570048889"
+        crossorigin="anonymous"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
