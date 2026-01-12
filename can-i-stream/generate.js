@@ -78,8 +78,11 @@ const template = (game, gpu) => `<!DOCTYPE html>
             </table>
 
             <div style="margin-top: 50px; text-align: center;">
-                <h3>Check Another Game?</h3>
                 <a href="/can-i-stream/" class="download-btn primary">Open Calculator</a>
+            </div>
+
+            <div style="margin-top: 50px; border-top: 1px solid var(--border-color); padding-top: 20px; font-size: 0.8em; color: #848494; text-align: center;">
+                <p><em>Methodology: Efficiency estimates are based on hardware specifications (CUDA/Stream Processors, VRAM, Encoder Generation) and theoretical performance tiers. Real-world performance may vary based on specific driver versions, thermal throttling, and background processes.</em></p>
             </div>
         </main>
     </div>
