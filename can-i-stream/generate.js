@@ -114,6 +114,8 @@ function calculateDescription(gpu, game) {
 // Generate all combinations
 console.log("Generating Pages...");
 
+let sitemapUrls = [];
+
 db.games.forEach(game => {
     const gameDir = path.join(__dirname, game.id);
     if (!fs.existsSync(gameDir)) fs.mkdirSync(gameDir);
@@ -124,8 +126,25 @@ db.games.forEach(game => {
 
         const html = template(game, gpu);
         fs.writeFileSync(path.join(gpuDir, 'index.html'), html);
+
+        // Add to sitemap list
+        sitemapUrls.push(`    <url>
+        <loc>https://obsmaskgenerator.com/can-i-stream/${game.id}/${gpu.id}/</loc>
+        <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+        <changefreq>monthly</changefreq>
+    </url>`);
+
         console.log(`Generated: ${game.id}/${gpu.id}`);
     });
 });
+
+// Generate Sitemap.xml
+const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemapUrls.join('\n')}
+</urlset>`;
+
+fs.writeFileSync(path.join(__dirname, 'sitemap.xml'), sitemapContent);
+console.log("Sitemap generated at sitemap.xml");
 
 console.log("Done!");

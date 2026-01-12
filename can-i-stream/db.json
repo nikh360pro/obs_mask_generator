@@ -1,63 +1,633 @@
 {
     "gpus": [
-        { "id": "rtx-4090", "name": "NVIDIA GeForce RTX 4090", "score": 100, "vram": "24GB", "encoder": "AV1 / NVENC (Ada)", "tier": "S" },
-        { "id": "rtx-4080", "name": "NVIDIA GeForce RTX 4080", "score": 95, "vram": "16GB", "encoder": "AV1 / NVENC (Ada)", "tier": "S" },
-        { "id": "rtx-4070-ti", "name": "NVIDIA GeForce RTX 4070 Ti", "score": 90, "vram": "12GB", "encoder": "AV1 / NVENC (Ada)", "tier": "S" },
-        { "id": "rtx-4070", "name": "NVIDIA GeForce RTX 4070", "score": 88, "vram": "12GB", "encoder": "AV1 / NVENC (Ada)", "tier": "A" },
-        { "id": "rtx-4060-ti", "name": "NVIDIA GeForce RTX 4060 Ti", "score": 82, "vram": "8GB", "encoder": "AV1 / NVENC (Ada)", "tier": "A" },
-        { "id": "rtx-4060", "name": "NVIDIA GeForce RTX 4060", "score": 80, "vram": "8GB", "encoder": "AV1 / NVENC (Ada)", "tier": "A" },
-        { "id": "rtx-3090", "name": "NVIDIA GeForce RTX 3090", "score": 88, "vram": "24GB", "encoder": "NVENC (Ampere)", "tier": "A" },
-        { "id": "rtx-3080", "name": "NVIDIA GeForce RTX 3080", "score": 85, "vram": "10GB", "encoder": "NVENC (Ampere)", "tier": "A" },
-        { "id": "rtx-3070", "name": "NVIDIA GeForce RTX 3070", "score": 80, "vram": "8GB", "encoder": "NVENC (Ampere)", "tier": "A" },
-        { "id": "rtx-3060-ti", "name": "NVIDIA GeForce RTX 3060 Ti", "score": 75, "vram": "8GB", "encoder": "NVENC (Ampere)", "tier": "B" },
-        { "id": "rtx-3060", "name": "NVIDIA GeForce RTX 3060", "score": 72, "vram": "12GB", "encoder": "NVENC (Ampere)", "tier": "B" },
-        { "id": "rtx-3050", "name": "NVIDIA GeForce RTX 3050", "score": 60, "vram": "8GB", "encoder": "NVENC (Ampere)", "tier": "C" },
-        { "id": "gtx-1660-super", "name": "NVIDIA GeForce GTX 1660 Super", "score": 55, "vram": "6GB", "encoder": "NVENC (Turing)", "tier": "C" },
-        { "id": "gtx-1650", "name": "NVIDIA GeForce GTX 1650", "score": 45, "vram": "4GB", "encoder": "NVENC (Volta/Turing)", "tier": "D" },
-        { "id": "gtx-1060-6gb", "name": "NVIDIA GeForce GTX 1060 (6GB)", "score": 40, "vram": "6GB", "encoder": "NVENC (Pascal)", "tier": "D" },
-        { "id": "gtx-1050-ti", "name": "NVIDIA GeForce GTX 1050 Ti", "score": 30, "vram": "4GB", "encoder": "NVENC (Pascal)", "tier": "E" },
-        { "id": "rx-7900-xtx", "name": "AMD Radeon RX 7900 XTX", "score": 95, "vram": "24GB", "encoder": "AV1 / AMF", "tier": "S" },
-        { "id": "rx-7800-xt", "name": "AMD Radeon RX 7800 XT", "score": 85, "vram": "16GB", "encoder": "AV1 / AMF", "tier": "A" },
-        { "id": "rx-7600", "name": "AMD Radeon RX 7600", "score": 75, "vram": "8GB", "encoder": "AV1 / AMF", "tier": "B" },
-        { "id": "rx-6600", "name": "AMD Radeon RX 6600", "score": 65, "vram": "8GB", "encoder": "AMF", "tier": "C" },
-        { "id": "rx-580", "name": "AMD Radeon RX 580", "score": 40, "vram": "8GB", "encoder": "AMF (Older)", "tier": "D" },
-        { "id": "arc-a770", "name": "Intel Arc A770", "score": 80, "vram": "16GB", "encoder": "AV1 / QSV", "tier": "A" },
-        { "id": "arc-a750", "name": "Intel Arc A750", "score": 75, "vram": "8GB", "encoder": "AV1 / QSV", "tier": "B" },
-        { "id": "integrated", "name": "Integrated Graphics (Intel UHD/Iris)", "score": 10, "vram": "Shared", "encoder": "QSV (Low Power)", "tier": "F" }
+        {
+            "id": "rtx-4090",
+            "name": "NVIDIA GeForce RTX 4090",
+            "score": 100,
+            "vram": "24GB",
+            "encoder": "AV1 / NVENC (Ada)",
+            "tier": "S"
+        },
+        {
+            "id": "rtx-4080",
+            "name": "NVIDIA GeForce RTX 4080",
+            "score": 95,
+            "vram": "16GB",
+            "encoder": "AV1 / NVENC (Ada)",
+            "tier": "S"
+        },
+        {
+            "id": "rtx-4070-ti",
+            "name": "NVIDIA GeForce RTX 4070 Ti",
+            "score": 90,
+            "vram": "12GB",
+            "encoder": "AV1 / NVENC (Ada)",
+            "tier": "S"
+        },
+        {
+            "id": "rtx-4070",
+            "name": "NVIDIA GeForce RTX 4070",
+            "score": 88,
+            "vram": "12GB",
+            "encoder": "AV1 / NVENC (Ada)",
+            "tier": "A"
+        },
+        {
+            "id": "rtx-4060-ti",
+            "name": "NVIDIA GeForce RTX 4060 Ti",
+            "score": 82,
+            "vram": "8GB",
+            "encoder": "AV1 / NVENC (Ada)",
+            "tier": "A"
+        },
+        {
+            "id": "rtx-4060",
+            "name": "NVIDIA GeForce RTX 4060",
+            "score": 80,
+            "vram": "8GB",
+            "encoder": "AV1 / NVENC (Ada)",
+            "tier": "A"
+        },
+        {
+            "id": "rtx-3090",
+            "name": "NVIDIA GeForce RTX 3090",
+            "score": 88,
+            "vram": "24GB",
+            "encoder": "NVENC (Ampere)",
+            "tier": "A"
+        },
+        {
+            "id": "rtx-3080",
+            "name": "NVIDIA GeForce RTX 3080",
+            "score": 85,
+            "vram": "10GB",
+            "encoder": "NVENC (Ampere)",
+            "tier": "A"
+        },
+        {
+            "id": "rtx-3070",
+            "name": "NVIDIA GeForce RTX 3070",
+            "score": 80,
+            "vram": "8GB",
+            "encoder": "NVENC (Ampere)",
+            "tier": "A"
+        },
+        {
+            "id": "rtx-3060-ti",
+            "name": "NVIDIA GeForce RTX 3060 Ti",
+            "score": 75,
+            "vram": "8GB",
+            "encoder": "NVENC (Ampere)",
+            "tier": "B"
+        },
+        {
+            "id": "rtx-3060",
+            "name": "NVIDIA GeForce RTX 3060",
+            "score": 72,
+            "vram": "12GB",
+            "encoder": "NVENC (Ampere)",
+            "tier": "B"
+        },
+        {
+            "id": "rtx-3050",
+            "name": "NVIDIA GeForce RTX 3050",
+            "score": 60,
+            "vram": "8GB",
+            "encoder": "NVENC (Ampere)",
+            "tier": "C"
+        },
+        {
+            "id": "gtx-1660-super",
+            "name": "NVIDIA GeForce GTX 1660 Super",
+            "score": 55,
+            "vram": "6GB",
+            "encoder": "NVENC (Turing)",
+            "tier": "C"
+        },
+        {
+            "id": "gtx-1650",
+            "name": "NVIDIA GeForce GTX 1650",
+            "score": 45,
+            "vram": "4GB",
+            "encoder": "NVENC (Volta/Turing)",
+            "tier": "D"
+        },
+        {
+            "id": "gtx-1060-6gb",
+            "name": "NVIDIA GeForce GTX 1060 (6GB)",
+            "score": 40,
+            "vram": "6GB",
+            "encoder": "NVENC (Pascal)",
+            "tier": "D"
+        },
+        {
+            "id": "gtx-1050-ti",
+            "name": "NVIDIA GeForce GTX 1050 Ti",
+            "score": 30,
+            "vram": "4GB",
+            "encoder": "NVENC (Pascal)",
+            "tier": "E"
+        },
+        {
+            "id": "rx-7900-xtx",
+            "name": "AMD Radeon RX 7900 XTX",
+            "score": 95,
+            "vram": "24GB",
+            "encoder": "AV1 / AMF",
+            "tier": "S"
+        },
+        {
+            "id": "rx-7800-xt",
+            "name": "AMD Radeon RX 7800 XT",
+            "score": 85,
+            "vram": "16GB",
+            "encoder": "AV1 / AMF",
+            "tier": "A"
+        },
+        {
+            "id": "rx-7600",
+            "name": "AMD Radeon RX 7600",
+            "score": 75,
+            "vram": "8GB",
+            "encoder": "AV1 / AMF",
+            "tier": "B"
+        },
+        {
+            "id": "rx-6600",
+            "name": "AMD Radeon RX 6600",
+            "score": 65,
+            "vram": "8GB",
+            "encoder": "AMF",
+            "tier": "C"
+        },
+        {
+            "id": "rx-580",
+            "name": "AMD Radeon RX 580",
+            "score": 40,
+            "vram": "8GB",
+            "encoder": "AMF (Older)",
+            "tier": "D"
+        },
+        {
+            "id": "arc-a770",
+            "name": "Intel Arc A770",
+            "score": 80,
+            "vram": "16GB",
+            "encoder": "AV1 / QSV",
+            "tier": "A"
+        },
+        {
+            "id": "arc-a750",
+            "name": "Intel Arc A750",
+            "score": 75,
+            "vram": "8GB",
+            "encoder": "AV1 / QSV",
+            "tier": "B"
+        },
+        {
+            "id": "integrated",
+            "name": "Integrated Graphics (Intel UHD/Iris)",
+            "score": 10,
+            "vram": "Shared",
+            "encoder": "QSV (Low Power)",
+            "tier": "F"
+        },
+        {
+            "id": "rtx-2080-ti",
+            "name": "NVIDIA GeForce RTX 2080 Ti",
+            "score": 88,
+            "vram": "11GB",
+            "encoder": "NVENC (Turing)",
+            "tier": "A"
+        },
+        {
+            "id": "rtx-2080-super",
+            "name": "NVIDIA GeForce RTX 2080 Super",
+            "score": 82,
+            "vram": "8GB",
+            "encoder": "NVENC (Turing)",
+            "tier": "A"
+        },
+        {
+            "id": "rtx-2070-super",
+            "name": "NVIDIA GeForce RTX 2070 Super",
+            "score": 78,
+            "vram": "8GB",
+            "encoder": "NVENC (Turing)",
+            "tier": "B"
+        },
+        {
+            "id": "rtx-2060",
+            "name": "NVIDIA GeForce RTX 2060",
+            "score": 65,
+            "vram": "6GB",
+            "encoder": "NVENC (Turing)",
+            "tier": "C"
+        },
+        {
+            "id": "gtx-1080-ti",
+            "name": "NVIDIA GeForce GTX 1080 Ti",
+            "score": 75,
+            "vram": "11GB",
+            "encoder": "NVENC (Pascal)",
+            "tier": "B"
+        },
+        {
+            "id": "gtx-1080",
+            "name": "NVIDIA GeForce GTX 1080",
+            "score": 68,
+            "vram": "8GB",
+            "encoder": "NVENC (Pascal)",
+            "tier": "C"
+        },
+        {
+            "id": "gtx-1070",
+            "name": "NVIDIA GeForce GTX 1070",
+            "score": 60,
+            "vram": "8GB",
+            "encoder": "NVENC (Pascal)",
+            "tier": "C"
+        },
+        {
+            "id": "rx-6700-xt",
+            "name": "AMD Radeon RX 6700 XT",
+            "score": 80,
+            "vram": "12GB",
+            "encoder": "AMF",
+            "tier": "A"
+        },
+        {
+            "id": "rx-6650-xt",
+            "name": "AMD Radeon RX 6650 XT",
+            "score": 70,
+            "vram": "8GB",
+            "encoder": "AMF",
+            "tier": "B"
+        },
+        {
+            "id": "rx-5700-xt",
+            "name": "AMD Radeon RX 5700 XT",
+            "score": 72,
+            "vram": "8GB",
+            "encoder": "AMF",
+            "tier": "B"
+        },
+        {
+            "id": "rx-570",
+            "name": "AMD Radeon RX 570",
+            "score": 35,
+            "vram": "4GB",
+            "encoder": "AMF (Older)",
+            "tier": "E"
+        },
+        {
+            "id": "arc-a580",
+            "name": "Intel Arc A580",
+            "score": 65,
+            "vram": "8GB",
+            "encoder": "AV1 / QSV",
+            "tier": "C"
+        }
     ],
     "cpus": [
-        { "id": "i9-14900k", "name": "Intel Core i9-14900K", "score": 100, "cores": "24C/32T" },
-        { "id": "i7-13700k", "name": "Intel Core i7-13700K", "score": 95, "cores": "16C/24T" },
-        { "id": "i5-13600k", "name": "Intel Core i5-13600K", "score": 90, "cores": "14C/20T" },
-        { "id": "i5-12400f", "name": "Intel Core i5-12400F", "score": 75, "cores": "6C/12T" },
-        { "id": "i3-12100f", "name": "Intel Core i3-12100F", "score": 50, "cores": "4C/8T" },
-        { "id": "i7-8700k", "name": "Intel Core i7-8700K", "score": 60, "cores": "6C/12T" },
-        { "id": "i7-7700k", "name": "Intel Core i7-7700K", "score": 45, "cores": "4C/8T" },
-        { "id": "ryzen-9-7950x", "name": "AMD Ryzen 9 7950X", "score": 100, "cores": "16C/32T" },
-        { "id": "ryzen-7-7800x3d", "name": "AMD Ryzen 7 7800X3D", "score": 98, "cores": "8C/16T" },
-        { "id": "ryzen-5-7600x", "name": "AMD Ryzen 5 7600X", "score": 85, "cores": "6C/12T" },
-        { "id": "ryzen-5-5600x", "name": "AMD Ryzen 5 5600X", "score": 70, "cores": "6C/12T" },
-        { "id": "ryzen-5-3600", "name": "AMD Ryzen 5 3600", "score": 60, "cores": "6C/12T" },
-        { "id": "ryzen-3-3200g", "name": "AMD Ryzen 3 3200G", "score": 25, "cores": "4C/4T" }
+        {
+            "id": "i9-14900k",
+            "name": "Intel Core i9-14900K",
+            "score": 100,
+            "cores": "24C/32T"
+        },
+        {
+            "id": "i7-13700k",
+            "name": "Intel Core i7-13700K",
+            "score": 95,
+            "cores": "16C/24T"
+        },
+        {
+            "id": "i5-13600k",
+            "name": "Intel Core i5-13600K",
+            "score": 90,
+            "cores": "14C/20T"
+        },
+        {
+            "id": "i5-12400f",
+            "name": "Intel Core i5-12400F",
+            "score": 75,
+            "cores": "6C/12T"
+        },
+        {
+            "id": "i3-12100f",
+            "name": "Intel Core i3-12100F",
+            "score": 50,
+            "cores": "4C/8T"
+        },
+        {
+            "id": "i7-8700k",
+            "name": "Intel Core i7-8700K",
+            "score": 60,
+            "cores": "6C/12T"
+        },
+        {
+            "id": "i7-7700k",
+            "name": "Intel Core i7-7700K",
+            "score": 45,
+            "cores": "4C/8T"
+        },
+        {
+            "id": "ryzen-9-7950x",
+            "name": "AMD Ryzen 9 7950X",
+            "score": 100,
+            "cores": "16C/32T"
+        },
+        {
+            "id": "ryzen-7-7800x3d",
+            "name": "AMD Ryzen 7 7800X3D",
+            "score": 98,
+            "cores": "8C/16T"
+        },
+        {
+            "id": "ryzen-5-7600x",
+            "name": "AMD Ryzen 5 7600X",
+            "score": 85,
+            "cores": "6C/12T"
+        },
+        {
+            "id": "ryzen-5-5600x",
+            "name": "AMD Ryzen 5 5600X",
+            "score": 70,
+            "cores": "6C/12T"
+        },
+        {
+            "id": "ryzen-5-3600",
+            "name": "AMD Ryzen 5 3600",
+            "score": 60,
+            "cores": "6C/12T"
+        },
+        {
+            "id": "ryzen-3-3200g",
+            "name": "AMD Ryzen 3 3200G",
+            "score": 25,
+            "cores": "4C/4T"
+        }
     ],
     "games": [
-        { "id": "cyberpunk-2077", "name": "Cyberpunk 2077", "score": 85, "cpu_heavy": false, "type": "AAA Open World" },
-        { "id": "warzone", "name": "Call of Duty: Warzone", "score": 80, "cpu_heavy": true, "type": "Battle Royale" },
-        { "id": "alan-wake-2", "name": "Alan Wake 2", "score": 90, "cpu_heavy": false, "type": "Next-Gen AAA" },
-        { "id": "fortnite", "name": "Fortnite", "score": 60, "cpu_heavy": true, "type": "Battle Royale" },
-        { "id": "apex-legends", "name": "Apex Legends", "score": 65, "cpu_heavy": true, "type": "Battle Royale" },
-        { "id": "valorant", "name": "Valorant", "score": 30, "cpu_heavy": true, "type": "Competitive FPS" },
-        { "id": "cs2", "name": "Counter-Strike 2", "score": 50, "cpu_heavy": true, "type": "Competitive FPS" },
-        { "id": "league-of-legends", "name": "League of Legends", "score": 20, "cpu_heavy": false, "type": "MOBA" },
-        { "id": "minecraft", "name": "Minecraft", "score": 35, "cpu_heavy": true, "type": "Sandbox" },
-        { "id": "gta-v", "name": "Grand Theft Auto V", "score": 55, "cpu_heavy": true, "type": "Open World" },
-        { "id": "elden-ring", "name": "Elden Ring", "score": 75, "cpu_heavy": false, "type": "RPG" },
-        { "id": "starfield", "name": "Starfield", "score": 85, "cpu_heavy": true, "type": "RPG" },
-        { "id": "baldurs-gate-3", "name": "Baldur's Gate 3", "score": 70, "cpu_heavy": true, "type": "Turn-Based RPG" },
-        { "id": "overwatch-2", "name": "Overwatch 2", "score": 50, "cpu_heavy": true, "type": "Competitive FPS" },
-        { "id": "roblox", "name": "Roblox", "score": 15, "cpu_heavy": true, "type": "Sandbox" },
-        { "id": "escape-from-tarkov", "name": "Escape from Tarkov", "score": 90, "cpu_heavy": true, "type": "Hardcore FPS" },
-        { "id": "rust", "name": "Rust", "score": 75, "cpu_heavy": true, "type": "Survival" },
-        { "id": "dota-2", "name": "Dota 2", "score": 25, "cpu_heavy": true, "type": "MOBA" }
+        {
+            "id": "cyberpunk-2077",
+            "name": "Cyberpunk 2077",
+            "score": 85,
+            "cpu_heavy": false,
+            "type": "AAA Open World"
+        },
+        {
+            "id": "warzone",
+            "name": "Call of Duty: Warzone",
+            "score": 80,
+            "cpu_heavy": true,
+            "type": "Battle Royale"
+        },
+        {
+            "id": "alan-wake-2",
+            "name": "Alan Wake 2",
+            "score": 90,
+            "cpu_heavy": false,
+            "type": "Next-Gen AAA"
+        },
+        {
+            "id": "fortnite",
+            "name": "Fortnite",
+            "score": 60,
+            "cpu_heavy": true,
+            "type": "Battle Royale"
+        },
+        {
+            "id": "apex-legends",
+            "name": "Apex Legends",
+            "score": 65,
+            "cpu_heavy": true,
+            "type": "Battle Royale"
+        },
+        {
+            "id": "valorant",
+            "name": "Valorant",
+            "score": 30,
+            "cpu_heavy": true,
+            "type": "Competitive FPS"
+        },
+        {
+            "id": "cs2",
+            "name": "Counter-Strike 2",
+            "score": 50,
+            "cpu_heavy": true,
+            "type": "Competitive FPS"
+        },
+        {
+            "id": "league-of-legends",
+            "name": "League of Legends",
+            "score": 20,
+            "cpu_heavy": false,
+            "type": "MOBA"
+        },
+        {
+            "id": "minecraft",
+            "name": "Minecraft",
+            "score": 35,
+            "cpu_heavy": true,
+            "type": "Sandbox"
+        },
+        {
+            "id": "gta-v",
+            "name": "Grand Theft Auto V",
+            "score": 55,
+            "cpu_heavy": true,
+            "type": "Open World"
+        },
+        {
+            "id": "elden-ring",
+            "name": "Elden Ring",
+            "score": 75,
+            "cpu_heavy": false,
+            "type": "RPG"
+        },
+        {
+            "id": "starfield",
+            "name": "Starfield",
+            "score": 85,
+            "cpu_heavy": true,
+            "type": "RPG"
+        },
+        {
+            "id": "baldurs-gate-3",
+            "name": "Baldur's Gate 3",
+            "score": 70,
+            "cpu_heavy": true,
+            "type": "Turn-Based RPG"
+        },
+        {
+            "id": "overwatch-2",
+            "name": "Overwatch 2",
+            "score": 50,
+            "cpu_heavy": true,
+            "type": "Competitive FPS"
+        },
+        {
+            "id": "roblox",
+            "name": "Roblox",
+            "score": 15,
+            "cpu_heavy": true,
+            "type": "Sandbox"
+        },
+        {
+            "id": "escape-from-tarkov",
+            "name": "Escape from Tarkov",
+            "score": 90,
+            "cpu_heavy": true,
+            "type": "Hardcore FPS"
+        },
+        {
+            "id": "rust",
+            "name": "Rust",
+            "score": 75,
+            "cpu_heavy": true,
+            "type": "Survival"
+        },
+        {
+            "id": "dota-2",
+            "name": "Dota 2",
+            "score": 25,
+            "cpu_heavy": true,
+            "type": "MOBA"
+        },
+        {
+            "id": "red-dead-redemption-2",
+            "name": "Red Dead Redemption 2",
+            "score": 88,
+            "cpu_heavy": false,
+            "type": "Open World"
+        },
+        {
+            "id": "hogwarts-legacy",
+            "name": "Hogwarts Legacy",
+            "score": 85,
+            "cpu_heavy": true,
+            "type": "Open World RPG"
+        },
+        {
+            "id": "witcher-3",
+            "name": "The Witcher 3: Wild Hunt",
+            "score": 70,
+            "cpu_heavy": false,
+            "type": "Open World RPG"
+        },
+        {
+            "id": "destiny-2",
+            "name": "Destiny 2",
+            "score": 65,
+            "cpu_heavy": true,
+            "type": "FPS MMO"
+        },
+        {
+            "id": "rainbow-six-siege",
+            "name": "Tom Clancy's Rainbow Six Siege",
+            "score": 45,
+            "cpu_heavy": true,
+            "type": "Competitive FPS"
+        },
+        {
+            "id": "rocket-league",
+            "name": "Rocket League",
+            "score": 25,
+            "cpu_heavy": false,
+            "type": "Sports"
+        },
+        {
+            "id": "dead-by-daylight",
+            "name": "Dead by Daylight",
+            "score": 40,
+            "cpu_heavy": false,
+            "type": "Survival Horror"
+        },
+        {
+            "id": "genshin-impact",
+            "name": "Genshin Impact",
+            "score": 50,
+            "cpu_heavy": true,
+            "type": "Action RPG"
+        },
+        {
+            "id": "palworld",
+            "name": "Palworld",
+            "score": 75,
+            "cpu_heavy": true,
+            "type": "Survival"
+        },
+        {
+            "id": "pubg",
+            "name": "PUBG: Battlegrounds",
+            "score": 65,
+            "cpu_heavy": true,
+            "type": "Battle Royale"
+        },
+        {
+            "id": "fc-24",
+            "name": "EA SPORTS FC 24",
+            "score": 55,
+            "cpu_heavy": true,
+            "type": "Sports"
+        },
+        {
+            "id": "nba-2k24",
+            "name": "NBA 2K24",
+            "score": 60,
+            "cpu_heavy": false,
+            "type": "Sports"
+        },
+        {
+            "id": "sims-4",
+            "name": "The Sims 4",
+            "score": 30,
+            "cpu_heavy": true,
+            "type": "Simulation"
+        },
+        {
+            "id": "stardew-valley",
+            "name": "Stardew Valley",
+            "score": 10,
+            "cpu_heavy": false,
+            "type": "Simulation"
+        },
+        {
+            "id": "among-us",
+            "name": "Among Us",
+            "score": 5,
+            "cpu_heavy": false,
+            "type": "Party"
+        },
+        {
+            "id": "phasmophobia",
+            "name": "Phasmophobia",
+            "score": 35,
+            "cpu_heavy": false,
+            "type": "Horror"
+        },
+        {
+            "id": "diablo-4",
+            "name": "Diablo IV",
+            "score": 60,
+            "cpu_heavy": false,
+            "type": "ARPG"
+        },
+        {
+            "id": "street-fighter-6",
+            "name": "Street Fighter 6",
+            "score": 45,
+            "cpu_heavy": false,
+            "type": "Fighting"
+        },
+        {
+            "id": "the-finals",
+            "name": "The Finals",
+            "score": 75,
+            "cpu_heavy": true,
+            "type": "Competitive FPS"
+        }
     ]
 }
