@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Can I Stream This? - OBS Hardware Compatibility Calculator</title>
+    <meta name="description"
+        content="Check if your PC can stream specific games on Twitch/YouTube. Select your CPU, GPU, and Game to get an instant answer.">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <style>
+        .calculator-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .select-group {
+            margin-bottom: 20px;
+        }
+
+        .select-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .select-group select {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+        }
+
+        .result-box {
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            display: none;
+        }
+
+        .result-box.success {
+            background: rgba(0, 245, 147, 0.1);
+            border: 1px solid var(--success);
+        }
+
+        .result-box.warning {
+            background: rgba(255, 184, 0, 0.1);
+            border: 1px solid var(--warning);
+        }
+
+        .result-box.danger {
+            background: rgba(235, 4, 0, 0.1);
+            border: 1px solid var(--error);
+        }
+
+        .result-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .result-details {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .meter-container {
+            height: 10px;
+            background: var(--bg-tertiary);
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .meter-fill {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .search-box {
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <nav class="navbar">
+            <div class="nav-content">
+                <a href="/" class="nav-logo">OBS Mask Generator</a>
+                <div class="nav-links">
+                    <a href="/">Home</a>
+                    <a href="/settings-generator/">Settings Gen</a>
+                    <a href="/can-i-stream/" class="active">Can I Stream?</a>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <div class="calculator-container">
+                <h1 style="text-align: center; margin-bottom: 30px;">Can I Stream This? 🎮</h1>
+
+                <div class="select-group">
+                    <label for="game-select">1. Select Game</label>
+                    <select id="game-select">
+                        <option value="">-- Choose a Game --</option>
+                    </select>
+                </div>
+
+                <div class="select-group">
+                    <label for="gpu-select">2. Select Your GPU</label>
+                    <select id="gpu-select">
+                        <option value="">-- Choose Your GPU --</option>
+                    </select>
+                </div>
+
+                <div class="select-group">
+                    <label for="cpu-select">3. Select Your CPU</label>
+                    <select id="cpu-select">
+                        <option value="">-- Choose Your CPU --</option>
+                    </select>
+                </div>
+
+                <button id="calc-btn" class="download-btn primary" style="width: 100%; justify-content: center;">Check
+                    Compatibility</button>
+
+                <div id="result-area" class="result-box">
+                    <div id="result-title" class="result-title"></div>
+                    <div id="result-details" class="result-details"></div>
+
+                    <div class="meter-container">
+                        <div id="meter-fill" class="meter-fill"></div>
+                    </div>
+
+                    <div id="settings-recommendation"
+                        style="text-align: left; background: var(--bg-tertiary); padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <strong>Recommended Settings:</strong>
+                        <ul style="margin-left: 20px; margin-top: 5px; color: var(--text-secondary);">
+                            <li id="rec-resolution">Resolution: -</li>
+                            <li id="rec-fps">FPS: -</li>
+                            <li id="rec-encoder">Encoder: -</li>
+                            <li id="rec-bitrate">Bitrate: -</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>Free OBS Tools & <a href="/">Mask Generator</a></p>
+        </footer>
+    </div>
+
+    <!-- Load Data and Logic -->
+    <script>
+        // Inline Data Backup (if fetch fails) or Loader
+        let DB = {};
+
+        async function init() {
+            try {
+                const response = await fetch('db.json');
+                DB = await response.json();
+                populateDropdowns();
+            } catch (e) {
+                console.error("Failed to load database", e);
+                // Fallback or alert user
+                document.querySelector('.calculator-container').innerHTML += '<p style="color:red">Error loading hardware database.</p>';
+            }
+        }
+
+        function populateDropdowns() {
+            const gameSel = document.getElementById('game-select');
+            const gpuSel = document.getElementById('gpu-select');
+            const cpuSel = document.getElementById('cpu-select');
+
+            DB.games.sort((a, b) => a.name.localeCompare(b.name)).forEach(g => {
+                const opt = document.createElement('option');
+                opt.value = g.id;
+                opt.textContent = g.name;
+                gameSel.appendChild(opt);
+            });
+
+            DB.gpus.sort((a, b) => b.score - a.score).forEach(g => {
+                const opt = document.createElement('option');
+                opt.value = g.id;
+                opt.textContent = g.name;
+                gpuSel.appendChild(opt);
+            });
+
+            DB.cpus.sort((a, b) => b.score - a.score).forEach(c => {
+                const opt = document.createElement('option');
+                opt.value = c.id;
+                opt.textContent = c.name;
+                cpuSel.appendChild(opt);
+            });
+        }
+
+        document.getElementById('calc-btn').addEventListener('click', calculate);
+
+        function calculate() {
+            const gameId = document.getElementById('game-select').value;
+            const gpuId = document.getElementById('gpu-select').value;
+            const cpuId = document.getElementById('cpu-select').value;
+
+            if (!gameId || !gpuId || !cpuId) {
+                alert("Please select all options!");
+                return;
+            }
+
+            const game = DB.games.find(g => g.id === gameId);
+            const gpu = DB.gpus.find(g => g.id === gpuId);
+            const cpu = DB.cpus.find(c => c.id === cpuId);
+
+            // Heuristic Logic
+            // 1. Determine System Power (Streaming Capability)
+            // If game is CPU heavy, CPU matters more. If GPU has HW encoder (NVENC), CPU matters less.
+
+            let streamingScore = 0;
+
+            // Base Streaming Power from GPU (NVENC/AMF handles most of the load)
+            // But if GPU score is low, it might struggle to render game + stream
+            let gpuHeadroom = gpu.score - game.score;
+
+            // CPU Headroom
+            let cpuHeadroom = cpu.score - (game.cpu_heavy ? game.score : game.score * 0.7);
+
+            // Total "Streamability" Metric
+            // If GPU has good encoder (Tier A/S), it offloads CPU.
+            let encoderBonus = (gpu.tier === 'S' || gpu.tier === 'A') ? 20 : 0;
+
+            let totalHeadroom = Math.min(gpuHeadroom, cpuHeadroom) + encoderBonus;
+
+            // Result Display
+            const resultArea = document.getElementById('result-area');
+            const resultTitle = document.getElementById('result-title');
+            const resultDesc = document.getElementById('result-details');
+            const meter = document.getElementById('meter-fill');
+
+            resultArea.style.display = 'block';
+            resultArea.className = 'result-box'; // reset
+
+            let resolution = "1080p";
+            let fps = "60";
+            let preset = "Quality";
+
+            if (totalHeadroom >= 20) {
+                // Perfect
+                resultArea.classList.add('success');
+                resultTitle.textContent = "✅ YES! Perfect Stream.";
+                resultDesc.textContent = `Your ${gpu.name} is powerful enough to stream ${game.name} at max quality.`;
+                meter.style.width = '100%';
+                meter.style.background = 'var(--success)';
+            } else if (totalHeadroom >= 0) {
+                // Good
+                resultArea.classList.add('warning');
+                resultTitle.textContent = "⚠️ YES, but optimize settings.";
+                resultDesc.textContent = `You can stream ${game.name}, but you might need to lower in-game settings slightly.`;
+                meter.style.width = '70%';
+                meter.style.background = 'var(--warning)';
+                preset = "Performance";
+            } else {
+                // Bad
+                resultArea.classList.add('danger');
+                resultTitle.textContent = "❌ Struggling.";
+                resultDesc.textContent = `Your hardware might struggle. Try 720p or 30fps.`;
+                meter.style.width = '30%';
+                meter.style.background = 'var(--error)';
+                resolution = "720p";
+                fps = "30"; // Downgrade
+                preset = "Max Performance";
+            }
+
+            // Update Recs
+            document.getElementById('rec-resolution').textContent = `Resolution: ${resolution}`;
+            document.getElementById('rec-fps').textContent = `FPS: ${fps}`;
+            document.getElementById('rec-encoder').textContent = `Encoder: ${gpu.encoder.split('/')[0]}`;
+            document.getElementById('rec-bitrate').textContent = `Bitrate: ${resolution === '1080p' ? '6000' : '4500'} Kbps`;
+        }
+
+        init();
+    </script>
+</body>
+
+</html>
