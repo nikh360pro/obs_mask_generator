@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4560264570048889"
+        crossorigin="anonymous"></script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Free Twitch Panel Generator - Create Custom Panels & Animated GIFs | OBS Tools</title>
+    <meta name="title" content="Free Twitch Panel Generator - Create Custom Panels & Animated GIFs">
+    <meta name="description"
+        content="Create custom Twitch panels in seconds. Free online tool with 50+ icons, gradients, animations & GIF export. No signup required.">
+    <meta name="keywords"
+        content="twitch panel generator, twitch panel maker, free twitch panels, custom twitch panels, twitch panel templates, about me panel twitch, donation panel twitch, twitch channel branding">
+    <meta name="author" content="OBS Mask Generator">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://obsmaskgenerator.com/twitch-panel-generator/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/twitch-panel-generator/">
+    <meta property="og:title" content="Free Twitch Panel Generator - Custom Panels & GIFs">
+    <meta property="og:description"
+        content="Create custom Twitch panels in seconds. 50+ icons, gradients, animations & GIF export. Free, no signup.">
+    <meta property="og:image" content="https://obsmaskgenerator.com/og-image.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://obsmaskgenerator.com/twitch-panel-generator/">
+    <meta property="twitter:title" content="Free Twitch Panel Generator">
+    <meta property="twitter:description"
+        content="Create custom Twitch panels with gradients, icons & animations. Free!">
+
+    <!-- Schema.org - SoftwareApplication -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Twitch Panel Generator",
+        "url": "https://obsmaskgenerator.com/twitch-panel-generator/",
+        "description": "Free online tool to create custom Twitch panels with icons, gradients, and animations. Export as PNG or animated GIF.",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "featureList": [
+            "50+ built-in icons",
+            "Custom gradients",
+            "Animated GIF export",
+            "Theme packs",
+            "One-click presets"
+        ]
+    }
+    </script>
+
+    <!-- Schema.org - FAQPage -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What size should Twitch panels be?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Twitch panels should be 320 pixels wide. The height can range from 70px to 600px depending on your content. We recommend 100px for standard panels."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I use animated panels on Twitch?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes! Twitch supports animated GIF panels. Our generator lets you create animated panels with glow, bounce, and shimmer effects."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is this Twitch panel generator free?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, completely free with no signup required. Create unlimited panels and download them instantly."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;600;700&family=Bebas+Neue&family=Poppins:wght@400;600&family=Roboto:wght@400;700&family=Press+Start+2P&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/assets/css/common.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo" id="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="url(#logo-gradient)" />
+                    <path d="M8 6h16v20l-4-4H8V6z" fill="white" />
+                    <circle cx="12" cy="14" r="2" fill="#9146FF" />
+                    <circle cx="20" cy="14" r="2" fill="#9146FF" />
+                    <defs>
+                        <linearGradient id="logo-gradient" x1="0" y1="0" x2="32" y2="32">
+                            <stop offset="0" stop-color="#9146FF" />
+                            <stop offset="1" stop-color="#6441A5" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <h1>Twitch Panel Generator</h1>
+            </div>
+            <p class="tagline">Create custom panels for your Twitch channel</p>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-links">
+            <a href="/">Home</a>
+            <a href="/settings-generator/">Settings Generator</a>
+            <a href="/bitrate-calculator/">Bitrate Calc</a>
+            <a href="/can-i-stream/">Can I Stream?</a>
+            <a href="/guides/">Guides</a>
+        </nav>
+
+        <!-- Panel Counter -->
+        <div class="panel-counter" id="panel-counter">
+            🎨 You've created <span id="counter-value">0</span> panels!
+        </div>
+
+        <!-- Theme Packs -->
+        <section class="theme-packs">
+            <h2 class="section-title">🎨 Theme Packs</h2>
+            <div class="theme-grid">
+                <button class="theme-btn" data-theme="cyberpunk" title="Neon pink/cyan">
+                    <span class="theme-preview cyberpunk"></span>
+                    Cyberpunk
+                </button>
+                <button class="theme-btn" data-theme="retro" title="8-bit pixel style">
+                    <span class="theme-preview retro"></span>
+                    Retro Gaming
+                </button>
+                <button class="theme-btn" data-theme="cozy" title="Warm pastels">
+                    <span class="theme-preview cozy"></span>
+                    Cozy Stream
+                </button>
+                <button class="theme-btn" data-theme="dark" title="Minimal dark">
+                    <span class="theme-preview dark"></span>
+                    Dark Mode
+                </button>
+                <button class="theme-btn" data-theme="valorant" title="Red/black sharp">
+                    <span class="theme-preview valorant"></span>
+                    Valorant
+                </button>
+                <button class="theme-btn" data-theme="minecraft" title="Green/brown">
+                    <span class="theme-preview minecraft"></span>
+                    Minecraft
+                </button>
+            </div>
+        </section>
+
+        <!-- Preset Buttons -->
+        <section class="presets-bar">
+            <h2 class="section-title">Quick Presets</h2>
+            <div class="presets-grid">
+                <button class="preset-card" data-preset="about" title="About Me Panel">
+                    <span class="preset-icon">👤</span>
+                    <span>About Me</span>
+                </button>
+                <button class="preset-card" data-preset="donate" title="Donation Panel">
+                    <span class="preset-icon">💰</span>
+                    <span>Donate</span>
+                </button>
+                <button class="preset-card" data-preset="schedule" title="Schedule Panel">
+                    <span class="preset-icon">📅</span>
+                    <span>Schedule</span>
+                </button>
+                <button class="preset-card" data-preset="discord" title="Discord Panel">
+                    <span class="preset-icon">💬</span>
+                    <span>Discord</span>
+                </button>
+                <button class="preset-card" data-preset="rules" title="Rules Panel">
+                    <span class="preset-icon">📜</span>
+                    <span>Rules</span>
+                </button>
+                <button class="preset-card" data-preset="specs" title="PC Specs Panel">
+                    <span class="preset-icon">🖥️</span>
+                    <span>Specs</span>
+                </button>
+                <button class="preset-card surprise-btn" data-preset="surprise" title="Random Style!">
+                    <span class="preset-icon">🎲</span>
+                    <span>Surprise Me!</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Main Editor -->
+        <main class="editor">
+            <!-- Left Panel: Controls -->
+            <aside class="controls-panel">
+                <!-- Text Settings -->
+                <div class="control-group">
+                    <h3 class="control-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M4 7V4h16v3M9 20h6M12 4v16" />
+                        </svg>
+                        Text
+                    </h3>
+                    <div class="input-group">
+                        <label for="panel-text">Panel Text</label>
+                        <input type="text" id="panel-text" value="ABOUT ME" maxlength="30" placeholder="Enter text...">
+                    </div>
+                    <div class="input-group">
+                        <label for="font-select">Font</label>
+                        <select id="font-select">
+                            <option value="Inter">Inter</option>
+                            <option value="Montserrat">Montserrat</option>
+                            <option value="Bebas Neue">Bebas Neue</option>
+                            <option value="Poppins">Poppins</option>
+                            <option value="Roboto">Roboto</option>
+                            <option value="Press Start 2P">Pixel (Retro)</option>
+                        </select>
+                    </div>
+                    <div class="slider-group">
+                        <label>Font Size</label>
+                        <input type="range" id="font-size" min="14" max="48" value="24">
+                        <div class="slider-value">
+                            <input type="number" id="font-size-value" value="24" min="14" max="48">
+                            <span>px</span>
+                        </div>
+                    </div>
+                    <div class="color-input">
+                        <label for="text-color">Text Color</label>
+                        <input type="color" id="text-color" value="#ffffff">
+                    </div>
+                    <div class="input-group">
+                        <label>Alignment</label>
+                        <div class="align-buttons">
+                            <button class="align-btn" data-align="left" title="Left">◀</button>
+                            <button class="align-btn active" data-align="center" title="Center">●</button>
+                            <button class="align-btn" data-align="right" title="Right">▶</button>
+                        </div>
+                    </div>
+                    <div class="toggle-group">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="text-shadow">
+                            <span class="toggle-switch"></span>
+                            Text Shadow
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Icon Settings -->
+                <div class="control-group">
+                    <h3 class="control-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                            <circle cx="8.5" cy="8.5" r="1.5" />
+                            <path d="M21 15l-5-5L5 21" />
+                        </svg>
+                        Icon
+                    </h3>
+                    <div class="icon-grid" id="icon-grid">
+                        <button class="icon-btn active" data-icon="none" title="No Icon">✖</button>
+                        <button class="icon-btn" data-icon="user" title="User">👤</button>
+                        <button class="icon-btn" data-icon="heart" title="Heart">❤️</button>
+                        <button class="icon-btn" data-icon="star" title="Star">⭐</button>
+                        <button class="icon-btn" data-icon="discord" title="Discord">💬</button>
+                        <button class="icon-btn" data-icon="twitter" title="Twitter/X">🐦</button>
+                        <button class="icon-btn" data-icon="youtube" title="YouTube">▶️</button>
+                        <button class="icon-btn" data-icon="instagram" title="Instagram">📷</button>
+                        <button class="icon-btn" data-icon="tiktok" title="TikTok">🎵</button>
+                        <button class="icon-btn" data-icon="money" title="Donate">💰</button>
+                        <button class="icon-btn" data-icon="calendar" title="Schedule">📅</button>
+                        <button class="icon-btn" data-icon="rules" title="Rules">📜</button>
+                        <button class="icon-btn" data-icon="pc" title="PC/Specs">🖥️</button>
+                        <button class="icon-btn" data-icon="gamepad" title="Gaming">🎮</button>
+                        <button class="icon-btn" data-icon="music" title="Music">🎶</button>
+                        <button class="icon-btn" data-icon="fire" title="Fire">🔥</button>
+                        <button class="icon-btn" data-icon="crown" title="Crown">👑</button>
+                        <button class="icon-btn" data-icon="trophy" title="Trophy">🏆</button>
+                        <button class="icon-btn" data-icon="mic" title="Microphone">🎤</button>
+                        <button class="icon-btn" data-icon="camera" title="Camera">📹</button>
+                    </div>
+                    <div class="input-group">
+                        <label>Icon Position</label>
+                        <select id="icon-position">
+                            <option value="left">Left of Text</option>
+                            <option value="right">Right of Text</option>
+                            <option value="top">Above Text</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Background Settings -->
+                <div class="control-group">
+                    <h3 class="control-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                        </svg>
+                        Background
+                    </h3>
+                    <div class="toggle-group">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="use-gradient" checked>
+                            <span class="toggle-switch"></span>
+                            Use Gradient
+                        </label>
+                    </div>
+                    <div class="color-row">
+                        <div class="color-input">
+                            <label for="bg-color1">Color 1</label>
+                            <input type="color" id="bg-color1" value="#9146FF">
+                        </div>
+                        <div class="color-input" id="color2-group">
+                            <label for="bg-color2">Color 2</label>
+                            <input type="color" id="bg-color2" value="#6441A5">
+                        </div>
+                    </div>
+                    <div class="slider-group" id="gradient-angle-group">
+                        <label>Gradient Angle</label>
+                        <input type="range" id="gradient-angle" min="0" max="360" value="135">
+                        <div class="slider-value">
+                            <input type="number" id="gradient-angle-value" value="135" min="0" max="360">
+                            <span>°</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shape & Border -->
+                <div class="control-group">
+                    <h3 class="control-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="4" />
+                        </svg>
+                        Shape & Border
+                    </h3>
+                    <div class="slider-group">
+                        <label>Corner Radius</label>
+                        <input type="range" id="corner-radius" min="0" max="50" value="10">
+                        <div class="slider-value">
+                            <input type="number" id="corner-radius-value" value="10" min="0" max="50">
+                            <span>px</span>
+                        </div>
+                    </div>
+                    <div class="toggle-group">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="enable-border">
+                            <span class="toggle-switch"></span>
+                            Add Border
+                        </label>
+                    </div>
+                    <div class="border-controls hidden" id="border-controls">
+                        <div class="color-input">
+                            <label for="border-color">Border Color</label>
+                            <input type="color" id="border-color" value="#ffffff">
+                        </div>
+                        <div class="slider-group">
+                            <label>Thickness</label>
+                            <input type="range" id="border-thickness" min="1" max="10" value="2">
+                            <div class="slider-value">
+                                <input type="number" id="border-thickness-value" value="2" min="1" max="10">
+                                <span>px</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Size -->
+                <div class="control-group">
+                    <h3 class="control-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M21 21H3V3" />
+                            <path d="M21 3v18M3 3h18" />
+                        </svg>
+                        Panel Size
+                    </h3>
+                    <div class="size-presets">
+                        <button class="size-btn" data-height="70">Compact (70px)</button>
+                        <button class="size-btn active" data-height="100">Standard (100px)</button>
+                        <button class="size-btn" data-height="150">Tall (150px)</button>
+                    </div>
+                    <div class="slider-group">
+                        <label>Custom Height</label>
+                        <input type="range" id="panel-height" min="70" max="300" value="100">
+                        <div class="slider-value">
+                            <input type="number" id="panel-height-value" value="100" min="70" max="300">
+                            <span>px</span>
+                        </div>
+                    </div>
+                    <p class="size-info">Width fixed at 320px (Twitch standard)</p>
+                </div>
+
+                <!-- Animation -->
+                <div class="control-group">
+                    <h3 class="control-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="3" />
+                            <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4" />
+                        </svg>
+                        Animation (GIF)
+                    </h3>
+                    <div class="toggle-group">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="enable-animation">
+                            <span class="toggle-switch"></span>
+                            Enable Animation
+                        </label>
+                    </div>
+                    <div class="animation-controls hidden" id="animation-controls">
+                        <div class="input-group">
+                            <label>Effect</label>
+                            <select id="animation-type">
+                                <option value="glow">Glow Pulse</option>
+                                <option value="shimmer">Shimmer</option>
+                                <option value="gradient-shift">Gradient Shift</option>
+                                <option value="bounce">Icon Bounce</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Speed</label>
+                            <select id="animation-speed">
+                                <option value="slow">Slow</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="fast">Fast</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sound Toggle -->
+                <div class="control-group compact">
+                    <div class="toggle-group">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="enable-sound">
+                            <span class="toggle-switch"></span>
+                            🔊 Sound Effects
+                        </label>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Right Panel: Preview -->
+            <section class="preview-panel">
+                <div class="preview-header">
+                    <span class="preview-label">LIVE PREVIEW</span>
+                    <span class="dimension-badge" id="dimension-badge">320 × 100 px</span>
+                </div>
+                <div class="canvas-container">
+                    <div class="canvas-wrapper" id="canvas-wrapper">
+                        <canvas id="preview-canvas" width="320" height="100"></canvas>
+                    </div>
+                </div>
+
+                <div class="download-actions">
+                    <button class="download-btn primary" id="download-png">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                        Download PNG
+                    </button>
+                    <button class="download-btn secondary" id="download-gif" disabled
+                        title="Enable animation to export GIF">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                        Download GIF
+                    </button>
+                </div>
+
+                <div class="share-actions">
+                    <button class="share-btn" id="copy-link" title="Copy shareable link">
+                        📋 Copy Settings Link
+                    </button>
+                </div>
+
+                <p class="help-text">
+                    <strong>Tip:</strong> Panels should be 320px wide. Upload to your Twitch channel under "Edit
+                    Panels".
+                </p>
+            </section>
+        </main>
+
+        <!-- SEO Content -->
+        <article class="seo-guide">
+            <h2>How to Create Perfect Twitch Panels</h2>
+
+            <p>Your Twitch channel panels are the first thing viewers see when they visit your channel. A well-designed
+                panel section can help you stand out, communicate important information, and build your brand. This free
+                <strong>Twitch panel generator</strong> makes it easy to create professional-looking panels in seconds.
+            </p>
+
+            <h3>What Size Should Twitch Panels Be?</h3>
+            <p>Twitch panels have a fixed width of <strong>320 pixels</strong>. The height can range from 70px to 600px,
+                but we recommend keeping panels between 70-150px for a clean, consistent look. Our generator
+                automatically uses the correct dimensions.</p>
+
+            <h3>Essential Panels Every Streamer Needs</h3>
+            <ul>
+                <li><strong>About Me:</strong> Introduce yourself and your content</li>
+                <li><strong>Schedule:</strong> When you go live</li>
+                <li><strong>Donate/Support:</strong> Tips, subs, and support links</li>
+                <li><strong>Discord:</strong> Community server invite</li>
+                <li><strong>Rules:</strong> Chat guidelines</li>
+                <li><strong>PC Specs:</strong> Your streaming setup</li>
+            </ul>
+
+            <h3>Can I Use Animated Panels?</h3>
+            <p>Yes! Twitch supports animated GIF panels. Our generator includes animation effects like glow, shimmer,
+                and gradient shifts. Just enable animation, choose your effect, and download as GIF.</p>
+
+            <h3>How to Upload Panels to Twitch</h3>
+            <ol>
+                <li>Create and download your panels using this tool</li>
+                <li>Go to your Twitch channel page</li>
+                <li>Click "Edit Panels" (below your stream)</li>
+                <li>Click the + icon to add a new panel</li>
+                <li>Upload your image and add a title/link</li>
+                <li>Click "Submit" to save</li>
+            </ol>
+
+            <div class="guide-highlight">
+                <h4>Pro Tips for Panel Design</h4>
+                <ul>
+                    <li>Keep text short and readable</li>
+                    <li>Use consistent colors across all panels</li>
+                    <li>Don't overuse animations - one or two animated panels is enough</li>
+                    <li>Use icons to make panels scannable at a glance</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <h3>Is this Twitch panel generator really free?</h3>
+                <p>Yes, completely free! No signup, no watermarks, no limits. Create as many panels as you want.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>What file formats can I download?</h3>
+                <p>PNG for static panels, GIF for animated panels. Both formats are supported by Twitch.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Can I upload my own images?</h3>
+                <p>Currently we offer built-in icons and gradients. Custom image upload is coming soon!</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Why is the width locked at 320px?</h3>
+                <p>Twitch displays all panels at 320px width. Using a different width would cause stretching or
+                    squishing.</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Free OBS Tools & Generators | No signup required | <a href="/privacy-policy.html"
+                    style="color: var(--accent-primary, #9146ff);">Privacy Policy</a></p>
+            <div style="margin-top: 15px; font-size: 0.85em; line-height: 1.8;">
+                <p><strong style="color: #a78bfa;">OBS Calculators:</strong>
+                    <a href="/can-i-stream/" style="color: #9146ff;">Can I Stream?</a> |
+                    <a href="/bitrate-calculator/" style="color: #9146ff;">Bitrate</a> |
+                    <a href="/recording-size-calculator/" style="color: #9146ff;">Recording Size</a> |
+                    <a href="/quality-checker/" style="color: #9146ff;">Quality Checker</a> |
+                    <a href="/audio-sync-calculator/" style="color: #9146ff;">Audio Sync</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Generators & Assets:</strong>
+                    <a href="/" style="color: #9146ff;">Webcam Mask</a> |
+                    <a href="/twitch-panel-generator/" style="color: #9146ff;">Twitch Panels</a> |
+                    <a href="/settings-generator/" style="color: #9146ff;">Settings Generator</a> |
+                    <a href="/overlay-generator/" style="color: #9146ff;">Overlay Generator</a> |
+                    <a href="/starting-screen/" style="color: #9146ff;">Starting Screen</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Legal:</strong>
+                    <a href="/privacy-policy.html" style="color: #9146ff;">Privacy Policy</a> |
+                    <a href="/terms.html" style="color: #9146ff;">Terms of Service</a> |
+                    <a href="/about.html" style="color: #9146ff;">About Us</a> |
+                    <a href="/contact.html" style="color: #9146ff;">Contact</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="icons.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
