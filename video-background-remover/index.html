@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Video Background Remover - AI Mask Generator for OBS | Obsmaskgenerator</title>
+    <meta name="description"
+        content="Remove video backgrounds in 1-click without green screen. Free AI tool for OBS, streaming, and editing. No signup, no watermark. Better than Unscreen.">
+    <meta name="keywords"
+        content="video background remover, OBS video mask, remove background without green screen, AI video background removal, free video editor, unscreen alternative, no watermark">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="canonical" href="https://obsmaskgenerator.com/video-background-remover/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/video-background-remover/">
+    <meta property="og:title" content="Free Video Background Remover - AI Mask Generator for OBS">
+    <meta property="og:description"
+        content="Remove video backgrounds in 1-click without green screen. Free AI tool for OBS, streaming, and editing. No signup, no watermark.">
+    <meta property="og:image" content="https://obsmaskgenerator.com/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://obsmaskgenerator.com/video-background-remover/">
+    <meta property="twitter:title" content="Free Video Background Remover - AI Mask Generator for OBS">
+    <meta property="twitter:description"
+        content="Remove video backgrounds in 1-click without green screen. Free AI tool for OBS, streaming, and editing. No signup, no watermark.">
+    <meta property="twitter:image" content="https://obsmaskgenerator.com/og-image.jpg">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Obsmaskgenerator",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Free AI-powered tool to remove video backgrounds without a green screen. Optimized for OBS mask generation and social media content.",
+      "featureList": "AI Background Removal, No Watermark, OBS Mask Export, Privacy Focused",
+      "screenshot": "https://obsmaskgenerator.com/screenshot.jpg"
+    }
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <!-- <span class="logo-icon">✨</span> Removed icon to use favicon if desired, or keep -->
+                    <img src="favicon.ico" alt="Logo" style="width: 24px; height: 24px; margin-right: 8px;">
+                    <h1>Obsmaskgenerator</h1>
+                </a>
+
+                <div class="user-controls">
+                    <button id="btn-login" class="btn-primary">Get Started</button>
+
+                    <div id="user-profile" class="user-widget" style="display: none;">
+                        <img id="user-avatar" src="" alt="User" class="avatar">
+                        <button id="btn-logout" class="btn-secondary">Sign Out</button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <h2>Remove Video Backgrounds<br>Faster Than Ever</h2>
+                    <p>The smartest AI too to isolate subjects and remove backgrounds.
+                        GPU-accelerated, private, and precise.</p>
+                    <button class="btn-primary" onclick="window.scrollTo({top: 600, behavior: 'smooth'})">Start Editing
+                        Now</button>
+                </div>
+
+                <!-- Showcase Video -->
+                <div class="showcase-wrapper">
+                    <video autoplay loop muted playsinline class="showcase-video"
+                        poster="assets/poster_placeholder.jpg">
+                        <source src="showcase.webm" type="video/webm">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="showcase-overlay"></div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Main App Interface -->
+        <main class="app-container">
+
+            <!-- Upload Section -->
+            <section id="upload-section" class="section active">
+                <div class="upload-zone" id="upload-zone">
+                    <div class="upload-icon" style="font-size: 3rem; margin-bottom: 1rem;">📁</div>
+                    <h2>Upload Your Video</h2>
+                    <p style="color: var(--text-secondary)">Drag & drop or click to browse</p>
+                    <p class="supported-formats">MP4, MOV, AVI, MKV (Max 10s)</p>
+                </div>
+                <input type="file" id="file-input" accept="video/*" hidden>
+            </section>
+
+            <!-- Selection Section -->
+            <section id="selection-section" class="section">
+                <div style="text-align: center; margin-bottom: 1.5rem;">
+                    <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Select Subject</h2>
+                    <p class="instruction" style="color: var(--text-secondary)">Click points on the subject you want to
+                        keep.</p>
+                </div>
+
+                <div class="canvas-wrapper">
+                    <canvas id="selection-canvas"></canvas>
+                    <div id="mask-overlay"></div>
+                </div>
+
+                <div id="points-list" class="points-summary">
+                    Start clicking to add points...
+                </div>
+
+                <div class="toolbar">
+                    <div class="tool-group">
+                        <button id="btn-keep" class="btn-tool keep active" data-type="keep">
+                            <span>●</span> Keep
+                        </button>
+                        <button id="btn-remove" class="btn-tool remove" data-type="remove">
+                            <span>●</span> Remove
+                        </button>
+                        <button id="btn-clear" class="btn-tool">Clear</button>
+                    </div>
+
+                    <div class="tool-group">
+                        <button id="btn-preview" class="btn-secondary">Preview Mask</button>
+                        <button id="btn-process" class="btn-primary">Process Video</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Processing Section -->
+            <section id="processing-section" class="section">
+                <div class="processing-state">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">⚙️</div>
+                    <h2>Processing Your Video</h2>
+                    <p id="processing-status">Initializing AI model...</p>
+
+                    <div class="progress-track">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+
+                    <div
+                        style="display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--text-secondary); max-width: 400px; margin: 0 auto;">
+                        <span id="progress-stage">Starting...</span>
+                        <span id="progress-percent">0%</span>
+                    </div>
+
+                    <div class="steps-row">
+                        <div class="step-item" id="step-extract">
+                            <span class="step-icon">1</span>
+                            <span>Extract</span>
+                        </div>
+                        <div class="step-item" id="step-segment">
+                            <span class="step-icon">2</span>
+                            <span>Segment</span>
+                        </div>
+                        <div class="step-item" id="step-composite">
+                            <span class="step-icon">3</span>
+                            <span>Composite</span>
+                        </div>
+                        <div class="step-item" id="step-encode">
+                            <span class="step-icon">4</span>
+                            <span>Encode</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Complete Section -->
+            <section id="complete-section" class="section">
+                <div style="text-align: center;">
+                    <h2 style="margin-bottom: 0.5rem;">Ready to Download!</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 2rem;">Your background has been successfully
+                        removed.</p>
+
+                    <video id="result-video" class="video-result" controls></video>
+
+                    <div style="display: flex; gap: 1rem; justify-content: center;">
+                        <button id="btn-download" class="btn-primary">Download MP4</button>
+                        <button id="btn-new" class="btn-secondary">Edit Another</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Error Section -->
+            <section id="error-section" class="section">
+                <div style="text-align: center; padding: 2rem;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">⚠️</div>
+                    <h2 style="color: var(--text-main);">Something went wrong</h2>
+                    <p id="error-message" style="color: var(--error); margin: 1rem 0 2rem;">Unknown error occurred</p>
+                    <button id="btn-retry" class="btn-primary">Try Again</button>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Features Grid -->
+        <div class="features-band" style="margin-top: 4rem;">
+            <div class="feature-card">
+                <span class="feature-icon">⚡</span>
+                <h3>Instant Processing</h3>
+                <p>Powered by SAM2 for frame-by-frame precision in real-time.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🔒</span>
+                <h3>Privacy First</h3>
+                <p>Your videos are processed on a secure server and auto-deleted.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">💎</span>
+                <h3>HD Quality</h3>
+                <p>Export in full resolution with perfect edge detection.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Obsmaskgenerator.</p>
+            <div style="margin-top: 1rem; margin-bottom: 1rem; font-size: 0.9rem;">
+                <a href="obs-background-remover.html" style="color: var(--primary); text-decoration: none;">OBS Green
+                    Screen Tool</a>
+            </div>
+            <div style="display: flex; gap: 1.5rem; justify-content: center;">
+                <a href="terms.html">Terms</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.7;">Powered by <a
+                    href="https://github.com/facebookresearch/sam2" target="_blank">Meta SAM2</a>.</p>
+        </div>
+    </footer>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-banner" class="cookie-banner">
+        <div class="cookie-content">
+            <p>We use cookies to improve your experience and keep you logged in. By using our site, you agree to our <a
+                    href="privacy.html">Privacy Policy</a>.</p>
+            <button id="btn-accept-cookies" class="btn-primary btn-sm">Accept</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
