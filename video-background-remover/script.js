@@ -28,6 +28,27 @@ const provider = new firebase.auth.GoogleAuthProvider();
 let currentFile = null;
 let jobId = null;
 let pollInterval = null;
+
+// Helper: Fetch with timeout (default 60s for large operations)
+async function fetchWithTimeout(url, options = {}, timeoutMs = 60000) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
+    try {
+        const response = await fetch(url, {
+            ...options,
+            signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+        return response;
+    } catch (error) {
+        clearTimeout(timeoutId);
+        if (error.name === 'AbortError') {
+            throw new Error('Request timed out. Server may be loading models. Please try again.');
+        }
+        throw error;
+    }
+}
 let selectionPoints = [];
 let currentBrushType = 'keep';
 let firstFrameDataUrl = null;
@@ -433,14 +454,14 @@ async function previewMask() {
             throw new Error("Please login to preview mask");
         }
 
-        const response = await fetch(`${API_URL}/api/preview-mask`, {
+        const response = await fetchWithTimeout(`${API_URL}/api/preview-mask`, {
             method: 'POST',
             headers: headers,
             body: JSON.stringify({
                 image: firstFrameDataUrl,
                 points: selectionPoints
             })
-        });
+        }, 120000);  // 2 minute timeout for model loading
 
         if (!response.ok) {
             const err = await response.json();
@@ -454,6 +475,7 @@ async function previewMask() {
         overlay.style.backgroundImage = `url(${data.mask})`;
 
     } catch (error) {
+        console.error('Preview mask error:', error);
         alert('Failed to preview mask: ' + error.message);
     } finally {
         btn.textContent = 'Preview Mask';
