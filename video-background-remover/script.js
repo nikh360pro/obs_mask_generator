@@ -91,20 +91,18 @@ function setupAuthHandlers() {
         .catch(console.error);
 
     btnLogin.addEventListener('click', () => {
-        // Ensure persistence is set before sign in
-        auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-            .then(() => {
-                return auth.signInWithRedirect(provider);
+        // Use popup for better cross-domain compatibility
+        auth.signInWithPopup(provider)
+            .then((result) => {
+                console.log('Login successful:', result.user.email);
             })
-            .catch(e => alert(e.message));
+            .catch(e => {
+                console.error('Login error:', e);
+                alert('Login failed: ' + e.message);
+            });
     });
 
-    // Handle redirect result when returning from OAuth
-    auth.getRedirectResult().catch(e => {
-        if (e.code !== 'auth/redirect-cancelled-by-user') {
-            console.error('Redirect auth error:', e);
-        }
-    });
+    // No redirect handling needed - using popup auth
 
     btnLogout.addEventListener('click', () => {
         auth.signOut();
@@ -323,7 +321,7 @@ function setupSelectionHandlers() {
         if (auth.currentUser) {
             previewMask();
         } else {
-            auth.signInWithRedirect(provider);
+            auth.signInWithPopup(provider).then(() => previewMask()).catch(e => alert('Login required: ' + e.message));
         }
     });
 
@@ -331,7 +329,7 @@ function setupSelectionHandlers() {
         if (auth.currentUser) {
             startProcessing();
         } else {
-            auth.signInWithRedirect(provider);
+            auth.signInWithPopup(provider).then(() => startProcessing()).catch(e => alert('Login required: ' + e.message));
         }
     });
 }
