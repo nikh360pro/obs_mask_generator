@@ -51,9 +51,7 @@ function init() {
     setupSelectionHandlers();
     setupButtonHandlers();
     setupAuthHandlers();
-    setupButtonHandlers();
     setupViralHandlers(); // Initialize Viral Feature
-    setupAuthHandlers();
     checkHealth();
 }
 
