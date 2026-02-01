@@ -32,6 +32,7 @@ let selectionPoints = [];
 let currentBrushType = 'keep';
 let firstFrameDataUrl = null;
 let canvasScale = 1;
+let isWatermarkRemoved = false; // Viral Feature State
 
 // Elements
 const sections = {
@@ -49,6 +50,9 @@ function init() {
     setupUploadHandlers();
     setupSelectionHandlers();
     setupButtonHandlers();
+    setupAuthHandlers();
+    setupButtonHandlers();
+    setupViralHandlers(); // Initialize Viral Feature
     setupAuthHandlers();
     checkHealth();
 }
@@ -475,6 +479,7 @@ async function startProcessing() {
         const formData = new FormData();
         formData.append('file', currentFile);
         formData.append('points', JSON.stringify(selectionPoints));
+        formData.append('remove_watermark', isWatermarkRemoved); // Send Viral Flag
 
         // Get Token if User is Logged In
         const user = auth.currentUser;
@@ -592,6 +597,37 @@ function setupButtonHandlers() {
 
     document.getElementById('btn-new').addEventListener('click', reset);
     document.getElementById('btn-retry').addEventListener('click', reset);
+}
+
+// Viral Feature Handlers
+function setupViralHandlers() {
+    const btnShare = document.getElementById('btn-share-watermark');
+    const status = document.getElementById('viral-status');
+
+    btnShare.addEventListener('click', async () => {
+        const shareData = {
+            title: 'Free AI Video Background Remover',
+            text: 'Check out this free tool to remove video backgrounds without a green screen!',
+            url: 'https://obsmaskgenerator.com/video-background-remover/'
+        };
+
+        try {
+            if (navigator.share) {
+                await navigator.share(shareData);
+            } else {
+                await navigator.clipboard.writeText(shareData.url);
+                alert('Link copied to clipboard! Share it to unlock.');
+            }
+
+            // Unlock Feature
+            isWatermarkRemoved = true;
+            btnShare.style.display = 'none';
+            status.style.display = 'block';
+
+        } catch (err) {
+            console.log('Share canceled:', err);
+        }
+    });
 }
 
 function reset() {
