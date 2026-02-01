@@ -2,6 +2,52 @@
 
 const API_URL = '';
 
+// Helper: Handle API Errors gracefully (e.g. 404 HTML from GitHub Pages)
+function handleAppError(e, context = "Operation") {
+    console.error(`${context} failed:`, e);
+    // Check for the "Unexpected token <" error (HTML response instead of JSON)
+    if (e.message && e.message.includes("Unexpected token '<'") || e.message.includes("is not valid JSON")) {
+        alert(
+            `⚠️ Server Not Reachable\n\n` +
+            `You are using the Cloud UI, but your AI Backend isn't connected.\n\n` +
+            `To use this tool locally:\n` +
+            `1. Run the Python Server ('start_wsl_server.bat').\n` +
+            `2. Use 'http://localhost:8000' in your browser.\n` +
+            `\nThe public website is a demo. Please connect a backend to process videos.`
+        );
+        return;
+    }
+    alert(`${context} failed: ${e.message}`);
+}
+
+// Sharing Logic (Viral Loop)
+let isWatermarkRemoved = false;
+
+function setupShareHandlers() {
+    const btnShare = document.getElementById('btn-share-unlock');
+    if (!btnShare) return;
+
+    btnShare.addEventListener('click', () => {
+        const text = "I just removed my video background in 1-click using this Free AI Tool! No Green Screen needed. 🤯\n\nTry it here: https://obsmaskgenerator.com/video-background-remover/";
+        const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+        window.open(url, '_blank');
+
+        // Unlock immediately (Honor System)
+        isWatermarkRemoved = true;
+        const statusEl = document.getElementById('watermark-status');
+        if (statusEl) {
+            statusEl.innerHTML = "✅ Watermark Removed!";
+            statusEl.style.color = "#10b981";
+            statusEl.style.fontWeight = "bold";
+        }
+        btnShare.style.display = 'none';
+
+        if (typeof gtag === 'function') {
+            gtag('event', 'share', { 'method': 'twitter', 'content_type': 'video' });
+        }
+    });
+}
+
 // Firebase Config
 const firebaseConfig = {
     apiKey: "AIzaSyCtaTvetSWLVmMwZuWkiPzXG_N2T26rABc",
@@ -71,7 +117,9 @@ function init() {
     setupUploadHandlers();
     setupSelectionHandlers();
     setupButtonHandlers();
+    setupButtonHandlers();
     setupAuthHandlers();
+    setupShareHandlers(); // New
     checkHealth();
 }
 
@@ -500,8 +548,7 @@ async function previewMask() {
         overlay.style.backgroundImage = `url(${data.mask})`;
 
     } catch (error) {
-        console.error('Preview mask error:', error);
-        alert('Failed to preview mask: ' + error.message);
+        handleAppError(error, "Preview Mask");
     } finally {
         btn.textContent = 'Preview Mask';
         btn.disabled = false;
@@ -527,6 +574,7 @@ async function startProcessing() {
         const formData = new FormData();
         formData.append('file', currentFile);
         formData.append('points', JSON.stringify(selectionPoints));
+        formData.append('remove_watermark', isWatermarkRemoved.toString()); // Viral Flag
 
         // Get Token if User is Logged In
         const user = auth.currentUser;
@@ -536,10 +584,10 @@ async function startProcessing() {
             headers['Authorization'] = `Bearer ${token}`;
         }
 
-        const response = await fetch(`${API_URL}/api/upload`, {
+        const response = await fetch(`${API_URL}/api/upload-video`, { // Fixed endpoint name
             method: 'POST',
             body: formData,
-            headers: headers // Add headers here
+            headers: headers
         });
 
         if (!response.ok) {
@@ -554,7 +602,7 @@ async function startProcessing() {
         pollStatus();
 
     } catch (error) {
-        showError(error.message);
+        handleAppError(error, "Upload");
     }
 }
 
