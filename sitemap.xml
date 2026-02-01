@@ -8,6 +8,14 @@
     <priority>1.0</priority>
   </url>
   
+  <!-- New AI Tool -->
+  <url>
+    <loc>https://obsmaskgenerator.com/video-background-remover/</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
   <!-- OBS Tools -->
   <url>
     <loc>https://obsmaskgenerator.com/settings-generator/</loc>

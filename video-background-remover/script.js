@@ -1,6 +1,6 @@
 // SAM2 Video Background Remover - Frontend Logic
 
-const API_URL = 'https://removebg.obsmaskgenerator.com';
+const API_URL = '';
 
 // Firebase Config
 const firebaseConfig = {
@@ -49,6 +49,7 @@ async function fetchWithTimeout(url, options = {}, timeoutMs = 60000) {
         throw error;
     }
 }
+
 let selectionPoints = [];
 let currentBrushType = 'keep';
 let firstFrameDataUrl = null;
@@ -227,6 +228,14 @@ function setupUploadHandlers() {
 }
 
 async function handleFileSelect(file) {
+    // 1. Strict 30MB Limit (Client-Side)
+    const MAX_SIZE_MB = 30;
+    if (file.size > MAX_SIZE_MB * 1024 * 1024) {
+        alert(`File too large (${(file.size / 1024 / 1024).toFixed(1)}MB). Maximum allowed size is ${MAX_SIZE_MB}MB.`);
+        document.getElementById('file-input').value = ''; // Reset
+        return;
+    }
+
     currentFile = file;
 
     // Extract first frame
@@ -252,11 +261,27 @@ async function handleFileSelect(file) {
     video.onseeked = () => {
         if (!currentFile) return; // Abort if rejected
 
+        // 2. Client-Side Resizing (Max 1080p)
+        // This ensures the server never processes 4K images for preview, saving CPU/GPU.
+        const MAX_DIM = 1920; // 1080p
+        let w = video.videoWidth;
+        let h = video.videoHeight;
+
+        if (w > MAX_DIM || h > MAX_DIM) {
+            const ratio = Math.min(MAX_DIM / w, MAX_DIM / h);
+            w = Math.round(w * ratio);
+            h = Math.round(h * ratio);
+            console.log(`Resize: ${video.videoWidth}x${video.videoHeight} -> ${w}x${h}`);
+        }
+
         const canvas = document.createElement('canvas');
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
+        canvas.width = w;
+        canvas.height = h;
         const ctx = canvas.getContext('2d');
-        ctx.drawImage(video, 0, 0);
+        // Better quality scaling
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        ctx.drawImage(video, 0, 0, w, h);
         firstFrameDataUrl = canvas.toDataURL('image/png');
 
         // Display on selection canvas

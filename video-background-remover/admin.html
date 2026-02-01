@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Mission Control - SAM2 Server</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js for graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Admin Specific Styles - Inline for now or move to style.css */
+        body {
+            background-color: #0f172a;
+            /* Darker slate */
+        }
+
+        .admin-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1rem;
+        }
+
+        .badge-live {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .badge-live::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+            display: block;
+            box-shadow: 0 0 10px #4ade80;
+        }
+
+        /* Grid Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card h3 {
+            font-size: 0.875rem;
+            color: #94a3b8;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-sub {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        /* Slider Section */
+        .slider-card {
+            grid-column: span 2;
+        }
+
+        .vram-control {
+            margin-top: 1rem;
+        }
+
+        .range-slider {
+            width: 100%;
+            height: 8px;
+            background: #334155;
+            border-radius: 4px;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            background: var(--primary);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 15px var(--primary);
+            border: 2px solid white;
+        }
+
+        .safety-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            color: #94a3b8;
+        }
+
+        .safety-lock-msg {
+            color: #f59e0b;
+            /* Amber */
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Charts */
+        .chart-container {
+            position: relative;
+            height: 200px;
+            width: 100%;
+        }
+
+        /* Reviews Feed */
+        .reviews-section {
+            grid-column: span 4;
+            margin-top: 1rem;
+        }
+
+        .review-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .review-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stars {
+            color: #fbbf24;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="background-effects">
+        <div class="gradient-sphere"></div>
+    </div>
+
+    <div class="admin-container">
+        <!-- Header -->
+        <div class="dashboard-header">
+            <div>
+                <h1 style="font-size: 1.5rem; font-weight: 700; color: white;">SAM2 Mission Control 🚀</h1>
+                <p style="color: #94a3b8;">Server Status & Resource Management</p>
+            </div>
+            <div class="badge-live">System Online</div>
+        </div>
+
+        <!-- Metric Grid -->
+        <div class="dashboard-grid">
+            <!-- GPU Info -->
+            <div class="card">
+                <h3>GPU Hardware</h3>
+                <div class="metric-value" id="gpu-name">Checking...</div>
+                <div class="metric-sub" id="gpu-status">VRAM: Calculating...</div>
+            </div>
+
+            <!-- Active Users -->
+            <div class="card">
+                <h3>Live Traffic</h3>
+                <div class="metric-value" id="active-users">0</div>
+                <div class="metric-sub">Active Sessions</div>
+            </div>
+
+
+            <!-- GPU VRAM Slider -->
+            <div class="card slider-card">
+                <h3>🎮 GPU VRAM Limit</h3>
+                <div class="vram-control">
+                    <div style="display: flex; justify-content: space-between; color: white; margin-bottom: 0.5rem;">
+                        <span id="current-setting">4 GB</span>
+                        <span style="color: #ef4444;" id="max-limit">Max: -- GB</span>
+                    </div>
+                    <input type="range" min="2" max="10" step="0.1" value="4" class="range-slider" id="vram-slider">
+                    <div class="safety-indicator">
+                        <span style="color:#4ade80">Low (30%)</span>
+                        <span style="color:#f59e0b">High (100%)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RAM Limit Slider -->
+            <div class="card slider-card">
+                <h3>💾 RAM Limit (per job)</h3>
+                <div class="vram-control">
+                    <div style="display: flex; justify-content: space-between; color: white; margin-bottom: 0.5rem;">
+                        <span id="ram-setting">4 GB</span>
+                        <span style="color: #64748b;">Max: 8 GB</span>
+                    </div>
+                    <input type="range" min="2" max="8" step="0.5" value="4" class="range-slider" id="ram-slider">
+                    <div class="safety-indicator">
+                        <span style="color:#4ade80">2 GB (Safe)</span>
+                        <span style="color:#f59e0b">8 GB (Fast)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Second Row of Controls -->
+        <div class="dashboard-grid">
+            <!-- CPU Cores Slider -->
+            <div class="card slider-card">
+                <h3>⚡ CPU Cores</h3>
+                <div class="vram-control">
+                    <div style="display: flex; justify-content: space-between; color: white; margin-bottom: 0.5rem;">
+                        <span id="cpu-setting">4 cores</span>
+                        <span style="color: #64748b;">Max: 8</span>
+                    </div>
+                    <input type="range" min="1" max="8" step="1" value="4" class="range-slider" id="cpu-slider">
+                    <div class="safety-indicator">
+                        <span style="color:#4ade80">1 (Minimal)</span>
+                        <span style="color:#f59e0b">8 (Full)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resolution Control -->
+            <div class="card slider-card">
+                <h3>📺 Processing Resolution</h3>
+                <div class="vram-control">
+                    <div style="display: flex; justify-content: space-between; color: white; margin-bottom: 0.5rem;">
+                        <span id="res-setting">480p</span>
+                        <span style="color: #64748b;">Output: 720p</span>
+                    </div>
+                    <input type="range" min="360" max="600" step="60" value="480" class="range-slider" id="res-slider">
+                    <div class="safety-indicator">
+                        <span style="color:#4ade80">360p (Fastest)</span>
+                        <span style="color:#f59e0b">600p (High Quality)</span>
+                    </div>
+                    <div class="safety-lock-msg" style="color: #4ade80;">
+                        ✓ Output upscaled to 720p automatically
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Save Button Section -->
+        <div style="margin: 2rem 0; text-align: center;">
+            <button id="save-config-btn" class="nav-btn"
+                style="background: #2563eb; border: none; padding: 1rem 4rem; font-size: 1.1rem; cursor: pointer; transition: all 0.2s;">
+                💾 Save Changes
+            </button>
+            <p id="save-status"
+                style="margin-top: 0.5rem; color: #4ade80; height: 1.5rem; opacity: 0; transition: opacity 0.3s;">
+                Configuration Saved Successfully!
+            </p>
+        </div>
+
+        <!-- Production Stats -->
+        <div class="dashboard-grid">
+            <div class="card" style="grid-column: span 2;">
+                <h3>Production Output (Today)</h3>
+                <div class="metric-value" id="daily-videos">0</div>
+                <div class="metric-sub">Videos Rendered Successfully</div>
+            </div>
+            <div class="card" style="grid-column: span 2;">
+                <h3>Total Runtime</h3>
+                <div class="metric-value" id="total-runtime">0m</div>
+                <div class="metric-sub">GPU Processing Time</div>
+            </div>
+        </div>
+
+        <!-- Reviews (Future) -->
+        <div class="reviews-section">
+            <h2 style="color: white; font-size: 1.25rem; margin-bottom: 1rem;">Recent User Feedback</h2>
+            <div class="review-list" id="review-list">
+                <!-- Javascript will populate this or show "No reviews yet" -->
+                <div class="review-card" style="grid-column: span 3; text-align: center; color: #64748b;">
+                    Waiting for user feedback...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs (Auth only needed if we implement protection, for now strictly local) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+
+    <script src="admin.js"></script>
+</body>
+
+</html>

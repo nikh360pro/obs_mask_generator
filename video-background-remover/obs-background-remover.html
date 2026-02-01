@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBS Green Screen Filter - Free AI Video Mask Generator | Obsmaskgenerator</title>
+    <meta name="description"
+        content="Create custom OBS video masks in 1-click. Remove video background for streaming without a green screen. Download transparent masks for OBS 'Image Mask/Blend' filter.">
+    <meta name="keywords"
+        content="OBS green screen, OBS video mask, stream background remover, remove background obs, OBS alpha mask, webcam background remover">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="canonical" href="https://obsmaskgenerator.com/obs-background-remover.html" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/obs-background-remover.html">
+    <meta property="og:title" content="OBS Green Screen Filter - Free AI Video Mask Generator">
+    <meta property="og:description"
+        content="Create custom OBS video masks in 1-click. No green screen needed. Perfect for Twitch & YouTube streamers.">
+    <meta property="og:image" content="https://obsmaskgenerator.com/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://obsmaskgenerator.com/obs-background-remover.html">
+    <meta property="twitter:title" content="OBS Green Screen Filter - Free AI Video Mask Generator">
+    <meta property="twitter:description"
+        content="Create custom OBS video masks in 1-click. No green screen needed. Perfect for Twitch & YouTube streamers.">
+    <meta property="twitter:image" content="https://obsmaskgenerator.com/og-image.jpg">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Obsmaskgenerator for OBS",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Free tool to generate alpha masks for OBS Studio. Allows streamers to remove backgrounds without a physical green screen.",
+      "featureList": "OBS Mask Export, Green Screen Alternative, AI Background Removal",
+      "screenshot": "https://obsmaskgenerator.com/screenshot.jpg"
+    }
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <img src="favicon.ico" alt="Logo" style="width: 24px; height: 24px; margin-right: 8px;">
+                    <h1>Obsmaskgenerator</h1>
+                </a>
+
+                <div class="user-controls">
+                    <button id="btn-login" class="btn-primary">Get Started</button>
+
+                    <div id="user-profile" class="user-widget" style="display: none;">
+                        <img id="user-avatar" src="" alt="User" class="avatar">
+                        <button id="btn-logout" class="btn-secondary">Sign Out</button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="hero">
+        <div class="container">
+            <h2>OBS Green Screen <br>Without the Green Screen</h2>
+            <p>Generate professional <strong>OBS Video Masks</strong> instantly with AI. The perfect free tool for
+                streamers to remove webcam backgrounds.</p>
+        </div>
+    </div>
+
+    <!-- Main Tool Interface (Reused) -->
+    <main class="app-container">
+        <!-- Upload Section -->
+        <section id="upload-section" class="section active">
+            <div class="upload-zone" id="upload-zone">
+                <div class="upload-icon" style="font-size: 3rem; margin-bottom: 1rem;">🎥</div>
+                <h2>Upload Webcam Clip</h2>
+                <p style="color: var(--text-secondary)">Drag & drop your OBS recording (Max 10s)</p>
+                <p class="supported-formats">MP4, MOV, AVI, MKV</p>
+            </div>
+            <input type="file" id="file-input" accept="video/*" hidden>
+        </section>
+
+        <!-- Selection Section -->
+        <section id="selection-section" class="section">
+            <div style="text-align: center; margin-bottom: 1.5rem;">
+                <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Create Mask</h2>
+                <p class="instruction" style="color: var(--text-secondary)">Click points on yourself to keep.</p>
+            </div>
+
+            <div class="canvas-wrapper">
+                <canvas id="selection-canvas"></canvas>
+                <div id="mask-overlay"></div>
+            </div>
+
+            <div id="points-list" class="points-summary">
+                Start clicking to add points...
+            </div>
+
+            <div class="toolbar">
+                <div class="tool-group">
+                    <button id="btn-keep" class="btn-tool keep active" data-type="keep">
+                        <span>●</span> Keep
+                    </button>
+                    <button id="btn-remove" class="btn-tool remove" data-type="remove">
+                        <span>●</span> Remove
+                    </button>
+                    <button id="btn-clear" class="btn-tool">Clear</button>
+                </div>
+
+                <div class="tool-group">
+                    <button id="btn-preview" class="btn-secondary">Preview Mask</button>
+                    <button id="btn-process" class="btn-primary">Generate Mask</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Processing Section -->
+        <section id="processing-section" class="section">
+            <div class="processing-state">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">⚙️</div>
+                <h2>Generating OBS Mask</h2>
+                <p id="processing-status">AI is analyzing frames...</p>
+
+                <div class="progress-track">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+
+                <div
+                    style="display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--text-secondary); max-width: 400px; margin: 0 auto;">
+                    <span id="progress-stage">Starting...</span>
+                    <span id="progress-percent">0%</span>
+                </div>
+
+                <div class="steps-row">
+                    <div class="step-item" id="step-upload">
+                        <span class="step-icon">📤</span>
+                        <span>Upload</span>
+                    </div>
+                    <div class="step-item" id="step-extract">
+                        <span class="step-icon">🎞️</span>
+                        <span>Extract</span>
+                    </div>
+                    <div class="step-item" id="step-process">
+                        <span class="step-icon">🧠</span>
+                        <span>AI Masking</span>
+                    </div>
+                    <div class="step-item" id="step-download">
+                        <span class="step-icon">💾</span>
+                        <span>Ready</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Download Section -->
+        <section id="download-section" class="section">
+            <div style="text-align: center;">
+                <h2 style="margin-bottom: 1.5rem;">Mask Generated!</h2>
+
+                <video id="result-video" class="video-result" controls loop autoplay muted></video>
+
+                <div style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem;">
+                    <a id="download-link" href="#" class="btn-primary" download>
+                        <span>⬇️</span> Download Mask
+                    </a>
+                    <button id="btn-new" class="btn-secondary">New Project</button>
+                </div>
+
+                <div
+                    style="background: var(--bg-input); padding: 1.5rem; border-radius: var(--radius-md); text-align: left; max-width: 500px; margin: 0 auto;">
+                    <h3 style="font-size: 1rem; color: var(--text-main); margin-bottom: 0.5rem;">How to use in OBS:</h3>
+                    <ol
+                        style="font-size: 0.9rem; color: var(--text-secondary); padding-left: 1.2rem; line-height: 1.6;">
+                        <li>Right-click your Camera Source > <strong>Filters</strong>.</li>
+                        <li>Add <strong>Image Mask/Blend</strong>.</li>
+                        <li>Type: <strong>Alpha Mask (Alpha Channel)</strong>.</li>
+                        <li>Path: Select this downloaded video file.</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- SEO Content Section (Customized for OBS) -->
+    <section class="seo-section">
+        <div class="container">
+            <div class="seo-grid">
+                <div class="seo-text">
+                    <h2>How to Remove Background in OBS (Free)</h2>
+                    <p>Stop looking for expensive green screens. <strong>Obsmaskgenerator</strong> lets you create a
+                        professional transparent background for your stream using AI. Just record a short clip of your
+                        webcam, upload it here, and get a perfect <strong>OBS Alpha Mask</strong> in seconds.</p>
+
+                    <h3>Perfect for Streamers</h3>
+                    <ul class="seo-list">
+                        <li><strong>Zero Cost:</strong> Why pay for a green screen when AI can do it for free?</li>
+                        <li><strong>Compatible:</strong> Works perfectly with OBS Studio, Streamlabs, and Prism Live.
+                        </li>
+                        <li><strong>High Performance:</strong> The masking happens on the video file, using minimal CPU
+                            during your actual stream compared to real-time background removal plugins.</li>
+                    </ul>
+                </div>
+                <div class="seo-text">
+                    <h3>OBS "Image Mask/Blend" Tutorial</h3>
+                    <p>Many streamers don't know that OBS has a built-in filter called "Image Mask/Blend". By feeding it
+                        a high-contrast mask generated by our tool, you can achieve broadcast-quality transparency.</p>
+
+                    <h3>Alternative to OBS Plugins</h3>
+                    <p>Advanced Mask plugins can be heavy on your GPU. By pre-processing your background removal with
+                        <strong>Obsmaskgenerator</strong>, you get a clean look without dropping frames during your
+                        game. It's the ultimate <strong>stream background remover</strong> optimization.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Obsmaskgenerator.</p>
+            <div style="margin-top: 1rem; display: flex; gap: 1.5rem; justify-content: center;">
+                <a href="terms.html">Terms</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.7;">Powered by <a
+                    href="https://github.com/facebookresearch/sam2" target="_blank">Meta SAM2</a>.</p>
+        </div>
+    </footer>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-banner" class="cookie-banner">
+        <div class="cookie-content">
+            <p>We use cookies to improve your experience and keep you logged in. By using our site, you agree to our <a
+                    href="privacy.html">Privacy Policy</a>.</p>
+            <button id="btn-accept-cookies" class="btn-primary btn-sm">Accept</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
