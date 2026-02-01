@@ -1,52 +1,6 @@
 // SAM2 Video Background Remover - Frontend Logic
 
-const API_URL = '';
-
-// Helper: Handle API Errors gracefully (e.g. 404 HTML from GitHub Pages)
-function handleAppError(e, context = "Operation") {
-    console.error(`${context} failed:`, e);
-    // Check for the "Unexpected token <" error (HTML response instead of JSON)
-    if (e.message && e.message.includes("Unexpected token '<'") || e.message.includes("is not valid JSON")) {
-        alert(
-            `⚠️ Server Not Reachable\n\n` +
-            `You are using the Cloud UI, but your AI Backend isn't connected.\n\n` +
-            `To use this tool locally:\n` +
-            `1. Run the Python Server ('start_wsl_server.bat').\n` +
-            `2. Use 'http://localhost:8000' in your browser.\n` +
-            `\nThe public website is a demo. Please connect a backend to process videos.`
-        );
-        return;
-    }
-    alert(`${context} failed: ${e.message}`);
-}
-
-// Sharing Logic (Viral Loop)
-let isWatermarkRemoved = false;
-
-function setupShareHandlers() {
-    const btnShare = document.getElementById('btn-share-unlock');
-    if (!btnShare) return;
-
-    btnShare.addEventListener('click', () => {
-        const text = "I just removed my video background in 1-click using this Free AI Tool! No Green Screen needed. 🤯\n\nTry it here: https://obsmaskgenerator.com/video-background-remover/";
-        const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
-        window.open(url, '_blank');
-
-        // Unlock immediately (Honor System)
-        isWatermarkRemoved = true;
-        const statusEl = document.getElementById('watermark-status');
-        if (statusEl) {
-            statusEl.innerHTML = "✅ Watermark Removed!";
-            statusEl.style.color = "#10b981";
-            statusEl.style.fontWeight = "bold";
-        }
-        btnShare.style.display = 'none';
-
-        if (typeof gtag === 'function') {
-            gtag('event', 'share', { 'method': 'twitter', 'content_type': 'video' });
-        }
-    });
-}
+const API_URL = 'https://removebg.obsmaskgenerator.com';
 
 // Firebase Config
 const firebaseConfig = {
@@ -74,28 +28,6 @@ const provider = new firebase.auth.GoogleAuthProvider();
 let currentFile = null;
 let jobId = null;
 let pollInterval = null;
-
-// Helper: Fetch with timeout (default 60s for large operations)
-async function fetchWithTimeout(url, options = {}, timeoutMs = 60000) {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
-
-    try {
-        const response = await fetch(url, {
-            ...options,
-            signal: controller.signal
-        });
-        clearTimeout(timeoutId);
-        return response;
-    } catch (error) {
-        clearTimeout(timeoutId);
-        if (error.name === 'AbortError') {
-            throw new Error('Request timed out. Server may be loading models. Please try again.');
-        }
-        throw error;
-    }
-}
-
 let selectionPoints = [];
 let currentBrushType = 'keep';
 let firstFrameDataUrl = null;
@@ -117,9 +49,7 @@ function init() {
     setupUploadHandlers();
     setupSelectionHandlers();
     setupButtonHandlers();
-    setupButtonHandlers();
     setupAuthHandlers();
-    setupShareHandlers(); // New
     checkHealth();
 }
 
@@ -161,18 +91,13 @@ function setupAuthHandlers() {
         .catch(console.error);
 
     btnLogin.addEventListener('click', () => {
-        // Use popup for better cross-domain compatibility
-        auth.signInWithPopup(provider)
-            .then((result) => {
-                console.log('Login successful:', result.user.email);
+        // Ensure persistence is set before sign in
+        auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+            .then(() => {
+                return auth.signInWithPopup(provider);
             })
-            .catch(e => {
-                console.error('Login error:', e);
-                alert('Login failed: ' + e.message);
-            });
+            .catch(e => alert(e.message));
     });
-
-    // No redirect handling needed - using popup auth
 
     btnLogout.addEventListener('click', () => {
         auth.signOut();
@@ -276,14 +201,6 @@ function setupUploadHandlers() {
 }
 
 async function handleFileSelect(file) {
-    // 1. Strict 30MB Limit (Client-Side)
-    const MAX_SIZE_MB = 30;
-    if (file.size > MAX_SIZE_MB * 1024 * 1024) {
-        alert(`File too large (${(file.size / 1024 / 1024).toFixed(1)}MB). Maximum allowed size is ${MAX_SIZE_MB}MB.`);
-        document.getElementById('file-input').value = ''; // Reset
-        return;
-    }
-
     currentFile = file;
 
     // Extract first frame
@@ -309,27 +226,11 @@ async function handleFileSelect(file) {
     video.onseeked = () => {
         if (!currentFile) return; // Abort if rejected
 
-        // 2. Client-Side Resizing (Max 1080p)
-        // This ensures the server never processes 4K images for preview, saving CPU/GPU.
-        const MAX_DIM = 1920; // 1080p
-        let w = video.videoWidth;
-        let h = video.videoHeight;
-
-        if (w > MAX_DIM || h > MAX_DIM) {
-            const ratio = Math.min(MAX_DIM / w, MAX_DIM / h);
-            w = Math.round(w * ratio);
-            h = Math.round(h * ratio);
-            console.log(`Resize: ${video.videoWidth}x${video.videoHeight} -> ${w}x${h}`);
-        }
-
         const canvas = document.createElement('canvas');
-        canvas.width = w;
-        canvas.height = h;
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
         const ctx = canvas.getContext('2d');
-        // Better quality scaling
-        ctx.imageSmoothingEnabled = true;
-        ctx.imageSmoothingQuality = 'high';
-        ctx.drawImage(video, 0, 0, w, h);
+        ctx.drawImage(video, 0, 0);
         firstFrameDataUrl = canvas.toDataURL('image/png');
 
         // Display on selection canvas
@@ -415,7 +316,7 @@ function setupSelectionHandlers() {
         if (auth.currentUser) {
             previewMask();
         } else {
-            auth.signInWithPopup(provider).then(() => previewMask()).catch(e => alert('Login required: ' + e.message));
+            auth.signInWithPopup(provider).catch(e => alert(e.message));
         }
     });
 
@@ -423,7 +324,7 @@ function setupSelectionHandlers() {
         if (auth.currentUser) {
             startProcessing();
         } else {
-            auth.signInWithPopup(provider).then(() => startProcessing()).catch(e => alert('Login required: ' + e.message));
+            auth.signInWithPopup(provider).catch(e => alert(e.message));
         }
     });
 }
@@ -527,14 +428,14 @@ async function previewMask() {
             throw new Error("Please login to preview mask");
         }
 
-        const response = await fetchWithTimeout(`${API_URL}/api/preview-mask`, {
+        const response = await fetch(`${API_URL}/api/preview-mask`, {
             method: 'POST',
             headers: headers,
             body: JSON.stringify({
                 image: firstFrameDataUrl,
                 points: selectionPoints
             })
-        }, 120000);  // 2 minute timeout for model loading
+        });
 
         if (!response.ok) {
             const err = await response.json();
@@ -548,7 +449,7 @@ async function previewMask() {
         overlay.style.backgroundImage = `url(${data.mask})`;
 
     } catch (error) {
-        handleAppError(error, "Preview Mask");
+        alert('Failed to preview mask: ' + error.message);
     } finally {
         btn.textContent = 'Preview Mask';
         btn.disabled = false;
@@ -574,7 +475,6 @@ async function startProcessing() {
         const formData = new FormData();
         formData.append('file', currentFile);
         formData.append('points', JSON.stringify(selectionPoints));
-        formData.append('remove_watermark', isWatermarkRemoved.toString()); // Viral Flag
 
         // Get Token if User is Logged In
         const user = auth.currentUser;
@@ -584,10 +484,10 @@ async function startProcessing() {
             headers['Authorization'] = `Bearer ${token}`;
         }
 
-        const response = await fetch(`${API_URL}/api/upload-video`, { // Fixed endpoint name
+        const response = await fetch(`${API_URL}/api/upload-video`, {
             method: 'POST',
             body: formData,
-            headers: headers
+            headers: headers // Add headers here
         });
 
         if (!response.ok) {
@@ -602,7 +502,7 @@ async function startProcessing() {
         pollStatus();
 
     } catch (error) {
-        handleAppError(error, "Upload");
+        showError(error.message);
     }
 }
 

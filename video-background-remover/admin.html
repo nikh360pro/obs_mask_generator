@@ -203,88 +203,32 @@
                 <div class="metric-sub">Active Sessions</div>
             </div>
 
-
-            <!-- GPU VRAM Slider -->
+            <!-- VRAM Slider (The Core Feature) -->
             <div class="card slider-card">
-                <h3>🎮 GPU VRAM Limit</h3>
+                <h3>Hardware Capability Limiter (Safety Lock Active 🛡️)</h3>
                 <div class="vram-control">
                     <div style="display: flex; justify-content: space-between; color: white; margin-bottom: 0.5rem;">
                         <span id="current-setting">4 GB</span>
                         <span style="color: #ef4444;" id="max-limit">Max: -- GB</span>
                     </div>
+                    <!-- Range: Min 2GB, Max determined by JS -->
                     <input type="range" min="2" max="10" step="0.1" value="4" class="range-slider" id="vram-slider">
+
                     <div class="safety-indicator">
-                        <span style="color:#4ade80">Low (30%)</span>
-                        <span style="color:#f59e0b">High (100%)</span>
+                        <span style="color:#4ade80">Min (30% Load / Cool)</span>
+                        <span style="color:#f59e0b">Max (100% Load / Fast)</span>
+                    </div>
+                    <div class="safety-lock-msg">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                        "Hooker" Technology: Injects micro-sleeps between AI layers (sub-frame) for 100% smooth power
+                        lines.
                     </div>
                 </div>
             </div>
-
-            <!-- RAM Limit Slider -->
-            <div class="card slider-card">
-                <h3>💾 RAM Limit (per job)</h3>
-                <div class="vram-control">
-                    <div style="display: flex; justify-content: space-between; color: white; margin-bottom: 0.5rem;">
-                        <span id="ram-setting">4 GB</span>
-                        <span style="color: #64748b;">Max: 8 GB</span>
-                    </div>
-                    <input type="range" min="2" max="8" step="0.5" value="4" class="range-slider" id="ram-slider">
-                    <div class="safety-indicator">
-                        <span style="color:#4ade80">2 GB (Safe)</span>
-                        <span style="color:#f59e0b">8 GB (Fast)</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Second Row of Controls -->
-        <div class="dashboard-grid">
-            <!-- CPU Cores Slider -->
-            <div class="card slider-card">
-                <h3>⚡ CPU Cores</h3>
-                <div class="vram-control">
-                    <div style="display: flex; justify-content: space-between; color: white; margin-bottom: 0.5rem;">
-                        <span id="cpu-setting">4 cores</span>
-                        <span style="color: #64748b;">Max: 8</span>
-                    </div>
-                    <input type="range" min="1" max="8" step="1" value="4" class="range-slider" id="cpu-slider">
-                    <div class="safety-indicator">
-                        <span style="color:#4ade80">1 (Minimal)</span>
-                        <span style="color:#f59e0b">8 (Full)</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Resolution Control -->
-            <div class="card slider-card">
-                <h3>📺 Processing Resolution</h3>
-                <div class="vram-control">
-                    <div style="display: flex; justify-content: space-between; color: white; margin-bottom: 0.5rem;">
-                        <span id="res-setting">480p</span>
-                        <span style="color: #64748b;">Output: 720p</span>
-                    </div>
-                    <input type="range" min="360" max="600" step="60" value="480" class="range-slider" id="res-slider">
-                    <div class="safety-indicator">
-                        <span style="color:#4ade80">360p (Fastest)</span>
-                        <span style="color:#f59e0b">600p (High Quality)</span>
-                    </div>
-                    <div class="safety-lock-msg" style="color: #4ade80;">
-                        ✓ Output upscaled to 720p automatically
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Save Button Section -->
-        <div style="margin: 2rem 0; text-align: center;">
-            <button id="save-config-btn" class="nav-btn"
-                style="background: #2563eb; border: none; padding: 1rem 4rem; font-size: 1.1rem; cursor: pointer; transition: all 0.2s;">
-                💾 Save Changes
-            </button>
-            <p id="save-status"
-                style="margin-top: 0.5rem; color: #4ade80; height: 1.5rem; opacity: 0; transition: opacity 0.3s;">
-                Configuration Saved Successfully!
-            </p>
         </div>
 
         <!-- Production Stats -->
