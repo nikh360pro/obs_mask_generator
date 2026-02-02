@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banner Preview - Compact Version</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0b0f19;
+            color: white;
+            min-height: 100vh;
+        }
+
+        /* Launch Banner - Compact Version (2x smaller) */
+        .launch-banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            animation: slideDown 0.5s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .launch-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        .banner-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .banner-video {
+            position: relative;
+            width: 200px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .banner-demo-video {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .banner-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(239, 68, 68, 0.95);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 16px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .badge-dot {
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+
+        .banner-text {
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .banner-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            line-height: 1.2;
+            text-align: left;
+        }
+
+        .banner-description {
+            font-size: 0.9rem;
+            opacity: 0.95;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+            text-align: left;
+        }
+
+        .banner-cta {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 8px 20px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .banner-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            background: #f0f0f0;
+        }
+
+        .banner-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 1.25rem;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            z-index: 10;
+            font-weight: 300;
+            line-height: 1;
+        }
+
+        .banner-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        /* Page Content */
+        .page-content {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .page-content h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-content p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-100%);
+            }
+        }
+
+        @keyframes shine {
+            0%, 100% {
+                left: -100%;
+            }
+            50% {
+                left: 100%;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .banner-content {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .banner-video {
+                width: 150px;
+                height: 112px;
+                margin: 0 auto;
+            }
+
+            .banner-title {
+                font-size: 1.1rem;
+            }
+
+            .banner-description {
+                font-size: 0.85rem;
+            }
+
+            .banner-cta {
+                padding: 6px 16px;
+                font-size: 0.8rem;
+            }
+
+            .banner-close {
+                width: 24px;
+                height: 24px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- COMPACT LAUNCH BANNER (2X SMALLER) -->
+    <div class="launch-banner" id="launchBanner">
+        <button class="banner-close" onclick="closeBanner()">×</button>
+        <div class="banner-content">
+            <div class="banner-video">
+                <video autoplay loop muted playsinline class="banner-demo-video">
+                    <source src="assets/demo.webm" type="video/webm">
+                </video>
+                <div class="banner-badge">
+                    <span class="badge-dot"></span>
+                    NEW LAUNCH
+                </div>
+            </div>
+            <div class="banner-text">
+                <h3 class="banner-title">Free Video Background Remover is Live!</h3>
+                <p class="banner-description">Click. Remove. Done.</p>
+                <button class="banner-cta" onclick="scrollToApp()">Try It Now →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Content -->
+    <div class="page-content">
+        <h1>Compact Banner Preview</h1>
+        <p>This is the new 2x smaller banner version. The video fits perfectly in a 200×150px container with no cropping or black bars.</p>
+    </div>
+
+    <script>
+        function closeBanner() {
+            const banner = document.getElementById('launchBanner');
+            banner.style.animation = 'slideUp 0.3s ease-out forwards';
+            setTimeout(() => {
+                banner.style.display = 'none';
+                alert('Banner closed! Refresh to see it again.');
+            }, 300);
+        }
+
+        function scrollToApp() {
+            alert('In the real site, this scrolls to the video editor!');
+            closeBanner();
+        }
+    </script>
+</body>
+</html>

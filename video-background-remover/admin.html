@@ -7,26 +7,23 @@
     <title>Admin Mission Control - SAM2 Server</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chart.js for graphs -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* Admin Specific Styles - Inline for now or move to style.css */
         body {
             background-color: #0f172a;
-            /* Darker slate */
+            min-height: 100vh;
         }
 
         .admin-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 1.5rem;
         }
 
         .dashboard-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding-bottom: 1rem;
         }
@@ -49,15 +46,20 @@
             background: #4ade80;
             border-radius: 50%;
             display: block;
-            box-shadow: 0 0 10px #4ade80;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 10px #4ade80; }
+            50% { opacity: 0.5; box-shadow: 0 0 5px #4ade80; }
         }
 
         /* Grid Layout */
         .dashboard-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .card {
@@ -65,13 +67,13 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 1rem;
-            padding: 1.5rem;
+            padding: 1.25rem;
             display: flex;
             flex-direction: column;
         }
 
         .card h3 {
-            font-size: 0.875rem;
+            font-size: 0.75rem;
             color: #94a3b8;
             margin-bottom: 0.5rem;
             text-transform: uppercase;
@@ -79,31 +81,165 @@
         }
 
         .metric-value {
-            font-size: 2rem;
+            font-size: 1.75rem;
             font-weight: 700;
             color: white;
             margin-bottom: 0.25rem;
         }
 
         .metric-sub {
-            font-size: 0.875rem;
+            font-size: 0.8rem;
             color: #64748b;
         }
 
-        /* Slider Section */
-        .slider-card {
-            grid-column: span 2;
+        /* Progress Bars */
+        .progress-bar {
+            height: 6px;
+            background: #334155;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 0.5rem;
         }
 
-        .vram-control {
-            margin-top: 1rem;
+        .progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.3s ease, background 0.3s ease;
+        }
+
+        .progress-fill.green { background: linear-gradient(90deg, #10b981, #34d399); }
+        .progress-fill.yellow { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+        .progress-fill.red { background: linear-gradient(90deg, #ef4444, #f87171); }
+
+        /* Temperature indicator */
+        .temp-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .temp-cool { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+        .temp-warm { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+        .temp-hot { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+
+        /* Per-core CPU bars */
+        .cpu-cores {
+            display: flex;
+            gap: 3px;
+            margin-top: 0.5rem;
+        }
+
+        .core-bar {
+            flex: 1;
+            height: 30px;
+            background: #334155;
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .core-fill {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            transition: height 0.3s ease;
+        }
+
+        /* Preset Section */
+        .preset-section {
+            grid-column: span 4;
+        }
+
+        .preset-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 0.75rem;
+        }
+
+        .preset-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: rgba(30, 41, 59, 0.5);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .preset-btn:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .preset-btn.active {
+            border-color: var(--preset-color);
+            box-shadow: 0 0 20px var(--preset-color-glow);
+        }
+
+        .preset-btn .icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .preset-btn .name {
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .preset-btn .desc {
+            color: #64748b;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            text-align: center;
+        }
+
+        /* Resource Controls */
+        .controls-section {
+            grid-column: span 4;
+        }
+
+        .control-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 0.5rem;
+        }
+
+        .control-label {
+            width: 120px;
+            color: #94a3b8;
+            font-size: 0.85rem;
+        }
+
+        .control-slider {
+            flex: 1;
+            margin: 0 1rem;
+        }
+
+        .control-value {
+            width: 100px;
+            text-align: right;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
         }
 
         .range-slider {
             width: 100%;
-            height: 8px;
+            height: 6px;
             background: #334155;
-            border-radius: 4px;
+            border-radius: 3px;
             outline: none;
             appearance: none;
             -webkit-appearance: none;
@@ -111,67 +247,168 @@
 
         .range-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 24px;
-            height: 24px;
-            background: var(--primary);
+            width: 18px;
+            height: 18px;
+            background: var(--primary, #8b5cf6);
             border-radius: 50%;
             cursor: pointer;
-            box-shadow: 0 0 15px var(--primary);
+            box-shadow: 0 0 10px var(--primary, #8b5cf6);
             border: 2px solid white;
         }
 
-        .safety-indicator {
+        .range-slider:disabled {
+            opacity: 0.5;
+        }
+
+        .range-slider:disabled::-webkit-slider-thumb {
+            cursor: not-allowed;
+            background: #64748b;
+            box-shadow: none;
+        }
+
+        /* Resolution buttons */
+        .resolution-btns {
+            display: flex;
+            gap: 0.5rem;
+            flex: 1;
+            margin: 0 1rem;
+        }
+
+        .res-btn {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0.5rem;
+            background: transparent;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.85rem;
+        }
+
+        .res-btn:hover { border-color: rgba(255, 255, 255, 0.4); }
+        .res-btn.active {
+            background: var(--primary, #8b5cf6);
+            border-color: var(--primary, #8b5cf6);
+            color: white;
+        }
+
+        .res-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Smart Mode & Stats */
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .smart-mode-card {
+            padding: 1.25rem;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background: #334155;
+            border-radius: 13px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background: #8b5cf6;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(24px);
+        }
+
+        .smart-info {
+            margin-top: 1rem;
+        }
+
+        .smart-info-row {
             display: flex;
             justify-content: space-between;
-            margin-top: 0.5rem;
-            font-size: 0.875rem;
-            color: #94a3b8;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .safety-lock-msg {
-            color: #f59e0b;
-            /* Amber */
-            font-size: 0.8rem;
-            margin-top: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+        .smart-info-row:last-child { border-bottom: none; }
 
-        /* Charts */
-        .chart-container {
-            position: relative;
-            height: 200px;
-            width: 100%;
-        }
+        .smart-info-label { color: #64748b; font-size: 0.85rem; }
+        .smart-info-value { color: white; font-weight: 500; font-size: 0.85rem; }
 
-        /* Reviews Feed */
-        .reviews-section {
-            grid-column: span 4;
-            margin-top: 1rem;
-        }
-
-        .review-list {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .review-card {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 1rem;
+        /* Queue card */
+        .queue-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.75rem;
             border-radius: 0.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 0.5rem;
         }
 
-        .stars {
-            color: #fbbf24;
+        .queue-item-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .queue-item-id {
+            color: #8b5cf6;
+            font-family: monospace;
+            font-size: 0.85rem;
+        }
+
+        .queue-item-stage {
+            color: #64748b;
+            font-size: 0.8rem;
+        }
+
+        /* Auto mode label */
+        .auto-badge {
+            background: rgba(139, 92, 246, 0.2);
+            color: #a78bfa;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+            .preset-section, .controls-section { grid-column: span 2; }
+            .preset-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 640px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .preset-section, .controls-section { grid-column: span 1; }
+            .preset-grid { grid-template-columns: 1fr 1fr; }
+            .bottom-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 
 <body>
+    <!-- Global Components (managed by components.js) -->
+    <div id="global-banner"></div>
 
     <div class="background-effects">
         <div class="gradient-sphere"></div>
@@ -181,87 +418,195 @@
         <!-- Header -->
         <div class="dashboard-header">
             <div>
-                <h1 style="font-size: 1.5rem; font-weight: 700; color: white;">SAM2 Mission Control 🚀</h1>
-                <p style="color: #94a3b8;">Server Status & Resource Management</p>
+                <h1 style="font-size: 1.5rem; font-weight: 700; color: white;">SAM2 Mission Control</h1>
+                <p style="color: #94a3b8; font-size: 0.875rem;">Server Status & Resource Management</p>
             </div>
-            <div class="badge-live">System Online</div>
+            <div class="badge-live" id="status-badge">System Online</div>
         </div>
 
-        <!-- Metric Grid -->
+        <!-- Metric Cards Row -->
         <div class="dashboard-grid">
-            <!-- GPU Info -->
+            <!-- GPU Card -->
             <div class="card">
-                <h3>GPU Hardware</h3>
-                <div class="metric-value" id="gpu-name">Checking...</div>
-                <div class="metric-sub" id="gpu-status">VRAM: Calculating...</div>
+                <h3>GPU</h3>
+                <div class="metric-value" id="gpu-name">Loading...</div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
+                    <span class="metric-sub" id="gpu-util">0% Utilization</span>
+                    <span class="temp-indicator temp-cool" id="gpu-temp">--C</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill green" id="gpu-mem-bar" style="width: 0%"></div>
+                </div>
+                <div class="metric-sub" style="margin-top: 0.25rem;" id="gpu-mem-text">0 / 0 GB VRAM</div>
             </div>
 
-            <!-- Active Users -->
+            <!-- CPU Card -->
             <div class="card">
-                <h3>Live Traffic</h3>
-                <div class="metric-value" id="active-users">0</div>
-                <div class="metric-sub">Active Sessions</div>
+                <h3>CPU</h3>
+                <div class="metric-value" id="cpu-usage">0%</div>
+                <div class="metric-sub" id="cpu-cores">0 cores</div>
+                <div class="cpu-cores" id="cpu-core-bars">
+                    <!-- Per-core bars will be added by JS -->
+                </div>
             </div>
 
-            <!-- VRAM Slider (The Core Feature) -->
-            <div class="card slider-card">
-                <h3>Hardware Capability Limiter (Safety Lock Active 🛡️)</h3>
-                <div class="vram-control">
-                    <div style="display: flex; justify-content: space-between; color: white; margin-bottom: 0.5rem;">
-                        <span id="current-setting">4 GB</span>
-                        <span style="color: #ef4444;" id="max-limit">Max: -- GB</span>
-                    </div>
-                    <!-- Range: Min 2GB, Max determined by JS -->
-                    <input type="range" min="2" max="10" step="0.1" value="4" class="range-slider" id="vram-slider">
+            <!-- RAM Card -->
+            <div class="card">
+                <h3>RAM</h3>
+                <div class="metric-value" id="ram-usage">0 GB</div>
+                <div class="metric-sub" id="ram-total">of 0 GB</div>
+                <div class="progress-bar">
+                    <div class="progress-fill green" id="ram-bar" style="width: 0%"></div>
+                </div>
+                <div class="metric-sub" style="margin-top: 0.25rem;" id="ram-available">0 GB available</div>
+            </div>
 
-                    <div class="safety-indicator">
-                        <span style="color:#4ade80">Min (30% Load / Cool)</span>
-                        <span style="color:#f59e0b">Max (100% Load / Fast)</span>
+            <!-- Queue Card -->
+            <div class="card">
+                <h3>QUEUE</h3>
+                <div class="metric-value" id="queue-pending">0</div>
+                <div class="metric-sub">pending jobs</div>
+                <div id="queue-current" class="queue-item" style="display: none;">
+                    <div class="queue-item-header">
+                        <span class="queue-item-id" id="queue-job-id">--</span>
+                        <span class="queue-item-stage" id="queue-job-stage">--</span>
                     </div>
-                    <div class="safety-lock-msg">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                        </svg>
-                        "Hooker" Technology: Injects micro-sleeps between AI layers (sub-frame) for 100% smooth power
-                        lines.
+                    <div class="progress-bar">
+                        <div class="progress-fill yellow" id="queue-job-bar" style="width: 0%"></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Production Stats -->
+        <!-- Presets Section -->
         <div class="dashboard-grid">
-            <div class="card" style="grid-column: span 2;">
-                <h3>Production Output (Today)</h3>
-                <div class="metric-value" id="daily-videos">0</div>
-                <div class="metric-sub">Videos Rendered Successfully</div>
-            </div>
-            <div class="card" style="grid-column: span 2;">
-                <h3>Total Runtime</h3>
-                <div class="metric-value" id="total-runtime">0m</div>
-                <div class="metric-sub">GPU Processing Time</div>
+            <div class="card preset-section">
+                <h3>PRESETS</h3>
+                <div class="preset-grid">
+                    <button class="preset-btn" data-preset="no_crash" style="--preset-color: #10b981; --preset-color-glow: rgba(16, 185, 129, 0.3);">
+                        <span class="icon">🛡️</span>
+                        <span class="name">No Crash</span>
+                        <span class="desc">Ultra-safe settings</span>
+                    </button>
+                    <button class="preset-btn" data-preset="performance" style="--preset-color: #f59e0b; --preset-color-glow: rgba(245, 158, 11, 0.3);">
+                        <span class="icon">⚡</span>
+                        <span class="name">Performance</span>
+                        <span class="desc">Balanced for everyday</span>
+                    </button>
+                    <button class="preset-btn" data-preset="heavy" style="--preset-color: #ef4444; --preset-color-glow: rgba(239, 68, 68, 0.3);">
+                        <span class="icon">🔥</span>
+                        <span class="name">Heavy</span>
+                        <span class="desc">Maximum power</span>
+                    </button>
+                    <button class="preset-btn" data-preset="smart" style="--preset-color: #8b5cf6; --preset-color-glow: rgba(139, 92, 246, 0.3);">
+                        <span class="icon">🧠</span>
+                        <span class="name">Smart</span>
+                        <span class="desc">Auto-adjusts to load</span>
+                    </button>
+                </div>
             </div>
         </div>
 
-        <!-- Reviews (Future) -->
-        <div class="reviews-section">
-            <h2 style="color: white; font-size: 1.25rem; margin-bottom: 1rem;">Recent User Feedback</h2>
-            <div class="review-list" id="review-list">
-                <!-- Javascript will populate this or show "No reviews yet" -->
-                <div class="review-card" style="grid-column: span 3; text-align: center; color: #64748b;">
-                    Waiting for user feedback...
+        <!-- Resource Controls Section -->
+        <div class="dashboard-grid">
+            <div class="card controls-section">
+                <h3>RESOURCE CONTROLS <span class="auto-badge" id="auto-badge" style="display: none;">AUTO</span></h3>
+
+                <div class="control-row">
+                    <span class="control-label">GPU VRAM</span>
+                    <div class="control-slider">
+                        <input type="range" class="range-slider" id="slider-vram" min="1" max="12" step="0.5" value="4">
+                    </div>
+                    <span class="control-value" id="value-vram">4.0 GB</span>
+                </div>
+
+                <div class="control-row">
+                    <span class="control-label">RAM Limit</span>
+                    <div class="control-slider">
+                        <input type="range" class="range-slider" id="slider-ram" min="1" max="16" step="0.5" value="4">
+                    </div>
+                    <span class="control-value" id="value-ram">4.0 GB</span>
+                </div>
+
+                <div class="control-row">
+                    <span class="control-label">CPU Cores</span>
+                    <div class="control-slider">
+                        <input type="range" class="range-slider" id="slider-cpu" min="1" max="16" step="1" value="4">
+                    </div>
+                    <span class="control-value" id="value-cpu">4 cores</span>
+                </div>
+
+                <div class="control-row">
+                    <span class="control-label">Resolution</span>
+                    <div class="resolution-btns">
+                        <button class="res-btn" data-res="480">480p</button>
+                        <button class="res-btn active" data-res="720">720p</button>
+                        <button class="res-btn" data-res="1080">1080p</button>
+                    </div>
+                    <span class="control-value" id="value-res">720p</span>
+                </div>
+
+                <div class="control-row">
+                    <span class="control-label">Batch Size</span>
+                    <div class="control-slider">
+                        <input type="range" class="range-slider" id="slider-batch" min="5" max="50" step="5" value="20">
+                    </div>
+                    <span class="control-value" id="value-batch">20 frames</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Section: Smart Mode & Stats -->
+        <div class="bottom-grid">
+            <!-- Smart Mode Card -->
+            <div class="card smart-mode-card">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h3 style="margin: 0;">SMART MODE</h3>
+                    <div class="toggle-switch" id="smart-toggle"></div>
+                </div>
+                <div class="smart-info" id="smart-info">
+                    <div class="smart-info-row">
+                        <span class="smart-info-label">Status</span>
+                        <span class="smart-info-value" id="smart-status">Disabled</span>
+                    </div>
+                    <div class="smart-info-row">
+                        <span class="smart-info-label">Current Tier</span>
+                        <span class="smart-info-value" id="smart-tier">--</span>
+                    </div>
+                    <div class="smart-info-row">
+                        <span class="smart-info-label">Load Score</span>
+                        <span class="smart-info-value" id="smart-load">--</span>
+                    </div>
+                    <div class="smart-info-row">
+                        <span class="smart-info-label">Last Action</span>
+                        <span class="smart-info-value" id="smart-action">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Production Stats Card -->
+            <div class="card">
+                <h3>PRODUCTION STATS</h3>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 0.5rem;">
+                    <div>
+                        <div class="metric-value" style="font-size: 1.5rem;" id="stat-videos">0</div>
+                        <div class="metric-sub">videos today</div>
+                    </div>
+                    <div>
+                        <div class="metric-value" style="font-size: 1.5rem;" id="stat-runtime">0m</div>
+                        <div class="metric-sub">GPU time</div>
+                    </div>
+                    <div>
+                        <div class="metric-value" style="font-size: 1.5rem;" id="stat-users">0</div>
+                        <div class="metric-sub">active users</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Firebase SDKs (Auth only needed if we implement protection, for now strictly local) -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-
     <script src="admin.js"></script>
+    <script src="components.js"></script>
 </body>
 
 </html>

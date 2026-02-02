@@ -1,6 +1,9 @@
 // SAM2 Video Background Remover - Frontend Logic
 
-const API_URL = 'https://removebg.obsmaskgenerator.com';
+// Dynamic API URL based on environment
+const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:8000'  // Local development
+    : 'https://removebg.obsmaskgenerator.com';  // Production
 
 // Firebase Config
 const firebaseConfig = {
@@ -528,7 +531,7 @@ function pollStatus() {
             clearInterval(pollInterval);
             showError(error.message);
         }
-    }, 500);
+    }, 2000);  // Poll every 2 seconds (30 requests/min limit)
 }
 
 function updateProgress(data) {

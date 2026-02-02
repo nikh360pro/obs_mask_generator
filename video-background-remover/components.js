@@ -1,0 +1,124 @@
+/**
+ * Universal Component Injection System
+ *
+ * This script dynamically injects reusable components (like banners, headers, footers)
+ * into all pages. To update/remove components across the entire site, just modify this file.
+ *
+ * Usage:
+ * 1. Add <script src="components.js"></script> before </body> on every page
+ * 2. Add placeholder divs: <div id="global-banner"></div>
+ * 3. Components auto-inject on page load
+ */
+
+const GlobalComponents = {
+    /**
+     * Launch Banner Component
+     * Set enabled: false to remove from all pages instantly
+     */
+    banner: {
+        enabled: true,
+        targetId: 'global-banner', // Where to inject (must exist on page)
+        html: `
+            <div class="launch-banner" id="launchBanner">
+                <button class="banner-close" onclick="GlobalComponents.banner.close()">×</button>
+                <div class="banner-content">
+                    <div class="banner-video">
+                        <video autoplay loop muted playsinline class="banner-demo-video">
+                            <source src="assets/demo.webm" type="video/webm">
+                        </video>
+                        <div class="banner-badge">
+                            <span class="badge-dot"></span>
+                            NEW LAUNCH
+                        </div>
+                    </div>
+                    <div class="banner-text">
+                        <h3 class="banner-title">🎉 Free Video Background Remover is Live!</h3>
+                        <p class="banner-description">Click. Remove. Done.</p>
+                        <button class="banner-cta" onclick="GlobalComponents.banner.scrollToApp()">Try It Now →</button>
+                    </div>
+                </div>
+            </div>
+        `,
+
+        // Banner-specific functions
+        close: function() {
+            const banner = document.getElementById('launchBanner');
+            if (!banner) return;
+
+            banner.style.animation = 'slideUp 0.3s ease-out forwards';
+            setTimeout(() => {
+                banner.style.display = 'none';
+                localStorage.setItem('bannerClosed', 'true');
+            }, 300);
+        },
+
+        scrollToApp: function() {
+            this.close();
+            // Scroll to main content (works on index.html)
+            const mainContent = document.querySelector('main') || document.querySelector('.container');
+            if (mainContent) {
+                mainContent.scrollIntoView({ behavior: 'smooth' });
+            }
+        },
+
+        // Check if user already dismissed banner
+        init: function() {
+            if (localStorage.getItem('bannerClosed') === 'true') {
+                const banner = document.getElementById('launchBanner');
+                if (banner) banner.style.display = 'none';
+            }
+        }
+    },
+
+    /**
+     * Example: Notification Bar Component (disabled by default)
+     * Uncomment and set enabled: true to activate
+     */
+    // notification: {
+    //     enabled: false,
+    //     targetId: 'global-notification',
+    //     html: `
+    //         <div class="notification-bar">
+    //             <p>🎉 New feature: Batch video processing now available!</p>
+    //             <button onclick="GlobalComponents.notification.close()">×</button>
+    //         </div>
+    //     `
+    // },
+
+    /**
+     * Initialize all enabled components
+     */
+    init: function() {
+        // Inject all enabled components
+        Object.keys(this).forEach(key => {
+            const component = this[key];
+
+            // Skip non-component properties (like 'init' function)
+            if (typeof component !== 'object' || !component.enabled) return;
+
+            // Find target element
+            const target = document.getElementById(component.targetId);
+            if (!target) {
+                console.warn(`Component "${key}" target #${component.targetId} not found on this page`);
+                return;
+            }
+
+            // Inject HTML
+            target.innerHTML = component.html;
+
+            // Run component-specific init if exists
+            if (component.init && typeof component.init === 'function') {
+                component.init();
+            }
+
+            console.log(`✅ Component "${key}" injected into #${component.targetId}`);
+        });
+    }
+};
+
+// Auto-initialize on page load
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => GlobalComponents.init());
+} else {
+    GlobalComponents.init();
+}
