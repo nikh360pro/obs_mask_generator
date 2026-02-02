@@ -50,7 +50,9 @@ const GlobalComponents = {
             banner.style.animation = 'slideUp 0.3s ease-out forwards';
             setTimeout(() => {
                 banner.style.display = 'none';
+                // Save dismissed state with version
                 localStorage.setItem('videoBgBannerClosed', 'true');
+                localStorage.setItem('videoBgBannerVersion', '1.0');
             }, 300);
         },
 
@@ -82,12 +84,32 @@ const GlobalComponents = {
                 return;
             }
 
-            // Hide if user previously dismissed
+            // IMPORTANT: Clear old localStorage keys from testing phase
+            // This ensures banner shows for all users after site-wide deployment
+            const oldKeys = ['bannerClosed', 'bannerDismissed'];
+            oldKeys.forEach(key => {
+                if (localStorage.getItem(key)) {
+                    localStorage.removeItem(key);
+                    console.log('[Banner] Cleared old key:', key);
+                }
+            });
+
+            // Check banner version - reset if version changed (force show new banners)
+            const BANNER_VERSION = '1.0';
+            const dismissedVersion = localStorage.getItem('videoBgBannerVersion');
+
+            if (dismissedVersion !== BANNER_VERSION) {
+                // New banner version - clear dismissed flag
+                localStorage.removeItem('videoBgBannerClosed');
+                console.log('[Banner] New version detected, resetting dismissal');
+            }
+
+            // Hide if user dismissed current version
             if (localStorage.getItem('videoBgBannerClosed') === 'true') {
                 banner.style.display = 'none';
-                console.log('[Banner] Hidden: User dismissed');
+                console.log('[Banner] Hidden: User dismissed version', BANNER_VERSION);
             } else {
-                console.log('[Banner] Showing promotion banner');
+                console.log('[Banner] Showing promotion banner version', BANNER_VERSION);
             }
         }
     },
