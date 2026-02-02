@@ -12,12 +12,17 @@
 
 const GlobalComponents = {
     /**
-     * Launch Banner Component
-     * Set enabled: false to remove from all pages instantly
+     * Launch Banner Component - Promotes Video Background Remover Tool
+     * Shows on promotional pages (FAQ, Contact, Privacy, Terms)
+     * Hidden on tool pages (index.html, obs-background-remover.html) to avoid self-promotion
      */
     banner: {
         enabled: true,
         targetId: 'global-banner', // Where to inject (must exist on page)
+
+        // Pages where banner should NOT show (tool pages)
+        excludePages: ['index.html', 'obs-background-remover.html'],
+
         html: `
             <div class="launch-banner" id="launchBanner">
                 <button class="banner-close" onclick="GlobalComponents.banner.close()">×</button>
@@ -34,7 +39,7 @@ const GlobalComponents = {
                     <div class="banner-text">
                         <h3 class="banner-title">🎉 Free Video Background Remover is Live!</h3>
                         <p class="banner-description">Click. Remove. Done.</p>
-                        <button class="banner-cta" onclick="GlobalComponents.banner.scrollToApp()">Try It Now →</button>
+                        <button class="banner-cta" onclick="GlobalComponents.banner.goToTool()">Try It Now →</button>
                     </div>
                 </div>
             </div>
@@ -52,20 +57,33 @@ const GlobalComponents = {
             }, 300);
         },
 
-        scrollToApp: function() {
-            this.close();
-            // Scroll to main content (works on index.html)
-            const mainContent = document.querySelector('main') || document.querySelector('.container');
-            if (mainContent) {
-                mainContent.scrollIntoView({ behavior: 'smooth' });
-            }
+        goToTool: function() {
+            // Redirect to video background remover tool
+            window.location.href = 'index.html';
         },
 
-        // Check if user already dismissed banner
+        // Check if current page should show banner
+        shouldShow: function() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            return !this.excludePages.includes(currentPage);
+        },
+
+        // Check if user already dismissed banner and if page is excluded
         init: function() {
+            const banner = document.getElementById('launchBanner');
+            if (!banner) return;
+
+            // Hide if page is in exclude list (tool pages)
+            if (!this.shouldShow()) {
+                banner.style.display = 'none';
+                console.log('Banner hidden: Tool page detected');
+                return;
+            }
+
+            // Hide if user previously dismissed it
             if (localStorage.getItem('bannerClosed') === 'true') {
-                const banner = document.getElementById('launchBanner');
-                if (banner) banner.style.display = 'none';
+                banner.style.display = 'none';
+                console.log('Banner hidden: User dismissed');
             }
         }
     },
