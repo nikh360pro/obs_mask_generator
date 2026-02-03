@@ -1,5 +1,34 @@
 // SAM2 Video Background Remover - Frontend Logic
 
+// Google Analytics 4 - GDPR Compliant Conditional Loading
+function loadGA4() {
+    if (typeof gtag !== 'undefined') {
+        console.log('GA4 already loaded');
+        return;
+    }
+
+    // Dynamically load GA4 script
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3';
+    document.head.appendChild(script);
+
+    // Initialize gtag
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    window.gtag = gtag;  // Make gtag globally available
+    gtag('js', new Date());
+    gtag('config', 'G-C84663S6K3');
+
+    console.log('GA4 loaded after cookie consent');
+}
+
+// Check cookie consent and load GA4 if accepted
+const cookieConsent = localStorage.getItem('cookie_consent');
+if (cookieConsent === 'true') {
+    loadGA4();
+}
+
 // Dynamic API URL based on environment
 const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:8000'  // Local development
@@ -80,6 +109,9 @@ function setupAuthHandlers() {
     btnAcceptCookies.addEventListener('click', () => {
         localStorage.setItem('cookie_consent', 'true');
         cookieBanner.style.display = 'none';
+
+        // Load Google Analytics after consent (GDPR compliant)
+        loadGA4();
 
         // Explicitly set persistence when user accepts
         auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
@@ -208,6 +240,15 @@ function setupUploadHandlers() {
 async function handleFileSelect(file) {
     currentFile = file;
 
+    // Track video upload start (GA4 Event #1)
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'video_upload_start', {
+            'event_category': 'engagement',
+            'event_label': file.type,
+            'file_size_mb': (file.size / (1024 * 1024)).toFixed(2)
+        });
+    }
+
     // Extract first frame
     const video = document.createElement('video');
     video.src = URL.createObjectURL(file);
@@ -288,14 +329,36 @@ function setupSelectionHandlers() {
     const btnPreview = document.getElementById('btn-preview');
     const btnProcess = document.getElementById('btn-process');
 
-    canvas.addEventListener('click', (e) => {
+    // Handle both mouse clicks and touch events
+    function handlePointSelection(clientX, clientY) {
         const rect = canvas.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width;
-        const y = (e.clientY - rect.top) / rect.height;
+        const x = (clientX - rect.left) / rect.width;
+        const y = (clientY - rect.top) / rect.height;
 
         selectionPoints.push({ x, y, type: currentBrushType });
         drawPoints();
         updatePointsList();
+
+        // Track point added (GA4 Event #7)
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'point_added', {
+                'event_category': 'engagement',
+                'event_label': currentBrushType,
+                'point_count': selectionPoints.length
+            });
+        }
+    }
+
+    // Mouse click support
+    canvas.addEventListener('click', (e) => {
+        handlePointSelection(e.clientX, e.clientY);
+    });
+
+    // Touch event support for mobile
+    canvas.addEventListener('touchstart', (e) => {
+        e.preventDefault(); // Prevent scrolling/zooming
+        const touch = e.touches[0];
+        handlePointSelection(touch.clientX, touch.clientY);
     });
 
     btnKeep.addEventListener('click', () => {
@@ -338,6 +401,11 @@ function drawPoints() {
     const canvas = document.getElementById('selection-canvas');
     const ctx = canvas.getContext('2d');
 
+    // Detect mobile for larger touch targets
+    const isMobile = window.innerWidth < 768;
+    const outerRadius = isMobile ? 16 : 12;
+    const innerRadius = isMobile ? 12 : 8;
+
     // Redraw frame first
     const img = new Image();
     img.onload = () => {
@@ -350,13 +418,13 @@ function drawPoints() {
 
             // Outer circle
             ctx.beginPath();
-            ctx.arc(x, y, 12, 0, Math.PI * 2);
+            ctx.arc(x, y, outerRadius, 0, Math.PI * 2);
             ctx.fillStyle = point.type === 'keep' ? 'rgba(0, 212, 170, 0.3)' : 'rgba(255, 71, 87, 0.3)';
             ctx.fill();
 
             // Inner circle
             ctx.beginPath();
-            ctx.arc(x, y, 8, 0, Math.PI * 2);
+            ctx.arc(x, y, innerRadius, 0, Math.PI * 2);
             ctx.fillStyle = point.type === 'keep' ? '#00d4aa' : '#ff4757';
             ctx.fill();
 
@@ -453,8 +521,25 @@ async function previewMask() {
         const overlay = document.getElementById('mask-overlay');
         overlay.style.backgroundImage = `url(${data.mask})`;
 
+        // Track preview generated (GA4 Event #8)
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'preview_generated', {
+                'event_category': 'engagement',
+                'point_count': selectionPoints.length
+            });
+        }
+
     } catch (error) {
         alert('Failed to preview mask: ' + error.message);
+
+        // Track error (GA4 Event #6)
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'error_occurred', {
+                'event_category': 'error',
+                'event_label': 'preview_mask_failed',
+                'error_message': error.message
+            });
+        }
     } finally {
         btn.textContent = 'Preview Mask';
         btn.disabled = false;
@@ -504,11 +589,34 @@ async function startProcessing() {
         const data = await response.json();
         jobId = data.job_id;
 
+        // Track upload complete and processing start (GA4 Events #2 & #3)
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'video_upload_complete', {
+                'event_category': 'conversion',
+                'event_label': currentFile.type,
+                'file_size_mb': (currentFile.size / (1024 * 1024)).toFixed(2)
+            });
+            gtag('event', 'processing_start', {
+                'event_category': 'conversion',
+                'point_count': selectionPoints.length,
+                'job_id': jobId
+            });
+        }
+
         // Start polling for status
         pollStatus();
 
     } catch (error) {
         showError(error.message);
+
+        // Track error (GA4 Event #6)
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'error_occurred', {
+                'event_category': 'error',
+                'event_label': 'upload_failed',
+                'error_message': error.message
+            });
+        }
     }
 }
 
@@ -523,13 +631,39 @@ function pollStatus() {
             if (data.status === 'complete') {
                 clearInterval(pollInterval);
                 showComplete();
+
+                // Track processing complete (GA4 Event #4)
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'processing_complete', {
+                        'event_category': 'conversion',
+                        'job_id': jobId
+                    });
+                }
             } else if (data.status === 'error') {
                 clearInterval(pollInterval);
                 showError(data.message);
+
+                // Track error (GA4 Event #6)
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'error_occurred', {
+                        'event_category': 'error',
+                        'event_label': 'processing_failed',
+                        'error_message': data.message
+                    });
+                }
             }
         } catch (error) {
             clearInterval(pollInterval);
             showError(error.message);
+
+            // Track error (GA4 Event #6)
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'error_occurred', {
+                    'event_category': 'error',
+                    'event_label': 'polling_failed',
+                    'error_message': error.message
+                });
+            }
         }
     }, 2000);  // Poll every 2 seconds (30 requests/min limit)
 }
@@ -594,6 +728,14 @@ function setupButtonHandlers() {
         link.href = `${API_URL}/api/download/${jobId}`;
         link.download = `greenscreen_${jobId}.mp4`;
         link.click();
+
+        // Track video download (GA4 Event #5)
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'video_download', {
+                'event_category': 'conversion',
+                'job_id': jobId
+            });
+        }
     });
 
     document.getElementById('btn-new').addEventListener('click', reset);

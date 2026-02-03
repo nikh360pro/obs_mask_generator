@@ -7,8 +7,8 @@ const API_URL = window.location.hostname === 'localhost' || window.location.host
     ? 'http://localhost:8000'
     : window.location.origin;
 
-// Admin key for authentication (matches .env ADMIN_SECRET)
-const ADMIN_KEY = "nQC_z_ZlLLU_RDIpwFVJgT1KeZLPbEXi9J-yksPEkIrZgWsEcxTLJKXywn4C20kqTD8SOpPlEvAbCNHCEQacHw";
+// Authentication state (session-based, no hardcoded keys)
+let isAuthenticated = false;
 
 // State
 const state = {
@@ -78,19 +78,30 @@ const elements = {
     statusBadge: document.getElementById('status-badge')
 };
 
-// API Helper
+// API Helper - Uses session cookies (HTTP-only) for authentication
 async function apiCall(endpoint, method = 'GET', body = null) {
     const headers = {
-        'x-admin-key': ADMIN_KEY,
         'Content-Type': 'application/json'
     };
 
-    const options = { method, headers };
+    const options = {
+        method,
+        headers,
+        credentials: 'include'  // Include cookies in requests
+    };
+
     if (body) options.body = JSON.stringify(body);
 
     try {
         const res = await fetch(`${API_URL}${endpoint}`, options);
-        if (!res.ok) throw new Error(`API error: ${res.status}`);
+        if (!res.ok) {
+            if (res.status === 401) {
+                // Session expired or invalid, show login
+                showLogin();
+                throw new Error('Session expired');
+            }
+            throw new Error(`API error: ${res.status}`);
+        }
         return await res.json();
     } catch (e) {
         console.error(`API call failed: ${endpoint}`, e);
@@ -460,5 +471,148 @@ async function saveConfig(configUpdate) {
     }
 }
 
+// Authentication Functions
+async function login(password) {
+    try {
+        const response = await fetch(`${API_URL}/api/admin/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',  // Include cookies
+            body: JSON.stringify({ password })
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.detail || 'Login failed');
+        }
+
+        const data = await response.json();
+        isAuthenticated = true;
+        showDashboard();
+        initDashboard();  // Initialize dashboard after successful login
+
+        // Track admin login (GA4 Event)
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'admin_login', {
+                'event_category': 'admin',
+                'event_label': 'session_login'
+            });
+        }
+
+        return data;
+    } catch (e) {
+        throw e;
+    }
+}
+
+async function logout() {
+    try {
+        await fetch(`${API_URL}/api/admin/logout`, {
+            method: 'POST',
+            credentials: 'include'
+        });
+    } catch (e) {
+        console.error('Logout error:', e);
+    } finally {
+        isAuthenticated = false;
+
+        // Don't clear saved password on logout (only if user unchecks "Remember Me")
+        // localStorage.removeItem('admin_password_remember'); // Commented out
+
+        showLogin();
+        // Stop polling
+        if (state.pollInterval) {
+            clearInterval(state.pollInterval);
+            state.pollInterval = null;
+        }
+    }
+}
+
+async function verifySession() {
+    try {
+        const response = await fetch(`${API_URL}/api/admin/verify-session`, {
+            method: 'GET',
+            credentials: 'include'
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            return data.authenticated;
+        }
+        return false;
+    } catch (e) {
+        console.error('Session verification failed:', e);
+        return false;
+    }
+}
+
+function showLogin() {
+    document.getElementById('login-overlay').style.display = 'flex';
+    document.getElementById('admin-dashboard').style.display = 'none';
+
+    // Auto-fill password from localStorage if "Remember Me" was checked
+    const savedPassword = localStorage.getItem('admin_password_remember');
+    if (savedPassword) {
+        document.getElementById('admin-password').value = atob(savedPassword);
+        document.getElementById('remember-me').checked = true;
+    } else {
+        document.getElementById('admin-password').value = '';
+    }
+
+    document.getElementById('login-error').style.display = 'none';
+}
+
+function showDashboard() {
+    document.getElementById('login-overlay').style.display = 'none';
+    document.getElementById('admin-dashboard').style.display = 'block';
+}
+
 // Initialize on DOM ready
-document.addEventListener('DOMContentLoaded', initDashboard);
+document.addEventListener('DOMContentLoaded', async () => {
+    // Setup login form
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const password = document.getElementById('admin-password').value;
+        const errorEl = document.getElementById('login-error');
+        const buttonEl = document.getElementById('login-button');
+
+        errorEl.style.display = 'none';
+        buttonEl.disabled = true;
+        buttonEl.textContent = 'Logging in...';
+
+        try {
+            await login(password);
+
+            // Save password to localStorage if "Remember Me" is checked
+            const rememberMe = document.getElementById('remember-me').checked;
+            if (rememberMe) {
+                // Store password encoded (not secure, but convenient for local admin)
+                localStorage.setItem('admin_password_remember', btoa(password));
+            } else {
+                localStorage.removeItem('admin_password_remember');
+            }
+        } catch (error) {
+            errorEl.textContent = error.message || 'Invalid password';
+            errorEl.style.display = 'block';
+            buttonEl.disabled = false;
+            buttonEl.textContent = 'Login';
+        }
+    });
+
+    // Setup logout button
+    document.getElementById('logout-button').addEventListener('click', async () => {
+        if (confirm('Are you sure you want to logout?')) {
+            await logout();
+        }
+    });
+
+    // Check if already authenticated
+    const authenticated = await verifySession();
+    if (authenticated) {
+        isAuthenticated = true;
+        showDashboard();
+        initDashboard();
+    } else {
+        showLogin();
+    }
+});

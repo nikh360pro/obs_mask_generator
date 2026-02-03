@@ -2,14 +2,7 @@
 <html lang="en">
 
 <head>
-    <!-- Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-C84663S6K3');
-    </script>
+    <!-- Google Analytics 4 will be loaded conditionally after cookie consent (GDPR compliant) -->
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -339,7 +332,8 @@
                 <div class="upload-zone" id="upload-zone">
                     <div class="upload-icon" style="font-size: 3rem; margin-bottom: 1rem;">📁</div>
                     <h2>Upload Your Video to Remove Background</h2>
-                    <p style="color: var(--text-secondary)">Drag & drop or click to browse your video files</p>
+                    <p class="desktop-only" style="color: var(--text-secondary)">Drag & drop or click to browse your video files</p>
+                    <p class="mobile-only" style="color: var(--text-secondary)">Tap to select your video</p>
                     <p class="supported-formats">Supported formats: MP4, MOV, AVI, MKV, WebM (Maximum 10 seconds)</p>
                 </div>
                 <input type="file" id="file-input" accept="video/mp4,video/quicktime,video/x-msvideo,video/x-matroska,video/webm" hidden aria-label="Select video file">
@@ -456,9 +450,9 @@
         </main>
 
         <!-- Features Section with SEO Keywords -->
-        <section class="features-band" style="margin-top: 4rem;" aria-label="Key Features">
-            <h2 style="text-align: center; margin-bottom: 2rem; font-size: 1.8rem;">Why Choose Our AI Video Background Remover?</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+        <section style="margin-top: 4rem; margin-bottom: 4rem;" aria-label="Key Features">
+            <h2 style="text-align: center; margin-bottom: 2.5rem; font-size: 2rem; color: var(--text-main); font-weight: 700;">Why Choose Our AI Video Background Remover?</h2>
+            <div class="features-band">
                 <article class="feature-card">
                     <span class="feature-icon">⚡</span>
                     <h3>Lightning-Fast AI Processing</h3>
