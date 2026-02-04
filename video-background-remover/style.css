@@ -42,6 +42,15 @@
     --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.5);
     --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5);
     --shadow-indigo: 0 4px 14px 0 rgba(99, 102, 241, 0.4);
+
+    /* Glassmorphism Variables */
+    --glass-bg: rgba(17, 24, 39, 0.6);
+    --glass-bg-strong: rgba(17, 24, 39, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-border-hover: rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --glass-blur: blur(16px);
+    --glass-blur-strong: blur(20px);
 }
 
 /* Reset & Base */
@@ -177,18 +186,23 @@ nav {
 }
 
 .feature-card {
-    background: var(--bg-card);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
     padding: 1.5rem;
     border-radius: var(--radius-lg);
-    border: 1px solid var(--border);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
     text-align: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .feature-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-    border-color: var(--primary);
+    transform: translateY(-4px);
+    border-color: var(--glass-border-hover);
+    box-shadow:
+        var(--glass-shadow),
+        0 0 20px rgba(99, 102, 241, 0.15);
 }
 
 .feature-icon {
@@ -217,14 +231,14 @@ main.app-container {
 
 /* Sections */
 .section {
-    background: var(--bg-card);
+    background: var(--glass-bg-strong);
+    backdrop-filter: var(--glass-blur-strong);
+    -webkit-backdrop-filter: var(--glass-blur-strong);
     border-radius: var(--radius-lg);
-    /* Rounded card */
     padding: 2.5rem;
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--border);
+    box-shadow: var(--glass-shadow);
+    border: 1px solid var(--glass-border);
     display: none;
-    /* Hidden by default */
     animation: fadeIn 0.4s ease-out;
 }
 
@@ -246,19 +260,21 @@ main.app-container {
 
 /* Upload Zone */
 .upload-zone {
-    border: 3px dashed var(--border);
+    border: 2px dashed var(--glass-border);
     border-radius: var(--radius-md);
     padding: 4rem 2rem;
     text-align: center;
     cursor: pointer;
-    transition: all 0.2s ease;
-    background: var(--bg-body);
-    /* Dark background */
+    transition: all 0.3s ease;
+    background: rgba(11, 15, 25, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
 .upload-zone:hover {
     border-color: var(--primary);
-    background: rgba(99, 102, 241, 0.05);
+    background: rgba(99, 102, 241, 0.08);
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.1);
 }
 
 .upload-zone h2,
@@ -321,9 +337,12 @@ canvas {
     gap: 1rem;
     margin-top: 1.5rem;
     padding: 1rem;
-    background: var(--bg-body);
+    background: rgba(11, 15, 25, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: var(--radius-pill);
-    border: 1px solid var(--border);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
 }
 
 .tool-group {
@@ -1135,5 +1154,47 @@ footer a {
 @media (min-width: 769px) {
     .mobile-only {
         display: none !important;
+    }
+}
+
+/* ============================================
+   GLASSMORPHISM SUPPORT & OPTIMIZATIONS
+   ============================================ */
+
+/* Browser Fallback - for browsers without backdrop-filter support */
+@supports not (backdrop-filter: blur(16px)) {
+    .feature-card,
+    .section,
+    .toolbar {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+    }
+
+    .upload-zone {
+        background: var(--bg-body);
+        border: 3px dashed var(--border);
+    }
+}
+
+/* Mobile Performance Optimization - reduce blur on mobile */
+@media (max-width: 768px) {
+    :root {
+        --glass-blur: blur(10px);
+        --glass-blur-strong: blur(12px);
+    }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .feature-card,
+    .upload-zone,
+    .toolbar {
+        transition: none;
+    }
+
+    .feature-card,
+    .upload-zone,
+    .toolbar {
+        transition: none;
     }
 }
