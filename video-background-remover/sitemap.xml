@@ -23,6 +23,14 @@
         </video:video>
     </url>
 
+    <!-- Unscreen Alternative Landing Page -->
+    <url>
+        <loc>https://obsmaskgenerator.com/video-background-remover/unscreen-alternative.html</loc>
+        <lastmod>2026-02-04</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.95</priority>
+    </url>
+
     <!-- OBS Background Remover Tool -->
     <url>
         <loc>https://obsmaskgenerator.com/video-background-remover/obs-background-remover.html</loc>
