@@ -1,16 +1,41 @@
 // SAM2 Video Background Remover - Frontend Logic
 
+// Dynamic API URL based on environment
+const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:8000'  // Local development
+    : 'https://removebg.obsmaskgenerator.com';  // Production
+
 // Google Analytics 4 - GDPR Compliant Conditional Loading
-function loadGA4() {
+// Measurement ID loaded from server to keep it out of version control
+let ga4MeasurementId = null;
+
+async function loadGA4() {
     if (typeof gtag !== 'undefined') {
         console.log('GA4 already loaded');
+        return;
+    }
+
+    // Fetch GA4 config from server if not already loaded
+    if (!ga4MeasurementId) {
+        try {
+            const response = await fetch(`${API_URL}/api/analytics-config`);
+            const config = await response.json();
+            ga4MeasurementId = config.measurementId;
+        } catch (e) {
+            console.error('Failed to load GA4 config:', e);
+            return;
+        }
+    }
+
+    if (!ga4MeasurementId) {
+        console.warn('GA4 measurement ID not configured');
         return;
     }
 
     // Dynamically load GA4 script
     const script = document.createElement('script');
     script.async = true;
-    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3';
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${ga4MeasurementId}`;
     document.head.appendChild(script);
 
     // Initialize gtag
@@ -18,7 +43,7 @@ function loadGA4() {
     function gtag(){dataLayer.push(arguments);}
     window.gtag = gtag;  // Make gtag globally available
     gtag('js', new Date());
-    gtag('config', 'G-C84663S6K3');
+    gtag('config', ga4MeasurementId);
 
     console.log('GA4 loaded after cookie consent');
 }
@@ -29,32 +54,41 @@ if (cookieConsent === 'true') {
     loadGA4();
 }
 
-// Dynamic API URL based on environment
-const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-    ? 'http://localhost:8000'  // Local development
-    : 'https://removebg.obsmaskgenerator.com';  // Production
+// Firebase - initialized asynchronously from server config
+let auth = null;
+let provider = null;
+let firebaseInitialized = false;
 
-// Firebase Config
-const firebaseConfig = {
-    apiKey: "AIzaSyCtaTvetSWLVmMwZuWkiPzXG_N2T26rABc",
-    authDomain: "mattmyvid.firebaseapp.com",
-    projectId: "mattmyvid",
-    storageBucket: "mattmyvid.firebasestorage.app",
-    messagingSenderId: "542355121753",
-    appId: "1:542355121753:web:d921b929e046010fc43348",
-    measurementId: "G-8B60GVWXRV"
-};
+async function initFirebase() {
+    if (firebaseInitialized) return;
 
-// Initialize Firebase
-try {
-    firebase.initializeApp(firebaseConfig);
-    console.log("Firebase initialized");
-} catch (e) {
-    console.error("Firebase init failed (Did you update config?):", e);
+    try {
+        // Fetch Firebase config from server (keeps API key out of git)
+        const response = await fetch(`${API_URL}/api/firebase-config`);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch Firebase config: ${response.status}`);
+        }
+        const firebaseConfig = await response.json();
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        auth = firebase.auth();
+        provider = new firebase.auth.GoogleAuthProvider();
+        firebaseInitialized = true;
+        console.log("Firebase initialized from server config");
+
+        // Now setup auth state listener
+        setupAuthStateListener();
+    } catch (e) {
+        console.error("Firebase init failed:", e);
+        // Show error to user
+        const btnLogin = document.getElementById('btn-login');
+        if (btnLogin) {
+            btnLogin.textContent = 'Auth Unavailable';
+            btnLogin.disabled = true;
+        }
+    }
 }
-
-const auth = firebase.auth();
-const provider = new firebase.auth.GoogleAuthProvider();
 
 // State
 let currentFile = null;
@@ -78,27 +112,21 @@ const sections = {
 // Initialize
 document.addEventListener('DOMContentLoaded', init);
 
-function init() {
+async function init() {
     setupUploadHandlers();
     setupSelectionHandlers();
     setupButtonHandlers();
-    setupAuthHandlers();
+    setupCookieHandlers();
     setupViralHandlers(); // Initialize Viral Feature
     checkHealth();
+
+    // Initialize Firebase asynchronously (fetches config from server)
+    await initFirebase();
 }
 
-function setupAuthHandlers() {
-    const btnLogin = document.getElementById('btn-login');
-    const btnLogout = document.getElementById('btn-logout');
-    const userProfile = document.getElementById('user-profile');
-    const userAvatar = document.getElementById('user-avatar');
+function setupCookieHandlers() {
     const cookieBanner = document.getElementById('cookie-banner');
     const btnAcceptCookies = document.getElementById('btn-accept-cookies');
-
-    // Handle broken images
-    userAvatar.onerror = () => {
-        userAvatar.src = "https://api.dicebear.com/9.x/avataaars/svg?seed=fallback";
-    };
 
     // Cookie Consent Logic
     const consent = localStorage.getItem('cookie_consent');
@@ -113,21 +141,40 @@ function setupAuthHandlers() {
         // Load Google Analytics after consent (GDPR compliant)
         loadGA4();
 
-        // Explicitly set persistence when user accepts
-        auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-            .then(() => {
-                console.log("Persistence set to LOCAL");
-            })
-            .catch((error) => {
-                console.error("Persistence error:", error);
-            });
+        // Set persistence if Firebase is ready
+        if (auth) {
+            auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+                .then(() => {
+                    console.log("Persistence set to LOCAL");
+                })
+                .catch((error) => {
+                    console.error("Persistence error:", error);
+                });
+        }
     });
+}
 
-    // Ensure persistence is checked on load
+function setupAuthStateListener() {
+    // Called after Firebase is initialized
+    const btnLogin = document.getElementById('btn-login');
+    const btnLogout = document.getElementById('btn-logout');
+    const userProfile = document.getElementById('user-profile');
+    const userAvatar = document.getElementById('user-avatar');
+
+    // Handle broken images
+    userAvatar.onerror = () => {
+        userAvatar.src = "https://api.dicebear.com/9.x/avataaars/svg?seed=fallback";
+    };
+
+    // Ensure persistence is set on load
     auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
         .catch(console.error);
 
     btnLogin.addEventListener('click', () => {
+        if (!auth) {
+            alert('Authentication not available. Please refresh the page.');
+            return;
+        }
         // Ensure persistence is set before sign in
         auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
             .then(() => {
@@ -137,7 +184,9 @@ function setupAuthHandlers() {
     });
 
     btnLogout.addEventListener('click', () => {
-        auth.signOut();
+        if (auth) {
+            auth.signOut();
+        }
     });
 
     // Monitor Auth State
@@ -381,6 +430,10 @@ function setupSelectionHandlers() {
     });
 
     btnPreview.addEventListener('click', () => {
+        if (!auth) {
+            alert('Authentication not ready. Please wait or refresh the page.');
+            return;
+        }
         if (auth.currentUser) {
             previewMask();
         } else {
@@ -389,6 +442,10 @@ function setupSelectionHandlers() {
     });
 
     btnProcess.addEventListener('click', () => {
+        if (!auth) {
+            alert('Authentication not ready. Please wait or refresh the page.');
+            return;
+        }
         if (auth.currentUser) {
             startProcessing();
         } else {
@@ -492,7 +549,7 @@ async function previewMask() {
         const headers = { 'Content-Type': 'application/json' };
 
         // Get Token if User is Logged In
-        const user = auth.currentUser;
+        const user = auth ? auth.currentUser : null;
         if (user) {
             const token = await user.getIdToken();
             headers['Authorization'] = `Bearer ${token}`;
@@ -568,7 +625,7 @@ async function startProcessing() {
         formData.append('remove_watermark', isWatermarkRemoved); // Send Viral Flag
 
         // Get Token if User is Logged In
-        const user = auth.currentUser;
+        const user = auth ? auth.currentUser : null;
         const headers = {};
         if (user) {
             const token = await user.getIdToken();
