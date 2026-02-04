@@ -261,7 +261,8 @@ main.app-container {
     background: rgba(99, 102, 241, 0.05);
 }
 
-.upload-zone h2 {
+.upload-zone h2,
+.upload-zone .upload-title {
     font-size: 1.75rem;
     margin-bottom: 0.75rem;
     font-weight: 600;
@@ -1036,7 +1037,8 @@ footer a {
     }
 
     /* Keep upload zone text readable */
-    .upload-zone h2 {
+    .upload-zone h2,
+    .upload-zone .upload-title {
         font-size: 1.4rem;
     }
 
