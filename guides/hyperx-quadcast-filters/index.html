@@ -11,12 +11,19 @@
     <link rel="stylesheet" href="../../assets/css/common.css">
     <!-- Google tag (gtag.js) -->
     <link rel="canonical" href="https://obsmaskgenerator.com/guides/hyperx-quadcast-filters/">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <!-- Google Analytics 4 - Only loads after cookie consent (GDPR compliant) -->
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-C84663S6K3');
+        if (localStorage.getItem('cookie_consent') === 'true') {
+            var s = document.createElement('script');
+            s.async = true;
+            s.src = 'https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3';
+            document.head.appendChild(s);
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            window.gtag = gtag;
+            gtag('js', new Date());
+            gtag('config', 'G-C84663S6K3');
+        }
     </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4560264570048889"
         crossorigin="anonymous"></script>
