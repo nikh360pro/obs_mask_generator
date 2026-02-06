@@ -2,7 +2,20 @@
 <html lang="en">
 
 <head>
-    <!-- Google Analytics 4 will be loaded conditionally after cookie consent (GDPR compliant) -->
+    <!-- Google Analytics 4 -->
+    <script>
+        (function () {
+            const s = document.createElement('script');
+            s.async = true;
+            s.src = 'https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3';
+            document.head.appendChild(s);
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            window.gtag = gtag;
+            gtag('js', new Date());
+            gtag('config', 'G-C84663S6K3');
+        })();
+    </script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
