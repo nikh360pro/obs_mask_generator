@@ -646,12 +646,26 @@ async function startProcessing() {
             headers['Authorization'] = `Bearer ${token}`;
         }
 
-        console.log('[startProcessing] Sending upload request...');
-        const response = await fetch(`${API_URL}/api/upload-video`, {
-            method: 'POST',
-            body: formData,
-            headers: headers // Add headers here
-        });
+        console.log('[startProcessing] Sending upload request to:', `${API_URL}/api/upload-video`);
+
+        // Add timeout to detect hanging requests
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 60000); // 60s timeout
+
+        let response;
+        try {
+            response = await fetch(`${API_URL}/api/upload-video`, {
+                method: 'POST',
+                body: formData,
+                headers: headers,
+                signal: controller.signal
+            });
+        } catch (fetchError) {
+            clearTimeout(timeoutId);
+            console.error('[startProcessing] Fetch error:', fetchError);
+            throw new Error(fetchError.name === 'AbortError' ? 'Upload timed out' : `Network error: ${fetchError.message}`);
+        }
+        clearTimeout(timeoutId);
 
         console.log('[startProcessing] Response status:', response.status);
         if (!response.ok) {
