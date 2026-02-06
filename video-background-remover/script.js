@@ -442,21 +442,31 @@ function setupSelectionHandlers() {
     });
 
     btnProcess.addEventListener('click', async () => {
-        console.log('[Process] Button clicked');
+        console.log('[Process] Button clicked - currentFile:', currentFile ? currentFile.name : 'NULL', 'points:', selectionPoints.length);
+
         if (!auth) {
             alert('Authentication not ready. Please wait or refresh the page.');
             return;
         }
-        console.log('[Process] Auth state:', auth.currentUser ? auth.currentUser.email : 'not logged in');
+
+        const userEmail = auth.currentUser ? auth.currentUser.email : 'not logged in';
+        console.log('[Process] Auth state:', userEmail);
+
         if (auth.currentUser) {
             try {
                 await startProcessing();
             } catch (e) {
                 console.error('[Process] Error:', e);
+                alert('Processing error: ' + (e.message || 'Unknown error'));
                 showError(e.message || 'Processing failed');
             }
         } else {
-            auth.signInWithPopup(provider).catch(e => alert(e.message));
+            // User not logged in, trigger login
+            console.log('[Process] User not logged in, showing login popup');
+            auth.signInWithPopup(provider).catch(e => {
+                console.error('[Process] Login error:', e);
+                alert('Login failed: ' + e.message);
+            });
         }
     });
 }
