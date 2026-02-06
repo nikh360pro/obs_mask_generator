@@ -441,13 +441,20 @@ function setupSelectionHandlers() {
         }
     });
 
-    btnProcess.addEventListener('click', () => {
+    btnProcess.addEventListener('click', async () => {
+        console.log('[Process] Button clicked');
         if (!auth) {
             alert('Authentication not ready. Please wait or refresh the page.');
             return;
         }
+        console.log('[Process] Auth state:', auth.currentUser ? auth.currentUser.email : 'not logged in');
         if (auth.currentUser) {
-            startProcessing();
+            try {
+                await startProcessing();
+            } catch (e) {
+                console.error('[Process] Error:', e);
+                showError(e.message || 'Processing failed');
+            }
         } else {
             auth.signInWithPopup(provider).catch(e => alert(e.message));
         }
@@ -605,6 +612,10 @@ async function previewMask() {
 
 // Start Processing
 async function startProcessing() {
+    console.log('[startProcessing] Called');
+    console.log('[startProcessing] currentFile:', currentFile ? currentFile.name : 'null');
+    console.log('[startProcessing] selectionPoints:', selectionPoints.length);
+
     if (!currentFile) {
         alert('Please select a video first');
         return;
@@ -615,6 +626,7 @@ async function startProcessing() {
         return;
     }
 
+    console.log('[startProcessing] Showing processing section');
     showSection('processing');
     clearMaskOverlay();
 
@@ -626,18 +638,22 @@ async function startProcessing() {
 
         // Get Token if User is Logged In
         const user = auth ? auth.currentUser : null;
+        console.log('[startProcessing] Getting token for user:', user ? user.email : 'none');
         const headers = {};
         if (user) {
             const token = await user.getIdToken();
+            console.log('[startProcessing] Token obtained');
             headers['Authorization'] = `Bearer ${token}`;
         }
 
+        console.log('[startProcessing] Sending upload request...');
         const response = await fetch(`${API_URL}/api/upload-video`, {
             method: 'POST',
             body: formData,
             headers: headers // Add headers here
         });
 
+        console.log('[startProcessing] Response status:', response.status);
         if (!response.ok) {
             const err = await response.json();
             throw new Error(err.detail || 'Upload failed');
@@ -645,6 +661,7 @@ async function startProcessing() {
 
         const data = await response.json();
         jobId = data.job_id;
+        console.log('[startProcessing] Job ID:', jobId);
 
         // Track upload complete and processing start (GA4 Events #2 & #3)
         if (typeof gtag !== 'undefined') {
@@ -678,6 +695,12 @@ async function startProcessing() {
 }
 
 function pollStatus() {
+    // Clear any existing poll interval first
+    if (pollInterval) {
+        clearInterval(pollInterval);
+        pollInterval = null;
+    }
+    console.log('[pollStatus] Starting polling for job:', jobId);
     pollInterval = setInterval(async () => {
         try {
             const response = await fetch(`${API_URL}/api/status/${jobId}`);
