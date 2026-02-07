@@ -16,18 +16,18 @@ const template = (game, gpu) => `<!DOCTYPE html>
     <link rel="stylesheet" href="../../../style.css">
     <link rel="stylesheet" href="../../../assets/css/common.css">
     <link rel="canonical" href="https://obsmaskgenerator.com/can-i-stream/${game.id}/${gpu.id}/">
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4560264570048889"
         crossorigin="anonymous"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-C84663S6K3');
-    </script>
+    <link rel="stylesheet" href="/banner.css">
 </head>
 <body>
+    <!-- Global Banner (Promotes Video Background Remover) -->
+    <div id="global-banner"></div>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-consent-banner"></div>
+
     <div class="app-container">
         <nav class="navbar">
             <div class="nav-content">
@@ -88,6 +88,7 @@ const template = (game, gpu) => `<!DOCTYPE html>
             </div>
         </main>
     </div>
+    <script src="/components.js"></script>
 </body>
 </html>`;
 
