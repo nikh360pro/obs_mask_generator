@@ -101,6 +101,7 @@ let canvasScale = 1;
 let isWatermarkRemoved = false; // Viral Feature State
 let uploadController = null;  // Global abort controller for upload
 let uploadTimeoutId = null;   // Global timeout ID for upload
+let isUploading = false;       // Flag to prevent concurrent uploads
 
 // Elements
 const sections = {
@@ -628,6 +629,13 @@ async function startProcessing() {
     console.log('[startProcessing] currentFile:', currentFile ? currentFile.name : 'null');
     console.log('[startProcessing] selectionPoints:', selectionPoints.length);
 
+    // CRITICAL: Prevent concurrent uploads
+    if (isUploading) {
+        console.log('[startProcessing] Upload already in progress, ignoring');
+        alert('Please wait for the current video to finish processing before starting a new one.');
+        return;
+    }
+
     if (!currentFile) {
         alert('Please select a video first');
         return;
@@ -652,6 +660,10 @@ async function startProcessing() {
         clearTimeout(uploadTimeoutId);
         uploadTimeoutId = null;
     }
+
+    // Set uploading flag
+    isUploading = true;
+    console.log('[startProcessing] Upload started, isUploading = true');
 
     try {
         const formData = new FormData();
@@ -723,6 +735,8 @@ async function startProcessing() {
         pollStatus();
 
     } catch (error) {
+        isUploading = false;  // Reset flag on error
+        console.log('[startProcessing] Error occurred, isUploading = false');
         showError(error.message);
 
         // Track error (GA4 Event #6)
@@ -833,12 +847,16 @@ function updateProgress(data) {
 }
 
 function showComplete() {
+    isUploading = false;  // Reset flag on completion
+    console.log('[showComplete] Processing complete, isUploading = false');
     const video = document.getElementById('result-video');
     video.src = `${API_URL}/api/download/${jobId}`;
     showSection('complete');
 }
 
 function showError(message) {
+    isUploading = false;  // Reset flag on error
+    console.log('[showError] Error shown, isUploading = false');
     document.getElementById('error-message').textContent = message;
     showSection('error');
 }
