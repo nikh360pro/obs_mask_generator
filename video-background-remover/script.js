@@ -40,7 +40,7 @@ async function loadGA4() {
 
     // Initialize gtag
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     window.gtag = gtag;  // Make gtag globally available
     gtag('js', new Date());
     gtag('config', ga4MeasurementId);
@@ -99,6 +99,8 @@ let currentBrushType = 'keep';
 let firstFrameDataUrl = null;
 let canvasScale = 1;
 let isWatermarkRemoved = false; // Viral Feature State
+let uploadController = null;  // Global abort controller for upload
+let uploadTimeoutId = null;   // Global timeout ID for upload
 
 // Elements
 const sections = {
@@ -640,6 +642,17 @@ async function startProcessing() {
     showSection('processing');
     clearMaskOverlay();
 
+    // CRITICAL FIX: Clean up any previous upload controller/timeout before starting new upload
+    if (uploadController) {
+        console.log('[startProcessing] Cleaning up previous upload controller');
+        uploadController = null;
+    }
+    if (uploadTimeoutId) {
+        console.log('[startProcessing] Clearing previous upload timeout');
+        clearTimeout(uploadTimeoutId);
+        uploadTimeoutId = null;
+    }
+
     try {
         const formData = new FormData();
         formData.append('file', currentFile);
@@ -658,9 +671,12 @@ async function startProcessing() {
 
         console.log('[startProcessing] Sending upload request to:', `${API_URL}/api/upload-video`);
 
-        // Add timeout to detect hanging requests
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 60000); // 60s timeout
+        // Create new controller and timeout for this upload
+        uploadController = new AbortController();
+        uploadTimeoutId = setTimeout(() => {
+            console.log('[startProcessing] Upload timeout reached, aborting');
+            uploadController.abort();
+        }, 60000); // 60s timeout
 
         let response;
         try {
@@ -668,14 +684,16 @@ async function startProcessing() {
                 method: 'POST',
                 body: formData,
                 headers: headers,
-                signal: controller.signal
+                signal: uploadController.signal
             });
         } catch (fetchError) {
-            clearTimeout(timeoutId);
+            clearTimeout(uploadTimeoutId);
+            uploadTimeoutId = null;
             console.error('[startProcessing] Fetch error:', fetchError);
             throw new Error(fetchError.name === 'AbortError' ? 'Upload timed out' : `Network error: ${fetchError.message}`);
         }
-        clearTimeout(timeoutId);
+        clearTimeout(uploadTimeoutId);
+        uploadTimeoutId = null;
 
         console.log('[startProcessing] Response status:', response.status);
         if (!response.ok) {
