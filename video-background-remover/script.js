@@ -688,7 +688,7 @@ async function startProcessing() {
         uploadTimeoutId = setTimeout(() => {
             console.log('[startProcessing] Upload timeout reached, aborting');
             uploadController.abort();
-        }, 60000); // 60s timeout
+        }, 600000); // 10 minute timeout for large video uploads
 
         let response;
         try {
