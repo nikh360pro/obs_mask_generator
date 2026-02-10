@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><meta charset="UTF-8">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Primary SEO Meta Tags (2026 Optimized) -->
@@ -300,8 +301,9 @@
         <div class="container">
             <nav>
                 <a href="#" class="logo">
-                    <img src="favicon.ico" alt="Obsmaskgenerator Video Background Remover Logo" style="width: 24px; height: 24px; margin-right: 8px;">
-                    <span style="font-size: 1.2rem; font-weight: 700;">Obsmaskgenerator</span>
+                    <img src="favicon.ico" alt="Obsmaskgenerator Video Background Remover Logo" class="logo-icon"
+                        style="width:24px;height:24px">
+                    <span>Obsmaskgenerator</span>
                 </a>
 
                 <div class="user-controls">
@@ -322,14 +324,21 @@
             <div class="hero-grid">
                 <div class="hero-content">
                     <h1>Free AI Video Background Remover - No Green Screen Needed</h1>
-                    <p>Remove video backgrounds instantly with AI. No green screen needed. Free online tool powered by SAM2 for content creators, OBS users, and video editors. Process up to 10-second clips with HD quality output.</p>
-                    <button class="btn-primary" onclick="window.scrollTo({top: 600, behavior: 'smooth'})">Start Removing Background Now →</button>
+                    <p>Remove video backgrounds instantly with AI. No green screen needed. Free online tool powered by
+                        SAM2 for content creators, OBS users, and video editors. Process up to 10-second clips with HD
+                        quality output.</p>
+                    <button class="btn-primary" onclick="window.scrollTo({top: 600, behavior: 'smooth'})">Start Removing
+                        Background Now →</button>
+                    <div class="trust-badges">
+                        <span class="trust-badge">🔒 Privacy First</span>
+                        <span class="trust-badge">⚡ GPU Accelerated</span>
+                        <span class="trust-badge">🆓 Free to Use</span>
+                    </div>
                 </div>
 
                 <!-- Showcase Video -->
                 <div class="showcase-wrapper">
-                    <video autoplay loop muted playsinline class="showcase-video"
-                        poster="assets/poster_placeholder.jpg"
+                    <video autoplay loop muted playsinline class="showcase-video" poster="assets/poster_placeholder.jpg"
                         aria-label="AI video background removal demonstration showing before and after results">
                         <source src="showcase.webm" type="video/webm">
                         Your browser does not support the video tag.
@@ -347,20 +356,23 @@
             <!-- Upload Section -->
             <section id="upload-section" class="section active" aria-label="Video Upload Area">
                 <div class="upload-zone" id="upload-zone">
-                    <div class="upload-icon" style="font-size: 3rem; margin-bottom: 1rem;" aria-hidden="true">📁</div>
+                    <div class="upload-icon" aria-hidden="true">⬆</div>
                     <p class="upload-title">Upload Your Video to Remove Background</p>
-                    <p class="desktop-only" style="color: var(--text-secondary)">Drag & drop or click to browse your video files</p>
-                    <p class="mobile-only" style="color: var(--text-secondary)">Tap to select your video</p>
+                    <p class="desktop-only instruction">Drag & drop or click to browse your video files</p>
+                    <p class="mobile-only instruction">Tap to select your video</p>
                     <p class="supported-formats">Supported formats: MP4, MOV, AVI, MKV, WebM (Maximum 10 seconds)</p>
                 </div>
-                <input type="file" id="file-input" accept="video/mp4,video/quicktime,video/x-msvideo,video/x-matroska,video/webm" hidden aria-label="Select video file">
+                <input type="file" id="file-input"
+                    accept="video/mp4,video/quicktime,video/x-msvideo,video/x-matroska,video/webm" hidden
+                    aria-label="Select video file">
             </section>
 
             <!-- Selection Section -->
             <section id="selection-section" class="section" aria-label="Subject Selection">
-                <div style="text-align: center; margin-bottom: 1.5rem;">
-                    <p class="section-title" style="font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 600;">Select Subject to Keep (AI Will Track It)</p>
-                    <p class="instruction" style="color: var(--text-secondary)">Click points on the person or object you want to keep in your video. Our AI will automatically track and segment it across all frames.</p>
+                <div class="section-header">
+                    <p class="section-title">Select Subject to Keep (AI Will Track It)</p>
+                    <p class="instruction">Click points on the person or object you want to keep in your video. Our AI
+                        will automatically track and segment it across all frames.</p>
                 </div>
 
                 <div class="canvas-wrapper">
@@ -373,14 +385,11 @@
                 </div>
 
 
-                <div class="viral-container" id="viral-container" style="margin-bottom: 1rem; text-align: center;">
-                    <button id="btn-share-watermark" class="btn-viral"
-                        style="background: linear-gradient(45deg, #FFD700, #FFA500); color: #000; font-weight: bold; border: none; padding: 12px 24px; border-radius: 50px; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);">
+                <div class="viral-container" id="viral-container">
+                    <button id="btn-share-watermark" class="btn-viral">
                         ✨ Remove Watermark? [Share to Unlock]
                     </button>
-                    <p id="viral-status" style="font-size: 0.8rem; margin-top: 0.5rem; color: #00d4aa; display: none;">✅
-                        Watermark
-                        Removed!</p>
+                    <p id="viral-status" class="viral-status">✅ Watermark Removed!</p>
                 </div>
 
                 <div class="toolbar">
@@ -404,16 +413,15 @@
             <!-- Processing Section -->
             <section id="processing-section" class="section" aria-label="Video Processing Status" aria-live="polite">
                 <div class="processing-state">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">⚙️</div>
-                    <p class="section-title" style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">Removing Background with AI</p>
+                    <div class="processing-icon"></div>
+                    <p class="section-title">Removing Background with AI</p>
                     <p id="processing-status">Initializing SAM2 AI model for background removal...</p>
 
                     <div class="progress-track">
                         <div class="progress-fill" id="progress-fill"></div>
                     </div>
 
-                    <div
-                        style="display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--text-secondary); max-width: 400px; margin: 0 auto;">
+                    <div class="progress-meta">
                         <span id="progress-stage">Starting...</span>
                         <span id="progress-percent">0%</span>
                     </div>
@@ -441,13 +449,14 @@
 
             <!-- Complete Section -->
             <section id="complete-section" class="section" aria-label="Download Completed Video">
-                <div style="text-align: center;">
-                    <p class="section-title" style="font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem;">Video Background Removed Successfully!</p>
-                    <p style="color: var(--text-secondary); margin-bottom: 2rem;">Your video with transparent background is ready to download. Perfect for OBS, video editing, and social media content.</p>
+                <div class="section-header">
+                    <p class="section-title">Video Background Removed Successfully!</p>
+                    <p class="instruction">Your video with transparent background is ready to download. Perfect for OBS,
+                        video editing, and social media content.</p>
 
                     <video id="result-video" class="video-result" controls></video>
 
-                    <div style="display: flex; gap: 1rem; justify-content: center;">
+                    <div class="action-buttons">
                         <button id="btn-download" class="btn-primary">Download MP4</button>
                         <button id="btn-new" class="btn-secondary">Edit Another</button>
                     </div>
@@ -456,10 +465,10 @@
 
             <!-- Error Section -->
             <section id="error-section" class="section">
-                <div style="text-align: center; padding: 2rem;">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">⚠️</div>
-                    <h2 style="color: var(--text-main);">Something went wrong</h2>
-                    <p id="error-message" style="color: var(--error); margin: 1rem 0 2rem;">Unknown error occurred</p>
+                <div class="section-header">
+                    <div class="error-icon">⚠️</div>
+                    <h2>Something went wrong</h2>
+                    <p id="error-message" class="error-message">Unknown error occurred</p>
                     <button id="btn-retry" class="btn-primary">Try Again</button>
                 </div>
             </section>
@@ -467,171 +476,221 @@
         </main>
 
         <!-- Features Section with SEO Keywords -->
-        <section style="margin-top: 4rem; margin-bottom: 4rem;" aria-label="Key Features">
-            <h2 style="text-align: center; margin-bottom: 2.5rem; font-size: 2rem; color: var(--text-main); font-weight: 700;">Why Choose Our AI Video Background Remover?</h2>
+        <section class="seo-section" aria-label="Key Features">
+            <h2 class="seo-section-title">Why Choose Our AI Video Background Remover?</h2>
             <div class="features-band">
                 <article class="feature-card">
                     <span class="feature-icon" aria-hidden="true">⚡</span>
-                    <h3>Lightning-Fast AI Processing</h3>
-                    <p>Powered by Meta SAM2.1 AI technology for instant video background removal with frame-by-frame precision tracking.</p>
+                    <div>
+                        <h3>Lightning-Fast AI Processing</h3>
+                        <p>Powered by Meta SAM2.1 AI technology for instant video background removal with frame-by-frame
+                            precision tracking.</p>
+                    </div>
                 </article>
                 <article class="feature-card">
                     <span class="feature-icon" aria-hidden="true">🎯</span>
-                    <h3>No Green Screen Required</h3>
-                    <p>Remove video backgrounds without needing a green screen or chroma key setup. Works with any video background.</p>
+                    <div>
+                        <h3>No Green Screen Required</h3>
+                        <p>Remove video backgrounds without needing a green screen or chroma key setup. Works with any
+                            video background.</p>
+                    </div>
                 </article>
                 <article class="feature-card">
                     <span class="feature-icon" aria-hidden="true">🔒</span>
-                    <h3>100% Privacy Protected</h3>
-                    <p>Your videos are processed securely and automatically deleted after download. We never store your content.</p>
+                    <div>
+                        <h3>100% Privacy Protected</h3>
+                        <p>Your videos are processed securely and automatically deleted after download. We never store
+                            your content.</p>
+                    </div>
                 </article>
                 <article class="feature-card">
                     <span class="feature-icon" aria-hidden="true">💎</span>
-                    <h3>HD Quality Output</h3>
-                    <p>Export videos in full HD resolution with transparent backgrounds and perfect edge detection.</p>
+                    <div>
+                        <h3>HD Quality Output</h3>
+                        <p>Export videos in full HD resolution with transparent backgrounds and perfect edge detection.
+                        </p>
+                    </div>
                 </article>
                 <article class="feature-card">
                     <span class="feature-icon" aria-hidden="true">🎮</span>
-                    <h3>Perfect for OBS & Streaming</h3>
-                    <p>Generate OBS-compatible mask files and transparent background videos for live streaming and content creation.</p>
+                    <div>
+                        <h3>Perfect for OBS &amp; Streaming</h3>
+                        <p>Generate OBS-compatible mask files and transparent background videos for live streaming and
+                            content creation.</p>
+                    </div>
                 </article>
                 <article class="feature-card">
                     <span class="feature-icon" aria-hidden="true">🆓</span>
-                    <h3>Free Video BG Remover</h3>
-                    <p>Remove backgrounds from videos completely free. Process 10-second clips with optional watermark removal.</p>
+                    <div>
+                        <h3>Free Video BG Remover</h3>
+                        <p>Remove backgrounds from videos completely free. Process 10-second clips with optional
+                            watermark removal.</p>
+                    </div>
                 </article>
             </div>
         </section>
 
         <!-- SEO Content Section: Use Cases & Keywords -->
-        <section style="margin-top: 4rem; padding: 2rem; background: rgba(255,255,255,0.02); border-radius: 12px;">
-            <h2 style="font-size: 1.8rem; margin-bottom: 1.5rem; text-align: center;">How to Use Our Free Video Background Remover</h2>
+        <section class="seo-content-wrapper">
+            <h2 class="seo-section-title">How to Use Our Free Video Background Remover</h2>
 
-            <article style="margin-bottom: 2rem;">
-                <h3 style="font-size: 1.3rem; margin-bottom: 0.75rem;">How Do I Remove Video Background Without Green Screen?</h3>
-                <p style="color: var(--text-secondary); line-height: 1.6;">
-                    Traditional video editing requires expensive green screen setups and complex chroma key software. Our AI video background remover eliminates this need entirely. Simply upload your video, click on the subject you want to keep, and let our SAM2-powered AI automatically track and segment your subject across every frame. The result is a professional-quality video with a transparent background, perfect for overlaying on any backdrop.
+            <article class="seo-article">
+                <h3 class="seo-heading">How Do I Remove Video Background Without Green Screen?</h3>
+                <p class="seo-paragraph">
+                    Traditional video editing requires expensive green screen setups and complex chroma key software.
+                    Our AI video background remover eliminates this need entirely. Simply upload your video, click on
+                    the subject you want to keep, and let our SAM2-powered AI automatically track and segment your
+                    subject across every frame. The result is a professional-quality video with a transparent
+                    background, perfect for overlaying on any backdrop.
                 </p>
             </article>
 
-            <article style="margin-bottom: 2rem;">
-                <h3 style="font-size: 1.3rem; margin-bottom: 0.75rem;">Who Uses Video Background Removers?</h3>
-                <p style="color: var(--text-secondary); line-height: 1.6;">
-                    Whether you're creating YouTube videos, TikTok content, Instagram reels, or professional presentations, our tool makes it easy to remove video backgrounds online. Content creators use our free video bg remover to create dynamic overlays, picture-in-picture effects, and professional-looking videos without expensive editing software. The tool works entirely in your browser - no downloads or installations required.
+            <article class="seo-article">
+                <h3 class="seo-heading">Who Uses Video Background Removers?</h3>
+                <p class="seo-paragraph">
+                    Whether you're creating YouTube videos, TikTok content, Instagram reels, or professional
+                    presentations, our tool makes it easy to remove video backgrounds online. Content creators use our
+                    free video bg remover to create dynamic overlays, picture-in-picture effects, and
+                    professional-looking videos without expensive editing software. The tool works entirely in your
+                    browser - no downloads or installations required.
                 </p>
             </article>
 
-            <article style="margin-bottom: 2rem;">
-                <h3 style="font-size: 1.3rem; margin-bottom: 0.75rem;">Can I Use This for OBS Streaming?</h3>
-                <p style="color: var(--text-secondary); line-height: 1.6;">
-                    Streamers and broadcasters love our tool for generating OBS-compatible mask files. Remove backgrounds from your webcam recordings, create custom overlays for your stream, or generate transparent background clips to use as OBS virtual background sources. The HD quality output ensures your stream looks professional, and the precise edge detection means no green spill or artifacts around your subject.
+            <article class="seo-article">
+                <h3 class="seo-heading">Can I Use This for OBS Streaming?</h3>
+                <p class="seo-paragraph">
+                    Streamers and broadcasters love our tool for generating OBS-compatible mask files. Remove
+                    backgrounds from your webcam recordings, create custom overlays for your stream, or generate
+                    transparent background clips to use as OBS virtual background sources. The HD quality output ensures
+                    your stream looks professional, and the precise edge detection means no green spill or artifacts
+                    around your subject.
                 </p>
             </article>
 
-            <article style="margin-bottom: 2rem;">
-                <h3 style="font-size: 1.3rem; margin-bottom: 0.75rem;">How Does AI Video Background Removal Work?</h3>
-                <p style="color: var(--text-secondary); line-height: 1.6;">
-                    Our tool uses Meta's SAM2.1 (Segment Anything Model), one of the most advanced AI models for video segmentation. Unlike simple background erasers that use color-based selection, SAM2 understands object boundaries and can track complex movements frame-by-frame. This means accurate results even with challenging backgrounds, moving cameras, or subjects with fine details like hair or clothing textures.
+            <article class="seo-article">
+                <h3 class="seo-heading">How Does AI Video Background Removal Work?</h3>
+                <p class="seo-paragraph">
+                    Our tool uses Meta's SAM2.1 (Segment Anything Model), one of the most advanced AI models for video
+                    segmentation. Unlike simple background erasers that use color-based selection, SAM2 understands
+                    object boundaries and can track complex movements frame-by-frame. This means accurate results even
+                    with challenging backgrounds, moving cameras, or subjects with fine details like hair or clothing
+                    textures.
                 </p>
             </article>
 
-            <article style="margin-bottom: 2rem;">
-                <h2 style="font-size: 1.5rem; margin-bottom: 1rem; font-weight: 700;">Best Free Unscreen Alternative After Shutdown (December 2025)</h2>
-                <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">
-                    <strong>Unscreen shut down on December 1, 2025.</strong> If you're searching for a free Unscreen alternative, you've found the best replacement. Our AI-powered video background remover offers everything Unscreen provided - and more - completely free. No subscription fees, no payment required, and better AI technology powered by Meta's SAM2.1.
+            <article class="seo-article">
+                <h2 class="seo-heading-lg">Best Free Unscreen Alternative After Shutdown (December 2025)</h2>
+                <p class="seo-paragraph">
+                    <strong>Unscreen shut down on December 1, 2025.</strong> If you're searching for a free Unscreen
+                    alternative, you've found the best replacement. Our AI-powered video background remover offers
+                    everything Unscreen provided - and more - completely free. No subscription fees, no payment
+                    required, and better AI technology powered by Meta's SAM2.1.
                 </p>
-                <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem;">
-                    Unscreen was acquired by Canva in 2021 and discontinued in December 2025, leaving thousands of content creators searching for alternatives. Whether you used Unscreen for OBS streaming, YouTube videos, or social media content, our tool is the perfect free replacement with even better features.
+                <p class="seo-paragraph">
+                    Unscreen was acquired by Canva in 2021 and discontinued in December 2025, leaving thousands of
+                    content creators searching for alternatives. Whether you used Unscreen for OBS streaming, YouTube
+                    videos, or social media content, our tool is the perfect free replacement with even better features.
                 </p>
 
                 <!-- Comparison Table -->
-                <div style="overflow-x: auto; margin-bottom: 1.5rem;">
-                    <table style="width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.02); border-radius: 8px; overflow: hidden;">
+                <div class="table-wrapper">
+                    <table class="comparison-table">
                         <thead>
-                            <tr style="background: rgba(102, 126, 234, 0.2);">
-                                <th style="padding: 1rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1);">Feature</th>
-                                <th style="padding: 1rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">Unscreen<br><span style="font-size: 0.8rem; font-weight: 400; opacity: 0.7;">(Shut Down)</span></th>
-                                <th style="padding: 1rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); background: rgba(0, 212, 170, 0.1);">Our Tool<br><span style="font-size: 0.8rem; font-weight: 400; opacity: 0.9;">(100% FREE)</span></th>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Unscreen<br><span class="th-subtitle">(Shut Down)</span></th>
+                                <th>Our Tool<br><span class="th-subtitle">(100% FREE)</span></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td style="padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05);">Price</td>
-                                <td style="padding: 0.75rem 1rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); color: #ff6b6b;">$29/month</td>
-                                <td style="padding: 0.75rem 1rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); color: #00d4aa; font-weight: 600;">100% Free</td>
+                                <td>Price</td>
+                                <td class="table-negative">$29/month</td>
+                                <td class="table-positive">100% Free</td>
                             </tr>
                             <tr>
-                                <td style="padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05);">Watermark</td>
-                                <td style="padding: 0.75rem 1rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05);">Yes (free tier)</td>
-                                <td style="padding: 0.75rem 1rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); color: #00d4aa;">Optional (share to remove)</td>
+                                <td>Watermark</td>
+                                <td>Yes (free tier)</td>
+                                <td class="table-positive">Optional (share to remove)</td>
                             </tr>
                             <tr>
-                                <td style="padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05);">Video Length</td>
-                                <td style="padding: 0.75rem 1rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05);">5 seconds (free)</td>
-                                <td style="padding: 0.75rem 1rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); color: #00d4aa; font-weight: 600;">10 seconds</td>
+                                <td>Video Length</td>
+                                <td>5 seconds (free)</td>
+                                <td class="table-positive">10 seconds</td>
                             </tr>
                             <tr>
-                                <td style="padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05);">Output Quality</td>
-                                <td style="padding: 0.75rem 1rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05);">720p (free tier)</td>
-                                <td style="padding: 0.75rem 1rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); color: #00d4aa; font-weight: 600;">HD / Original</td>
+                                <td>Output Quality</td>
+                                <td>720p (free tier)</td>
+                                <td class="table-positive">HD / Original</td>
                             </tr>
                             <tr>
-                                <td style="padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05);">AI Technology</td>
-                                <td style="padding: 0.75rem 1rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05);">Legacy AI</td>
-                                <td style="padding: 0.75rem 1rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); color: #00d4aa; font-weight: 600;">SAM2.1 (2026)</td>
+                                <td>AI Technology</td>
+                                <td>Legacy AI</td>
+                                <td class="table-positive">SAM2.1 (2026)</td>
                             </tr>
                             <tr>
-                                <td style="padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05);">OBS Compatible</td>
-                                <td style="padding: 0.75rem 1rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05);">❌ No</td>
-                                <td style="padding: 0.75rem 1rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); color: #00d4aa; font-weight: 600;">✅ Yes</td>
+                                <td>OBS Compatible</td>
+                                <td>❌ No</td>
+                                <td class="table-positive">✅ Yes</td>
                             </tr>
                             <tr>
-                                <td style="padding: 0.75rem 1rem;">Privacy</td>
-                                <td style="padding: 0.75rem 1rem; text-align: center;">Cloud upload</td>
-                                <td style="padding: 0.75rem 1rem; text-align: center; color: #00d4aa; font-weight: 600;">Auto-delete after download</td>
+                                <td>Privacy</td>
+                                <td>Cloud upload</td>
+                                <td class="table-positive">Auto-delete after download</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                <div style="padding: 1.25rem; background: rgba(0, 212, 170, 0.08); border-left: 4px solid #00d4aa; border-radius: 8px; margin-bottom: 1rem;">
-                    <h3 style="font-size: 1.15rem; margin-bottom: 0.75rem; color: #00d4aa;">✅ Why Choose Our Tool Over Unscreen?</h3>
-                    <ul style="color: var(--text-secondary); line-height: 1.9; padding-left: 1.5rem; margin: 0;">
-                        <li><strong>100% Free (Currently)</strong> - No subscription or payment required during testing phase (Unscreen was $29/month)</li>
+                <div class="callout">
+                    <h3 class="callout-title">✅ Why Choose Our Tool Over Unscreen?</h3>
+                    <ul>
+                        <li><strong>100% Free (Currently)</strong> - No subscription or payment required during testing
+                            phase (Unscreen was $29/month)</li>
                         <li><strong>No Watermark Option</strong> - Share to unlock watermark-free downloads</li>
-                        <li><strong>Better AI Technology</strong> - Powered by Meta SAM2.1 (2026) vs Unscreen's legacy AI</li>
-                        <li><strong>Longer Videos</strong> - Process 10-second clips (2x longer than Unscreen's free tier)</li>
+                        <li><strong>Better AI Technology</strong> - Powered by Meta SAM2.1 (2026) vs Unscreen's legacy
+                            AI</li>
+                        <li><strong>Longer Videos</strong> - Process 10-second clips (2x longer than Unscreen's free
+                            tier)</li>
                         <li><strong>HD Quality</strong> - Export in original resolution, not limited to 720p</li>
                         <li><strong>OBS Integration</strong> - Perfect for streamers and content creators</li>
                         <li><strong>Privacy First</strong> - Videos auto-delete after download, never stored</li>
                     </ul>
                 </div>
 
-                <p style="color: var(--text-secondary); line-height: 1.6;">
-                    <strong>Switching from Unscreen is easy:</strong> Upload your video (MP4, MOV, AVI, MKV), click on the person or object you want to keep, and let our AI remove the background automatically. Download your transparent background video in seconds - perfect for CapCut, OBS, Final Cut Pro, Premiere Pro, or any video editor.
+                <p class="seo-paragraph">
+                    <strong>Switching from Unscreen is easy:</strong> Upload your video (MP4, MOV, AVI, MKV), click on
+                    the person or object you want to keep, and let our AI remove the background automatically. Download
+                    your transparent background video in seconds - perfect for CapCut, OBS, Final Cut Pro, Premiere Pro,
+                    or any video editor.
                 </p>
 
-                <p style="text-align: center; margin-top: 1.5rem;">
-                    <a href="unscreen-alternative.html" style="color: #667eea; font-weight: 600; text-decoration: none; font-size: 1.05rem;">→ Read Full Unscreen Alternative Comparison</a>
+                <p class="seo-article" style="text-align: center;">
+                    <a href="unscreen-alternative.html" class="seo-link">→ Read Full Unscreen Alternative Comparison</a>
                 </p>
             </article>
 
-            <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(102, 126, 234, 0.1); border-left: 4px solid var(--primary); border-radius: 8px;">
-                <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">🎯 Common Use Cases:</h3>
-                <ul style="color: var(--text-secondary); line-height: 1.8; padding-left: 1.5rem;">
-                    <li><strong>Video editing:</strong> Remove background from video clips for overlays and compositing</li>
-                    <li><strong>Social media content:</strong> Create eye-catching videos for TikTok, Instagram, YouTube</li>
+            <div class="callout callout-info">
+                <h3 class="callout-title">🎯 Common Use Cases:</h3>
+                <ul>
+                    <li><strong>Video editing:</strong> Remove background from video clips for overlays and compositing
+                    </li>
+                    <li><strong>Social media content:</strong> Create eye-catching videos for TikTok, Instagram, YouTube
+                    </li>
                     <li><strong>Product demos:</strong> Isolate products from backgrounds for marketing videos</li>
-                    <li><strong>Live streaming:</strong> Generate OBS masks and virtual backgrounds for Twitch/YouTube streams</li>
-                    <li><strong>Educational videos:</strong> Create professional presentations with transparent backgrounds</li>
+                    <li><strong>Live streaming:</strong> Generate OBS masks and virtual backgrounds for Twitch/YouTube
+                        streams</li>
+                    <li><strong>Educational videos:</strong> Create professional presentations with transparent
+                        backgrounds</li>
                     <li><strong>Gaming content:</strong> Overlay webcam footage on gameplay recordings</li>
-                    <li><strong>Corporate videos:</strong> Remove backgrounds for professional video conferences and training materials</li>
+                    <li><strong>Corporate videos:</strong> Remove backgrounds for professional video conferences and
+                        training materials</li>
                 </ul>
             </div>
 
-            <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(255, 215, 0, 0.05); border-left: 4px solid #FFD700; border-radius: 8px;">
-                <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">💡 Pro Tips for Best Results:</h3>
-                <ul style="color: var(--text-secondary); line-height: 1.8; padding-left: 1.5rem;">
+            <div class="callout callout-tip">
+                <h3 class="callout-title">💡 Pro Tips for Best Results:</h3>
+                <ul>
                     <li>Use good lighting on your subject for clearer AI detection</li>
                     <li>Keep videos under 10 seconds for fastest processing</li>
                     <li>Click multiple points on your subject for better tracking accuracy</li>
@@ -647,21 +706,30 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2026 Obsmaskgenerator.</p>
-            <div style="margin-top: 1rem; margin-bottom: 1rem; font-size: 0.9rem;">
-                <a href="https://obsmaskgenerator.com/" style="color: var(--primary); text-decoration: none;">Home</a> |
-                <a href="obs-background-remover.html" style="color: var(--primary); text-decoration: none;">OBS Green Screen Tool</a> |
-                <a href="https://obsmaskgenerator.com/bitrate-calculator/" style="color: var(--primary); text-decoration: none;">Bitrate Calculator</a> |
-                <a href="https://obsmaskgenerator.com/can-i-stream/" style="color: var(--primary); text-decoration: none;">Can I Stream?</a>
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <p><strong>&copy; 2026 Obsmaskgenerator.com</strong></p>
+                    <p>AI-powered video background removal tool.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Tools</h4>
+                    <a href="https://obsmaskgenerator.com/">Home</a>
+                    <a href="obs-background-remover.html">OBS Green Screen Tool</a>
+                    <a href="https://obsmaskgenerator.com/bitrate-calculator/">Bitrate Calculator</a>
+                    <a href="https://obsmaskgenerator.com/can-i-stream/">Can I Stream?</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <a href="terms.html">Terms</a>
+                    <a href="privacy.html">Privacy</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="contact.html">Contact</a>
+                </div>
             </div>
-            <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
-                <a href="terms.html">Terms</a>
-                <a href="privacy.html">Privacy</a>
-                <a href="faq.html">FAQ</a>
-                <a href="contact.html">Contact</a>
+            <div class="footer-bottom">
+                Powered by <a href="https://github.com/facebookresearch/sam2" target="_blank" rel="noopener">Meta
+                    SAM2</a>.
             </div>
-            <p style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.7;">Powered by <a
-                    href="https://github.com/facebookresearch/sam2" target="_blank" rel="noopener">Meta SAM2</a>.</p>
         </div>
     </footer>
 
