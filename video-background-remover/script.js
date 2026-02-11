@@ -5,54 +5,8 @@ const API_URL = window.location.hostname === 'localhost' || window.location.host
     ? 'http://localhost:8000'  // Local development
     : 'https://removebg.obsmaskgenerator.com';  // Production
 
-// Google Analytics 4 - GDPR Compliant Conditional Loading
-// Measurement ID loaded from server to keep it out of version control
-let ga4MeasurementId = null;
-
-async function loadGA4() {
-    if (typeof gtag !== 'undefined') {
-        console.log('GA4 already loaded');
-        return;
-    }
-
-    // Fetch GA4 config from server if not already loaded
-    if (!ga4MeasurementId) {
-        try {
-            const response = await fetch(`${API_URL}/api/analytics-config`);
-            const config = await response.json();
-            ga4MeasurementId = config.measurementId;
-        } catch (e) {
-            console.error('Failed to load GA4 config:', e);
-            return;
-        }
-    }
-
-    if (!ga4MeasurementId) {
-        console.warn('GA4 measurement ID not configured');
-        return;
-    }
-
-    // Dynamically load GA4 script
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${ga4MeasurementId}`;
-    document.head.appendChild(script);
-
-    // Initialize gtag
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    window.gtag = gtag;  // Make gtag globally available
-    gtag('js', new Date());
-    gtag('config', ga4MeasurementId);
-
-    console.log('GA4 loaded after cookie consent');
-}
-
-// Check cookie consent and load GA4 if accepted
-const cookieConsent = localStorage.getItem('cookie_consent');
-if (cookieConsent === 'true') {
-    loadGA4();
-}
+// GA4 is now loaded globally via components.js (Consent Mode v2)
+// Custom events tracked below use window.gtag which is globally available
 
 // Firebase - initialized asynchronously from server config
 let auth = null;
@@ -119,7 +73,6 @@ async function init() {
     setupUploadHandlers();
     setupSelectionHandlers();
     setupButtonHandlers();
-    setupCookieHandlers();
     setupViralHandlers(); // Initialize Viral Feature
     checkHealth();
 
@@ -127,35 +80,7 @@ async function init() {
     await initFirebase();
 }
 
-function setupCookieHandlers() {
-    const cookieBanner = document.getElementById('cookie-banner');
-    const btnAcceptCookies = document.getElementById('btn-accept-cookies');
-
-    // Cookie Consent Logic
-    const consent = localStorage.getItem('cookie_consent');
-    if (!consent) {
-        cookieBanner.style.display = 'block';
-    }
-
-    btnAcceptCookies.addEventListener('click', () => {
-        localStorage.setItem('cookie_consent', 'true');
-        cookieBanner.style.display = 'none';
-
-        // Load Google Analytics after consent (GDPR compliant)
-        loadGA4();
-
-        // Set persistence if Firebase is ready
-        if (auth) {
-            auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-                .then(() => {
-                    console.log("Persistence set to LOCAL");
-                })
-                .catch((error) => {
-                    console.error("Persistence error:", error);
-                });
-        }
-    });
-}
+// Cookie consent now handled globally by components.js
 
 function setupAuthStateListener() {
     // Called after Firebase is initialized
@@ -293,7 +218,7 @@ async function handleFileSelect(file) {
     currentFile = file;
 
     // Track video upload start (GA4 Event #1)
-    if (typeof gtag !== 'undefined') {
+    if (window.gtag) {
         gtag('event', 'video_upload_start', {
             'event_category': 'engagement',
             'event_label': file.type,
@@ -392,7 +317,7 @@ function setupSelectionHandlers() {
         updatePointsList();
 
         // Track point added (GA4 Event #7)
-        if (typeof gtag !== 'undefined') {
+        if (window.gtag) {
             gtag('event', 'point_added', {
                 'event_category': 'engagement',
                 'event_label': currentBrushType,
@@ -599,7 +524,7 @@ async function previewMask() {
         overlay.style.backgroundImage = `url(${data.mask})`;
 
         // Track preview generated (GA4 Event #8)
-        if (typeof gtag !== 'undefined') {
+        if (window.gtag) {
             gtag('event', 'preview_generated', {
                 'event_category': 'engagement',
                 'point_count': selectionPoints.length
@@ -610,7 +535,7 @@ async function previewMask() {
         alert('Failed to preview mask: ' + error.message);
 
         // Track error (GA4 Event #6)
-        if (typeof gtag !== 'undefined') {
+        if (window.gtag) {
             gtag('event', 'error_occurred', {
                 'event_category': 'error',
                 'event_label': 'preview_mask_failed',
@@ -741,7 +666,7 @@ async function startProcessing() {
         console.log('[startProcessing] Job ID:', jobId);
 
         // Track upload complete and processing start (GA4 Events #2 & #3)
-        if (typeof gtag !== 'undefined') {
+        if (window.gtag) {
             gtag('event', 'video_upload_complete', {
                 'event_category': 'conversion',
                 'event_label': currentFile.type,
@@ -763,7 +688,7 @@ async function startProcessing() {
         showError(error.message);
 
         // Track error (GA4 Event #6)
-        if (typeof gtag !== 'undefined') {
+        if (window.gtag) {
             gtag('event', 'error_occurred', {
                 'event_category': 'error',
                 'event_label': 'upload_failed',
@@ -792,7 +717,7 @@ function pollStatus() {
                 showComplete();
 
                 // Track processing complete (GA4 Event #4)
-                if (typeof gtag !== 'undefined') {
+                if (window.gtag) {
                     gtag('event', 'processing_complete', {
                         'event_category': 'conversion',
                         'job_id': jobId
@@ -803,7 +728,7 @@ function pollStatus() {
                 showError(data.message);
 
                 // Track error (GA4 Event #6)
-                if (typeof gtag !== 'undefined') {
+                if (window.gtag) {
                     gtag('event', 'error_occurred', {
                         'event_category': 'error',
                         'event_label': 'processing_failed',
@@ -816,7 +741,7 @@ function pollStatus() {
             showError(error.message);
 
             // Track error (GA4 Event #6)
-            if (typeof gtag !== 'undefined') {
+            if (window.gtag) {
                 gtag('event', 'error_occurred', {
                     'event_category': 'error',
                     'event_label': 'polling_failed',
@@ -893,7 +818,7 @@ function setupButtonHandlers() {
         link.click();
 
         // Track video download (GA4 Event #5)
-        if (typeof gtag !== 'undefined') {
+        if (window.gtag) {
             gtag('event', 'video_download', {
                 'event_category': 'conversion',
                 'job_id': jobId

@@ -69,12 +69,19 @@ const GlobalComponents = {
         accept: function() {
             localStorage.setItem('cookie_consent', 'true');
             this.close();
-            this.loadAnalytics();
+            // GA4 consent handled by ga4ConsentMode
+            if (GlobalComponents.ga4ConsentMode) {
+                GlobalComponents.ga4ConsentMode.grantConsent();
+            }
         },
 
         decline: function() {
             localStorage.setItem('cookie_consent', 'false');
             this.close();
+            // Ensure GA4 stays denied
+            if (GlobalComponents.ga4ConsentMode) {
+                GlobalComponents.ga4ConsentMode.revokeConsent();
+            }
         },
 
         close: function() {
@@ -87,26 +94,6 @@ const GlobalComponents = {
             }, 300);
         },
 
-        loadAnalytics: function() {
-            // Load GA4 after consent
-            if (window.location.hostname === 'localhost') {
-                console.log('[GA4] Skipping on localhost');
-                return;
-            }
-
-            const script = document.createElement('script');
-            script.async = true;
-            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3';
-            document.head.appendChild(script);
-
-            window.dataLayer = window.dataLayer || [];
-            function gtag() { dataLayer.push(arguments); }
-            window.gtag = gtag;
-            gtag('js', new Date());
-            gtag('config', 'G-C84663S6K3');
-
-            console.log('[GA4] Analytics loaded after consent');
-        },
 
         init: function() {
             // Add CSS animations
@@ -136,13 +123,84 @@ const GlobalComponents = {
                 banner.style.display = 'block';
                 console.log('[Cookie Consent] Showing banner (first visit)');
             } else if (consent === 'true') {
-                // User accepted - load analytics
-                this.loadAnalytics();
-                console.log('[Cookie Consent] Already accepted, loading analytics');
+                // User accepted - GA4 consent handled by ga4ConsentMode
+                console.log('[Cookie Consent] Already accepted');
             } else {
                 // User declined
                 console.log('[Cookie Consent] User declined cookies');
             }
+        }
+    },
+
+    /**
+     * Google Analytics 4 with Consent Mode v2
+     * Loads GA4 immediately in "denied" state, updates consent dynamically
+     * GDPR compliant - no tracking until user accepts cookies
+     */
+    ga4ConsentMode: {
+        measurementId: 'G-C84663S6K3',
+
+        init: function() {
+            // Skip on localhost
+            if (window.location.hostname === 'localhost') {
+                console.log('[GA4 Consent Mode] Skipped - localhost detected');
+                return;
+            }
+
+            // Step 1: Initialize dataLayer BEFORE GA4 script loads
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            window.gtag = gtag;
+
+            // Step 2: Set default consent to "denied" (GDPR compliant)
+            gtag('consent', 'default', {
+                'analytics_storage': 'denied'
+            });
+
+            // Step 3: Load GA4 script (loads ONCE, immediately)
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=' + this.measurementId;
+            document.head.appendChild(script);
+
+            // Step 4: Initialize GA4 (in denied state)
+            gtag('js', new Date());
+            gtag('config', this.measurementId, {
+                'anonymize_ip': true
+            });
+
+            console.log('[GA4 Consent Mode] Initialized in denied state');
+
+            // Step 5: Auto-grant if user already accepted cookies
+            const consent = localStorage.getItem('cookie_consent');
+            if (consent === 'true') {
+                this.grantConsent();
+            }
+        },
+
+        grantConsent: function() {
+            if (!window.gtag) {
+                console.warn('[GA4 Consent Mode] gtag not loaded yet');
+                return;
+            }
+
+            // Update consent to "granted" (enables tracking)
+            gtag('consent', 'update', {
+                'analytics_storage': 'granted'
+            });
+
+            console.log('[GA4 Consent Mode] Consent granted - tracking enabled');
+        },
+
+        revokeConsent: function() {
+            if (!window.gtag) return;
+
+            // Update consent to "denied" (disables tracking)
+            gtag('consent', 'update', {
+                'analytics_storage': 'denied'
+            });
+
+            console.log('[GA4 Consent Mode] Consent revoked - tracking disabled');
         }
     },
 
@@ -277,6 +335,11 @@ const GlobalComponents = {
                 component.init();
             }
         });
+
+        // Initialize GA4 Consent Mode (runs independently of other components)
+        if (this.ga4ConsentMode && this.ga4ConsentMode.init) {
+            this.ga4ConsentMode.init();
+        }
     }
 };
 

@@ -492,7 +492,7 @@ async function login(password) {
         initDashboard();  // Initialize dashboard after successful login
 
         // Track admin login (GA4 Event)
-        if (typeof gtag !== 'undefined') {
+        if (window.gtag) {
             gtag('event', 'admin_login', {
                 'event_category': 'admin',
                 'event_label': 'session_login'
