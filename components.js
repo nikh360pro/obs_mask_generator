@@ -315,7 +315,16 @@ const GlobalComponents = {
     /**
      * Initialize all enabled components
      */
+    _initialized: false,
+
     init: function() {
+        // Prevent double initialization
+        if (this._initialized) {
+            console.log('[Components] Already initialized, skipping');
+            return;
+        }
+        this._initialized = true;
+
         Object.keys(this).forEach(key => {
             const component = this[key];
 
