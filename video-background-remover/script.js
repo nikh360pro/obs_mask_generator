@@ -647,6 +647,29 @@ async function startProcessing() {
     }
 
     console.log('[startProcessing] Showing processing section');
+
+    // CRITICAL FIX: Reset UI state to prevent showing stale "complete" status from previous job
+    // This fixes the bug where second video shows "Processing Complete" briefly before starting
+    const fill = document.getElementById('progress-fill');
+    const stage = document.getElementById('progress-stage');
+    const percent = document.getElementById('progress-percent');
+    const status = document.getElementById('processing-status');
+
+    // Reset progress UI to initial state
+    fill.style.width = '0%';
+    fill.classList.remove('queued');
+    stage.textContent = 'analyzing';
+    percent.textContent = '0%';
+    status.textContent = 'Initializing...';
+
+    // Reset step indicators
+    const steps = ['extract', 'segment', 'composite', 'encode'];
+    steps.forEach((step) => {
+        const el = document.getElementById(`step-${step}`);
+        el.classList.remove('active', 'complete');
+    });
+
+    // Now show the processing section with clean state
     showSection('processing');
     clearMaskOverlay();
 
