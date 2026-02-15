@@ -28,7 +28,7 @@ const GlobalComponents = {
                 <button class="banner-close" onclick="GlobalComponents.banner.close()">×</button>
                 <div class="banner-content">
                     <div class="banner-video">
-                        <video autoplay loop muted playsinline class="banner-demo-video">
+                        <video autoplay loop muted playsinline preload="auto" poster="assets/demo-poster.jpg" class="banner-demo-video">
                             <source src="assets/demo.webm" type="video/webm">
                         </video>
                         <div class="banner-badge">
