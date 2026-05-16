@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<head>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
     <!-- Primary Meta Tags -->
     <meta charset="UTF-8">
@@ -41,17 +51,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="/banner.css">
 </head>
 
 <body>
-    <!-- Global Banner (Promotes Video Background Remover) -->
-    <div id="global-banner"></div>
-
-    <!-- Cookie Consent Banner -->
-    <div id="cookie-consent-banner"></div>
-
-
     <div class="app-container">
         <!-- Header -->
         <header class="header">
@@ -289,7 +291,6 @@
     </div>
 
     <script src="script.js"></script>
-    <script src="/components.js"></script>
 </body>
 
 </html>

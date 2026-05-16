@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<head>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,18 +45,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="blog-style.css">
-    <link rel="stylesheet" href="../assets/css/common.css">
-    <link rel="stylesheet" href="../banner.css">
+    <link rel="stylesheet" href="/assets/css/common.css">
 </head>
 
 <body>
-    <!-- Global Banner (Promotes Video Background Remover) -->
-    <div id="global-banner"></div>
-
-    <!-- Cookie Consent Banner -->
-    <div id="cookie-consent-banner"></div>
-
-
     <header class="blog-header">
         <div class="header-content">
             <a href="/" class="logo">OBS Tools</a>
@@ -73,11 +75,15 @@
                     mess. This guide covers the optimal bitrate settings for every major platform and resolution.
                 </p>
 
-                <div class="info-box highlight" style="background: rgba(145, 70, 255, 0.1); border-left: 4px solid #9146ff; padding: 1.5rem; margin: 2rem 0; border-radius: 4px;">
+                <div class="info-box highlight"
+                    style="background: rgba(145, 70, 255, 0.1); border-left: 4px solid #9146ff; padding: 1.5rem; margin: 2rem 0; border-radius: 4px;">
                     <h3 style="margin-top: 0; color: #9146ff;">🚀 Quick Answer for 2026</h3>
-                    <p style="margin-bottom: 0;"><strong>Twitch:</strong> Use <strong>6,000 Kbps</strong> (CBR) for both 1080p and 720p 60fps.<br>
-                    <strong>YouTube:</strong> Use <strong>9,000 - 12,000 Kbps</strong> for 1080p 60fps (AV1/HEVC supported).<br>
-                    <strong>Kick:</strong> Supports up to <strong>8,000 Kbps</strong> for 1080p 60fps.</p>
+                    <p style="margin-bottom: 0;"><strong>Twitch:</strong> Use <strong>6,000 Kbps</strong> (CBR) for both
+                        1080p and 720p 60fps.<br>
+                        <strong>YouTube:</strong> Use <strong>9,000 - 12,000 Kbps</strong> for 1080p 60fps (AV1/HEVC
+                        supported).<br>
+                        <strong>Kick:</strong> Supports up to <strong>8,000 Kbps</strong> for 1080p 60fps.
+                    </p>
                 </div>
 
                 <div class="cta-box">
@@ -206,36 +212,54 @@
                     <a href="/bitrate-calculator/" class="cta-button">Use Bitrate Calculator →</a>
                 </div>
 
-                <h2>Understanding Bitrate Basics</h2>
+                <h2>Advanced OBS Bitrate Settings</h2>
 
-                <h3>What is Bitrate?</h3>
-                <p>Bitrate measures how much data is transmitted per second, measured in <strong>Kbps (kilobits per
-                        second)</strong>. Higher bitrate = more data = sharper image, but also requires more upload
-                    bandwidth.</p>
-
-                <h3>The Bitrate Formula</h3>
-                <p>A rough guideline for calculating bitrate:</p>
-                <div class="formula-box">
-                    <code>Bitrate = Width × Height × FPS × 0.1 ÷ 1000</code>
+                <h3>CBR vs. VBR: Which Rate Control is Best?</h3>
+                <p>When setting up OBS, you'll see options like CBR, VBR, CQP, and Lossless. For streaming, there is
+                    only one correct answer:</p>
+                <div class="guide-highlight">
+                    <h4>✅ Use CBR (Constant Bitrate)</h4>
+                    <p>Twitch, YouTube, and Facebook Live all require <strong>CBR</strong>. This ensures your stream
+                        sends data at a consistent speed, preventing network instability. VBR (Variable Bitrate) saves
+                        data during quiet moments but spikes during action, which causes dropped frames and "stream lag"
+                        for viewers.</p>
                 </div>
-                <p>For 1080p 60fps: <code>1920 × 1080 × 60 × 0.1 ÷ 1000 = 12,442 Kbps</code></p>
-                <p>But Twitch caps at 6,000, which is why 1080p60 on Twitch can look blurry during fast motion.</p>
 
-                <h2>Upload Speed Requirements</h2>
-                <p>Your upload speed should be at least <strong>1.5× your bitrate</strong> for stable streaming:</p>
+                <h3>The Importance of Keyframe Intervals</h3>
+                <p>This is the most overlooked setting. Twitch requires a <strong>Keyframe Interval of 2
+                        seconds</strong>. If you leave this on "Auto" (0), your stream may suffer from:</p>
                 <ul>
-                    <li><strong>6,000 Kbps stream</strong> → Need at least 9 Mbps upload</li>
-                    <li><strong>10,000 Kbps stream</strong> → Need at least 15 Mbps upload</li>
+                    <li>Stream delay increasing over time (viewer desync)</li>
+                    <li>Unable to play on mobile devices</li>
+                    <li>"Source Error" messages on Twitch</li>
                 </ul>
+                <p><strong>Fix:</strong> In OBS Output settings, set "Keyframe Interval" to <strong>2</strong>.</p>
 
-                <h2>Common Bitrate Mistakes</h2>
+                <h3>Don't Forget Audio Bitrate!</h3>
+                <p>Video isn't everything. Bad audio ruins streams faster than pixelated video. We recommend:</p>
+                <ul>
+                    <li><strong>160 Kbps:</strong> Good baseline (Twitch Standard)</li>
+                    <li><strong>192 Kbps - 320 Kbps:</strong> Excellent/Audiophile (Best for YouTube)</li>
+                </ul>
+                <p>Note: Going above 160 Kbps on Twitch is allowed but often diminishing returns for voice-only streams.
+                </p>
+
+                <h2>Bitrate vs. Upload Speed Reality Check</h2>
+                <p>Your upload speed must be <strong>stable</strong>, not just high. A speed test might say 20 Mbps, but
+                    if it fluctuates, you will drop frames.</p>
+                <p><strong>The "Safety Buffer" Rule:</strong> Multiply your target bitrate by 1.5. If you want to stream
+                    at 6,000 Kbps (6 Mbps), you need at least 9 Mbps consistent upload speed. This leaves room for game
+                    packets, Discord voice, and network fluctuations.</p>
+
+                <h3>Common Bitrate Mistakes</h3>
                 <ol>
-                    <li><strong>Setting bitrate too high</strong> - Causes dropped frames and buffering</li>
-                    <li><strong>Setting bitrate too low</strong> - Causes blocky, pixelated video</li>
-                    <li><strong>Ignoring your upload speed</strong> - Your bitrate can't exceed your upload capacity
-                    </li>
-                    <li><strong>Using CBR for recording</strong> - Use CRF/CQP for local recordings, CBR for streaming
-                    </li>
+                    <li><strong>Setting bitrate too high:</strong> Causes buffering for viewers with slow internet.</li>
+                    <li><strong>Using WiFi:</strong> WiFi is unstable. Always use an Ethernet cable for consistent
+                        bitrate.</li>
+                    <li><strong>Ignoring your hardware:</strong> If your GPU is maxed out at 99% usage playing a game,
+                        NVENC has no room to work. Cap your in-game FPS to leave breathing room for OBS.</li>
+                    <li><strong>Using CBR for recording:</strong> Use <strong>CQP</strong> (Constant Quantization
+                        Parameter) for local recordings to save space while keeping quality high.</li>
                 </ol>
 
                 <h2>FAQ</h2>
@@ -268,10 +292,6 @@
         <aside class="related-tools">
             <h3>Related OBS Tools</h3>
             <div class="tool-cards">
-                <a href="/video-background-remover/" class="tool-card">
-                    <span class="tool-icon">✨</span>
-                    <span class="tool-name">Video Background Remover</span>
-                </a>
                 <a href="/quality-checker/" class="tool-card">
                     <span class="tool-icon">🎬</span>
                     <span class="tool-name">Quality Checker</span>
@@ -343,7 +363,6 @@
             color: var(--text-secondary);
         }
     </style>
-    <script src="/components.js"></script>
 </body>
 
 </html>

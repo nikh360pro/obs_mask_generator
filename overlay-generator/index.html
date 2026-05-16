@@ -1,7 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<head>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4560264570048889"
+        crossorigin="anonymous"></script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
     <!-- Primary Meta Tags -->
     <meta charset="UTF-8">
@@ -12,7 +24,7 @@
     <meta name="description"
         content="Free Stream Overlay Generator. Create webcam frames, Starting Soon screens, BRB overlays for OBS. Transparent PNG export. No signup required.">
     <meta name="keywords"
-        content="stream overlay generator, OBS overlay maker, webcam frame generator, Twitch overlay free, stream overlay maker, starting soon screen, BRB overlay, stream ending screen, OBS webcam border, free streaming overlays">
+        content="stream overlay generator, OBS overlay maker, webcam border generator, Twitch overlay free, stream overlay maker, starting soon screen, BRB overlay, stream ending screen, OBS webcam frame, free streaming overlays">
     <meta name="author" content="OBS Mask Generator">
     <meta name="robots" content="index, follow">
     <meta name="language" content="English">
@@ -112,20 +124,13 @@
     </script>
 
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/assets/css/common.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/banner.css">
 </head>
 
 <body>
-    <!-- Global Banner (Promotes Video Background Remover) -->
-    <div id="global-banner"></div>
-
-    <!-- Cookie Consent Banner -->
-    <div id="cookie-consent-banner"></div>
-
-
     <div class="app-container">
         <!-- Header -->
         <header class="header">
@@ -295,52 +300,67 @@
 
         <!-- SEO Content Guide -->
         <article class="seo-guide">
-            <h2>Free Stream Overlays & Webcam Borders</h2>
+            <h2>Complete Guide to OBS Overlays for Streamers</h2>
 
             <p>A professional stream relies on clean, consistent branding. Our <strong>Stream Overlay Generator</strong>
-                lets you create custom assets for your Twitch or YouTube stream without needing Photoshop or expensive
-                designers.</p>
+                lets you create custom assets for your Twitch, YouTube, or Kick stream without needing Photoshop or
+                hiring expensive designers. Whether you need a simple webcam frame or a full "Stream Starting" screen,
+                this tool handles it all.</p>
 
-            <h3>Essential Overlay Types</h3>
-            <p>Every streamer needs a few key graphics:</p>
+            <h3>Essential Overlay Types Explained</h3>
+            <p>Every professional streamer needs a core set of graphics to keep viewers engaged:</p>
             <ul>
-                <li><strong>Webcam Border:</strong> This frames your camera, separating you from the gameplay. It makes
-                    you "pop" and look more professional.</li>
-                <li><strong>Starting Soon Screen:</strong> Play this for 5-10 minutes before you go live. It gives
-                    viewers time to join while the notifications go out.</li>
-                <li><strong>Be Right Back (BRB):</strong> Use this when you need a bathroom break or a snack. Never
-                    leave your viewers staring at an empty chair!</li>
-                <li><strong>Stream Ending:</strong> A graceful way to say goodbye and raid another channel.</li>
+                <li><strong>Webcam Frame (Border):</strong> The most important overlay. It separates your camera feed
+                    from the gameplay, making your face cam "pop". Use colors that match your channel branding.</li>
+                <li><strong>Starting Soon Screen:</strong> Play this for 5-10 minutes before you go live. It allows
+                    viewers to gather in chat and gives time for "Going Live" notifications to reach mobile devices.
+                </li>
+                <li><strong>Be Right Back (BRB):</strong> Essential for bathroom breaks or grabbing water. Never leave
+                    your viewers staring at an empty chair—it looks unprofessional and causes drop-offs.</li>
+                <li><strong>Stream Ending:</strong> A graceful way to sign off, thank new followers/subs, and prepare to
+                    raid another channel.</li>
             </ul>
 
             <div class="guide-highlight">
-                <h4>Why Use a Generator?</h4>
-                <p>Static images (JPGs/PNGs) use significantly less CPU than animated video overlays (WebM). If your PC
-                    struggles with streaming, switching to clean, static overlays generated here can save precious
-                    resources for your game.</p>
+                <h4>🚀 Why Use Static Overlays vs. Animated?</h4>
+                <p>While animated (WebM) overlays are fancy, they consume CPU/GPU resources. If you are streaming on a
+                    focused single-PC setup, <strong>static PNG overlays</strong> generated by this tool are superior
+                    because they use almost 0% system resources, leaving more power for your game fps.</p>
             </div>
 
-            <h3>How to Adding Overlays to OBS Studio</h3>
+            <h3>Step-by-Step: Adding Transparent Overlays to OBS Studio</h3>
             <ol>
-                <li><strong>Create & Download:</strong> Design your overlay above and click "Download Overlay". It will
-                    save as a transparent PNG.</li>
-                <li><strong>Add Source:</strong> In OBS, go to the <strong>Sources</strong> dock and click the
-                    <strong>+</strong> icon.</li>
-                <li><strong>Select Image:</strong> Choose "Image" from the list. Name it (e.g., "Webcam Border").</li>
-                <li><strong>Browse File:</strong> Find the PNG you just downloaded.</li>
-                <li><strong>Position:</strong> Drag and resize the image in the preview window to fit your layout. Make
-                    sure it is <em>above</em> your webcam source in the list.</li>
+                <li><strong>Design & Download:</strong> Customize your overlay using the controls above. Click "Download
+                    Overlay" to get a transparent PNG file.</li>
+                <li><strong>Open OBS Studio:</strong> Go to the "Sources" dock at the bottom.</li>
+                <li><strong>Add Image Source:</strong> Click the <strong>+</strong> icon and select **"Image"**.</li>
+                <li><strong>Name It:</strong> Call it something clear like "Webcam Border" or "BRB Screen".</li>
+                <li><strong>Select File:</strong> Browse and select the PNG you just downloaded.</li>
+                <li><strong>Positioning:</strong>
+                    <ul>
+                        <li>For **Webcam Frames**: Drag the image source <em>above</em> your Video Capture Device in the
+                            list. Resize it to fit around your camera.</li>
+                        <li>For **Full Screens (BRB)**: Ensure it is at the very top of your source list so it covers
+                            everything else.</li>
+                    </ul>
+                </li>
             </ol>
 
-            <h3>Design Tips for Clean Overlays</h3>
-            <ul>
-                <li><strong>Keep it Simple:</strong> Don't clutter the screen. Viewer attention should be on the game
-                    and you.</li>
-                <li><strong>Contrast is Key:</strong> Use a border color that stands out against your game. Neon colors
-                    work well against dark games.</li>
-                <li><strong>Match Your Vibe:</strong> Horror game? Use red/black. Cozy stream? Use pastels. Consistency
-                    builds your brand.</li>
-            </ul>
+            <div class="troubleshooting-box"
+                style="margin-top: 30px; background: #2a2a3a; padding: 25px; border-radius: 12px; border: 1px solid #444;">
+                <h3 style="color: #ff6b6b; margin-top: 0;">⚠️ Troubleshooting Common Issues</h3>
+
+                <h4 style="font-size: 1rem; margin-bottom: 5px; color: #fff;">1. My overlay has a black background!</h4>
+                <p style="font-size: 0.9rem; color: #ccc;">This happens if you accidentally convert the file to JPG. You
+                    <strong>must</strong> use PNG format to preserve transparency. Our tool automatically exports as
+                    PNG.</p>
+
+                <h4 style="font-size: 1rem; margin-bottom: 5px; margin-top: 15px; color: #fff;">2. The overlay doesn't
+                    fit my screen.</h4>
+                <p style="font-size: 0.9rem; color: #ccc;">Ensure you selected the correct "Size Preset" (usually
+                    1920x1080) for full screens. For webcam frames, simply click and drag the corners in the OBS preview
+                    to resize it manually.</p>
+            </div>
         </article>
 
         <!-- FAQ Section for SEO -->
@@ -399,7 +419,6 @@
     </div>
 
     <script src="script.js"></script>
-    <script src="/components.js"></script>
 </body>
 
 </html>

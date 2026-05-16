@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<head>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
     <!-- Primary Meta Tags -->
     <meta charset="UTF-8">
@@ -39,18 +49,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="blog-style.css">
-    <link rel="stylesheet" href="../assets/css/common.css">
-    <link rel="stylesheet" href="../banner.css">
+    <link rel="stylesheet" href="/assets/css/common.css">
 </head>
 
 <body>
-    <!-- Global Banner (Promotes Video Background Remover) -->
-    <div id="global-banner"></div>
-
-    <!-- Cookie Consent Banner -->
-    <div id="cookie-consent-banner"></div>
-
-
     <header class="blog-header">
         <div class="header-content">
             <a href="/" class="logo">OBS Tools</a>
@@ -205,10 +207,6 @@
         <aside class="related-tools">
             <h3>Related OBS Tools</h3>
             <div class="tool-cards">
-                <a href="/video-background-remover/" class="tool-card">
-                    <span class="tool-icon">✨</span>
-                    <span class="tool-name">Video Background Remover</span>
-                </a>
                 <a href="/bitrate-calculator/" class="tool-card">
                     <span class="tool-icon">📊</span>
                     <span class="tool-name">Bitrate Calculator</span>
@@ -280,7 +278,6 @@
             color: var(--text-secondary);
         }
     </style>
-    <script src="/components.js"></script>
 </body>
 
 </html>

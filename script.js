@@ -720,12 +720,34 @@ function setupEventListeners() {
 // ============================
 // Cookie Consent
 // ============================
-// Cookie consent now handled globally by components.js
+
+function initCookieBanner() {
+    if (localStorage.getItem('cookieConsent') === 'true') return;
+
+    const banner = document.createElement('div');
+    banner.id = 'cookie-banner';
+    banner.innerHTML = `
+        <div class="cookie-content">
+            <p>🍪 We use cookies to analyze traffic and provide the best experience. By continuing to use our site, you agree to our <a href="/privacy-policy.html">Privacy Policy</a>.</p>
+            <div class="cookie-buttons">
+                <button id="cookie-accept">Accept</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(banner);
+
+    document.getElementById('cookie-accept').addEventListener('click', () => {
+        localStorage.setItem('cookieConsent', 'true');
+        banner.style.opacity = '0';
+        setTimeout(() => banner.remove(), 300);
+    });
+}
 
 function init() {
     setupEventListeners();
     updateControlsVisibility();
     draw();
+    initCookieBanner();
 }
 
 // Start the app

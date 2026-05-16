@@ -371,6 +371,13 @@
     ],
     "games": [
         {
+            "id": "subnautica-2",
+            "name": "Subnautica 2",
+            "score": 88,
+            "cpu_heavy": false,
+            "type": "Survival / Exploration (UE5)"
+        },
+        {
             "id": "cyberpunk-2077",
             "name": "Cyberpunk 2077",
             "score": 85,

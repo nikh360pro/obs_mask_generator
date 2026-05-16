@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-C84663S6K3');</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4560264570048889" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best OBS Settings for Subnautica 2 — No Lag, No Stutter (2026 Guide)</title>
+    <meta name="description" content="Complete guide to streaming Subnautica 2 on OBS with no lag or stuttering. Covers optimal bitrate, NVENC/AMF encoder settings, Unreal Engine 5 in-game optimizations, and GPU-specific recommendations for RTX 4060 through RTX 4090.">
+    <meta name="keywords" content="best obs settings subnautica 2, subnautica 2 streaming settings obs, subnautica 2 obs guide 2026, stream subnautica 2 without lag, subnautica 2 nvenc settings, subnautica 2 ue5 obs stutter fix">
+    <link rel="canonical" href="https://obsmaskgenerator.com/blog/subnautica-2-obs-settings.html">
+    <meta property="og:title" content="Best OBS Settings for Subnautica 2 (2026) — No Lag Guide">
+    <meta property="og:description" content="Complete guide to streaming Subnautica 2 on OBS Studio. Optimal encoder, bitrate, and Unreal Engine 5 in-game settings to prevent stutter and dropped frames.">
+    <meta property="og:url" content="https://obsmaskgenerator.com/blog/subnautica-2-obs-settings.html">
+    <meta property="og:image" content="https://obsmaskgenerator.com/og-image.png">
+    <meta property="og:type" content="article">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Best OBS Settings for Subnautica 2 (2026)">
+    <meta property="twitter:description" content="Stream Subnautica 2 without lag. Complete OBS settings guide with GPU-specific recommendations.">
+    <meta property="twitter:image" content="https://obsmaskgenerator.com/og-image.png">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Best OBS Settings for Subnautica 2 — No Lag, No Stutter (2026 Guide)","description":"Complete guide to streaming Subnautica 2 on OBS with no lag or stuttering, including Unreal Engine 5 optimizations.","datePublished":"2026-05-16","dateModified":"2026-05-16","author":{"@type":"Organization","name":"OBS Mask Generator","url":"https://obsmaskgenerator.com"},"publisher":{"@type":"Organization","name":"OBS Mask Generator","url":"https://obsmaskgenerator.com"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://obsmaskgenerator.com/blog/subnautica-2-obs-settings.html"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What are the best OBS settings for Subnautica 2?","acceptedAnswer":{"@type":"Answer","text":"Use NVENC H.264 encoder, 6000-8000 Kbps CBR, 1080p 60fps, P5 preset, 2-second keyframe interval. In Subnautica 2, enable DLSS Quality or FSR Quality and lower Global Illumination to Medium to free up GPU resources for OBS encoding."}},{"@type":"Question","name":"Why does Subnautica 2 stutter when streaming on OBS?","acceptedAnswer":{"@type":"Answer","text":"Subnautica 2 uses Unreal Engine 5 with Lumen global illumination and Nanite geometry, which are extremely GPU-intensive. The stutter usually occurs because OBS and the game compete for GPU resources. Fix this by enabling DLSS/FSR Quality in-game, lowering Global Illumination to Medium, and using hardware encoding (NVENC or AMF) instead of x264."}},{"@type":"Question","name":"Should I use NVENC or x264 to stream Subnautica 2?","acceptedAnswer":{"@type":"Answer","text":"Always use NVENC (NVIDIA) or AMF (AMD) for Subnautica 2. The game uses so much GPU that x264 CPU encoding will cause dropped frames and stuttering. Hardware encoders use a dedicated chip on your GPU, leaving more resources for the game."}},{"@type":"Question","name":"What bitrate is best for streaming Subnautica 2?","acceptedAnswer":{"@type":"Answer","text":"Use 6000-8000 Kbps for Twitch, 8000 Kbps for Kick, and 9000-12000 Kbps for YouTube. Subnautica 2's dark underwater scenes and particle effects compress poorly at low bitrates, causing visible artifacts."}}]}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="blog-style.css">
+    <style>
+        .alert-box { padding: 1.2rem 1.5rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+        .alert-tip { background: rgba(0,245,147,0.08); border-left: 4px solid #00f593; }
+        .alert-tip strong { color: #00f593; }
+        .alert-warning { background: rgba(255,184,0,0.08); border-left: 4px solid #ffb800; }
+        .alert-warning strong { color: #ffb800; }
+        .settings-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+        .settings-table th, .settings-table td { padding: 0.9rem 1rem; text-align: left; border-bottom: 1px solid #2a2a3d; }
+        .settings-table th { background: #1a1a2e; font-weight: 600; }
+        .settings-table tr:last-child td { border-bottom: none; }
+        .settings-table tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+        .toc { background: #141420; border: 1px solid #2a2a3d; border-radius: 10px; padding: 1.5rem; margin: 2rem 0; }
+        .toc h3 { margin-top: 0; font-size: 1rem; color: #9146ff; }
+        .toc ol { margin: 0; padding-left: 1.2rem; }
+        .toc li { margin: 0.4rem 0; }
+        .toc a { color: #a78bfa; text-decoration: none; font-size: 0.92rem; }
+        .toc a:hover { color: #9146ff; }
+        .gpu-quick-links { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap: 0.75rem; margin: 1.5rem 0; }
+        .gpu-link { background: #141420; border: 1px solid #2a2a3d; border-radius: 8px; padding: 0.9rem; text-decoration: none; transition: border-color 0.2s; }
+        .gpu-link:hover { border-color: #9146ff; }
+        .gpu-link strong { display: block; color: #e2e2f0; font-size: 0.88rem; margin-bottom: 0.2rem; }
+        .gpu-link span { color: #848494; font-size: 0.78rem; }
+        .related-posts { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 1rem; margin: 1.5rem 0; }
+        .related-post { background: #141420; border: 1px solid #2a2a3d; border-radius: 8px; padding: 1rem; text-decoration: none; transition: border-color 0.2s; }
+        .related-post:hover { border-color: #9146ff; }
+        .related-post strong { display: block; color: #e2e2f0; margin-bottom: 0.3rem; font-size: 0.92rem; }
+        .related-post span { color: #848494; font-size: 0.82rem; }
+    </style>
+</head>
+
+<body>
+    <header class="blog-header">
+        <div class="header-content">
+            <a href="/" class="logo">OBS Tools</a>
+            <nav>
+                <a href="/">Tools</a>
+                <a href="/blog/" class="active">Blog</a>
+                <a href="/settings-generator/">Settings</a>
+                <a href="/guides/">Guides</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="blog-container">
+        <article class="blog-article">
+            <div class="article-header">
+                <div class="breadcrumb">
+                    <a href="/">Home</a> › <a href="/blog/">Blog</a> › Subnautica 2 OBS Settings
+                </div>
+                <h1>Best OBS Settings for Subnautica 2 — No Lag, No Stutter (2026 Guide)</h1>
+                <p class="article-meta">Published May 16, 2026 • 8 min read • Subnautica 2 Early Access</p>
+            </div>
+
+            <div class="article-content">
+
+                <p>Subnautica 2 launched in Early Access on <strong>May 14, 2026</strong> and immediately became one of the most-watched games on Twitch, peaking at over 400,000 concurrent Steam players. But here is the problem: <strong>Subnautica 2 is built on Unreal Engine 5</strong> with Lumen global illumination and Nanite geometry — and streaming it on OBS without proper settings causes painful stutter, dropped frames, and encoding overload.</p>
+
+                <p>This guide gives you every setting you need to stream Subnautica 2 smoothly. We cover the OBS configuration, the in-game graphics tweaks, and GPU-specific recommendations from the GTX 1660 Super all the way up to the RTX 4090.</p>
+
+                <div class="toc">
+                    <h3>📖 Table of Contents</h3>
+                    <ol>
+                        <li><a href="#quick-settings">Quick Settings (TL;DR)</a></li>
+                        <li><a href="#why-hard">Why Subnautica 2 Is Hard to Stream</a></li>
+                        <li><a href="#obs-settings">Full OBS Settings Table</a></li>
+                        <li><a href="#in-game">In-Game Graphics Settings</a></li>
+                        <li><a href="#gpu-tiers">GPU-Specific Recommendations</a></li>
+                        <li><a href="#troubleshooting">Troubleshooting: Stutter & Dropped Frames</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ol>
+                </div>
+
+                <h2 id="quick-settings">Quick Settings (TL;DR)</h2>
+                <div class="alert-box alert-tip">
+                    <strong>✅ Use these for most setups (RTX 3060 and above):</strong>
+                    <ul style="margin: 0.5rem 0 0 1rem;">
+                        <li>Encoder: <strong>NVENC H.264</strong> (NVIDIA) or <strong>AMF H.264</strong> (AMD)</li>
+                        <li>Rate Control: <strong>CBR</strong></li>
+                        <li>Bitrate: <strong>6000–8000 Kbps</strong> (Twitch) / <strong>9000–12000 Kbps</strong> (YouTube)</li>
+                        <li>Resolution: <strong>1920×1080</strong></li>
+                        <li>FPS: <strong>60</strong></li>
+                        <li>Preset: <strong>P5 (Quality)</strong></li>
+                        <li>Keyframe: <strong>2 seconds</strong></li>
+                        <li>In-game: Enable <strong>DLSS Quality</strong> (NVIDIA) or <strong>FSR Quality</strong> (AMD)</li>
+                    </ul>
+                </div>
+
+                <h2 id="why-hard">Why Subnautica 2 Is Hard to Stream</h2>
+                <p>Unlike the original Subnautica (which ran on Unity), <strong>Subnautica 2 uses Unreal Engine 5</strong>. This brings three major streaming challenges:</p>
+
+                <h3>1. Lumen Global Illumination</h3>
+                <p>Lumen is UE5's real-time global illumination system. It dynamically calculates how light bounces off every surface — beautiful, but massively GPU-intensive. In Subnautica 2's underwater environments, Lumen is calculating how bioluminescent creatures and thermal vents light up the water column in real time. This can push GPU usage to 95–100%, leaving virtually no headroom for OBS to encode.</p>
+
+                <h3>2. Shader Compilation Stutter</h3>
+                <p>On first launch (or after a driver update), Subnautica 2 compiles its shaders in the background. During this process, you will see stuttering regardless of your hardware — <strong>this is completely normal</strong>. Let the game run on the main menu for 5–10 minutes before going live. The stutter will stop once compilation is complete.</p>
+
+                <h3>3. VRAM Pressure</h3>
+                <p>Nanite geometry and high-resolution textures are memory-hungry. If you have an 8GB GPU and set textures to High or Ultra, you will overflow your VRAM — causing severe stuttering as assets stream from system RAM. Set texture quality to <strong>Medium</strong> on 8GB GPUs.</p>
+
+                <h2 id="obs-settings">Full OBS Settings for Subnautica 2</h2>
+                <p>Open OBS → <strong>Settings → Output → Advanced</strong> mode, then apply these values:</p>
+
+                <table class="settings-table">
+                    <tr><th>Setting</th><th>Twitch / Kick</th><th>YouTube</th></tr>
+                    <tr><td><strong>Output Mode</strong></td><td>Advanced</td><td>Advanced</td></tr>
+                    <tr><td><strong>Encoder</strong></td><td>NVENC H.264 (or AMF H.264)</td><td>NVENC AV1 (RTX 40-series) or NVENC H.264</td></tr>
+                    <tr><td><strong>Rate Control</strong></td><td>CBR</td><td>CBR</td></tr>
+                    <tr><td><strong>Bitrate</strong></td><td>6000–8000 Kbps</td><td>9000–12000 Kbps</td></tr>
+                    <tr><td><strong>Keyframe Interval</strong></td><td>2 seconds</td><td>2 seconds</td></tr>
+                    <tr><td><strong>Preset (NVENC)</strong></td><td>P5 (Quality)</td><td>P5 or P6 (Quality)</td></tr>
+                    <tr><td><strong>Tuning</strong></td><td>High Quality</td><td>High Quality</td></tr>
+                    <tr><td><strong>B-Frames</strong></td><td>2</td><td>2</td></tr>
+                    <tr><td><strong>Output Resolution</strong></td><td>1920×1080</td><td>1920×1080</td></tr>
+                    <tr><td><strong>FPS</strong></td><td>60</td><td>60</td></tr>
+                    <tr><td><strong>Downscale Filter</strong></td><td>Lanczos</td><td>Lanczos</td></tr>
+                </table>
+
+                <div class="alert-box alert-warning">
+                    <strong>⚠️ Do NOT use x264 (CPU encoding) for Subnautica 2.</strong> The game is so GPU-intensive that adding CPU encoding on top will cause dropped frames and encoding overload errors. Always use hardware encoding (NVENC for NVIDIA, AMF for AMD, QSV for Intel Arc).
+                </div>
+
+                <h2 id="in-game">In-Game Graphics Settings to Optimize for Streaming</h2>
+                <p>These settings reduce GPU load so OBS has the resources it needs to encode your stream without competition:</p>
+
+                <table class="settings-table">
+                    <tr><th>Setting</th><th>Recommended Value</th><th>Impact</th></tr>
+                    <tr><td>Upscaling (DLSS/FSR)</td><td><strong>Quality mode</strong></td><td>🔥 Huge FPS boost with minimal visual loss</td></tr>
+                    <tr><td>Global Illumination</td><td><strong>Medium</strong></td><td>🔥 Biggest GPU hog — reduce this first</td></tr>
+                    <tr><td>Shadow Quality</td><td><strong>Medium</strong></td><td>High impact on GPU usage</td></tr>
+                    <tr><td>Texture Quality</td><td><strong>Medium</strong> (8GB GPU) / High (12GB+)</td><td>Prevents VRAM overflow stutter</td></tr>
+                    <tr><td>Ambient Occlusion</td><td><strong>Medium or Off</strong></td><td>Medium GPU impact</td></tr>
+                    <tr><td>Frame Generation</td><td><strong>Off</strong></td><td>Can conflict with OBS capture, adds latency</td></tr>
+                    <tr><td>Motion Blur</td><td><strong>Off</strong></td><td>Reduces encoding complexity for a cleaner stream</td></tr>
+                    <tr><td>Particle Quality</td><td><strong>Medium</strong></td><td>Particle effects are frequent underwater</td></tr>
+                    <tr><td>FPS Cap</td><td><strong>120 or 144</strong></td><td>Prevents GPU pegging at 100% from uncapped frames</td></tr>
+                    <tr><td>V-Sync</td><td><strong>Off</strong> (use FPS cap instead)</td><td>V-Sync adds input latency</td></tr>
+                </table>
+
+                <div class="alert-box alert-tip">
+                    <strong>💡 Pro Tip:</strong> After making these changes, let the game run for 5 minutes before going live. Shader compilation happens in the background and will cause temporary stuttering regardless of settings. Once it finishes, your stream will be smooth.
+                </div>
+
+                <h2 id="gpu-tiers">GPU-Specific Recommendations</h2>
+                <p>Click your GPU for a dedicated page with exact settings:</p>
+
+                <h3>NVIDIA RTX 40-Series (AV1 Encoding Available)</h3>
+                <div class="gpu-quick-links">
+                    <a href="/can-i-stream/subnautica-2/rtx-4090/" class="gpu-link"><strong>RTX 4090</strong><span>✅ Perfect — 1440p/60fps</span></a>
+                    <a href="/can-i-stream/subnautica-2/rtx-4080/" class="gpu-link"><strong>RTX 4080</strong><span>✅ Perfect — 1080p/60fps</span></a>
+                    <a href="/can-i-stream/subnautica-2/rtx-4070/" class="gpu-link"><strong>RTX 4070</strong><span>✅ Great — 1080p/60fps</span></a>
+                    <a href="/can-i-stream/subnautica-2/rtx-4060-ti/" class="gpu-link"><strong>RTX 4060 Ti</strong><span>✅ Great — 1080p/60fps</span></a>
+                    <a href="/can-i-stream/subnautica-2/rtx-4060/" class="gpu-link"><strong>RTX 4060</strong><span>✅ Good — 1080p/60fps</span></a>
+                </div>
+
+                <h3>NVIDIA RTX 30-Series</h3>
+                <div class="gpu-quick-links">
+                    <a href="/can-i-stream/subnautica-2/rtx-3080/" class="gpu-link"><strong>RTX 3080</strong><span>✅ Great — 1080p/60fps</span></a>
+                    <a href="/can-i-stream/subnautica-2/rtx-3070/" class="gpu-link"><strong>RTX 3070</strong><span>✅ Good — 1080p/60fps</span></a>
+                    <a href="/can-i-stream/subnautica-2/rtx-3060/" class="gpu-link"><strong>RTX 3060</strong><span>✅ Good — 1080p/60fps</span></a>
+                    <a href="/can-i-stream/subnautica-2/rtx-3050/" class="gpu-link"><strong>RTX 3050</strong><span>⚠️ Optimized — 1080p</span></a>
+                </div>
+
+                <h3>Older NVIDIA / AMD GPUs</h3>
+                <div class="gpu-quick-links">
+                    <a href="/can-i-stream/subnautica-2/gtx-1660-super/" class="gpu-link"><strong>GTX 1660 Super</strong><span>⚠️ 720p/60fps only</span></a>
+                    <a href="/can-i-stream/subnautica-2/gtx-1650/" class="gpu-link"><strong>GTX 1650</strong><span>⚠️ Struggling</span></a>
+                    <a href="/can-i-stream/subnautica-2/rx-7900-xtx/" class="gpu-link"><strong>RX 7900 XTX</strong><span>✅ Perfect — 1440p</span></a>
+                    <a href="/can-i-stream/subnautica-2/rx-7800-xt/" class="gpu-link"><strong>RX 7800 XT</strong><span>✅ Great — 1080p</span></a>
+                    <a href="/can-i-stream/subnautica-2/rx-7600/" class="gpu-link"><strong>RX 7600</strong><span>✅ Good — 1080p</span></a>
+                    <a href="/can-i-stream/subnautica-2/rx-580/" class="gpu-link"><strong>RX 580</strong><span>⚠️ 720p/30fps</span></a>
+                </div>
+
+                <h2 id="troubleshooting">Troubleshooting: Stutter and Dropped Frames</h2>
+
+                <h3>Problem: Dropped frames in OBS</h3>
+                <p><strong>Fix:</strong> This means your GPU cannot handle the game + encoding at the same time. Enable DLSS/FSR Quality in-game, lower Global Illumination to Medium, and ensure you are using NVENC/AMF (not x264). If still dropping, reduce your output resolution to 1280×720.</p>
+
+                <h3>Problem: Encoding overloaded warning in OBS</h3>
+                <p><strong>Fix:</strong> Change your NVENC preset from P5 to P4 (Medium). This reduces encoding quality slightly but takes less GPU time. Also lower your in-game graphics settings to free up GPU bandwidth.</p>
+
+                <h3>Problem: Stream stutters during biome transitions</h3>
+                <p><strong>Fix:</strong> This is VRAM overflow. Set Texture Quality to Medium (for 8GB GPUs) or Low (for 6GB GPUs). The game streams new assets into VRAM when you enter a new biome area — if VRAM is full, it spills into system RAM and causes hitching.</p>
+
+                <h3>Problem: Stutter only in the first 10 minutes</h3>
+                <p><strong>Fix:</strong> This is normal shader compilation. Subnautica 2 (like all UE5 games) compiles shaders on first launch. Let the game sit on the main menu for 5–10 minutes before going live. The stutter will stop permanently.</p>
+
+                <h3>Problem: OBS black screen when capturing Subnautica 2</h3>
+                <p><strong>Fix:</strong> Right-click the game capture source in OBS and select "Recapture." If that does not work, switch from Game Capture to Window Capture. Alternatively, run OBS as administrator. For borderless/windowed mode players, switch the game to Windowed mode, then add it as a Window Capture source.</p>
+
+                <h2 id="faq">Frequently Asked Questions</h2>
+
+                <h3>What are the best OBS settings for Subnautica 2?</h3>
+                <p>NVENC H.264 encoder, 6000–8000 Kbps CBR, 1080p 60fps, P5 preset, 2-second keyframe interval. Enable DLSS Quality or FSR Quality in-game to give OBS the GPU headroom it needs.</p>
+
+                <h3>Why does Subnautica 2 stutter when I stream?</h3>
+                <p>Unreal Engine 5's Lumen global illumination pushes GPUs to their limits. Enable DLSS/FSR Quality in-game, lower Global Illumination to Medium, cap your in-game FPS at 120, and always use hardware encoding (NVENC/AMF) — never x264.</p>
+
+                <h3>Should I use NVENC or x264 for Subnautica 2?</h3>
+                <p>Always NVENC (NVIDIA) or AMF (AMD). Subnautica 2 uses too much GPU for x264 to be viable. Hardware encoders use a dedicated chip on your GPU, so they do not compete with the game for resources.</p>
+
+                <h3>What bitrate should I use for Subnautica 2 on Twitch?</h3>
+                <p>Use 6000–8000 Kbps. Subnautica 2's dark underwater environments and particle effects compress poorly at low bitrates, causing visible blocky artifacts. Higher bitrate = cleaner stream in complex scenes.</p>
+
+                <h3>Can I stream Subnautica 2 at 1440p?</h3>
+                <p>Only if you have an RTX 4070 Ti or higher (NVIDIA) or RX 7900 XTX (AMD). At 1440p, your bitrate needs to be at least 12,000 Kbps — which is only practical on YouTube, not Twitch.</p>
+
+                <h2>Related Resources</h2>
+                <div class="related-posts">
+                    <a href="/settings-generator/subnautica-2/" class="related-post"><strong>⚙️ Subnautica 2 Settings Generator</strong><span>Get GPU-specific OBS settings instantly</span></a>
+                    <a href="/can-i-stream/subnautica-2/" class="related-post"><strong>🎮 Can I Stream Subnautica 2?</strong><span>Check your exact GPU's compatibility</span></a>
+                    <a href="/guides/encoding-overloaded/" class="related-post"><strong>🔧 Fix Encoding Overloaded</strong><span>Step-by-step troubleshooting guide</span></a>
+                    <a href="/guides/dropped-frames/" class="related-post"><strong>🔧 Fix Dropped Frames</strong><span>Diagnose and fix network/encoding issues</span></a>
+                    <a href="/blog/best-obs-settings.html" class="related-post"><strong>📖 Best OBS Settings 2026</strong><span>General OBS optimization guide</span></a>
+                    <a href="/settings-generator/" class="related-post"><strong>⚙️ OBS Settings Generator</strong><span>Custom settings for any GPU and platform</span></a>
+                </div>
+
+            </div>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <p>Free OBS Tools &amp; Generators | No signup required | <a href="/privacy-policy.html" style="color: var(--accent-primary, #9146ff);">Privacy Policy</a></p>
+        <div style="margin-top: 15px; font-size: 0.85em; line-height: 1.8;">
+            <p><a href="/settings-generator/" style="color: #9146ff;">Settings Generator</a> | <a href="/can-i-stream/" style="color: #9146ff;">Can I Stream?</a> | <a href="/bitrate-calculator/" style="color: #9146ff;">Bitrate Calculator</a> | <a href="/blog/" style="color: #9146ff;">Blog</a></p>
+        </div>
+    </footer>
+</body>
+
+</html>
