@@ -1,4 +1,4 @@
-﻿/**
+/**
  * OBS Image Mask Generator
  * Main Application Script
  */
@@ -459,7 +459,7 @@ function applyAspectRatio(changedDimension) {
  */
 function updateDimensionBadge() {
     if (elements.dimensionBadge) {
-        elements.dimensionBadge.textContent = `${config.width} ├ù ${config.height} px`;
+        elements.dimensionBadge.textContent = `${config.width} × ${config.height} px`;
     }
 }
 

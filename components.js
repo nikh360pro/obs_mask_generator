@@ -1,4 +1,4 @@
-﻿/**
+/**
  * GLOBAL Component Injection System - OBS Mask Generator
  *
  * This script manages site-wide components (banners, notifications, etc.)
@@ -31,7 +31,7 @@ const GlobalComponents = {
                 <div style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
                     <div style="flex: 1; min-width: 300px;">
                         <p style="margin: 0; color: #fff; font-size: 0.95rem; line-height: 1.5;">
-                            ≡ƒì¬ We use cookies to improve your experience and analyze site traffic. 
+                            🍪 We use cookies to improve your experience and analyze site traffic. 
                             <a href="/privacy-policy.html" style="color: #00f593; text-decoration: underline;">Learn more</a>
                         </p>
                     </div>
@@ -221,11 +221,11 @@ const GlobalComponents = {
 
         html: `
             <div class="launch-banner" id="launchBanner">
-                <button class="banner-close" onclick="GlobalComponents.banner.close()">├ù</button>
+                <button class="banner-close" onclick="GlobalComponents.banner.close()">×</button>
                 <div class="banner-content">
                     <div class="banner-video">
-                        <video autoplay loop muted playsinline class="banner-demo-video" poster="/video-background-remover/assets/demo-poster.jpg" preload="metadata">
-                            <source src="/video-background-remover/assets/demo.webm" type="video/webm">
+                        <video autoplay loop muted playsinline class="banner-demo-video" preload="metadata">
+                            <source src="/how-to-use.webm" type="video/webm">
                         </video>
                         <div class="banner-badge">
                             <span class="badge-dot"></span>
@@ -233,9 +233,9 @@ const GlobalComponents = {
                         </div>
                     </div>
                     <div class="banner-text">
-                        <h3 class="banner-title">≡ƒÄë Free Video Background Remover is Live!</h3>
+                        <h3 class="banner-title">🎉 Free Video Background Remover is Live!</h3>
                         <p class="banner-description">Click. Remove. Done.</p>
-                        <button class="banner-cta" onclick="GlobalComponents.banner.goToTool()">Try It Now ΓåÆ</button>
+                        <button class="banner-cta" onclick="GlobalComponents.banner.goToTool()">Try It Now →</button>
                     </div>
                 </div>
             </div>
