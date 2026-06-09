@@ -204,10 +204,11 @@ const GlobalComponents = {
         }
     },
 
-
+    /**
      * Initialize all enabled components
      */
     _initialized: false,
+
 
     init: function() {
         // Prevent double initialization
