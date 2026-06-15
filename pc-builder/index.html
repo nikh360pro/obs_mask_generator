@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-C84663S6K3');</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4560264570048889" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streaming PC Builder | Best Budget PCs for OBS & Twitch (2026)</title>
+    <meta name="description" content="Find the perfect streaming PC build for your budget. We recommend the best CPU and GPU combinations for streaming on Twitch, YouTube, and Kick.">
+    <link rel="canonical" href="https://obsmaskgenerator.com/pc-builder/">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <style>
+        .builder-container { max-width: 900px; margin: 3rem auto; padding: 2rem; background: var(--bg-secondary); border-radius: 12px; }
+        .budget-selector { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+        .budget-btn { flex: 1; padding: 1.5rem; text-align: center; background: var(--bg-tertiary); border: 2px solid var(--border-color); border-radius: 8px; cursor: pointer; transition: all 0.2s; font-size: 1.2rem; font-weight: 600; color: var(--text-primary); }
+        .budget-btn:hover { border-color: var(--accent-primary); background: rgba(145, 70, 255, 0.1); }
+        .budget-btn.active { border-color: var(--accent-primary); background: rgba(145, 70, 255, 0.15); box-shadow: 0 0 15px rgba(145, 70, 255, 0.2); }
+        .build-result { display: none; margin-top: 2rem; animation: fadeIn 0.3s ease; }
+        .build-result.active { display: block; }
+        .part-card { display: flex; align-items: center; justify-content: space-between; background: var(--bg-tertiary); padding: 1.5rem; margin-bottom: 1rem; border-radius: 8px; border-left: 4px solid var(--accent-primary); }
+        .part-info h3 { margin: 0 0 0.5rem 0; color: var(--accent-primary); }
+        .part-info p { margin: 0; color: var(--text-secondary); font-size: 0.95rem; }
+        .amazon-btn { background: #ff9900; color: #000; padding: 0.75rem 1.5rem; border-radius: 4px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: background 0.2s; }
+        .amazon-btn:hover { background: #e38800; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+    <header class="blog-header">
+        <div class="header-content">
+            <a href="../" class="logo">OBS Tools</a>
+            <nav><a href="../">Tools</a><a href="../blog/">Blog</a></nav>
+        </div>
+    </header>
+
+    <main class="builder-container">
+        <h1 style="text-align: center; margin-bottom: 0.5rem;">Streaming PC Budget Builder</h1>
+        <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">Select your total PC budget below to see our hand-picked, OBS-optimized hardware recommendations for 2026.</p>
+
+        <div class="budget-selector">
+            <button class="budget-btn" data-budget="entry">$600 - Entry Level</button>
+            <button class="budget-btn" data-budget="mid">$1,200 - Mid Range</button>
+            <button class="budget-btn" data-budget="high">$2,500+ - Enthusiast</button>
+        </div>
+
+        <div id="build-display" class="build-result">
+            <!-- Populated by JS -->
+        </div>
+    </main>
+
+    <footer class="footer"><p>Free OBS Tools & Generators | <a href="../privacy-policy.html">Privacy Policy</a></p></footer>
+    <script src="pc-builder.js"></script>
+</body>
+</html>

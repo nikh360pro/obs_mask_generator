@@ -1,0 +1,84 @@
+{
+  "games": [
+    {
+      "slug": "counter-strike-2",
+      "name": "Counter-Strike 2",
+      "genre": "FPS",
+      "gpu_intensity": "low",
+      "cpu_intensity": "high",
+      "notes": "Highly optimized for competitive play. Keep in-game settings low to maximize FPS. Stream at 60fps."
+    },
+    {
+      "slug": "dota-2",
+      "name": "Dota 2",
+      "genre": "MOBA",
+      "gpu_intensity": "low",
+      "cpu_intensity": "medium",
+      "notes": "Very easy to stream. Top-down view requires moderate bitrate to prevent text blur."
+    },
+    {
+      "slug": "apex-legends",
+      "name": "Apex Legends",
+      "genre": "Battle Royale",
+      "gpu_intensity": "medium",
+      "cpu_intensity": "medium",
+      "notes": "Fast-paced movement requires high bitrate (6000+ Kbps) to prevent pixelation during slides and jumps."
+    },
+    {
+      "slug": "cyberpunk-2077",
+      "name": "Cyberpunk 2077",
+      "genre": "RPG",
+      "gpu_intensity": "very-high",
+      "cpu_intensity": "high",
+      "notes": "Extremely demanding on both CPU and GPU. Hardware encoding (NVENC/AMF) is mandatory to stream without stuttering."
+    },
+    {
+      "slug": "grand-theft-auto-v",
+      "name": "Grand Theft Auto V",
+      "genre": "Action",
+      "gpu_intensity": "low",
+      "cpu_intensity": "medium",
+      "notes": "Older game, easily streamable on modern hardware. FiveM mods may increase CPU usage."
+    },
+    {
+      "slug": "valorant",
+      "name": "Valorant",
+      "genre": "FPS",
+      "gpu_intensity": "very-low",
+      "cpu_intensity": "medium",
+      "notes": "Designed to run on potatoes. Extremely easy to stream at 1080p60 on almost any dedicated GPU."
+    },
+    {
+      "slug": "helldivers-2",
+      "name": "Helldivers 2",
+      "genre": "Co-op Shooter",
+      "gpu_intensity": "high",
+      "cpu_intensity": "high",
+      "notes": "Heavy particle effects and explosions require high bitrate and solid GPU headroom. Use upscaling (DLSS/FSR) in-game."
+    },
+    {
+      "slug": "palworld",
+      "name": "Palworld",
+      "genre": "Survival",
+      "gpu_intensity": "medium",
+      "cpu_intensity": "high",
+      "notes": "Open world loading can cause stuttering. Install on SSD. NVENC handles the colorful graphics well."
+    },
+    {
+      "slug": "rust",
+      "name": "Rust",
+      "genre": "Survival",
+      "gpu_intensity": "medium",
+      "cpu_intensity": "very-high",
+      "notes": "Notoriously CPU and RAM heavy. Highly recommend hardware encoding to save CPU resources."
+    },
+    {
+      "slug": "elden-ring",
+      "name": "Elden Ring",
+      "genre": "RPG",
+      "gpu_intensity": "high",
+      "cpu_intensity": "medium",
+      "notes": "Locked at 60fps in-game. Dark areas in caves require high bitrate to avoid severe compression artifacts."
+    }
+  ]
+}
