@@ -717,11 +717,6 @@ function setupEventListeners() {
 // Initialization
 // ============================
 
-// ============================
-// Cookie Consent
-// ============================
-// Cookie consent now handled globally by components.js
-
 function init() {
     setupEventListeners();
     updateControlsVisibility();
