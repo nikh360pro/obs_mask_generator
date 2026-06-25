@@ -144,7 +144,10 @@ const elements = {
     canvasContainer: document.querySelector('.canvas-container'),
     dimensionBadge: document.getElementById('dimension-badge'),
     zoomFitBtn: document.getElementById('zoom-fit'),
-    zoom100Btn: document.getElementById('zoom-100')
+    zoom100Btn: document.getElementById('zoom-100'),
+
+    // Tutorial video
+    tutorialVideo: document.getElementById('tutorial-video')
 };
 
 // Get 2D context
@@ -711,6 +714,23 @@ function setupEventListeners() {
             updateCanvasScale();
         }
     });
+
+    // Lazy load tutorial video using Intersection Observer
+    if (elements.tutorialVideo && 'IntersectionObserver' in window) {
+        const videoObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const video = entry.target;
+                    video.preload = 'auto'; // Change preload from none
+                    // Once data starts loading, play the video
+                    video.play().catch(e => console.warn('Autoplay prevented', e));
+                    observer.unobserve(video);
+                }
+            });
+        }, { rootMargin: '0px 0px 200px 0px' }); // Trigger 200px before it comes into view
+
+        videoObserver.observe(elements.tutorialVideo);
+    }
 }
 
 // ============================

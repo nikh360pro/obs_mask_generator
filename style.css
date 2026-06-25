@@ -1,4 +1,4 @@
-﻿/* ============================
+/* ============================
    OBS Mask Generator - Styles
    ============================ */
 
@@ -580,6 +580,7 @@ body {
 /* Fixed Canvas Container */
 .canvas-container {
     height: 400px;
+    min-height: 400px; /* Added to prevent CLS */
     max-height: 400px;
     background:
         linear-gradient(45deg, #2a2a2e 25%, transparent 25%),
