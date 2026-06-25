@@ -50,6 +50,14 @@ html { font-size: 16px; -webkit-font-smoothing: antialiased; }
     line-height: 1.6;
 }
 
+/* Space below page content so mobile sticky CTA never covers it */
+@media (max-width: 680px) {
+    body { padding-bottom: 72px; }
+}
+
+/* Sections with anchor IDs — offset scroll target below sticky nav */
+section[id] { scroll-margin-top: 72px; }
+
 .sf-container {
     max-width: 1100px;
     margin: 0 auto;
@@ -875,15 +883,29 @@ html { font-size: 16px; -webkit-font-smoothing: antialiased; }
 
 
 /* ── Video Gallery Grid ───────────────────────────────────────────────────── */
-/* Videos are 2560×720 = 32:9 ultrawide (side-by-side before/after) */
+/* Videos are 2560×720 = 32:9 ultrawide (side-by-side before/after).
+   Flex layout auto-centers the orphaned 2nd-row items. */
 .sf-vgrid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-wrap: wrap;
     gap: 20px;
+    justify-content: center;
 }
 
-@media (max-width: 700px) {
-    .sf-vgrid { grid-template-columns: 1fr; gap: 16px; }
+/* 3 per row on desktop (33.33% - gap allowance) */
+.sf-vcard {
+    flex: 0 0 calc(33.33% - 14px);
+    min-width: 0;
+}
+
+/* 2 per row on tablets */
+@media (max-width: 860px) {
+    .sf-vcard { flex: 0 0 calc(50% - 10px); }
+}
+
+/* 1 per row on phones */
+@media (max-width: 520px) {
+    .sf-vcard { flex: 0 0 100%; }
 }
 
 .sf-vcard {
@@ -955,5 +977,44 @@ html { font-size: 16px; -webkit-font-smoothing: antialiased; }
     background: rgba(235, 4, 0, 0.1);
     border: 1px solid rgba(235, 4, 0, 0.25);
     color: #ff6b6b;
+}
+
+
+/* ── Mobile Sticky CTA Bar ────────────────────────────────────────────────── */
+/* Shown only on mobile — keeps the buy action always reachable */
+.sf-mobile-cta {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    padding: 12px 16px 16px;        /* extra bottom for safe area on notched phones */
+    background: rgba(14, 14, 16, 0.97);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid var(--border-color);
+    z-index: 200;
+}
+
+@media (max-width: 680px) {
+    .sf-mobile-cta { display: block; }
+}
+
+.sf-mobile-cta-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    color: white;
+    text-decoration: none;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: 0 4px 20px rgba(145, 70, 255, 0.45);
+    transition: transform 0.15s, box-shadow 0.15s;
+    font-family: inherit;
+}
+
+.sf-mobile-cta-btn:active {
+    transform: scale(0.98);
 }
 
