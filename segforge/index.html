@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Analytics 4 with Consent Mode -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>SegForge — AI Background Removal for Adobe Premiere Pro | No Green Screen</title>
+    <meta name="title" content="SegForge — AI Background Removal for Adobe Premiere Pro | No Green Screen">
+    <meta name="description" content="Remove video backgrounds inside Adobe Premiere Pro using AI. No green screen needed. Point, click, export. One-time payment — $14.99 lifetime. Windows only, runs 100% locally on your GPU.">
+    <meta name="keywords" content="premiere pro background removal, AI background removal video, no green screen premiere pro, video background remover plugin, segforge, SAM2 video background">
+    <meta name="author" content="OBS Mask Generator">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://obsmaskgenerator.com/segforge/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/segforge/">
+    <meta property="og:title" content="SegForge — AI Background Removal for Premiere Pro">
+    <meta property="og:description" content="Remove video backgrounds inside Premiere Pro using AI. No green screen. One-time $14.99 — lifetime access.">
+    <meta property="og:image" content="https://obsmaskgenerator.com/segforge/images/before-after.png">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SegForge — AI Background Removal for Premiere Pro">
+    <meta name="twitter:description" content="No green screen. No subscription. Remove video backgrounds inside Premiere Pro with AI — $14.99 one-time.">
+    <meta name="twitter:image" content="https://obsmaskgenerator.com/segforge/images/before-after.png">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "SegForge",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Windows",
+        "offers": {
+            "@type": "Offer",
+            "price": "14.99",
+            "priceCurrency": "USD"
+        },
+        "description": "AI-powered background removal plugin for Adobe Premiere Pro. Uses Meta SAM2. No green screen required. Runs 100% locally on NVIDIA GPU.",
+        "url": "https://obsmaskgenerator.com/segforge/"
+    }
+    </script>
+
+    <!-- Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Self-contained page styles (includes all CSS variables) -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="sf-page">
+
+<!-- ══════════════════════════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════════════════════════ -->
+<nav class="sf-nav" id="sf-nav">
+    <div class="sf-container sf-nav-inner">
+        <a href="/" class="sf-nav-logo" aria-label="OBS Mask Generator home">
+            <svg width="28" height="28" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <rect width="32" height="32" rx="8" fill="url(#nav-logo-grad)"/>
+                <path d="M8 16C8 11.58 11.58 8 16 8c4.42 0 8 3.58 8 8s-3.58 8-8 8" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="16" cy="16" r="4" fill="white"/>
+                <defs>
+                    <linearGradient id="nav-logo-grad" x1="0" y1="0" x2="32" y2="32">
+                        <stop offset="0" stop-color="#9146FF"/>
+                        <stop offset="1" stop-color="#6441A5"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+            <span>OBS Mask Generator</span>
+        </a>
+
+        <ul class="sf-nav-links" role="list">
+            <li><a href="/">Home</a></li>
+            <li><a href="/bitrate-calculator/">Bitrate Calc</a></li>
+            <li><a href="/settings-generator/">Settings</a></li>
+            <li><a href="/guides/">Guides</a></li>
+            <li><a href="#sf-buy" class="sf-nav-cta" id="nav-buy-btn">Get SegForge — $14.99</a></li>
+        </ul>
+    </div>
+</nav>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════════════ -->
+<section class="sf-hero" id="sf-hero">
+    <div class="sf-container">
+        <div class="sf-badge" aria-label="Product category">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><circle cx="5" cy="5" r="5"/></svg>
+            Adobe Premiere Pro Plugin
+        </div>
+
+        <h1>
+            Remove Video Backgrounds<br>
+            <span class="sf-highlight">Without a Green Screen</span>
+        </h1>
+
+        <p>
+            SegForge uses Meta's SAM2 AI directly inside your Premiere Pro timeline.
+            Point at your subject, click process — get a clean, masked video. No studio setup needed.
+        </p>
+
+        <a href="#sf-buy" class="sf-hero-cta" id="hero-buy-btn" aria-label="Buy SegForge for $14.99">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Get SegForge — $14.99
+        </a>
+
+        <div class="sf-trust-row" role="list">
+            <span role="listitem">⚡ One-time payment</span>
+            <span class="sf-sep" aria-hidden="true">·</span>
+            <span role="listitem">🔒 No subscription ever</span>
+            <span class="sf-sep" aria-hidden="true">·</span>
+            <span role="listitem">🖥️ Runs 100% locally</span>
+            <span class="sf-sep" aria-hidden="true">·</span>
+            <span role="listitem">🪟 Windows only</span>
+        </div>
+
+        <!-- Hero featured video — autoplay, muted, loop -->
+        <div class="sf-hero-video-wrap">
+            <video
+                class="sf-hero-video"
+                src="videos/can_do/video-bg-remover.mp4"
+                autoplay muted loop playsinline
+                aria-label="SegForge AI background removal output example"
+            ></video>
+            <div class="sf-hero-video-badge" aria-hidden="true">
+                <span class="sf-hvb-dot"></span> SegForge AI Output
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     CAN DO — Video Gallery
+══════════════════════════════════════════════════════════ -->
+<section class="sf-section sf-section-alt" id="sf-demo" aria-labelledby="sf-demo-title">
+    <div class="sf-container">
+        <h2 class="sf-section-title" id="sf-demo-title">
+            <span class="sf-title-yes">✓</span> What SegForge Can Do
+        </h2>
+        <p class="sf-section-sub">Real outputs — these are actual results from SegForge. Autoplay previews, no editing.</p>
+
+        <div class="sf-vgrid" role="list">
+
+            <div class="sf-vcard sf-vcard-yes" role="listitem">
+                <div class="sf-vcard-video">
+                    <video src="videos/can_do/video-background-removal.mp4" autoplay muted loop playsinline></video>
+                </div>
+                <div class="sf-vcard-label">
+                    <span class="sf-vcard-tag sf-tag-yes">✓ Works</span>
+                    Background Removal
+                </div>
+            </div>
+
+            <div class="sf-vcard sf-vcard-yes" role="listitem">
+                <div class="sf-vcard-video">
+                    <video src="videos/can_do/green-screen-video.mp4" autoplay muted loop playsinline></video>
+                </div>
+                <div class="sf-vcard-label">
+                    <span class="sf-vcard-tag sf-tag-yes">✓ Works</span>
+                    Green Screen Style
+                </div>
+            </div>
+
+            <div class="sf-vcard sf-vcard-yes" role="listitem">
+                <div class="sf-vcard-video">
+                    <video src="videos/can_do/video-background-remover-free.mp4" autoplay muted loop playsinline></video>
+                </div>
+                <div class="sf-vcard-label">
+                    <span class="sf-vcard-tag sf-tag-yes">✓ Works</span>
+                    Full Body Cutout
+                </div>
+            </div>
+
+            <div class="sf-vcard sf-vcard-yes" role="listitem">
+                <div class="sf-vcard-video">
+                    <video src="videos/can_do/youtube-video-background-remover.mp4" autoplay muted loop playsinline></video>
+                </div>
+                <div class="sf-vcard-label">
+                    <span class="sf-vcard-tag sf-tag-yes">✓ Works</span>
+                    Studio Footage
+                </div>
+            </div>
+
+            <div class="sf-vcard sf-vcard-yes" role="listitem">
+                <div class="sf-vcard-video">
+                    <video src="videos/can_do/video-bg-remover.mp4" autoplay muted loop playsinline></video>
+                </div>
+                <div class="sf-vcard-label">
+                    <span class="sf-vcard-tag sf-tag-yes">✓ Works</span>
+                    Portrait Matting
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     CAN NOT — Video Gallery
+══════════════════════════════════════════════════════════ -->
+<section class="sf-section" id="sf-transparency" aria-labelledby="sf-transparency-title">
+    <div class="sf-container">
+        <h2 class="sf-section-title" id="sf-transparency-title">
+            <span class="sf-title-no">✕</span> Where Results May Be Reduced
+        </h2>
+        <p class="sf-section-sub">
+            Full transparency — these are real examples of footage types where SegForge struggles.
+            We'd rather you know before buying.
+        </p>
+
+        <div class="sf-vgrid" role="list">
+
+            <div class="sf-vcard sf-vcard-no" role="listitem">
+                <div class="sf-vcard-video">
+                    <video src="videos/can_not/free-video-background-remover.mp4" autoplay muted loop playsinline></video>
+                </div>
+                <div class="sf-vcard-label">
+                    <span class="sf-vcard-tag sf-tag-no">✕ Struggles</span>
+                    Dark / Low-Light Footage
+                </div>
+            </div>
+
+            <div class="sf-vcard sf-vcard-no" role="listitem">
+                <div class="sf-vcard-video">
+                    <video src="videos/can_not/premiere-plugin-video-bg-remover.mp4" autoplay muted loop playsinline></video>
+                </div>
+                <div class="sf-vcard-label">
+                    <span class="sf-vcard-tag sf-tag-no">✕ Struggles</span>
+                    Similar Colors to Background
+                </div>
+            </div>
+
+            <div class="sf-vcard sf-vcard-no" role="listitem">
+                <div class="sf-vcard-video">
+                    <video src="videos/can_not/premiere-pro-video-bg-remover.mp4" autoplay muted loop playsinline></video>
+                </div>
+                <div class="sf-vcard-label">
+                    <span class="sf-vcard-tag sf-tag-no">✕ Struggles</span>
+                    Fast Motion / Blur
+                </div>
+            </div>
+
+            <div class="sf-vcard sf-vcard-no" role="listitem">
+                <div class="sf-vcard-video">
+                    <video src="videos/can_not/video-background-removal-tool-free.mp4" autoplay muted loop playsinline></video>
+                </div>
+                <div class="sf-vcard-label">
+                    <span class="sf-vcard-tag sf-tag-no">✕ Struggles</span>
+                    Cluttered Backgrounds
+                </div>
+            </div>
+
+            <div class="sf-vcard sf-vcard-no" role="listitem">
+                <div class="sf-vcard-video">
+                    <video src="videos/can_not/video-bg-remove-online.mp4" autoplay muted loop playsinline></video>
+                </div>
+                <div class="sf-vcard-label">
+                    <span class="sf-vcard-tag sf-tag-no">✕ Struggles</span>
+                    Fine Hair &amp; Edges
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     HOW IT WORKS
+══════════════════════════════════════════════════════════ -->
+<section class="sf-section sf-section-alt" id="sf-how" aria-labelledby="sf-how-title">
+    <div class="sf-container">
+        <h2 class="sf-section-title" id="sf-how-title">How It Works</h2>
+        <p class="sf-section-sub">Three steps. No command line. No Python knowledge needed.</p>
+
+        <div class="sf-steps">
+            <article class="sf-step">
+                <div class="sf-step-num" aria-hidden="true">1</div>
+                <h3>Install SegForge</h3>
+                <p>Run the .exe installer. AI models download automatically in the background. First launch takes 20–40 min — then it's instant.</p>
+            </article>
+
+            <article class="sf-step">
+                <div class="sf-step-num" aria-hidden="true">2</div>
+                <h3>Select Your Clip</h3>
+                <p>Open the SegForge panel in Premiere Pro. Load your clip, place green dots on your subject and red dots on the background.</p>
+            </article>
+
+            <article class="sf-step">
+                <div class="sf-step-num" aria-hidden="true">3</div>
+                <h3>Preview &amp; Export</h3>
+                <p>Preview the AI mask instantly. Click Process — your background-removed video saves to your chosen folder, ready to use.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     FEATURES
+══════════════════════════════════════════════════════════ -->
+<section class="sf-section" id="sf-features" aria-labelledby="sf-features-title">
+    <div class="sf-container">
+        <h2 class="sf-section-title" id="sf-features-title">Built for Editors, Not Data Scientists</h2>
+        <p class="sf-section-sub">Professional AI technology wrapped in a tool that actually makes sense to use.</p>
+
+        <div class="sf-features">
+            <article class="sf-feature-card">
+                <div class="sf-feature-icon" aria-hidden="true">🎬</div>
+                <h3>Native Premiere Pro Panel</h3>
+                <p>Works as a CEP extension directly inside Premiere Pro. No app switching, no file exports between tools — your entire workflow stays in one place.</p>
+            </article>
+
+            <article class="sf-feature-card">
+                <div class="sf-feature-icon" aria-hidden="true">🤖</div>
+                <h3>Powered by Meta's SAM2</h3>
+                <p>Uses Segment Anything Model 2 — the same architecture used in professional VFX pipelines. Tracks subjects across frames with temporal consistency.</p>
+            </article>
+
+            <article class="sf-feature-card">
+                <div class="sf-feature-icon" aria-hidden="true">🔒</div>
+                <h3>100% Local Processing</h3>
+                <p>Your footage never leaves your computer. No cloud uploads, no privacy concerns, no per-minute processing fees. Everything runs on your own GPU.</p>
+            </article>
+
+            <article class="sf-feature-card">
+                <div class="sf-feature-icon" aria-hidden="true">⚡</div>
+                <h3>NVIDIA CUDA Accelerated</h3>
+                <p>Runs on your GPU for fast frame-by-frame processing. Preview masks in seconds, process full clips without waiting hours for a cloud queue.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     SYSTEM REQUIREMENTS
+══════════════════════════════════════════════════════════ -->
+<section class="sf-section sf-section-alt" id="sf-requirements" aria-labelledby="sf-req-title">
+    <div class="sf-container">
+        <h2 class="sf-section-title" id="sf-req-title">System Requirements</h2>
+        <p class="sf-section-sub">Check before you buy — SegForge requires a dedicated NVIDIA GPU. AMD and integrated graphics are not supported.</p>
+
+        <div class="sf-req-grid">
+            <div class="sf-req-card sf-req-min">
+                <div class="sf-req-header">⚙️ Minimum</div>
+                <div class="sf-req-rows" role="table" aria-label="Minimum system requirements">
+                    <div class="sf-req-row" role="row">
+                        <span class="sf-req-label" role="rowheader">OS</span>
+                        <span class="sf-req-value" role="cell">Windows 10 (21H2+) or 11</span>
+                    </div>
+                    <div class="sf-req-row" role="row">
+                        <span class="sf-req-label" role="rowheader">GPU</span>
+                        <span class="sf-req-value" role="cell">NVIDIA with 8 GB VRAM<br><small style="color:#666">(GTX 1080 / RTX 2060+)</small></span>
+                    </div>
+                    <div class="sf-req-row" role="row">
+                        <span class="sf-req-label" role="rowheader">RAM</span>
+                        <span class="sf-req-value" role="cell">16 GB</span>
+                    </div>
+                    <div class="sf-req-row" role="row">
+                        <span class="sf-req-label" role="rowheader">Storage</span>
+                        <span class="sf-req-value" role="cell">12 GB free on C: drive</span>
+                    </div>
+                    <div class="sf-req-row" role="row">
+                        <span class="sf-req-label" role="rowheader">Premiere</span>
+                        <span class="sf-req-value" role="cell">2022 (v22) or later</span>
+                    </div>
+                    <div class="sf-req-row" role="row">
+                        <span class="sf-req-label" role="rowheader">Internet</span>
+                        <span class="sf-req-value" role="cell">Required for first launch only</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sf-req-card sf-req-rec">
+                <div class="sf-req-header">🚀 Recommended</div>
+                <div class="sf-req-rows" role="table" aria-label="Recommended system requirements">
+                    <div class="sf-req-row" role="row">
+                        <span class="sf-req-label" role="rowheader">OS</span>
+                        <span class="sf-req-value" role="cell">Windows 11</span>
+                    </div>
+                    <div class="sf-req-row" role="row">
+                        <span class="sf-req-label" role="rowheader">GPU</span>
+                        <span class="sf-req-value" role="cell">NVIDIA RTX 3060 12 GB<br><small style="color:#888">or RTX 4070+</small></span>
+                    </div>
+                    <div class="sf-req-row" role="row">
+                        <span class="sf-req-label" role="rowheader">RAM</span>
+                        <span class="sf-req-value" role="cell">32 GB</span>
+                    </div>
+                    <div class="sf-req-row" role="row">
+                        <span class="sf-req-label" role="rowheader">Storage</span>
+                        <span class="sf-req-value" role="cell">20 GB free — NVMe SSD</span>
+                    </div>
+                    <div class="sf-req-row" role="row">
+                        <span class="sf-req-label" role="rowheader">Premiere</span>
+                        <span class="sf-req-value" role="cell">2024 (v24) or later</span>
+                    </div>
+                    <div class="sf-req-row" role="row">
+                        <span class="sf-req-label" role="rowheader">CPU</span>
+                        <span class="sf-req-value" role="cell">8-core i7/Ryzen 7+</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sf-req-not" role="region" aria-label="Not supported configurations">
+            <h4>❌ Not Supported</h4>
+            <ul role="list">
+                <li role="listitem">AMD GPUs (no CUDA)</li>
+                <li role="listitem">Intel Arc GPUs</li>
+                <li role="listitem">Integrated graphics</li>
+                <li role="listitem">NVIDIA MX-series laptops</li>
+                <li role="listitem">macOS</li>
+                <li role="listitem">Linux</li>
+                <li role="listitem">Premiere Pro 2021 or older</li>
+            </ul>
+        </div>
+
+        <p class="sf-setup-note">
+            <strong>First-time setup:</strong> Downloads ~3–4 GB of AI models on first launch. Takes 20–40 min depending on your internet speed. Every launch after that is under 30 seconds.
+        </p>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     PRICING
+══════════════════════════════════════════════════════════ -->
+<section class="sf-section" id="sf-buy" aria-labelledby="sf-pricing-title">
+    <div class="sf-container">
+        <h2 class="sf-section-title" id="sf-pricing-title">One Price. Lifetime Access.</h2>
+        <p class="sf-section-sub">
+            No monthly fees. No per-video charges. No cloud queue. Pay once and own it.
+        </p>
+
+        <div class="sf-pricing-wrap">
+            <div class="sf-price-card" role="region" aria-label="SegForge pricing">
+                <div class="sf-price-badge">⚡ Early Adopter Price</div>
+
+                <p class="sf-price-old" aria-label="Comparison: AI subscription tools cost $30 or more per month">vs. $30+/mo with AI subscription tools</p>
+                <div class="sf-price-amount" aria-label="Price: $14.99">
+                    <sup>$</sup>14<span style="font-size:2.5rem">.99</span>
+                </div>
+                <p class="sf-price-desc">One-time payment · No subscription · Ever</p>
+
+                <ul class="sf-price-features" role="list">
+                    <li role="listitem">Native Adobe Premiere Pro plugin</li>
+                    <li role="listitem">Lifetime access to all v1.x updates</li>
+                    <li role="listitem">AI models included — no extras to buy</li>
+                    <li role="listitem">100% local processing — your footage stays private</li>
+                    <li role="listitem">Automatic in-app update notifications</li>
+                    <li role="listitem">Email support</li>
+                </ul>
+
+                <a
+                    href="https://nikhilpatel.gumroad.com/l/segforge"
+                    class="sf-buy-btn"
+                    id="main-buy-btn"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Buy SegForge for $14.99 on Gumroad"
+                >
+                    Get SegForge on Gumroad →
+                </a>
+
+                <p class="sf-buy-note">7-day refund if it doesn't work on your compatible PC. <a href="#sf-faq" style="color:var(--accent-primary)">See FAQ</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     FAQ
+══════════════════════════════════════════════════════════ -->
+<section class="sf-section sf-section-alt" id="sf-faq" aria-labelledby="sf-faq-title">
+    <div class="sf-container">
+        <h2 class="sf-section-title" id="sf-faq-title">Frequently Asked Questions</h2>
+
+        <div class="sf-faq" role="list">
+
+            <div class="sf-faq-item" role="listitem">
+                <button class="sf-faq-q" aria-expanded="false" id="faq-q1" aria-controls="faq-a1">
+                    Does it work with my GPU?
+                    <span class="sf-faq-icon" aria-hidden="true">+</span>
+                </button>
+                <div class="sf-faq-a" id="faq-a1" role="region" aria-labelledby="faq-q1">
+                    SegForge requires an <strong>NVIDIA GPU with at least 8 GB of VRAM</strong> and CUDA support. Examples: GTX 1080, RTX 2060, RTX 3060, RTX 3070, RTX 4070. AMD GPUs, Intel Arc, and NVIDIA MX-series laptop GPUs are not supported — they lack CUDA, which the AI requires. If you're unsure, check your GPU model and VRAM in Device Manager → Display adapters.
+                </div>
+            </div>
+
+            <div class="sf-faq-item" role="listitem">
+                <button class="sf-faq-q" aria-expanded="false" id="faq-q2" aria-controls="faq-a2">
+                    Do I need the internet to use it after buying?
+                    <span class="sf-faq-icon" aria-hidden="true">+</span>
+                </button>
+                <div class="sf-faq-a" id="faq-a2" role="region" aria-labelledby="faq-q2">
+                    Only for the very first launch. The installer downloads ~3–4 GB of AI models on first run (this takes 20–40 minutes). After that, SegForge works completely offline — no internet required for processing your videos. A brief license check happens when you open the app (requires internet for a few seconds), but all AI processing is local.
+                </div>
+            </div>
+
+            <div class="sf-faq-item" role="listitem">
+                <button class="sf-faq-q" aria-expanded="false" id="faq-q3" aria-controls="faq-a3">
+                    Which version of Premiere Pro do I need?
+                    <span class="sf-faq-icon" aria-hidden="true">+</span>
+                </button>
+                <div class="sf-faq-a" id="faq-a3" role="region" aria-labelledby="faq-q3">
+                    Adobe Premiere Pro <strong>2022 (v22) or later</strong> is required. Premiere Pro 2021 and older do not support the CEP extension API that SegForge uses. We recommend 2024 (v24) for the best experience. macOS versions of Premiere are not supported.
+                </div>
+            </div>
+
+            <div class="sf-faq-item" role="listitem">
+                <button class="sf-faq-q" aria-expanded="false" id="faq-q4" aria-controls="faq-a4">
+                    Can I use SegForge on multiple computers?
+                    <span class="sf-faq-icon" aria-hidden="true">+</span>
+                </button>
+                <div class="sf-faq-a" id="faq-a4" role="region" aria-labelledby="faq-q4">
+                    Each license covers one PC activation. If you need to move SegForge to a new machine, contact us and we'll transfer your license. If you need multiple seats for a team, reach out and we'll work something out.
+                </div>
+            </div>
+
+            <div class="sf-faq-item" role="listitem">
+                <button class="sf-faq-q" aria-expanded="false" id="faq-q5" aria-controls="faq-a5">
+                    My subject has complex hair or is moving fast — will it work?
+                    <span class="sf-faq-icon" aria-hidden="true">+</span>
+                </button>
+                <div class="sf-faq-a" id="faq-a5" role="region" aria-labelledby="faq-q5">
+                    Fine hair strands and fast motion are genuinely challenging for any AI background removal tool — SegForge included. Results on hair are typically good for short/medium hair against a contrasting background, but flyaway strands may show imprecise edges. For fast-moving subjects, motion blur reduces accuracy on blurred frames. We recommend testing with a short sample clip before processing a full project.
+                </div>
+            </div>
+
+            <div class="sf-faq-item" role="listitem">
+                <button class="sf-faq-q" aria-expanded="false" id="faq-q6" aria-controls="faq-a6">
+                    What if it doesn't work on my PC?
+                    <span class="sf-faq-icon" aria-hidden="true">+</span>
+                </button>
+                <div class="sf-faq-a" id="faq-a6" role="region" aria-labelledby="faq-q6">
+                    We offer a <strong>7-day refund</strong> if SegForge doesn't work on a PC that meets the minimum system requirements. Please contact us before requesting a refund — most issues are solved quickly. Refunds are not available for systems that don't meet the minimum GPU or OS requirements (these are clearly listed above).
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════════════ -->
+<footer class="sf-footer" role="contentinfo">
+    <div class="sf-container sf-footer-inner">
+        <p>SegForge is a product of <a href="/">OBS Mask Generator</a> · <a href="/privacy-policy.html">Privacy Policy</a> · <a href="/terms.html">Terms</a></p>
+        <p style="margin-top:12px; font-size:0.8rem; line-height:2;">
+            <strong style="color:#a78bfa">More Free Tools:</strong>
+            <a href="/">Webcam Mask</a> ·
+            <a href="/bitrate-calculator/">Bitrate Calculator</a> ·
+            <a href="/settings-generator/">OBS Settings</a> ·
+            <a href="/twitch-panel-generator/">Twitch Panels</a> ·
+            <a href="/can-i-stream/">Can I Stream?</a> ·
+            <a href="/overlay-generator/">Overlay Generator</a> ·
+            <a href="/guides/">Guides</a>
+        </p>
+    </div>
+</footer>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════════════════════════ -->
+<script src="../components.js"></script>
+
+<script>
+/* FAQ Accordion */
+(function () {
+    'use strict';
+    document.querySelectorAll('.sf-faq-q').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var item = this.closest('.sf-faq-item');
+            var isOpen = item.classList.contains('open');
+
+            /* Close all */
+            document.querySelectorAll('.sf-faq-item').forEach(function (el) {
+                el.classList.remove('open');
+                el.querySelector('.sf-faq-q').setAttribute('aria-expanded', 'false');
+            });
+
+            /* Open clicked (if it wasn't already open) */
+            if (!isOpen) {
+                item.classList.add('open');
+                this.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+})();
+
+/* Smooth scroll for anchor links */
+(function () {
+    'use strict';
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+            var target = document.querySelector(this.getAttribute('href'));
+            if (!target) return;
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+})();
+</script>
+
+</body>
+</html>
