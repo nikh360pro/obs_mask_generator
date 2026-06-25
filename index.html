@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4560264570048889"
-        crossorigin="anonymous"></script>
-
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<head>    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
     <!-- Primary Meta Tags -->
     <meta charset="UTF-8">
@@ -150,7 +147,7 @@
                         </linearGradient>
                     </defs>
                 </svg>
-                <h1>OBS Image Mask Generator - Free Download</h1>
+                <h1 fetchpriority="high">OBS Image Mask Generator - Free Download</h1>
             </div>
             <p class="tagline">Download free image masks for OBS Studio & Streamlabs - No plugin required</p>
         </header>
@@ -387,7 +384,7 @@
                 </div>
                 <div class="canvas-container">
                     <div class="canvas-wrapper" id="canvas-wrapper">
-                        <canvas id="preview-canvas"></canvas>
+                        <canvas id="preview-canvas" width="1920" height="1080" style="aspect-ratio: 16/9; width: 100%; height: auto;" aria-label="Mask Preview Canvas"></canvas>
                     </div>
                 </div>
                 <div class="zoom-controls">
@@ -659,6 +656,27 @@
 
     <script src="script.js" defer></script>
     <script src="/components.js" defer></script>
+
+    <!-- Lazy Load Google Ads to fix Mobile FCP -->
+    <script>
+        let adsLoaded = false;
+        function loadGoogleAds() {
+            if (adsLoaded) return;
+            adsLoaded = true;
+            const script = document.createElement('script');
+            script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4560264570048889";
+            script.crossOrigin = "anonymous";
+            script.async = true;
+            document.head.appendChild(script);
+            ['scroll', 'mousemove', 'touchstart', 'keydown'].forEach(evt => {
+                window.removeEventListener(evt, loadGoogleAds);
+            });
+        }
+        ['scroll', 'mousemove', 'touchstart', 'keydown'].forEach(evt => {
+            window.addEventListener(evt, loadGoogleAds, { once: true, passive: true });
+        });
+        setTimeout(loadGoogleAds, 3500);
+    </script>
 </body>
 
 </html>

@@ -182,6 +182,7 @@ function draw() {
     // Set canvas size
     elements.canvas.width = width;
     elements.canvas.height = height;
+    elements.canvas.style.aspectRatio = `${width} / ${height}`;
 
     // Clear canvas
     ctx.clearRect(0, 0, width, height);
