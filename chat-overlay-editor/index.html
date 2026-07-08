@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Twitch Chat Overlay CSS Editor & Generator | Free OBS Tool</title>
+    <meta name="title" content="Twitch Chat Overlay CSS Editor & Generator | Free OBS Tool">
+    <meta name="description"
+        content="Free visual editor for Twitch and YouTube chat overlays. Customize colors, fonts, and borders, and generate the exact CSS for your OBS Browser Source.">
+    <meta name="keywords"
+        content="twitch chat overlay, OBS chat css, custom twitch chat, free chat widget, streamlabs chat css, streamelements chat css generator">
+    <meta name="author" content="OBS Mask Generator">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    <link rel="canonical" href="https://obsmaskgenerator.com/chat-overlay-editor/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/chat-overlay-editor/">
+    <meta property="og:title" content="Twitch Chat Overlay CSS Editor & Generator">
+    <meta property="og:description"
+        content="Visually customize your Twitch chat overlay and generate OBS CSS instantly.">
+    <meta property="og:image" content="https://obsmaskgenerator.com/og-image.png">
+    <meta property="og:site_name" content="OBS Mask Generator">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://obsmaskgenerator.com/chat-overlay-editor/">
+    <meta property="twitter:title" content="Twitch Chat Overlay CSS Editor & Generator">
+    <meta property="twitter:description"
+        content="Visually customize your Twitch chat overlay and generate OBS CSS instantly.">
+    <meta property="twitter:image" content="https://obsmaskgenerator.com/og-image.png">
+
+    <!-- Structured Data - WebApplication -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Chat Overlay CSS Editor",
+        "url": "https://obsmaskgenerator.com/chat-overlay-editor/",
+        "description": "Visual tool to generate custom CSS for Twitch and YouTube chat browser sources in OBS Studio.",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+    </script>
+
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [{
+            "@type": "Question",
+            "name": "Does this CSS work with Streamlabs and StreamElements?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes! Our generated CSS is specifically targeted to override the default styles of both Streamlabs and StreamElements chat widgets. It seamlessly targets the chat line wrappers, usernames, and text colors."
+            }
+        }, {
+            "@type": "Question",
+            "name": "How do I make my Twitch chat transparent in OBS?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "By default, the chat widget background is transparent. Using our tool, you can add a semi-transparent background color to individual chat messages (e.g., 50% opacity black) to make the white text much easier to read against gameplay, without blocking too much of the screen."
+            }
+        }, {
+            "@type": "Question",
+            "name": "Can I add a text outline or stroke to my chat?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Absolutely. Checking the 'Add Text Outline' box in our editor applies a subtle drop-shadow stroke around your text. This ensures your chat remains perfectly readable even if the gameplay behind it gets very bright."
+            }
+        }]
+    }
+    </script>
+
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "OBS Tools", "item": "https://obsmaskgenerator.com/"},
+            {"@type": "ListItem", "position": 2, "name": "Chat Overlay CSS Editor", "item": "https://obsmaskgenerator.com/chat-overlay-editor/"}
+        ]
+    }
+    </script>
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .editor-grid {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: var(--space-xl);
+            margin-bottom: var(--space-xl);
+        }
+        @media (max-width: 768px) {
+            .editor-grid { grid-template-columns: 1fr; }
+        }
+        .controls-panel {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+        }
+        .form-group { margin-bottom: var(--space-md); }
+        .form-group label {
+            display: block;
+            margin-bottom: var(--space-xs);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .input-control {
+            width: 100%;
+            padding: 8px;
+            background: var(--bg-tertiary);
+            color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+        
+        .preview-container {
+            background-image: linear-gradient(45deg, #18181b 25%, transparent 25%), linear-gradient(-45deg, #18181b 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #18181b 75%), linear-gradient(-45deg, transparent 75%, #18181b 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+            background-color: #222;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            overflow: hidden;
+        }
+
+        /* Base chat preview styles - these get overridden dynamically */
+        .chat-preview-box {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            max-width: 400px;
+        }
+        .chat-line {
+            padding: 8px 12px;
+            border-radius: 4px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            word-wrap: break-word;
+        }
+        .chat-name { font-weight: bold; margin-right: 8px; color: #a78bfa; }
+
+        .btn-primary {
+            width: 100%;
+            padding: var(--space-sm) var(--space-md);
+            background-color: var(--accent-primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color var(--transition-fast);
+        }
+        .btn-primary:hover { background-color: var(--accent-hover); }
+        
+        .css-output-box {
+            width: 100%;
+            height: 150px;
+            background: #111;
+            color: #00f593;
+            font-family: monospace;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="url(#logo-gradient)" />
+                    <path d="M10 12h12M10 16h8" stroke="white" stroke-width="2" stroke-linecap="round" />
+                    <defs>
+                        <linearGradient id="logo-gradient" x1="0" y1="0" x2="32" y2="32">
+                            <stop stop-color="#9146FF" />
+                            <stop offset="1" stop-color="#6441A5" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <h1>Chat Overlay CSS Editor</h1>
+            </div>
+            <p class="tagline">Visually customize your stream chat and generate OBS CSS instantly</p>
+            <a href="../" class="back-link">← Back to OBS Tools</a>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="editor-grid">
+                <aside class="controls-panel">
+                    <h3 style="margin-bottom: 1rem;">Chat Styling</h3>
+                    
+                    <div class="form-group">
+                        <label>Font Size (px)</label>
+                        <input type="number" id="ctrl-font-size" class="input-control" value="14" min="10" max="32">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Background Color</label>
+                        <input type="color" id="ctrl-bg-color" value="#000000" style="width:100%; height:30px; cursor:pointer;">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Background Opacity</label>
+                        <input type="range" id="ctrl-bg-opacity" min="0" max="100" value="50" style="width:100%;">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Text Color</label>
+                        <input type="color" id="ctrl-text-color" value="#ffffff" style="width:100%; height:30px; cursor:pointer;">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Border Radius (px)</label>
+                        <input type="range" id="ctrl-radius" min="0" max="30" value="4" style="width:100%;">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Message Spacing (px)</label>
+                        <input type="range" id="ctrl-spacing" min="0" max="20" value="10" style="width:100%;">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Add Text Outline</label>
+                        <input type="checkbox" id="ctrl-outline">
+                    </div>
+
+                    <button id="generate-btn" class="btn-primary">Generate CSS</button>
+                </aside>
+                
+                <div>
+                    <h3 style="margin-bottom: 1rem;">Live Preview</h3>
+                    <div class="preview-container">
+                        <div class="chat-preview-box" id="chat-preview">
+                            <div class="chat-line"><span class="chat-name">UserOne:</span> Hello stream!</div>
+                            <div class="chat-line"><span class="chat-name">GamerPro:</span> Is this chat overlay custom?</div>
+                            <div class="chat-line"><span class="chat-name">OBSNinja:</span> Looks amazing! Hype!</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 1rem;">
+                        <label>Copy this CSS into your OBS Browser Source settings:</label>
+                        <textarea class="css-output-box" id="css-output" readonly>Click "Generate CSS" to see code.</textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <article class="seo-guide" style="margin-top: 3rem;">
+                <h2>Ultimate Guide to Customizing Twitch Chat Overlays in OBS</h2>
+                <p>Most streamers rely on third-party widgets like Streamlabs or StreamElements to display their Twitch or YouTube chat on screen. However, the default chat box styles are incredibly basic. By injecting <strong>Custom CSS</strong> directly into your OBS Browser Source, you can completely transform the look and feel of your chat to match your unique brand identity.</p>
+                <p>Our <strong>Twitch Chat Overlay CSS Editor</strong> is a free visual tool designed for streamers with zero coding knowledge. Simply tweak the sliders for font size, border radius, background opacity, and text outlines, and instantly watch the live preview update. Once you're satisfied with your custom chat widget, generate the CSS code and paste it into OBS Studio.</p>
+                
+                <h3>How to use Custom CSS for Twitch Chat in OBS Studio</h3>
+                <ol>
+                    <li>Use the controls above to design your perfect transparent chat box overlay.</li>
+                    <li>Click the <strong>Generate CSS</strong> button and copy the code.</li>
+                    <li>In OBS Studio, right-click your Chat Browser Source and select <strong>Properties</strong>.</li>
+                    <li>Scroll down to the "Custom CSS" text box.</li>
+                    <li>Delete any existing text and paste your new CSS code. Click OK to save!</li>
+                </ol>
+
+                <h3>Frequently Asked Questions</h3>
+                <div class="faq-item" style="margin-bottom: 1.5rem;">
+                    <h4 style="color: white; margin-bottom: 0.5rem;">Does this CSS work with Streamlabs and StreamElements?</h4>
+                    <p>Yes! Our generated CSS is specifically targeted to override the default styles of both Streamlabs and StreamElements chat widgets. It seamlessly targets the chat line wrappers, usernames, and text colors.</p>
+                </div>
+                <div class="faq-item" style="margin-bottom: 1.5rem;">
+                    <h4 style="color: white; margin-bottom: 0.5rem;">How do I make my Twitch chat transparent in OBS?</h4>
+                    <p>By default, the chat widget background is transparent. Using our tool, you can add a semi-transparent background color to individual chat messages (e.g., 50% opacity black) to make the white text much easier to read against gameplay, without blocking too much of the screen.</p>
+                </div>
+                <div class="faq-item" style="margin-bottom: 1.5rem;">
+                    <h4 style="color: white; margin-bottom: 0.5rem;">Can I add a text outline or stroke to my chat?</h4>
+                    <p>Absolutely. Checking the "Add Text Outline" box in our editor applies a subtle drop-shadow stroke around your text. This ensures your chat remains perfectly readable even if the gameplay behind it gets very bright.</p>
+                </div>
+            </article>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Free OBS Tools & Generators | No signup required | <a href="/privacy-policy.html"
+                    style="color: var(--accent-primary, #9146ff);">Privacy Policy</a></p>
+            <div style="margin-top: 15px; font-size: 0.85em; line-height: 1.8;">
+                <p><strong style="color: #a78bfa;">OBS Calculators:</strong>
+                    <a href="/can-i-stream/" style="color: #9146ff;">Can I Stream?</a> |
+                    <a href="/bitrate-calculator/" style="color: #9146ff;">Bitrate</a> |
+                    <a href="/recording-size-calculator/" style="color: #9146ff;">Recording Size</a> |
+                    <a href="/quality-checker/" style="color: #9146ff;">Quality Checker</a> |
+                    <a href="/aspect-ratio-calculator/" style="color: #9146ff;">Aspect Ratio</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Generators & Assets:</strong>
+                    <a href="/" style="color: #9146ff;">Webcam Mask</a> |
+                    <a href="/twitch-panel-generator/" style="color: #9146ff;">Twitch Panels</a> |
+                    <a href="/settings-generator/" style="color: #9146ff;">Settings Generator</a> |
+                    <a href="/overlay-generator/" style="color: #9146ff;">Overlay Generator</a> |
+                    <a href="/starting-screen/" style="color: #9146ff;">Starting Screen</a> |
+                    <a href="/stream-schedule/" style="color: #9146ff;">Stream Schedule</a> |
+                    <a href="/vertical-stream-layout/" style="color: #9146ff;">Vertical Layout</a> |
+                    <a href="/chat-overlay-editor/" style="color: #9146ff;">Chat Overlay CSS</a> |
+                    <a href="/emote-text-maker/" style="color: #9146ff;">Emote Maker</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Legal:</strong>
+                    <a href="/privacy-policy.html" style="color: #9146ff;">Privacy Policy</a> |
+                    <a href="/terms.html" style="color: #9146ff;">Terms of Service</a> |
+                    <a href="/about.html" style="color: #9146ff;">About Us</a> |
+                    <a href="/contact.html" style="color: #9146ff;">Contact</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Useful Utilities:</strong>
+                    <a href="/countdown-timer/" style="color: #9146ff;">Countdown Timer</a> |
+                    <a href="/hotkey-reference/" style="color: #9146ff;">OBS Hotkeys</a> |
+                    <a href="/blog/" style="color: #9146ff;">Blog</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js" defer></script>
+    <script src="/components.js" defer></script>
+</body>
+
+</html>
+

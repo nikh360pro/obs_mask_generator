@@ -152,3 +152,16 @@
         padding: 12px;
     }
 }
+/* Header Back Link */
+.back-link {
+    color: var(--text-muted, #848494);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color var(--transition-fast, 0.2s);
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+.back-link:hover {
+    color: var(--accent-primary, #9146ff);
+}
+

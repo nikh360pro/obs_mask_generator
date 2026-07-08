@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Free Twitch Emote Text Maker & Generator | OBS Tools</title>
+    <meta name="title" content="Free Twitch Emote Text Maker & Generator | OBS Tools">
+    <meta name="description"
+        content="Free text-based emote maker for Twitch, Discord, and YouTube. Generate text emotes (like GG, RIP, HYPE) instantly in all required sizes.">
+    <meta name="keywords"
+        content="twitch emote maker, text emote generator, make text emote twitch, free twitch emotes, discord emote maker, youtube emote creator">
+    <meta name="author" content="OBS Mask Generator">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    <link rel="canonical" href="https://obsmaskgenerator.com/emote-text-maker/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/emote-text-maker/">
+    <meta property="og:title" content="Free Twitch Emote Text Maker & Generator">
+    <meta property="og:description"
+        content="Generate text emotes (like GG, RIP, HYPE) instantly in all required sizes for Twitch, YouTube, and Discord.">
+    <meta property="og:image" content="https://obsmaskgenerator.com/og-image.png">
+    <meta property="og:site_name" content="OBS Mask Generator">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://obsmaskgenerator.com/emote-text-maker/">
+    <meta property="twitter:title" content="Free Twitch Emote Text Maker & Generator">
+    <meta property="twitter:description"
+        content="Generate text emotes (like GG, RIP, HYPE) instantly in all required sizes.">
+    <meta property="twitter:image" content="https://obsmaskgenerator.com/og-image.png">
+
+    <!-- Structured Data - WebApplication -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Twitch Emote Text Maker",
+        "url": "https://obsmaskgenerator.com/emote-text-maker/",
+        "description": "Free tool to generate text-based custom emotes for Twitch, Discord, and YouTube in standard dimensions.",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+    </script>
+
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [{
+            "@type": "Question",
+            "name": "Can I use these emotes on Discord or YouTube?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes! Discord and YouTube both accept transparent PNG files for custom server emojis and channel memberships. The 112x112 pixel size is perfect for both platforms and will scale down beautifully."
+            }
+        }, {
+            "@type": "Question",
+            "name": "What makes a good text emote?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A good text emote must be easily readable at very small sizes. Keep the text short (1 to 4 characters like 'GG' or 'W'). Use a thick, bold font, and always include a contrasting outline (stroke) so the text stands out whether the viewer is using Light Mode or Dark Mode."
+            }
+        }, {
+            "@type": "Question",
+            "name": "Is this emote generator completely free?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes! Our Twitch Emote Maker is 100% free to use. You don't need to sign up, and there are no watermarks on your downloaded PNGs. You retain full commercial rights to use the emotes you generate."
+            }
+        }]
+    }
+    </script>
+
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "OBS Tools", "item": "https://obsmaskgenerator.com/"},
+            {"@type": "ListItem", "position": 2, "name": "Emote Text Maker", "item": "https://obsmaskgenerator.com/emote-text-maker/"}
+        ]
+    }
+    </script>
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts for Emote Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Press+Start+2P&family=Anton&display=swap" rel="stylesheet">
+    
+    <style>
+        .editor-grid {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: var(--space-xl);
+            margin-bottom: var(--space-xl);
+        }
+        @media (max-width: 768px) {
+            .editor-grid { grid-template-columns: 1fr; }
+        }
+        .controls-panel {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+        }
+        .form-group { margin-bottom: var(--space-md); }
+        .form-group label {
+            display: block;
+            margin-bottom: var(--space-xs);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .input-control {
+            width: 100%;
+            padding: 8px;
+            background: var(--bg-tertiary);
+            color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+        
+        .preview-container {
+            background-image: linear-gradient(45deg, #26262c 25%, transparent 25%), linear-gradient(-45deg, #26262c 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #26262c 75%), linear-gradient(-45deg, transparent 75%, #26262c 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+            background-color: #1f1f23;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            min-height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        canvas {
+            background: transparent;
+            /* Give it a slight shadow in preview so it stands out */
+            filter: drop-shadow(0px 4px 10px rgba(0,0,0,0.5)); 
+            max-width: 100%;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: var(--space-sm) var(--space-md);
+            background-color: var(--accent-primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color var(--transition-fast);
+            margin-bottom: 10px;
+        }
+        .btn-primary:hover { background-color: var(--accent-hover); }
+        .btn-secondary {
+            width: 100%;
+            padding: var(--space-sm) var(--space-md);
+            background-color: #3d3d45;
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color var(--transition-fast);
+            margin-bottom: 10px;
+        }
+        .btn-secondary:hover { background-color: #4a4a55; }
+        
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="url(#logo-gradient)" />
+                    <text x="16" y="22" fill="white" font-size="16" font-family="Arial" font-weight="bold" text-anchor="middle">GG</text>
+                    <defs>
+                        <linearGradient id="logo-gradient" x1="0" y1="0" x2="32" y2="32">
+                            <stop stop-color="#9146FF" />
+                            <stop offset="1" stop-color="#6441A5" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <h1>Emote Text Maker</h1>
+            </div>
+            <p class="tagline">Generate custom text emotes for Twitch, Discord & YouTube instantly</p>
+            <a href="../" class="back-link">← Back to OBS Tools</a>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="editor-grid">
+                <aside class="controls-panel">
+                    <h3 style="margin-bottom: 1rem;">Emote Design</h3>
+                    
+                    <div class="form-group">
+                        <label>Emote Text (Keep it short)</label>
+                        <input type="text" id="ctrl-text" class="input-control" value="HYPE" maxlength="6">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Font Style</label>
+                        <select id="ctrl-font" class="input-control">
+                            <option value="Anton">Anton (Bold & Clean)</option>
+                            <option value="Bangers">Bangers (Comic Style)</option>
+                            <option value="Press Start 2P">8-Bit Retro</option>
+                            <option value="Inter">Inter (Standard)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fill Color</label>
+                        <input type="color" id="ctrl-color1" value="#ffeb3b" style="width:100%; height:30px; cursor:pointer;">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Outline / Stroke Color</label>
+                        <input type="color" id="ctrl-stroke" value="#000000" style="width:100%; height:30px; cursor:pointer;">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Stroke Width</label>
+                        <input type="range" id="ctrl-stroke-width" min="0" max="20" value="8" style="width:100%;">
+                    </div>
+
+                    <hr style="border: 1px solid var(--border-color); margin: 20px 0;">
+
+                    <h4 style="margin-bottom: 10px;">Download Emote PNGs</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px;">Twitch Auto-Resize only requires the 112px version, but we provide all 3 legacy sizes.</p>
+                    
+                    <button id="dl-112" class="btn-primary" data-size="112">Download 112x112 (Twitch / Auto)</button>
+                    <button id="dl-56" class="btn-secondary" data-size="56">Download 56x56</button>
+                    <button id="dl-28" class="btn-secondary" data-size="28">Download 28x28</button>
+                </aside>
+                
+                <div>
+                    <h3 style="margin-bottom: 1rem;">Live Preview (500x500 Canvas)</h3>
+                    <div class="preview-container">
+                        <canvas id="emote-canvas" width="500" height="500"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <article class="seo-guide" style="margin-top: 3rem;">
+                <h2>Ultimate Guide to Creating Free Custom Text Emotes for Twitch</h2>
+                <p>Not every streamer has the budget to hire a professional digital artist for custom drawn emotes right away. Fortunately, <strong>Text Emotes</strong> (like L, W, GG, RIP, HYPE, F) are incredibly popular on Twitch, YouTube, and Discord because they are highly readable even at the smallest 28x28 pixel size.</p>
+                <p>Our <strong>Free Twitch Emote Text Maker</strong> allows you to instantly generate bold, stylized text emotes without needing Photoshop. Choose from streamer-favorite fonts like <em>Bangers</em> or <em>Anton</em>, pick a bright fill color, add a thick outline stroke for maximum readability against dark backgrounds, and instantly download your transparent PNG emotes in all required Twitch sizes.</p>
+                
+                <h3>How to upload text emotes to Twitch:</h3>
+                <ol>
+                    <li>Go to your Twitch Creator Dashboard.</li>
+                    <li>Navigate to <strong>Viewer Rewards -> Emotes</strong>.</li>
+                    <li>If you have "Auto-Resize" enabled, simply upload the <strong>112x112 PNG</strong> generated by our tool. Twitch will handle the rest.</li>
+                    <li>If you have it disabled, upload all three sizes (112x112, 56x56, 28x28) provided by our generator.</li>
+                    <li>Name your emote (e.g., <code>PrefixHYPE</code>) and submit!</li>
+                </ol>
+
+                <h3>Frequently Asked Questions</h3>
+                <div class="faq-item" style="margin-bottom: 1.5rem;">
+                    <h4 style="color: white; margin-bottom: 0.5rem;">Can I use these emotes on Discord or YouTube?</h4>
+                    <p>Yes! Discord and YouTube both accept transparent PNG files for custom server emojis and channel memberships. The 112x112 pixel size is perfect for both platforms and will scale down beautifully.</p>
+                </div>
+                <div class="faq-item" style="margin-bottom: 1.5rem;">
+                    <h4 style="color: white; margin-bottom: 0.5rem;">What makes a good text emote?</h4>
+                    <p>A good text emote must be easily readable at very small sizes. Keep the text short (1 to 4 characters like "GG" or "W"). Use a thick, bold font, and always include a contrasting outline (stroke) so the text stands out whether the viewer is using Light Mode or Dark Mode.</p>
+                </div>
+                <div class="faq-item" style="margin-bottom: 1.5rem;">
+                    <h4 style="color: white; margin-bottom: 0.5rem;">Is this emote generator completely free?</h4>
+                    <p>Yes! Our Twitch Emote Maker is 100% free to use. You don't need to sign up, and there are no watermarks on your downloaded PNGs. You retain full commercial rights to use the emotes you generate.</p>
+                </div>
+            </article>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Free OBS Tools & Generators | No signup required | <a href="/privacy-policy.html"
+                    style="color: var(--accent-primary, #9146ff);">Privacy Policy</a></p>
+            <div style="margin-top: 15px; font-size: 0.85em; line-height: 1.8;">
+                <p><strong style="color: #a78bfa;">OBS Calculators:</strong>
+                    <a href="/can-i-stream/" style="color: #9146ff;">Can I Stream?</a> |
+                    <a href="/bitrate-calculator/" style="color: #9146ff;">Bitrate</a> |
+                    <a href="/recording-size-calculator/" style="color: #9146ff;">Recording Size</a> |
+                    <a href="/quality-checker/" style="color: #9146ff;">Quality Checker</a> |
+                    <a href="/aspect-ratio-calculator/" style="color: #9146ff;">Aspect Ratio</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Generators & Assets:</strong>
+                    <a href="/" style="color: #9146ff;">Webcam Mask</a> |
+                    <a href="/twitch-panel-generator/" style="color: #9146ff;">Twitch Panels</a> |
+                    <a href="/settings-generator/" style="color: #9146ff;">Settings Generator</a> |
+                    <a href="/overlay-generator/" style="color: #9146ff;">Overlay Generator</a> |
+                    <a href="/starting-screen/" style="color: #9146ff;">Starting Screen</a> |
+                    <a href="/stream-schedule/" style="color: #9146ff;">Stream Schedule</a> |
+                    <a href="/vertical-stream-layout/" style="color: #9146ff;">Vertical Layout</a> |
+                    <a href="/chat-overlay-editor/" style="color: #9146ff;">Chat Overlay CSS</a> |
+                    <a href="/emote-text-maker/" style="color: #9146ff;">Emote Maker</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Legal:</strong>
+                    <a href="/privacy-policy.html" style="color: #9146ff;">Privacy Policy</a> |
+                    <a href="/terms.html" style="color: #9146ff;">Terms of Service</a> |
+                    <a href="/about.html" style="color: #9146ff;">About Us</a> |
+                    <a href="/contact.html" style="color: #9146ff;">Contact</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Useful Utilities:</strong>
+                    <a href="/countdown-timer/" style="color: #9146ff;">Countdown Timer</a> |
+                    <a href="/hotkey-reference/" style="color: #9146ff;">OBS Hotkeys</a> |
+                    <a href="/blog/" style="color: #9146ff;">Blog</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js" defer></script>
+    <script src="/components.js" defer></script>
+</body>
+
+</html>
+

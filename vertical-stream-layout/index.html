@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C84663S6K3');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>OBS Vertical Stream Layout Generator (TikTok/Shorts) | Free Tool</title>
+    <meta name="title" content="OBS Vertical Stream Layout Generator (TikTok/Shorts) | Free Tool">
+    <meta name="description"
+        content="Free OBS Vertical Stream Layout Generator. Easily plan your 9:16 layout for TikTok, YouTube Shorts, and Instagram Reels directly in your browser.">
+    <meta name="keywords"
+        content="vertical stream layout, OBS TikTok layout, YouTube Shorts stream layout, OBS 9:16, free OBS templates, Aitum Vertical alternative">
+    <meta name="author" content="OBS Mask Generator">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    <link rel="canonical" href="https://obsmaskgenerator.com/vertical-stream-layout/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/vertical-stream-layout/">
+    <meta property="og:title" content="OBS Vertical Stream Layout Generator (TikTok/Shorts)">
+    <meta property="og:description"
+        content="Easily plan your 9:16 layout for TikTok and YouTube Shorts directly in your browser.">
+    <meta property="og:image" content="https://obsmaskgenerator.com/og-image.png">
+    <meta property="og:site_name" content="OBS Mask Generator">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://obsmaskgenerator.com/vertical-stream-layout/">
+    <meta property="twitter:title" content="OBS Vertical Stream Layout Generator (TikTok/Shorts)">
+    <meta property="twitter:description"
+        content="Easily plan your 9:16 layout for TikTok and YouTube Shorts directly in your browser.">
+    <meta property="twitter:image" content="https://obsmaskgenerator.com/og-image.png">
+
+    <!-- Structured Data - WebApplication -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "OBS Vertical Stream Layout Generator",
+        "url": "https://obsmaskgenerator.com/vertical-stream-layout/",
+        "description": "Free tool to generate a vertical 9:16 stream layout template for OBS to use on TikTok, Shorts, and Reels.",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+    </script>
+
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [{
+            "@type": "Question",
+            "name": "What is the best resolution for vertical streaming?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The standard resolution for TikTok, YouTube Shorts, and Instagram Reels is 1080x1920 (a 9:16 aspect ratio). This matches the screen dimensions of most modern smartphones, ensuring your stream takes up the entire screen without black bars."
+            }
+        }, {
+            "@type": "Question",
+            "name": "Where should I place my webcam on a vertical layout?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "It is highly recommended to place your webcam at the very top of the 9:16 canvas. Mobile viewers naturally look at the top third of the screen. Keep the middle clear for gameplay, and place chat or alerts near the bottom."
+            }
+        }, {
+            "@type": "Question",
+            "name": "Do I need a dual PC setup to stream vertically?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No! Modern GPUs equipped with NVENC (NVIDIA) or AMF (AMD) encoders can easily handle encoding two streams simultaneously on a single PC. Using plugins like Aitum Vertical makes this process incredibly lightweight."
+            }
+        }]
+    }
+    </script>
+
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "OBS Tools", "item": "https://obsmaskgenerator.com/"},
+            {"@type": "ListItem", "position": 2, "name": "Vertical Stream Layout Generator", "item": "https://obsmaskgenerator.com/vertical-stream-layout/"}
+        ]
+    }
+    </script>
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .layout-editor {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+        @media (max-width: 768px) {
+            .layout-editor {
+                grid-template-columns: 1fr;
+            }
+        }
+        .canvas-container {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: var(--space-md);
+            overflow: hidden;
+            min-height: 600px;
+        }
+        .vertical-canvas {
+            width: 360px; /* Represents 1080px */
+            height: 640px; /* Represents 1920px */
+            background-color: #000;
+            position: relative;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        .draggable-box {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: move;
+            box-sizing: border-box;
+            border: 2px dashed rgba(255,255,255,0.5);
+            user-select: none;
+        }
+        .box-gameplay { background-color: rgba(41, 128, 185, 0.5); width: 100%; height: 202px; top: 219px; left: 0; }
+        .box-webcam { background-color: rgba(192, 57, 43, 0.5); width: 160px; height: 160px; top: 20px; left: 100px; border-radius: 50%; }
+        .box-chat { background-color: rgba(39, 174, 96, 0.5); width: 100%; height: 180px; bottom: 20px; left: 0; }
+        
+        .controls-panel {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+        }
+        .form-group {
+            margin-bottom: var(--space-md);
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: var(--space-xs);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .btn-primary {
+            width: 100%;
+            padding: var(--space-sm) var(--space-md);
+            background-color: var(--accent-primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color var(--transition-fast);
+        }
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="url(#logo-gradient)" />
+                    <rect x="12" y="8" width="8" height="16" rx="1" stroke="white" stroke-width="2" />
+                    <defs>
+                        <linearGradient id="logo-gradient" x1="0" y1="0" x2="32" y2="32">
+                            <stop stop-color="#9146FF" />
+                            <stop offset="1" stop-color="#6441A5" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <h1>Vertical Stream Layout Generator</h1>
+            </div>
+            <p class="tagline">Easily build a 9:16 vertical layout for TikTok & YouTube Shorts</p>
+            <a href="../" class="back-link">← Back to OBS Tools</a>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="layout-editor">
+                <div class="canvas-container">
+                    <div class="vertical-canvas" id="canvas">
+                        <div class="draggable-box box-webcam" id="box-webcam" data-type="webcam">Webcam</div>
+                        <div class="draggable-box box-gameplay" id="box-gameplay" data-type="gameplay">Gameplay</div>
+                        <div class="draggable-box box-chat" id="box-chat" data-type="chat">Chat / Empty Space</div>
+                    </div>
+                </div>
+
+                <aside class="controls-panel">
+                    <h3 style="margin-bottom: 1rem;">Layout Settings</h3>
+                    
+                    <div class="form-group">
+                        <label>Webcam Shape</label>
+                        <select id="webcam-shape" style="width: 100%; padding: 8px; background: var(--bg-tertiary); color: white; border: 1px solid var(--border-color); border-radius: 4px;">
+                            <option value="circle">Circle</option>
+                            <option value="square">Square</option>
+                            <option value="rectangle">Rectangle (16:9)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Background Color</label>
+                        <input type="color" id="bg-color" value="#000000" style="width: 100%; height: 40px; border: none; background: transparent; cursor: pointer;">
+                    </div>
+
+                    <div style="margin-top: 2rem;">
+                        <button id="download-btn" class="btn-primary">Download Template PNG</button>
+                    </div>
+                    <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">
+                    * Drag elements around to position them. Download the PNG to use as an alignment guide in your OBS vertical canvas (1080x1920).
+                    </p>
+                </aside>
+            </div>
+            
+            <article class="seo-guide" style="margin-top: 3rem;">
+                <h2>Ultimate Guide to OBS Vertical Stream Layouts (9:16)</h2>
+                <p>With the explosive growth of TikTok Live, Instagram Reels, and YouTube Shorts, streaming vertically has become an absolute necessity for content creators. Dual-streaming (sending a horizontal 16:9 feed to Twitch/YouTube and a vertical 9:16 feed to TikTok) maximizes your organic reach and audience growth.</p>
+                <p>However, setting up a vertical canvas in OBS Studio (typically 1080x1920) can be tricky. Aligning your webcam, gameplay capture, and chat overlay without a reference point often leads to elements being cut off on mobile devices. This <strong>Free OBS Vertical Stream Layout Generator</strong> helps you visually pre-plan your layout. You can download the generated image as a transparent PNG template and use it as an alignment guide directly inside OBS.</p>
+                
+                <h3>How to Setup a Vertical Stream in OBS Studio</h3>
+                <p>There are two main ways to stream vertically:</p>
+                <ol>
+                    <li><strong>Aitum Vertical Plugin:</strong> This is the most popular method. It adds a secondary vertical canvas alongside your main OBS canvas, allowing you to stream to Twitch and TikTok simultaneously from a single PC.</li>
+                    <li><strong>Separate OBS Instance:</strong> You can open a second instance of OBS, set the canvas resolution to 1080x1920, and pull in your sources using NDI or Virtual Camera.</li>
+                </ol>
+                <p>Regardless of your method, you need a clean layout. Use our generator above to position your camera (circle or rectangle), your gameplay area, and your chat overlay. Click "Download PNG" and drag that image into your OBS vertical scene to perfectly align your sources.</p>
+
+                <h3>Frequently Asked Questions</h3>
+                <div class="faq-item" style="margin-bottom: 1.5rem;">
+                    <h4 style="color: white; margin-bottom: 0.5rem;">What is the best resolution for vertical streaming?</h4>
+                    <p>The standard resolution for TikTok, YouTube Shorts, and Instagram Reels is <strong>1080x1920</strong> (a 9:16 aspect ratio). This matches the screen dimensions of most modern smartphones, ensuring your stream takes up the entire screen without black bars.</p>
+                </div>
+                <div class="faq-item" style="margin-bottom: 1.5rem;">
+                    <h4 style="color: white; margin-bottom: 0.5rem;">Where should I place my webcam on a vertical layout?</h4>
+                    <p>It is highly recommended to place your webcam at the very top of the 9:16 canvas. Mobile viewers naturally look at the top third of the screen. Keep the middle clear for gameplay, and place chat or alerts near the bottom (but above the TikTok UI elements).</p>
+                </div>
+                <div class="faq-item" style="margin-bottom: 1.5rem;">
+                    <h4 style="color: white; margin-bottom: 0.5rem;">Do I need a dual PC setup to stream vertically?</h4>
+                    <p>No! Modern GPUs equipped with NVENC (NVIDIA) or AMF (AMD) encoders can easily handle encoding two streams simultaneously on a single PC. Using plugins like Aitum Vertical makes this process incredibly lightweight.</p>
+                </div>
+            </article>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Free OBS Tools & Generators | No signup required | <a href="/privacy-policy.html"
+                    style="color: var(--accent-primary, #9146ff);">Privacy Policy</a></p>
+            <div style="margin-top: 15px; font-size: 0.85em; line-height: 1.8;">
+                <p><strong style="color: #a78bfa;">OBS Calculators:</strong>
+                    <a href="/can-i-stream/" style="color: #9146ff;">Can I Stream?</a> |
+                    <a href="/bitrate-calculator/" style="color: #9146ff;">Bitrate</a> |
+                    <a href="/recording-size-calculator/" style="color: #9146ff;">Recording Size</a> |
+                    <a href="/quality-checker/" style="color: #9146ff;">Quality Checker</a> |
+                    <a href="/aspect-ratio-calculator/" style="color: #9146ff;">Aspect Ratio</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Generators & Assets:</strong>
+                    <a href="/" style="color: #9146ff;">Webcam Mask</a> |
+                    <a href="/twitch-panel-generator/" style="color: #9146ff;">Twitch Panels</a> |
+                    <a href="/settings-generator/" style="color: #9146ff;">Settings Generator</a> |
+                    <a href="/overlay-generator/" style="color: #9146ff;">Overlay Generator</a> |
+                    <a href="/starting-screen/" style="color: #9146ff;">Starting Screen</a> |
+                    <a href="/stream-schedule/" style="color: #9146ff;">Stream Schedule</a> |
+                    <a href="/vertical-stream-layout/" style="color: #9146ff;">Vertical Layout</a> |
+                    <a href="/chat-overlay-editor/" style="color: #9146ff;">Chat Overlay CSS</a> |
+                    <a href="/emote-text-maker/" style="color: #9146ff;">Emote Maker</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Legal:</strong>
+                    <a href="/privacy-policy.html" style="color: #9146ff;">Privacy Policy</a> |
+                    <a href="/terms.html" style="color: #9146ff;">Terms of Service</a> |
+                    <a href="/about.html" style="color: #9146ff;">About Us</a> |
+                    <a href="/contact.html" style="color: #9146ff;">Contact</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Useful Utilities:</strong>
+                    <a href="/countdown-timer/" style="color: #9146ff;">Countdown Timer</a> |
+                    <a href="/hotkey-reference/" style="color: #9146ff;">OBS Hotkeys</a> |
+                    <a href="/blog/" style="color: #9146ff;">Blog</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js" defer></script>
+    <script src="/components.js" defer></script>
+</body>
+
+</html>
+
