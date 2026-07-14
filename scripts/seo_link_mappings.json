@@ -1,0 +1,29 @@
+{
+  "linkMappings": [
+    {
+      "keyword": "aspect ratio",
+      "targetUrl": "/aspect-ratio-calculator/",
+      "titleAttr": "Use our Free OBS Aspect Ratio Calculator"
+    },
+    {
+      "keyword": "webcam mask",
+      "targetUrl": "/",
+      "titleAttr": "Download Free OBS Webcam Masks"
+    },
+    {
+      "keyword": "bitrate",
+      "targetUrl": "/bitrate-calculator/",
+      "titleAttr": "Calculate Perfect Twitch Bitrate"
+    },
+    {
+      "keyword": "recording size",
+      "targetUrl": "/recording-size-calculator/",
+      "titleAttr": "Calculate OBS Recording Size"
+    },
+    {
+      "keyword": "stream overlay",
+      "targetUrl": "/overlay-generator/",
+      "titleAttr": "Generate Free Stream Overlays"
+    }
+  ]
+}

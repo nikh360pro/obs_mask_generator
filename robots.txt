@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
+Disallow: /*?*
+Disallow: /scripts/
+Disallow: /data/
+
+Crawl-delay: 1
 
 Sitemap: https://obsmaskgenerator.com/sitemap.xml
