@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" type="image/webp" href="assets/UI_assets/Mynofi_Logo.webp">
+    <link rel="preload" href="/assets/fonts/inter-bold.woff2" as="font" type="font/woff2" crossorigin>
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Mynofi &ndash; OBS, ShadowPlay &amp; Audacity Recording Notification Tool for Windows</title>
+    <meta name="title" content="Mynofi &ndash; OBS, ShadowPlay &amp; Audacity Recording Notification Tool for Windows">
+    <meta name="description" content="Never miss a recording again. Mynofi monitors OBS Studio, NVIDIA ShadowPlay, and Audacity and fires instant Windows desktop notifications the moment recording starts or stops. $2.99 one-time purchase.">
+    <meta name="keywords" content="OBS recording notification, OBS recording indicator Windows, never miss OBS recording, OBS studio notification app, OBS recording status monitor, NVIDIA ShadowPlay notification Windows, Audacity recording monitor desktop, desktop notification OBS starts recording, streamer tools Windows, OBS recording alert software, Mynofi download, Mynofi app, content creator recording notification, how to know if OBS is recording">
+    <meta name="author" content="Mynofi">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <link rel="canonical" href="https://obsmaskgenerator.com/mynofi/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/mynofi/">
+    <meta property="og:title" content="Mynofi &ndash; Recording Notification Tool for OBS, ShadowPlay &amp; Audacity">
+    <meta property="og:description" content="Never miss a recording. Mynofi watches OBS, ShadowPlay, and Audacity in real time and fires instant desktop notifications. $2.99 one-time purchase for Windows.">
+    <meta property="og:image" content="https://obsmaskgenerator.com/mynofi/mynofi-og.webp">
+    <meta property="og:site_name" content="OBS Mask Generator Tools">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://obsmaskgenerator.com/mynofi/">
+    <meta property="twitter:title" content="Mynofi &ndash; Recording Notification Tool for OBS, ShadowPlay &amp; Audacity">
+    <meta property="twitter:description" content="Never miss a recording. Mynofi watches OBS, ShadowPlay, and Audacity and fires desktop notifications the moment something starts or stops. $2.99 one-time.">
+    <meta property="twitter:image" content="https://obsmaskgenerator.com/mynofi/mynofi-og.webp">
+
+    <!-- JSON-LD: SoftwareApplication -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Mynofi",
+        "alternateName": ["Mynofi OBS Tool", "Mynofi Recording Notification", "OBS Recording Monitor"],
+        "url": "https://obsmaskgenerator.com/mynofi/",
+        "description": "Mynofi is a Windows desktop app that monitors OBS Studio, NVIDIA ShadowPlay, and Audacity in real time and fires instant desktop notifications when recording starts, pauses, or stops.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Windows 10, Windows 11",
+        "offers": { "@type": "Offer", "price": "2.99", "priceCurrency": "USD" },
+        "softwareVersion": "1.0.36",
+        "fileSize": "65MB",
+        "featureList": [
+            "OBS Studio recording notification via WebSocket",
+            "NVIDIA ShadowPlay recording monitor",
+            "Audacity recording monitor",
+            "Windows desktop toast notification",
+            "System tray app with zero performance impact",
+            "Sound notification on recording events",
+            "Auto-reconnect to OBS WebSocket"
+        ]
+    }
+    </script>
+
+    <!-- JSON-LD: FAQ -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How does Mynofi know when OBS starts recording?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Mynofi connects to OBS Studio via the built-in OBS WebSocket on your local machine. No internet connection is required. When OBS starts or stops recording, the WebSocket fires an event and Mynofi immediately shows a desktop notification." }
+            },
+            {
+                "@type": "Question",
+                "name": "Does Mynofi work with OBS, ShadowPlay, and Audacity at the same time?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes. All three monitors run simultaneously in the background. You can have OBS, NVIDIA ShadowPlay, and Audacity all active at once and Mynofi will track and notify for all of them independently." }
+            },
+            {
+                "@type": "Question",
+                "name": "Is Mynofi a one-time purchase? No subscription?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes. Mynofi is a one-time purchase of $2.99. There is no subscription, no recurring fee, and no in-app purchases. You own it permanently &#x2014; including all future updates to the version you buy." }
+            },
+            {
+                "@type": "Question",
+                "name": "Will Mynofi slow down my PC or affect streaming performance?",
+                "acceptedAnswer": { "@type": "Answer", "text": "No. Mynofi uses under 50MB of RAM and has negligible CPU usage. It does not hook into your games, record your screen, or consume GPU resources." }
+            },
+            {
+                "@type": "Question",
+                "name": "What Windows version does Mynofi support?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Mynofi supports Windows 10 (64-bit) and Windows 11. No additional runtimes required &#x2014; just download the installer and run it." }
+            }
+        ]
+    }
+    </script>
+
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/assets/css/common.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* ================================
+           Mynofi Page Styles
+           ================================ */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: #0e0e10;
+            color: #efeff1;
+            font-family: 'Inter', system-ui, sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ---- Sticky Nav ---- */
+        .mn-nav {
+            position: sticky; top: 0; z-index: 100;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 12px 28px;
+            background: rgba(14,14,16,0.94);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(145,70,255,0.18);
+        }
+        .mn-nav-left { display: flex; align-items: center; gap: 14px; }
+        .mn-back {
+            color: #848494; text-decoration: none; font-size: 0.83rem;
+            transition: color 0.15s; display: flex; align-items: center; gap: 5px;
+        }
+        .mn-back:hover { color: #9146ff; }
+        .mn-nav-sep { color: #2f2f35; font-size: 1rem; }
+        .mn-logo-wrap { display: flex; align-items: center; gap: 10px; }
+        .mn-logo-img { width: 30px; height: 30px; object-fit: contain; }
+        .mn-brand { font-weight: 700; font-size: 1rem; color: #efeff1; letter-spacing: -0.01em; }
+        .mn-buy-btn {
+            background: #9146ff; color: #fff; text-decoration: none;
+            padding: 9px 22px; border-radius: 8px; font-size: 0.875rem; font-weight: 700;
+            transition: background 0.15s, transform 0.15s, box-shadow 0.15s; white-space: nowrap;
+            display: flex; align-items: center; gap: 7px;
+        }
+        .mn-buy-btn:hover { background: #a970ff; transform: translateY(-1px); box-shadow: 0 4px 18px rgba(145,70,255,0.45); }
+        .mn-price-tag {
+            background: rgba(255,255,255,0.15); border-radius: 4px;
+            padding: 2px 7px; font-size: 0.78rem; font-weight: 600;
+        }
+
+        /* ---- Hero ---- */
+        .mn-hero { max-width: 960px; margin: 0 auto; padding: 80px 24px 56px; }
+        .mn-hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+        @media (max-width: 720px) { .mn-hero-inner { grid-template-columns: 1fr; gap: 40px; } }
+
+        .mn-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(145,70,255,0.1); border: 1px solid rgba(145,70,255,0.25);
+            border-radius: 100px; padding: 5px 14px; font-size: 0.78rem; color: #a970ff;
+            font-weight: 600; margin-bottom: 24px;
+        }
+        .mn-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #00f593; animation: pdot 2s infinite; }
+        @keyframes pdot { 0%,100%{opacity:1} 50%{opacity:0.3} }
+        .mn-h1 {
+            font-size: clamp(2rem,4vw,3rem); font-weight: 800;
+            line-height: 1.12; letter-spacing: -0.035em; margin-bottom: 18px;
+        }
+        .mn-h1 span { color: #9146ff; }
+        .mn-sub { font-size: 1.05rem; color: #848494; line-height: 1.72; margin-bottom: 32px; }
+        .mn-hero-cta { display: flex; flex-direction: column; gap: 12px; }
+        .mn-cta-main {
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+            background: #9146ff; color: #fff; text-decoration: none;
+            padding: 15px 28px; border-radius: 10px; font-size: 1.05rem; font-weight: 700;
+            transition: all 0.15s; box-shadow: 0 4px 28px rgba(145,70,255,0.4);
+        }
+        .mn-cta-main:hover { background: #a970ff; transform: translateY(-2px); box-shadow: 0 8px 36px rgba(145,70,255,0.55); }
+        .mn-cta-main-price {
+            background: rgba(255,255,255,0.18); border-radius: 5px;
+            padding: 3px 9px; font-size: 0.88rem; font-weight: 700;
+        }
+        .mn-cta-meta { font-size: 0.8rem; color: #848494; display: flex; align-items: center; gap: 10px; }
+        .mn-cta-meta-item { display: flex; align-items: center; gap: 4px; }
+        .mn-cta-meta-ok { color: #00f593; font-size: 0.85rem; }
+        .mn-cta-secondary {
+            display: inline-flex; align-items: center; gap: 7px;
+            color: #848494; text-decoration: none; font-size: 0.9rem; font-weight: 500;
+            transition: color 0.15s; width: fit-content;
+        }
+        .mn-cta-secondary:hover { color: #9146ff; }
+
+        /* ---- Hero notification showcase ---- */
+        .mn-noti-showcase {
+            position: relative; display: flex; flex-direction: column; gap: 12px;
+        }
+        .mn-noti-card {
+            border-radius: 16px; overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            opacity: 0; transform: translateX(24px);
+            animation: nslide 0.5s cubic-bezier(0.22,1,0.36,1) forwards;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .mn-noti-card:hover { transform: translateX(0) scale(1.015); box-shadow: 0 12px 40px rgba(0,0,0,0.6); }
+        .mn-noti-card:nth-child(1) { animation-delay: 0.2s; }
+        .mn-noti-card:nth-child(2) { animation-delay: 0.5s; }
+        .mn-noti-card:nth-child(3) { animation-delay: 0.8s; }
+        @keyframes nslide { to { opacity:1; transform:translateX(0); } }
+        .mn-noti-card img { width: 100%; height: auto; display: block; }
+        .mn-noti-label {
+            font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em;
+            text-transform: uppercase; color: #848494; margin-bottom: 8px;
+        }
+
+        /* ---- Divider ---- */
+        .mn-divider { height: 1px; background: linear-gradient(90deg,transparent,#2f2f35,transparent); margin: 0 24px; }
+
+        /* ---- Section ---- */
+        .mn-section { max-width: 960px; margin: 0 auto; padding: 72px 24px; }
+        .mn-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #9146ff; margin-bottom: 12px; }
+        .mn-h2 { font-size: clamp(1.55rem,2.8vw,2.1rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 14px; }
+        .mn-lead { font-size: 1rem; color: #848494; max-width: 520px; line-height: 1.72; }
+
+        /* ---- Problem cards ---- */
+        .mn-problems { display: grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap: 14px; margin-top: 48px; }
+        .mn-pc {
+            background: #18181b; border: 1px solid #2f2f35; border-radius: 14px;
+            padding: 26px; position: relative; overflow: hidden; transition: border-color 0.2s, transform 0.2s;
+        }
+        .mn-pc:hover { border-color: rgba(145,70,255,0.3); transform: translateY(-2px); }
+        .mn-pc::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; border-radius:14px 14px 0 0; }
+        .mn-pc.obs::before  { background: #e05555; }
+        .mn-pc.shad::before { background: #76ab7e; }
+        .mn-pc.aud::before  { background: #9191c0; }
+        .mn-pc-emoji { font-size: 1.6rem; margin-bottom: 14px; display: block; }
+        .mn-pc-app { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+        .mn-pc.obs  .mn-pc-app { color: #e05555; }
+        .mn-pc.shad .mn-pc-app { color: #76ab7e; }
+        .mn-pc.aud  .mn-pc-app { color: #9191c0; }
+        .mn-pc-text { font-size: 0.92rem; color: #adadb8; line-height: 1.65; margin-bottom: 16px; }
+        .mn-pc-text em { font-style:normal; color:#efeff1; font-weight:500; }
+        .mn-pc-tag { font-size: 0.78rem; font-weight: 600; color: #9146ff; padding: 6px 12px; background: rgba(145,70,255,0.11); border-radius: 6px; display: inline-block; }
+
+        /* ---- Notification gallery ---- */
+        .mn-gallery { margin-top: 56px; }
+        .mn-gallery-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+        .mn-tab {
+            background: #18181b; border: 1px solid #2f2f35; border-radius: 8px;
+            padding: 8px 16px; font-size: 0.82rem; font-weight: 600; color: #848494;
+            cursor: pointer; transition: all 0.15s; font-family: inherit;
+        }
+        .mn-tab.active, .mn-tab:hover { background: rgba(145,70,255,0.12); border-color: rgba(145,70,255,0.35); color: #a970ff; }
+        .mn-gallery-panel { display: none; }
+        .mn-gallery-panel.active { display: grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap: 14px; }
+        .mn-gallery-img {
+            border-radius: 12px; overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .mn-gallery-img:hover { transform: scale(1.02); box-shadow: 0 8px 32px rgba(0,0,0,0.55); }
+        .mn-gallery-img img { width: 100%; height: auto; display: block; }
+
+        /* ---- Steps ---- */
+        .mn-steps { display: grid; grid-template-columns: repeat(auto-fit,minmax(230px,1fr)); margin-top: 56px; position: relative; }
+        .mn-step { padding: 30px 26px; position: relative; }
+        .mn-step:not(:last-child)::after { content:''; position:absolute; right:0; top:50%; transform:translateY(-50%); width:1px; height:60%; background:#2f2f35; }
+        @media (max-width: 600px) { .mn-step:not(:last-child)::after { display:none; } }
+        .mn-step-num {
+            width: 34px; height: 34px; border-radius: 50%;
+            background: rgba(145,70,255,0.1); border: 1px solid rgba(145,70,255,0.25);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.82rem; font-weight: 700; color: #9146ff; margin-bottom: 16px;
+        }
+        .mn-step-title { font-size: 0.97rem; font-weight: 700; color: #efeff1; margin-bottom: 8px; }
+        .mn-step-desc { font-size: 0.875rem; color: #848494; line-height: 1.65; }
+        .mn-step-desc strong { color: #adadb8; font-weight: 500; }
+
+        /* ---- Features ---- */
+        .mn-feats { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 13px; margin-top: 48px; }
+        .mn-feat {
+            background: #18181b; border: 1px solid #2f2f35; border-radius: 12px;
+            padding: 22px; transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .mn-feat:hover { border-color: rgba(145,70,255,0.3); box-shadow: 0 4px 20px rgba(145,70,255,0.07); }
+        .mn-feat-icon { font-size: 1.4rem; margin-bottom: 12px; display: block; }
+        .mn-feat-icon img { width: 36px; height: 36px; object-fit: contain; display: block; }
+        .mn-pc-logo { width: 40px; height: 40px; object-fit: contain; margin-bottom: 16px; display: block; }
+        .mn-feat-title { font-size: 0.93rem; font-weight: 700; color: #efeff1; margin-bottom: 7px; }
+        .mn-feat-desc { font-size: 0.84rem; color: #848494; line-height: 1.62; }
+
+        /* ---- Pricing block ---- */
+        .mn-pricing {
+            background: #18181b; border: 1px solid #2f2f35; border-radius: 20px;
+            padding: 60px 40px; text-align: center; position: relative; overflow: hidden;
+        }
+        .mn-pricing::before {
+            content:''; position:absolute; top:-40%; left:50%; transform:translateX(-50%);
+            width:700px; height:450px;
+            background: radial-gradient(ellipse at center, rgba(145,70,255,0.07) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .mn-price-display { margin-bottom: 8px; }
+        .mn-price-amount {
+            font-size: clamp(3.5rem,8vw,5.5rem); font-weight: 800; letter-spacing: -0.04em;
+            color: #efeff1; line-height: 1;
+        }
+        .mn-price-amount sup { font-size: 0.38em; vertical-align: top; margin-top: 0.35em; color: #a970ff; font-weight: 700; }
+        .mn-price-type { font-size: 1rem; color: #848494; margin-bottom: 32px; }
+        .mn-price-type strong { color: #efeff1; }
+        .mn-price-includes {
+            display: flex; gap: 0; flex-direction: column;
+            max-width: 380px; margin: 0 auto 40px;
+            background: #0e0e10; border: 1px solid #2f2f35; border-radius: 12px; overflow: hidden;
+        }
+        .mn-inc-item {
+            display: flex; align-items: center; gap: 14px;
+            padding: 14px 20px; border-bottom: 1px solid #1a1a1e; text-align: left;
+        }
+        .mn-inc-item:last-child { border-bottom: none; }
+        .mn-inc-ok { color: #00f593; font-size: 1rem; flex-shrink: 0; }
+        .mn-inc-text { font-size: 0.9rem; color: #adadb8; }
+        .mn-inc-text strong { color: #efeff1; font-weight: 600; }
+        .mn-buy-main {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: #9146ff; color: #fff; text-decoration: none;
+            padding: 17px 40px; border-radius: 12px; font-size: 1.1rem; font-weight: 700;
+            transition: all 0.15s; box-shadow: 0 4px 32px rgba(145,70,255,0.45);
+            margin-bottom: 14px;
+        }
+        .mn-buy-main:hover { background: #a970ff; transform: translateY(-2px); box-shadow: 0 8px 42px rgba(145,70,255,0.6); }
+        .mn-buy-sub { font-size: 0.82rem; color: #848494; margin-bottom: 32px; }
+        .mn-specs { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+        .mn-spec { background: #1f1f23; border: 1px solid #2f2f35; border-radius: 100px; padding: 7px 15px; font-size: 0.78rem; color: #848494; }
+        .mn-spec strong { color: #adadb8; }
+
+        /* ---- FAQ ---- */
+        .mn-faq { margin-top: 48px; }
+        .mn-faq-item { border-bottom: 1px solid #2f2f35; }
+        .mn-faq-q {
+            width: 100%; background: none; border: none; color: #efeff1;
+            font-family: inherit; font-size: 0.97rem; font-weight: 600; text-align: left;
+            padding: 20px 0; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center; gap: 16px;
+            transition: color 0.15s;
+        }
+        .mn-faq-q:hover { color: #9146ff; }
+        .mn-faq-arrow { flex-shrink: 0; width: 17px; height: 17px; color: #848494; transition: transform 0.2s, color 0.2s; }
+        .mn-faq-item.open .mn-faq-arrow { transform: rotate(180deg); color: #9146ff; }
+        .mn-faq-a { font-size: 0.93rem; color: #848494; line-height: 1.75; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding-bottom 0.2s; }
+        .mn-faq-item.open .mn-faq-a { max-height: 300px; padding-bottom: 20px; }
+
+        /* ---- Footer ---- */
+        .mn-footer { border-top: 1px solid #2f2f35; padding: 40px 24px; text-align: center; }
+        .mn-footer-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 18px; }
+        .mn-footer-links a { color: #848494; text-decoration: none; font-size: 0.84rem; transition: color 0.15s; }
+        .mn-footer-links a:hover { color: #9146ff; }
+        .mn-footer-copy { font-size: 0.8rem; color: #4a4a55; line-height: 1.7; }
+        .mn-footer-copy a { color: #848494; text-decoration: none; }
+        .mn-footer-copy a:hover { color: #9146ff; }
+
+        /* ---- Responsive ---- */
+        @media (max-width: 600px) {
+            .mn-nav { padding: 12px 16px; }
+            .mn-hero { padding: 56px 16px 48px; }
+            .mn-section { padding: 56px 16px; }
+            .mn-pricing { padding: 40px 20px; }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬ Sticky Nav Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬ -->
+<nav class="mn-nav" aria-label="Mynofi navigation">
+    <div class="mn-nav-left">
+        <a href="/" class="mn-back" aria-label="Back to OBS Tools">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+            OBS Tools
+        </a>
+        <span class="mn-nav-sep" aria-hidden="true">/</span>
+        <div class="mn-logo-wrap">
+            <img src="assets/UI_assets/Mynofi_Logo.webp" alt="Mynofi logo" class="mn-logo-img" width="30" height="30">
+            <span class="mn-brand">Mynofi</span>
+        </div>
+    </div>
+    <a href="#purchase" class="mn-buy-btn" id="nav-buy-btn">
+        Get Mynofi
+        <span class="mn-price-tag">$2.99</span>
+    </a>
+</nav>
+
+<!-- Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬ Hero Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬ -->
+<section class="mn-hero" aria-labelledby="hero-h1">
+    <div class="mn-hero-inner">
+
+        <!-- Left: text -->
+        <div class="mn-hero-text">
+            <div class="mn-badge">
+                <span class="mn-badge-dot" aria-hidden="true"></span>
+                Windows 10 / 11 &nbsp;&middot;&nbsp; One-time $2.99
+            </div>
+
+            <h1 class="mn-h1" id="hero-h1">
+                Stop Missing<br>
+                Recordings.<br>
+                <span>For good.</span>
+            </h1>
+
+            <p class="mn-sub">
+                Mynofi monitors OBS Studio, NVIDIA ShadowPlay, and Audacity
+                simultaneously and fires a desktop notification the instant
+                something starts &#x2014; or stops. Set it up once, never lose a clip again.
+            </p>
+
+            <div class="mn-hero-cta">
+                <a href="#purchase" class="mn-cta-main" id="hero-buy-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Get Mynofi
+                    <span class="mn-cta-main-price">$2.99</span>
+                </a>
+
+                <div class="mn-cta-meta">
+                    <span class="mn-cta-meta-item"><span class="mn-cta-meta-ok">&#x2713;</span> One-time purchase</span>
+                    <span class="mn-cta-meta-item"><span class="mn-cta-meta-ok">&#x2713;</span> No subscription</span>
+                    <span class="mn-cta-meta-item"><span class="mn-cta-meta-ok">&#x2713;</span> Windows 10/11</span>
+                </div>
+
+                <a href="#how-it-works" class="mn-cta-secondary" id="hero-howto-btn">
+                    See how it works
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Right: real notification screenshots -->
+        <div class="mn-noti-showcase" role="img" aria-label="Real Mynofi notification banners for OBS, NVIDIA, and Audacity">
+            <div class="mn-noti-label">Live notifications from Mynofi</div>
+            <div class="mn-noti-card">
+                <img src="assets/OBS_noti/Recording_Started.webp" alt="Mynofi notification: OBS Recording Started" width="620" height="auto" loading="eager">
+            </div>
+            <div class="mn-noti-card">
+                <img src="assets/Nvidia_noti/Screen_Recording_Started.webp" alt="Mynofi notification: Nvidia Screen Recording Started" width="620" height="auto" loading="eager">
+            </div>
+            <div class="mn-noti-card">
+                <img src="assets/Audacity_noti/Voice_Recording_Started.webp" alt="Mynofi notification: Audacity Voice Recording Started" width="620" height="auto" loading="eager">
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<div class="mn-divider"></div>
+
+<!-- Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬ Problem Section Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬ -->
+<section class="mn-section" aria-labelledby="problem-h2">
+    <p class="mn-label">Sound familiar?</p>
+    <h2 class="mn-h2" id="problem-h2">The recordings that never existed</h2>
+    <p class="mn-lead">These aren't edge cases. They happen to creators of every size, every week.</p>
+
+    <div class="mn-problems">
+        <article class="mn-pc obs">
+            <img src="assets/UI_assets/OBS_Logo.webp" alt="OBS Studio" class="mn-pc-logo" width="40" height="40">
+            <div class="mn-pc-app">OBS Studio</div>
+            <p class="mn-pc-text">
+                You alt-tabbed mid-session. OBS hit a hiccup and stopped recording.
+                You played for <em>another 40 minutes</em> not knowing. That footage is gone.
+            </p>
+            <span class="mn-pc-tag">Mynofi catches this.</span>
+        </article>
+
+        <article class="mn-pc shad">
+            <img src="assets/UI_assets/nvidia-logo.webp" alt="NVIDIA" class="mn-pc-logo" width="40" height="40">
+            <div class="mn-pc-app">NVIDIA ShadowPlay</div>
+            <p class="mn-pc-text">
+                The recording indicator was buried in the corner.
+                <em>The file didn't save</em> &mdash; the folder filled up silently three sessions ago.
+            </p>
+            <span class="mn-pc-tag">Mynofi catches this.</span>
+        </article>
+
+        <article class="mn-pc aud">
+            <img src="assets/UI_assets/Audacity_Logo.webp" alt="Audacity" class="mn-pc-logo" width="40" height="40">
+            <div class="mn-pc-app">Audacity</div>
+            <p class="mn-pc-text">
+                <em>You didn't.</em> That podcast take &mdash; the good one &mdash; is gone forever.
+            </p>
+            <span class="mn-pc-tag">Mynofi catches this.</span>
+        </article>
+    </div>
+</section>
+
+<div class="mn-divider"></div>
+
+
+<!-- Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬ Notification Gallery Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬ -->
+<section class="mn-section" aria-labelledby="gallery-h2">
+    <p class="mn-label">Real notification banners</p>
+    <h2 class="mn-h2" id="gallery-h2">Every event. Instantly on your desktop.</h2>
+    <p class="mn-lead">These are the actual notifications Mynofi fires &mdash; straight to your Windows desktop, no matter what you're doing.</p>
+
+    <div class="mn-gallery">
+        <div class="mn-gallery-tabs" role="tablist" aria-label="Notification type selector">
+            <button class="mn-tab active" role="tab" aria-selected="true" aria-controls="panel-obs" id="tab-obs" data-panel="panel-obs">OBS Studio</button>
+            <button class="mn-tab" role="tab" aria-selected="false" aria-controls="panel-nv" id="tab-nv" data-panel="panel-nv">NVIDIA ShadowPlay</button>
+            <button class="mn-tab" role="tab" aria-selected="false" aria-controls="panel-aud" id="tab-aud" data-panel="panel-aud">Audacity</button>
+        </div>
+
+        <div class="mn-gallery-panel active" id="panel-obs" role="tabpanel" aria-labelledby="tab-obs">
+            <div class="mn-gallery-img">
+                <img src="assets/OBS_noti/Recording_Started.webp" alt="Mynofi OBS notification: Recording Started" loading="lazy" width="600">
+            </div>
+            <div class="mn-gallery-img">
+                <img src="assets/OBS_noti/Recording_Stopped.webp" alt="Mynofi OBS notification: Recording Stopped" loading="lazy" width="600">
+            </div>
+            <div class="mn-gallery-img">
+                <img src="assets/OBS_noti/Streaming_Started.webp" alt="Mynofi OBS notification: Streaming Started" loading="lazy" width="600">
+            </div>
+            <div class="mn-gallery-img">
+                <img src="assets/OBS_noti/Streaming_Stopped.webp" alt="Mynofi OBS notification: Streaming Stopped" loading="lazy" width="600">
+            </div>
+            <div class="mn-gallery-img">
+                <img src="assets/OBS_noti/Black_screen_detected.webp" alt="Mynofi OBS notification: Black Screen Detected" loading="lazy" width="600">
+            </div>
+            <div class="mn-gallery-img">
+                <img src="assets/OBS_noti/Freeze_frame_detected.webp" alt="Mynofi OBS notification: Freeze Frame Detected" loading="lazy" width="600">
+            </div>
+        </div>
+
+        <div class="mn-gallery-panel" id="panel-nv" role="tabpanel" aria-labelledby="tab-nv">
+            <div class="mn-gallery-img">
+                <img src="assets/Nvidia_noti/Screen_Recording_Started.webp" alt="Mynofi NVIDIA notification: Screen Recording Started" loading="lazy" width="600">
+            </div>
+            <div class="mn-gallery-img">
+                <img src="assets/Nvidia_noti/Screen_Recording_Stopped.webp" alt="Mynofi NVIDIA notification: Screen Recording Stopped" loading="lazy" width="600">
+            </div>
+        </div>
+
+        <div class="mn-gallery-panel" id="panel-aud" role="tabpanel" aria-labelledby="tab-aud">
+            <div class="mn-gallery-img">
+                <img src="assets/Audacity_noti/Voice_Recording_Started.webp" alt="Mynofi Audacity notification: Voice Recording Started" loading="lazy" width="600">
+            </div>
+            <div class="mn-gallery-img">
+                <img src="assets/Audacity_noti/Voice_Recording_Stopped.webp" alt="Mynofi Audacity notification: Voice Recording Stopped" loading="lazy" width="600">
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="mn-divider"></div>
+
+<!-- Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬ How It Works Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬ -->
+<section class="mn-section" id="how-it-works" aria-labelledby="how-h2">
+    <p class="mn-label">Setup takes 60 seconds</p>
+    <h2 class="mn-h2" id="how-h2">Three steps. Then forget about it.</h2>
+    <p class="mn-lead">Mynofi runs in your system tray and watches silently. You only hear from it when something happens.</p>
+
+    <div class="mn-steps" role="list">
+        <div class="mn-step" role="listitem">
+            <div class="mn-step-num" aria-hidden="true">1</div>
+            <div class="mn-step-title">Purchase &amp; Install</div>
+            <p class="mn-step-desc">
+                One-time $2.99 purchase. Run the installer &#x2014; Mynofi starts and sits quietly in your
+                <strong>Windows system tray</strong>. No bloat, no background services.
+            </p>
+        </div>
+        <div class="mn-step" role="listitem">
+            <div class="mn-step-num" aria-hidden="true">2</div>
+            <div class="mn-step-title">Connect your tools</div>
+            <p class="mn-step-desc">
+                Enter your <strong>OBS WebSocket port</strong>, point to your <strong>ShadowPlay recordings folder</strong>,
+                and enable the Audacity monitor. One click each, done in under a minute.
+            </p>
+        </div>
+        <div class="mn-step" role="listitem">
+            <div class="mn-step-num" aria-hidden="true">3</div>
+            <div class="mn-step-title">Get notified. Every time.</div>
+            <p class="mn-step-desc">
+                A <strong>Windows desktop toast notification</strong> fires the moment recording starts,
+                pauses, or stops &#x2014; across all three tools, simultaneously.
+            </p>
+        </div>
+    </div>
+</section>
+
+<div class="mn-divider"></div>
+
+<!-- Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬ Features Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬ -->
+<section class="mn-section" aria-labelledby="feat-h2">
+    <p class="mn-label">What's included</p>
+    <h2 class="mn-h2" id="feat-h2">Built for the way creators actually work</h2>
+    <p class="mn-lead">No subscriptions. No cloud. A focused tool that does one thing well and stays out of your way.</p>
+
+    <div class="mn-feats">
+        <div class="mn-feat">
+            <span class="mn-feat-icon" aria-hidden="true"><img src="assets/UI_assets/OBS_Logo.webp" alt="OBS Studio" width="36" height="36"></span>
+            <div class="mn-feat-title">OBS Studio Monitor</div>
+            <p class="mn-feat-desc">Connects to OBS via local WebSocket. Notifies on recording start, stop, pause, stream start/stop, black screen, and freeze frame detection.</p>
+        </div>
+        <div class="mn-feat">
+            <span class="mn-feat-icon" aria-hidden="true"><img src="assets/UI_assets/nvidia-logo.webp" alt="NVIDIA" width="36" height="36"></span>
+            <div class="mn-feat-title">ShadowPlay Monitor</div>
+            <p class="mn-feat-desc">Watches your NVIDIA recordings folder for new clip files. Works with any capture tool &#x2014; AMD ReLive, Game Bar, or custom paths.</p>
+        </div>
+        <div class="mn-feat">
+            <span class="mn-feat-icon" aria-hidden="true"><img src="assets/UI_assets/Audacity_Logo.webp" alt="Audacity" width="36" height="36"></span>
+            <div class="mn-feat-title">Audacity Monitor</div>
+            <p class="mn-feat-desc">Detects voice recording start and stop events in Audacity. Catches both intentional stops and unexpected recording failures.</p>
+        </div>
+        <div class="mn-feat">
+            <span class="mn-feat-icon" aria-hidden="true">&#x1F514;</span>
+            <div class="mn-feat-title">Sound + Toast Notifications</div>
+            <p class="mn-feat-desc">Each event plays an optional chime alongside the visual toast. Volume is adjustable. Fires even when your game is fullscreen.</p>
+        </div>
+        <div class="mn-feat">
+            <span class="mn-feat-icon" aria-hidden="true">&#x1F5C2;&#xFE0F;</span>
+            <div class="mn-feat-title">System Tray &#x2014; Always On</div>
+            <p class="mn-feat-desc">Lives in your tray. Right-click to open, pause, or exit. Launch-at-startup option turns it into invisible infrastructure.</p>
+        </div>
+        <div class="mn-feat">
+            <span class="mn-feat-icon" aria-hidden="true">&#x26A1;</span>
+            <div class="mn-feat-title">Zero Performance Impact</div>
+            <p class="mn-feat-desc">Under 50MB RAM. Negligible CPU. Doesn't hook into your game process, record your screen, or touch your GPU.</p>
+        </div>
+    </div>
+</section>
+
+<div class="mn-divider"></div>
+
+<!-- Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬ Pricing / Purchase Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬ -->
+<section class="mn-section" id="purchase" aria-labelledby="price-h2">
+    <div class="mn-pricing">
+
+        <p class="mn-label" style="text-align:center;">Pricing</p>
+        <div class="mn-price-display">
+            <div class="mn-price-amount"><sup>$</sup>2.99</div>
+        </div>
+        <p class="mn-price-type"><strong>One-time purchase.</strong> Own it forever &#x2014; no subscription, no renewal.</p>
+
+        <div class="mn-price-includes" role="list" aria-label="What's included">
+            <div class="mn-inc-item" role="listitem">
+                <span class="mn-inc-ok" aria-hidden="true">&#x2713;</span>
+                <span class="mn-inc-text"><strong>All 3 monitors included</strong> &#x2014; OBS, ShadowPlay, Audacity</span>
+            </div>
+            <div class="mn-inc-item" role="listitem">
+                <span class="mn-inc-ok" aria-hidden="true">&#x2713;</span>
+                <span class="mn-inc-text"><strong>Sound + visual notifications</strong> for every event</span>
+            </div>
+            <div class="mn-inc-item" role="listitem">
+                <span class="mn-inc-ok" aria-hidden="true">&#x2713;</span>
+                <span class="mn-inc-text"><strong>System tray app</strong> &#x2014; runs silently in background</span>
+            </div>
+            <div class="mn-inc-item" role="listitem">
+                <span class="mn-inc-ok" aria-hidden="true">&#x2713;</span>
+                <span class="mn-inc-text"><strong>No subscription</strong>, no account, no telemetry</span>
+            </div>
+            <div class="mn-inc-item" role="listitem">
+                <span class="mn-inc-ok" aria-hidden="true">&#x2713;</span>
+                <span class="mn-inc-text"><strong>Future updates</strong> included with purchase</span>
+            </div>
+        </div>
+
+        <a href="https://github.com/nikh360pro/Mynofi_App_Files_Main/releases/download/v1.0.36/Mynofi_Setup_v1.0.36.exe"
+           class="mn-buy-main" id="main-buy-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Get Mynofi &#x2014; $2.99
+        </a>
+
+        <p class="mn-buy-sub">Windows installer &middot; ~65MB &middot; v1.0.36 &middot; Instant download after purchase</p>
+
+        <div class="mn-specs" role="list" aria-label="System requirements">
+            <div class="mn-spec" role="listitem"><strong>OS:</strong> Windows 10 / 11 (64-bit)</div>
+            <div class="mn-spec" role="listitem"><strong>OBS:</strong> v28+ with WebSocket enabled</div>
+            <div class="mn-spec" role="listitem"><strong>RAM:</strong> &lt;50MB</div>
+            <div class="mn-spec" role="listitem"><strong>GPU:</strong> Any (NVIDIA not required)</div>
+        </div>
+
+    </div>
+</section>
+
+<div class="mn-divider"></div>
+
+<!-- Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬ FAQ Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬ -->
+<section class="mn-section" aria-labelledby="faq-h2">
+    <p class="mn-label">FAQ</p>
+    <h2 class="mn-h2" id="faq-h2">Common questions</h2>
+    <p class="mn-lead">Straight answers. No fluff.</p>
+
+    <div class="mn-faq">
+        <div class="mn-faq-item">
+            <button class="mn-faq-q" id="fq1" aria-expanded="false" aria-controls="fa1">
+                How does Mynofi know when OBS starts recording?
+                <svg class="mn-faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="mn-faq-a" id="fa1" role="region" aria-labelledby="fq1">
+                Mynofi connects to OBS Studio via the built-in OBS WebSocket on your local machine &#x2014; typically port 4455. No internet connection is required. When OBS starts or stops recording, the WebSocket fires an event and Mynofi immediately shows a desktop notification. Your sessions are entirely private and local.
+            </div>
+        </div>
+        <div class="mn-faq-item">
+            <button class="mn-faq-q" id="fq2" aria-expanded="false" aria-controls="fa2">
+                Does Mynofi work with OBS, ShadowPlay, and Audacity at the same time?
+                <svg class="mn-faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="mn-faq-a" id="fa2" role="region" aria-labelledby="fq2">
+                Yes. All three monitors run simultaneously in the background. You can have OBS, NVIDIA ShadowPlay, and Audacity all active at once and Mynofi will track and notify for each independently.
+            </div>
+        </div>
+        <div class="mn-faq-item">
+            <button class="mn-faq-q" id="fq3" aria-expanded="false" aria-controls="fa3">
+                Is this a one-time purchase? No subscription?
+                <svg class="mn-faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="mn-faq-a" id="fa3" role="region" aria-labelledby="fq3">
+                Yes. $2.99 once. No subscription, no recurring charge, no in-app purchases. You own Mynofi permanently and future updates are included at no extra cost.
+            </div>
+        </div>
+        <div class="mn-faq-item">
+            <button class="mn-faq-q" id="fq4" aria-expanded="false" aria-controls="fa4">
+                Will Mynofi slow down my PC or affect streaming performance?
+                <svg class="mn-faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="mn-faq-a" id="fa4" role="region" aria-labelledby="fq4">
+                No. Mynofi uses under 50MB of RAM and has negligible CPU usage. It doesn't hook into your games, record your screen, or consume GPU resources. You won't notice it's running.
+            </div>
+        </div>
+        <div class="mn-faq-item">
+            <button class="mn-faq-q" id="fq5" aria-expanded="false" aria-controls="fa5">
+                What Windows version does Mynofi support?
+                <svg class="mn-faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="mn-faq-a" id="fa5" role="region" aria-labelledby="fq5">
+                Windows 10 (64-bit) and Windows 11. No additional runtimes required &#x2014; just download the installer and run it. macOS and Linux are not currently supported.
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬ SEO Article Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬ -->
+<section class="mn-section" aria-label="About Mynofi OBS recording notification tool">
+    <div class="mn-divider" style="margin: 0 0 48px;"></div>
+    <article class="seo-guide">
+        <h2>What is Mynofi?</h2>
+        <p>
+            <strong>Mynofi</strong> is a Windows desktop utility built for streamers, content creators, and
+            podcasters who use OBS Studio, NVIDIA ShadowPlay, or Audacity as their primary recording tools.
+            It solves one specific, costly problem: you don't always know when your software is actually recording &#x2014;
+            and that missing awareness costs you footage, takes, and time.
+        </p>
+        <p>
+            For a one-time purchase of $2.99, Mynofi runs silently in your system tray as a monitoring layer
+            between your recording software and your desktop. When OBS starts recording, Mynofi fires a Windows
+            toast notification. When ShadowPlay saves a clip, Mynofi tells you. When Audacity's session starts or
+            stops, you get a notification &#x2014; complete with an optional audio chime.
+        </p>
+
+        <h3>OBS Recording Notification &#x2014; How It Works</h3>
+        <p>
+            Mynofi's <strong>OBS recording notification</strong> feature connects to OBS Studio via the built-in
+            OBS WebSocket protocol (available natively in OBS 28+). This is a fully local connection &#x2014;
+            your session data never leaves your machine. Mynofi detects recording state changes
+            (started, stopped, paused, resumed), streaming events, and even issues like black screen
+            and freeze frame detection &#x2014; firing a desktop notification for each.
+        </p>
+
+        <h3>NVIDIA ShadowPlay &amp; Audacity Monitoring</h3>
+        <p>
+            For <strong>NVIDIA ShadowPlay</strong>, Mynofi watches your designated recordings folder for new
+            files &#x2014; reliable detection that also works with AMD ReLive, Windows Game Bar, or any capture tool
+            that saves to a local folder. For <strong>Audacity</strong>, it monitors session activity to detect
+            when a recording is live, so you always know whether your microphone is capturing.
+        </p>
+
+        <div class="guide-highlight">
+            <strong>Privacy note:</strong> Mynofi stores all settings locally in your Windows AppData folder.
+            Nothing is uploaded. There is no analytics SDK, no crash reporting service, and no network calls
+            outside of the local OBS WebSocket connection on your own machine.
+        </div>
+
+        <h3>Who is Mynofi for?</h3>
+        <p>
+            If you've ever alt-tabbed out of a game and found OBS stopped recording 30 minutes earlier &#x2014;
+            Mynofi is for you. If you've ever thought you hit record in Audacity but didn't &#x2014; Mynofi is for you.
+            At $2.99, it costs less than a coffee and saves you from ever re-recording a lost session again.
+        </p>
+    </article>
+</section>
+
+<!-- Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬ Footer Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬Ã¢&#x201D;â¬ -->
+<footer class="mn-footer" role="contentinfo">
+    <nav class="mn-footer-links" aria-label="Footer links">
+        <a href="/">OBS Tools</a>
+        <a href="/blog/">Blog</a>
+        <a href="/privacy-policy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+    </nav>
+    <p class="mn-footer-copy">
+        &copy; 2026 <a href="/">OBS Mask Generator</a> &amp; Mynofi &#x2014; Tools for streamers and content creators.<br>
+        Built by someone who kept missing their own recordings.
+    </p>
+</footer>
+
+<!-- FAQ accordion -->
+<script>
+document.querySelectorAll('.mn-faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const item = btn.closest('.mn-faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.mn-faq-item').forEach(i => {
+            i.classList.remove('open');
+            i.querySelector('.mn-faq-q').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+            item.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+        }
+    });
+});
+</script>
+
+<!-- Notification gallery tabs -->
+<script>
+document.querySelectorAll('.mn-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        const panelId = tab.dataset.panel;
+        document.querySelectorAll('.mn-tab').forEach(t => {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+        });
+        document.querySelectorAll('.mn-gallery-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        document.getElementById(panelId).classList.add('active');
+    });
+});
+</script>
+
+<!-- Smooth scroll -->
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+});
+</script>
+
+<script src="/components.js" defer></script>
+</body>
+</html>
