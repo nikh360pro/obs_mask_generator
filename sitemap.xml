@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- NEW: Mynofi — OBS Recording Notification App (July 2026) -->
+  <url>
+    <loc>https://obsmaskgenerator.com/mynofi/</loc>
+    <lastmod>2026-07-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
   <!-- NEW: Content Creator Tools (July 2026) -->
   <url>
     <loc>https://obsmaskgenerator.com/vertical-stream-layout/</loc>
