@@ -78,6 +78,55 @@ const GlobalComponents = {
      */
     _initialized: false,
 
+    mynofiPromoBanner: {
+        enabled: true,
+        injectBody: true,
+        html: `
+            <style>
+                .mynofi-promo-banner {
+                    display: flex; align-items: center; justify-content: center;
+                    background-color: #18181b; color: #efeff1;
+                    padding: 12px 24px; text-decoration: none;
+                    font-family: 'Inter', system-ui, sans-serif;
+                    transition: background-color 0.15s ease;
+                }
+                .mynofi-promo-banner:hover { background-color: #1f1f23; }
+                .mynofi-banner-content { display: flex; align-items: center; gap: 16px; width: 100%; justify-content: center; }
+                .mynofi-banner-badge { background: #9146ff; color: #fff; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+                .mynofi-banner-text { font-size: 14px; font-weight: 400; color: #d3d3d9; }
+                .mynofi-banner-text strong { color: #fff; font-weight: 600; }
+                .mynofi-banner-link { color: #bf94ff; font-weight: 500; font-size: 14px; display: flex; align-items: center; gap: 4px; }
+                .mynofi-banner-link:hover { color: #a970ff; text-decoration: underline; }
+                @media (max-width: 768px) {
+                    .mynofi-banner-content { flex-direction: column; gap: 8px; text-align: center; }
+                    .mynofi-banner-text { font-size: 13px; line-height: 1.4; }
+                }
+            </style>
+            <a href="/mynofi/" class="mynofi-promo-banner">
+                <div class="mynofi-banner-content">
+                    <span class="mynofi-banner-badge">New Tool</span>
+                    <div class="mynofi-banner-text">
+                        <strong>OBS crashed without you noticing?</strong> Protect your recordings with the Mynofi failsafe alert system.
+                    </div>
+                    <div class="mynofi-banner-link">
+                        See how it works <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </div>
+                </div>
+            </a>
+        `,
+        init: function() {
+            // Check exclusion list
+            const exclusions = ['/mynofi', 'terms', 'privacy', 'contact', 'about'];
+            const currentPath = window.location.pathname.toLowerCase();
+            const isExcluded = exclusions.some(path => currentPath.includes(path));
+            
+            if (isExcluded) {
+                // If excluded, remove the injected banner container
+                const bannerContainer = document.getElementById('mynofiPromoBanner-container');
+                if (bannerContainer) bannerContainer.remove();
+            }
+        }
+    },
 
     init: function() {
         // Prevent double initialization
@@ -91,6 +140,18 @@ const GlobalComponents = {
             const component = this[key];
 
             if (typeof component !== 'object' || !component.enabled) return;
+
+            if (component.injectBody) {
+                const container = document.createElement('div');
+                container.id = key + '-container';
+                container.innerHTML = component.html;
+                document.body.insertBefore(container, document.body.firstChild);
+                
+                if (component.init && typeof component.init === 'function') {
+                    component.init();
+                }
+                return;
+            }
 
             const target = document.getElementById(component.targetId);
             if (!target) {
