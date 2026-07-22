@@ -12,7 +12,15 @@ const config = {
     height: 1080,
     shape: 'rectangle',
     cornerRadius: 10, // percentage
+    independentCorners: false,
+    cornerRadiusTL: 10,
+    cornerRadiusTR: 10,
+    cornerRadiusBR: 10,
+    cornerRadiusBL: 10,
     polygonSides: 6,
+    squircleCurvature: 3.5,
+    starPoints: 5,
+    starDepth: 50,
     rotation: 0,
     feathering: 0,
     inverted: false,
@@ -21,7 +29,9 @@ const config = {
     borderThickness: 4,
     aspectRatio: '16:9',
     aspectLocked: true,
-    zoomMode: 'fit' // 'fit' or '100'
+    zoomMode: 'fit', // 'fit' or '100'
+    webcamActive: false,
+    isDownloading: false
 };
 
 // Preset definitions
@@ -108,13 +118,35 @@ const elements = {
     // Control groups
     cornerRadiusGroup: document.getElementById('corner-radius-group'),
     polygonSidesGroup: document.getElementById('polygon-sides-group'),
+    squircleCurvatureGroup: document.getElementById('squircle-curvature-group'),
+    starControlsGroup: document.getElementById('star-controls-group'),
 
     // Sliders and their value inputs
+    independentCorners: document.getElementById('independent-corners'),
+    singleCornerWrap: document.getElementById('single-corner-wrap'),
+    multiCornerWrap: document.getElementById('multi-corner-wrap'),
+
     cornerRadius: document.getElementById('corner-radius'),
     cornerRadiusValue: document.getElementById('corner-radius-value'),
+    cornerTL: document.getElementById('corner-tl'),
+    cornerTLValue: document.getElementById('corner-tl-value'),
+    cornerTR: document.getElementById('corner-tr'),
+    cornerTRValue: document.getElementById('corner-tr-value'),
+    cornerBR: document.getElementById('corner-br'),
+    cornerBRValue: document.getElementById('corner-br-value'),
+    cornerBL: document.getElementById('corner-bl'),
+    cornerBLValue: document.getElementById('corner-bl-value'),
 
     polygonSides: document.getElementById('polygon-sides'),
     polygonSidesValue: document.getElementById('polygon-sides-value'),
+
+    squircleCurvature: document.getElementById('squircle-curvature'),
+    squircleCurvatureValue: document.getElementById('squircle-curvature-value'),
+
+    starPoints: document.getElementById('star-points'),
+    starPointsValue: document.getElementById('star-points-value'),
+    starDepth: document.getElementById('star-depth'),
+    starDepthValue: document.getElementById('star-depth-value'),
 
     rotation: document.getElementById('rotation'),
     rotationValue: document.getElementById('rotation-value'),
@@ -145,6 +177,10 @@ const elements = {
     dimensionBadge: document.getElementById('dimension-badge'),
     zoomFitBtn: document.getElementById('zoom-fit'),
     zoom100Btn: document.getElementById('zoom-100'),
+
+    // Webcam
+    webcamToggle: document.getElementById('webcam-toggle'),
+    webcamVideo: document.getElementById('webcam-video'),
 
     // Tutorial video
     tutorialVideo: document.getElementById('tutorial-video')
@@ -188,15 +224,24 @@ function draw() {
     ctx.clearRect(0, 0, width, height);
 
     // Background color (black for normal, white for inverted)
+    ctx.globalCompositeOperation = 'source-over';
     ctx.fillStyle = inverted ? '#ffffff' : '#000000';
     ctx.fillRect(0, 0, width, height);
 
-    // Shape color (white for normal, black for inverted)
-    ctx.fillStyle = inverted ? '#000000' : '#ffffff';
+    // Set composite mode for punching a hole if webcam is active, otherwise draw solid shape
+    const isTransparentPreview = config.webcamActive && !config.isDownloading;
+    if (isTransparentPreview) {
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.fillStyle = '#000000'; // Color doesn't matter, just needs full alpha
+    } else {
+        ctx.globalCompositeOperation = 'source-over';
+        // Shape color (white for normal, black for inverted)
+        ctx.fillStyle = inverted ? '#000000' : '#ffffff';
+    }
 
     // Apply feathering if needed
     if (feathering > 0) {
-        ctx.shadowColor = inverted ? '#000000' : '#ffffff';
+        ctx.shadowColor = isTransparentPreview ? 'rgba(0,0,0,1)' : (inverted ? '#000000' : '#ffffff');
         ctx.shadowBlur = feathering;
         ctx.shadowOffsetX = 0;
         ctx.shadowOffsetY = 0;
@@ -210,92 +255,163 @@ function draw() {
     ctx.rotate((rotation * Math.PI) / 180);
     ctx.translate(-width / 2, -height / 2);
 
+    // Determine stroke offset for mask so it perfectly aligns with border center
+    const effectiveStroke = config.borderEnabled ? config.borderThickness : 0;
+
     // Draw shape based on type
     ctx.beginPath();
-
-    switch (shape) {
+    switch (config.shape) {
         case 'rectangle':
-            drawRoundedRect(width, height, cornerRadius);
+            if (config.independentCorners) {
+                drawAdvancedRoundedRectPath(ctx, width, height, config.cornerRadiusTL, config.cornerRadiusTR, config.cornerRadiusBR, config.cornerRadiusBL, effectiveStroke);
+            } else {
+                drawRoundedRectPath(ctx, width, height, config.cornerRadius, effectiveStroke);
+            }
             break;
         case 'ellipse':
-            drawEllipse(width, height);
+            drawEllipsePath(ctx, width, height, effectiveStroke);
             break;
         case 'polygon':
-            drawPolygon(width, height, polygonSides);
+            drawPolygonPath(ctx, width, height, config.polygonSides, effectiveStroke);
+            break;
+        case 'squircle':
+            drawSquirclePath(ctx, width, height, config.squircleCurvature, effectiveStroke);
+            break;
+        case 'star':
+            drawStarPath(ctx, width, height, config.starPoints, config.starDepth, effectiveStroke);
             break;
     }
 
     ctx.fill();
     ctx.restore();
 
+    // If border is enabled, draw it on the preview (but NOT when downloading the mask)
+    if (config.borderEnabled && !config.isDownloading) {
+        ctx.save();
+        ctx.translate(width / 2, height / 2);
+        ctx.rotate((rotation * Math.PI) / 180);
+        ctx.translate(-width / 2, -height / 2);
+
+        ctx.strokeStyle = config.borderColor;
+        ctx.lineWidth = config.borderThickness;
+        ctx.globalCompositeOperation = 'source-over';
+        
+        ctx.beginPath();
+        switch (config.shape) {
+            case 'rectangle':
+                if (config.independentCorners) {
+                    drawAdvancedRoundedRectPath(ctx, width, height, config.cornerRadiusTL, config.cornerRadiusTR, config.cornerRadiusBR, config.cornerRadiusBL, config.borderThickness);
+                } else {
+                    drawRoundedRectPath(ctx, width, height, config.cornerRadius, config.borderThickness);
+                }
+                break;
+            case 'ellipse':
+                drawEllipsePath(ctx, width, height, config.borderThickness);
+                break;
+            case 'polygon':
+                drawPolygonPath(ctx, width, height, config.polygonSides, config.borderThickness);
+                break;
+            case 'squircle':
+                drawSquirclePath(ctx, width, height, config.squircleCurvature, config.borderThickness);
+                break;
+            case 'star':
+                drawStarPath(ctx, width, height, config.starPoints, config.starDepth, config.borderThickness);
+                break;
+        }
+        ctx.stroke();
+        ctx.restore();
+    }
+
     // Update dimension badge and canvas scale
     updateDimensionBadge();
     updateCanvasScale();
 }
 
-/**
- * Draw a rounded rectangle
- */
-function drawRoundedRect(width, height, radiusPercent) {
-    const padding = 0;
+function drawAdvancedRoundedRectPath(context, width, height, tl, tr, br, bl, strokeWidth) {
+    const padding = strokeWidth / 2;
     const x = padding;
     const y = padding;
     const w = width - (padding * 2);
     const h = height - (padding * 2);
 
-    // Calculate actual radius from percentage
     const maxRadius = Math.min(w, h) / 2;
-    const radius = (radiusPercent / 100) * maxRadius;
+    const rTL = (tl / 100) * maxRadius;
+    const rTR = (tr / 100) * maxRadius;
+    const rBR = (br / 100) * maxRadius;
+    const rBL = (bl / 100) * maxRadius;
 
-    ctx.moveTo(x + radius, y);
-    ctx.lineTo(x + w - radius, y);
-    ctx.arcTo(x + w, y, x + w, y + radius, radius);
-    ctx.lineTo(x + w, y + h - radius);
-    ctx.arcTo(x + w, y + h, x + w - radius, y + h, radius);
-    ctx.lineTo(x + radius, y + h);
-    ctx.arcTo(x, y + h, x, y + h - radius, radius);
-    ctx.lineTo(x, y + radius);
-    ctx.arcTo(x, y, x + radius, y, radius);
-    ctx.closePath();
+    context.moveTo(x + rTL, y);
+    context.lineTo(x + w - rTR, y);
+    context.arcTo(x + w, y, x + w, y + rTR, rTR);
+    context.lineTo(x + w, y + h - rBR);
+    context.arcTo(x + w, y + h, x + w - rBR, y + h, rBR);
+    context.lineTo(x + rBL, y + h);
+    context.arcTo(x, y + h, x, y + h - rBL, rBL);
+    context.lineTo(x, y + rTL);
+    context.arcTo(x, y, x + rTL, y, rTL);
+    context.closePath();
 }
 
-/**
- * Draw an ellipse
- */
-function drawEllipse(width, height) {
+function drawSquirclePath(context, width, height, n, strokeWidth) {
+    const padding = strokeWidth / 2;
+    const w = width - (padding * 2);
+    const h = height - (padding * 2);
+    const a = w / 2;
+    const b = h / 2;
     const cx = width / 2;
     const cy = height / 2;
-    const rx = (width / 2) * 0.95;
-    const ry = (height / 2) * 0.95;
-
-    ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
-    ctx.closePath();
-}
-
-/**
- * Draw a regular polygon
- */
-function drawPolygon(width, height, sides) {
-    const cx = width / 2;
-    const cy = height / 2;
-    const radius = Math.min(width, height) / 2 * 0.9;
-
-    // Start from top (subtract 90 degrees)
-    const startAngle = -Math.PI / 2;
-
-    for (let i = 0; i <= sides; i++) {
-        const angle = startAngle + (i * 2 * Math.PI / sides);
-        const x = cx + radius * Math.cos(angle);
-        const y = cy + radius * Math.sin(angle);
-
+    
+    // Using a polyline approximation for the superellipse
+    const steps = 100;
+    for (let i = 0; i <= steps; i++) {
+        const t = (i * 2 * Math.PI) / steps;
+        
+        // Ensure we don't do Math.pow on negative numbers
+        const cosT = Math.cos(t);
+        const sinT = Math.sin(t);
+        const signCos = Math.sign(cosT);
+        const signSin = Math.sign(sinT);
+        
+        const x = cx + signCos * a * Math.pow(Math.abs(cosT), 2 / n);
+        const y = cy + signSin * b * Math.pow(Math.abs(sinT), 2 / n);
+        
         if (i === 0) {
-            ctx.moveTo(x, y);
+            context.moveTo(x, y);
         } else {
-            ctx.lineTo(x, y);
+            context.lineTo(x, y);
         }
     }
+    context.closePath();
+}
 
-    ctx.closePath();
+function drawStarPath(context, width, height, points, depth, strokeWidth) {
+    const padding = strokeWidth / 2;
+    const cx = width / 2;
+    const cy = height / 2;
+    const outerRadius = (Math.min(width, height) / 2) - padding;
+    // depth is percentage 10 to 90, inverted so 90 is deeper
+    const innerRadius = outerRadius * (1 - (depth / 100));
+
+    const step = Math.PI / points;
+    let rotation = (Math.PI / 2) * 3;
+    let x, y;
+
+    for (let i = 0; i < points; i++) {
+        x = cx + Math.cos(rotation) * outerRadius;
+        y = cy + Math.sin(rotation) * outerRadius;
+        if (i === 0) {
+            context.moveTo(x, y);
+        } else {
+            context.lineTo(x, y);
+        }
+        rotation += step;
+
+        x = cx + Math.cos(rotation) * innerRadius;
+        y = cy + Math.sin(rotation) * innerRadius;
+        context.lineTo(x, y);
+        rotation += step;
+    }
+    context.closePath();
 }
 
 /**
@@ -326,15 +442,25 @@ function drawBorder() {
     // Draw shape outline
     borderCtx.beginPath();
 
-    switch (shape) {
+    switch (config.shape) {
         case 'rectangle':
-            drawRoundedRectPath(borderCtx, width, height, cornerRadius, borderThickness);
+            if (config.independentCorners) {
+                drawAdvancedRoundedRectPath(borderCtx, width, height, config.cornerRadiusTL, config.cornerRadiusTR, config.cornerRadiusBR, config.cornerRadiusBL, config.borderThickness);
+            } else {
+                drawRoundedRectPath(borderCtx, width, height, config.cornerRadius, config.borderThickness);
+            }
             break;
         case 'ellipse':
-            drawEllipsePath(borderCtx, width, height, borderThickness);
+            drawEllipsePath(borderCtx, width, height, config.borderThickness);
             break;
         case 'polygon':
-            drawPolygonPath(borderCtx, width, height, polygonSides, borderThickness);
+            drawPolygonPath(borderCtx, width, height, config.polygonSides, config.borderThickness);
+            break;
+        case 'squircle':
+            drawSquirclePath(borderCtx, width, height, config.squircleCurvature, config.borderThickness);
+            break;
+        case 'star':
+            drawStarPath(borderCtx, width, height, config.starPoints, config.starDepth, config.borderThickness);
             break;
     }
 
@@ -413,6 +539,12 @@ function updateControlsVisibility() {
 
     // Polygon sides - show for polygon only
     elements.polygonSidesGroup.classList.toggle('hidden', shape !== 'polygon');
+    
+    // Squircle curvature
+    elements.squircleCurvatureGroup.classList.toggle('hidden', shape !== 'squircle');
+    
+    // Star controls
+    elements.starControlsGroup.classList.toggle('hidden', shape !== 'star');
 }
 
 /**
@@ -539,6 +671,39 @@ function downloadCanvas(canvas, filename) {
     link.click();
 }
 
+/**
+ * Handle WebCam toggle
+ */
+async function toggleWebcam() {
+    if (config.webcamActive) {
+        // Turn off
+        const stream = elements.webcamVideo.srcObject;
+        if (stream) {
+            stream.getTracks().forEach(track => track.stop());
+        }
+        elements.webcamVideo.srcObject = null;
+        elements.webcamVideo.style.display = 'none';
+        config.webcamActive = false;
+        elements.webcamToggle.textContent = '📷 Test with Webcam';
+        elements.webcamToggle.style.background = '#9146ff';
+        requestDraw();
+    } else {
+        // Turn on
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: { width: 1280, height: 720 } });
+            elements.webcamVideo.srcObject = stream;
+            elements.webcamVideo.style.display = 'block';
+            config.webcamActive = true;
+            elements.webcamToggle.textContent = '⏹ Stop Webcam';
+            elements.webcamToggle.style.background = '#e91e63';
+            requestDraw();
+        } catch (err) {
+            alert('Could not access webcam. Please make sure you have a webcam connected and have granted browser permissions.');
+            console.error('Webcam error:', err);
+        }
+    }
+}
+
 // ============================
 // Event Listeners Setup
 // ============================
@@ -586,7 +751,15 @@ function setupEventListeners() {
         });
     });
 
-    // Corner radius slider
+    // Independent Corners toggle
+    elements.independentCorners.addEventListener('change', () => {
+        config.independentCorners = elements.independentCorners.checked;
+        elements.singleCornerWrap.classList.toggle('hidden', config.independentCorners);
+        elements.multiCornerWrap.classList.toggle('hidden', !config.independentCorners);
+        requestDraw();
+    });
+
+    // Corner radius slider (Global)
     elements.cornerRadius.addEventListener('input', () => {
         config.cornerRadius = parseInt(elements.cornerRadius.value);
         syncSliderAndInput(elements.cornerRadius, elements.cornerRadiusValue);
@@ -600,6 +773,19 @@ function setupEventListeners() {
         elements.cornerRadiusValue.value = value;
         requestDraw();
     });
+    
+    // Advanced Corner TL
+    elements.cornerTL.addEventListener('input', () => { config.cornerRadiusTL = parseInt(elements.cornerTL.value); syncSliderAndInput(elements.cornerTL, elements.cornerTLValue); requestDraw(); });
+    elements.cornerTLValue.addEventListener('input', () => { const val = Math.min(50, Math.max(0, parseInt(elements.cornerTLValue.value) || 0)); config.cornerRadiusTL = val; elements.cornerTL.value = val; elements.cornerTLValue.value = val; requestDraw(); });
+    // Advanced Corner TR
+    elements.cornerTR.addEventListener('input', () => { config.cornerRadiusTR = parseInt(elements.cornerTR.value); syncSliderAndInput(elements.cornerTR, elements.cornerTRValue); requestDraw(); });
+    elements.cornerTRValue.addEventListener('input', () => { const val = Math.min(50, Math.max(0, parseInt(elements.cornerTRValue.value) || 0)); config.cornerRadiusTR = val; elements.cornerTR.value = val; elements.cornerTRValue.value = val; requestDraw(); });
+    // Advanced Corner BR
+    elements.cornerBR.addEventListener('input', () => { config.cornerRadiusBR = parseInt(elements.cornerBR.value); syncSliderAndInput(elements.cornerBR, elements.cornerBRValue); requestDraw(); });
+    elements.cornerBRValue.addEventListener('input', () => { const val = Math.min(50, Math.max(0, parseInt(elements.cornerBRValue.value) || 0)); config.cornerRadiusBR = val; elements.cornerBR.value = val; elements.cornerBRValue.value = val; requestDraw(); });
+    // Advanced Corner BL
+    elements.cornerBL.addEventListener('input', () => { config.cornerRadiusBL = parseInt(elements.cornerBL.value); syncSliderAndInput(elements.cornerBL, elements.cornerBLValue); requestDraw(); });
+    elements.cornerBLValue.addEventListener('input', () => { const val = Math.min(50, Math.max(0, parseInt(elements.cornerBLValue.value) || 0)); config.cornerRadiusBL = val; elements.cornerBL.value = val; elements.cornerBLValue.value = val; requestDraw(); });
 
     // Polygon sides slider
     elements.polygonSides.addEventListener('input', () => {
@@ -613,6 +799,46 @@ function setupEventListeners() {
         config.polygonSides = value;
         elements.polygonSides.value = value;
         elements.polygonSidesValue.value = value;
+        requestDraw();
+    });
+
+    // Squircle Curvature
+    elements.squircleCurvature.addEventListener('input', () => {
+        config.squircleCurvature = parseFloat(elements.squircleCurvature.value);
+        syncSliderAndInput(elements.squircleCurvature, elements.squircleCurvatureValue);
+        requestDraw();
+    });
+    elements.squircleCurvatureValue.addEventListener('input', () => {
+        const val = Math.min(10, Math.max(1, parseFloat(elements.squircleCurvatureValue.value) || 3.5));
+        config.squircleCurvature = val;
+        elements.squircleCurvature.value = val;
+        elements.squircleCurvatureValue.value = val;
+        requestDraw();
+    });
+
+    // Star Controls
+    elements.starPoints.addEventListener('input', () => {
+        config.starPoints = parseInt(elements.starPoints.value);
+        syncSliderAndInput(elements.starPoints, elements.starPointsValue);
+        requestDraw();
+    });
+    elements.starPointsValue.addEventListener('input', () => {
+        const val = Math.min(20, Math.max(3, parseInt(elements.starPointsValue.value) || 5));
+        config.starPoints = val;
+        elements.starPoints.value = val;
+        elements.starPointsValue.value = val;
+        requestDraw();
+    });
+    elements.starDepth.addEventListener('input', () => {
+        config.starDepth = parseInt(elements.starDepth.value);
+        syncSliderAndInput(elements.starDepth, elements.starDepthValue);
+        requestDraw();
+    });
+    elements.starDepthValue.addEventListener('input', () => {
+        const val = Math.min(90, Math.max(10, parseInt(elements.starDepthValue.value) || 50));
+        config.starDepth = val;
+        elements.starDepth.value = val;
+        elements.starDepthValue.value = val;
         requestDraw();
     });
 
@@ -657,17 +883,20 @@ function setupEventListeners() {
         config.borderEnabled = elements.enableBorder.checked;
         elements.borderControls.classList.toggle('hidden', !config.borderEnabled);
         elements.downloadBorder.classList.toggle('hidden', !config.borderEnabled);
+        requestDraw();
     });
 
     // Border color
     elements.borderColor.addEventListener('input', () => {
         config.borderColor = elements.borderColor.value;
+        requestDraw();
     });
 
     // Border thickness slider
     elements.borderThickness.addEventListener('input', () => {
         config.borderThickness = parseInt(elements.borderThickness.value);
         syncSliderAndInput(elements.borderThickness, elements.borderThicknessValue);
+        requestDraw();
     });
 
     elements.borderThicknessValue.addEventListener('input', () => {
@@ -675,13 +904,20 @@ function setupEventListeners() {
         config.borderThickness = value;
         elements.borderThickness.value = value;
         elements.borderThicknessValue.value = value;
+        requestDraw();
     });
 
     // Download mask button
     elements.downloadMask.addEventListener('click', () => {
+        config.isDownloading = true;
+        draw(); // Force synchronous draw for solid mask
+        
         const timestamp = Date.now();
         const shapeName = config.shape.charAt(0).toUpperCase() + config.shape.slice(1);
         downloadCanvas(elements.canvas, `OBS_Mask_${shapeName}_${config.width}x${config.height}_${timestamp}.png`);
+        
+        config.isDownloading = false;
+        draw(); // Restore transparent preview if webcam is active
     });
 
     // Download border button
@@ -707,6 +943,11 @@ function setupEventListeners() {
             updateZoomButtons();
             updateCanvasScale();
         });
+    }
+
+    // Webcam button
+    if (elements.webcamToggle) {
+        elements.webcamToggle.addEventListener('click', toggleWebcam);
     }
 
     // Window resize handler
