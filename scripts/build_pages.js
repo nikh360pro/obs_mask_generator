@@ -40,6 +40,7 @@ function generateHTML(game, gpu, verdict) {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../blog/blog-style.css">
     <link rel="stylesheet" href="../../../assets/css/common.css">
+    <script src="/components.js" defer></script>
 </head>
 <body>
     <header class="blog-header">
