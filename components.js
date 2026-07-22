@@ -196,21 +196,43 @@ const GlobalComponents = {
                 }
 
                 @media (max-width: 768px) {
+                    .mynofi-promo-banner-v2 {
+                        padding: 12px 16px;
+                    }
                     .mynofi-banner-container {
                         flex-direction: column;
                         text-align: center;
-                        gap: 16px;
-                    }
-                    .mynofi-banner-left {
-                        flex-direction: column;
                         gap: 12px;
                     }
+                    .mynofi-banner-left {
+                        flex-direction: row; /* Align logo and text horizontally on mobile to save space */
+                        gap: 12px;
+                        text-align: left;
+                    }
+                    .mynofi-banner-logo-wrap {
+                        width: 44px;
+                        height: 44px;
+                        box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+                    }
                     .mynofi-banner-title {
-                        justify-content: center;
+                        justify-content: flex-start;
+                        font-size: 15px;
+                        gap: 8px;
+                    }
+                    .mynofi-banner-badge {
+                        font-size: 10px;
+                        padding: 2px 6px;
+                    }
+                    .mynofi-banner-desc {
+                        font-size: 13px;
+                        line-height: 1.3;
                     }
                     .mynofi-banner-cta {
                         width: 100%;
                         justify-content: center;
+                        padding: 10px;
+                        font-size: 15px;
+                        border-radius: 8px;
                     }
                 }
             </style>
@@ -257,7 +279,8 @@ const GlobalComponents = {
                 document.body.style.paddingBottom = "0px";
             } else {
                 // Dynamically add massive padding to the body so the 1.5x banner doesn't cover footer links
-                document.body.style.paddingBottom = "180px";
+                const isMobile = window.innerWidth <= 768;
+                document.body.style.paddingBottom = isMobile ? "130px" : "180px";
             }
         }
     },
