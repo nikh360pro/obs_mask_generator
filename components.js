@@ -83,40 +83,162 @@ const GlobalComponents = {
         injectBody: true,
         html: `
             <style>
-                .mynofi-promo-banner {
-                    display: flex; align-items: center; justify-content: center;
-                    background-color: #18181b; color: #efeff1;
-                    padding: 12px 24px; text-decoration: none;
-                    font-family: 'Inter', system-ui, sans-serif;
-                    transition: background-color 0.15s ease;
+                .mynofi-promo-banner-v2 {
                     position: fixed;
                     bottom: 0;
                     left: 0;
                     right: 0;
                     z-index: 9999;
-                    box-shadow: 0 -4px 12px rgba(0,0,0,0.25);
+                    background: linear-gradient(180deg, #18181b 0%, #111113 100%);
+                    border-top: 1px solid rgba(145, 70, 255, 0.3);
+                    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5), 0 -2px 10px rgba(145, 70, 255, 0.1);
+                    padding: 24px 36px;
+                    text-decoration: none;
+                    font-family: 'Inter', system-ui, sans-serif;
+                    transition: all 0.2s ease;
                 }
-                .mynofi-promo-banner:hover { background-color: #1f1f23; }
-                .mynofi-banner-content { display: flex; align-items: center; gap: 16px; width: 100%; justify-content: center; }
-                .mynofi-banner-badge { background: #9146ff; color: #fff; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
-                .mynofi-banner-text { font-size: 14px; font-weight: 400; color: #d3d3d9; }
-                .mynofi-banner-text strong { color: #fff; font-weight: 600; }
-                .mynofi-banner-link { color: #bf94ff; font-weight: 500; font-size: 14px; display: flex; align-items: center; gap: 4px; }
-                .mynofi-banner-link:hover { color: #a970ff; text-decoration: underline; }
+
+                .mynofi-promo-banner-v2:hover {
+                    background: linear-gradient(180deg, #1f1f23 0%, #151518 100%);
+                    border-top: 1px solid rgba(145, 70, 255, 0.5);
+                }
+
+                .mynofi-banner-container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 36px;
+                }
+
+                .mynofi-banner-left {
+                    display: flex;
+                    align-items: center;
+                    gap: 30px;
+                    flex: 1;
+                }
+
+                .mynofi-banner-logo-wrap {
+                    position: relative;
+                    width: 96px;
+                    height: 96px;
+                    flex-shrink: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .mynofi-banner-logo {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                }
+
+                .mynofi-banner-text-wrap {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4px;
+                }
+
+                .mynofi-banner-title {
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    font-size: 24px;
+                    font-weight: 700;
+                    color: #ffffff;
+                    letter-spacing: -0.01em;
+                }
+
+                .mynofi-banner-badge {
+                    background: #9146ff;
+                    color: #fff;
+                    font-size: 14px;
+                    font-weight: 800;
+                    padding: 4px 12px;
+                    border-radius: 6px;
+                    text-transform: uppercase;
+                    letter-spacing: 0.08em;
+                }
+
+                .mynofi-banner-desc {
+                    font-size: 20px;
+                    font-weight: 400;
+                    color: #adadb8;
+                    line-height: 1.4;
+                }
+                
+                .mynofi-banner-desc strong {
+                    color: #efeff1;
+                    font-weight: 600;
+                }
+
+                .mynofi-banner-cta {
+                    background: #9146ff;
+                    color: #ffffff;
+                    padding: 15px 30px;
+                    border-radius: 12px;
+                    font-size: 20px;
+                    font-weight: 600;
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    flex-shrink: 0;
+                    transition: all 0.2s ease;
+                    white-space: nowrap;
+                }
+
+                .mynofi-promo-banner-v2:hover .mynofi-banner-cta {
+                    background: #a970ff;
+                    transform: translateY(-1px);
+                    box-shadow: 0 4px 12px rgba(145, 70, 255, 0.3);
+                }
+
                 @media (max-width: 768px) {
-                    .mynofi-banner-content { flex-direction: column; gap: 8px; text-align: center; }
-                    .mynofi-banner-text { font-size: 13px; line-height: 1.4; }
+                    .mynofi-banner-container {
+                        flex-direction: column;
+                        text-align: center;
+                        gap: 16px;
+                    }
+                    .mynofi-banner-left {
+                        flex-direction: column;
+                        gap: 12px;
+                    }
+                    .mynofi-banner-title {
+                        justify-content: center;
+                    }
+                    .mynofi-banner-cta {
+                        width: 100%;
+                        justify-content: center;
+                    }
                 }
             </style>
-            <a href="/mynofi/" class="mynofi-promo-banner">
-                <div class="mynofi-banner-content">
-                    <span class="mynofi-banner-badge">New Tool</span>
-                    <div class="mynofi-banner-text">
-                        <strong>OBS crashed without you noticing?</strong> Protect your recordings with the Mynofi failsafe alert system.
+            <a href="/mynofi/" class="mynofi-promo-banner-v2">
+                <div class="mynofi-banner-container">
+                    
+                    <div class="mynofi-banner-left">
+                        <div class="mynofi-banner-logo-wrap">
+                            <!-- Absolute path so logo loads correctly on any sub-page -->
+                            <img src="/mynofi/assets/logo.webp" alt="Mynofi Logo" class="mynofi-banner-logo">
+                        </div>
+                        
+                        <div class="mynofi-banner-text-wrap">
+                            <div class="mynofi-banner-title">
+                                Stop Missing Recordings
+                                <span class="mynofi-banner-badge">New Tool</span>
+                            </div>
+                            <div class="mynofi-banner-desc">
+                                <strong>OBS crashed without you noticing?</strong> Protect your footage with the Mynofi failsafe desktop alert system.
+                            </div>
+                        </div>
                     </div>
-                    <div class="mynofi-banner-link">
-                        See how it works <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+
+                    <div class="mynofi-banner-cta">
+                        See how it works
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                     </div>
+
                 </div>
             </a>
         `,
@@ -131,8 +253,11 @@ const GlobalComponents = {
                 const bannerContainer = document.getElementById('mynofiPromoBanner-container');
                 if (bannerContainer) bannerContainer.remove();
                 
-                // Remove the static padding-bottom that was added in style.css
+                // Remove any padding
                 document.body.style.paddingBottom = "0px";
+            } else {
+                // Dynamically add massive padding to the body so the 1.5x banner doesn't cover footer links
+                document.body.style.paddingBottom = "180px";
             }
         }
     },
