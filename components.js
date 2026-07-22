@@ -7,17 +7,21 @@
 
 const GlobalComponents = {
     /**
-     * Google Analytics 4 with Consent Mode v2
-     * Loads GA4 immediately in "denied" state, updates consent dynamically
-     * GDPR compliant - no tracking until user accepts cookies via AdSense CMP
+     * Google Analytics 4 (Standard Tracking)
+     * Centralized GA4 tracking for all 1400+ pages.
      */
     ga4ConsentMode: {
         measurementId: 'G-C84663S6K3',
 
         init: function() {
             // Skip on localhost
-            if (window.location.hostname === 'localhost') {
-                console.log('[GA4 Consent Mode] Skipped - localhost detected');
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                console.log('[GA4] Skipped - localhost detected');
+                return;
+            }
+
+            // Prevent double initialization if already loaded
+            if (window.dataLayer && window.dataLayer.some(item => item[0] === 'config' && item[1] === this.measurementId)) {
                 return;
             }
 
@@ -26,50 +30,19 @@ const GlobalComponents = {
             function gtag() { dataLayer.push(arguments); }
             window.gtag = gtag;
 
-            // Step 2: Set default consent to "denied" (GDPR compliant)
-            gtag('consent', 'default', {
-                'analytics_storage': 'denied'
-            });
-
-            // Step 3: Load GA4 script (loads ONCE, immediately)
+            // Step 2: Load GA4 script (loads ONCE, immediately)
             const script = document.createElement('script');
             script.async = true;
             script.src = 'https://www.googletagmanager.com/gtag/js?id=' + this.measurementId;
             document.head.appendChild(script);
 
-            // Step 4: Initialize GA4 (in denied state)
+            // Step 3: Initialize GA4
             gtag('js', new Date());
             gtag('config', this.measurementId, {
                 'anonymize_ip': true
             });
 
-            console.log('[GA4 Consent Mode] Initialized in denied state');
-            // Note: AdSense CMP will automatically update consent when user accepts
-        },
-
-        grantConsent: function() {
-            if (!window.gtag) {
-                console.warn('[GA4 Consent Mode] gtag not loaded yet');
-                return;
-            }
-
-            // Update consent to "granted" (enables tracking)
-            gtag('consent', 'update', {
-                'analytics_storage': 'granted'
-            });
-
-            console.log('[GA4 Consent Mode] Consent granted - tracking enabled');
-        },
-
-        revokeConsent: function() {
-            if (!window.gtag) return;
-
-            // Update consent to "denied" (disables tracking)
-            gtag('consent', 'update', {
-                'analytics_storage': 'denied'
-            });
-
-            console.log('[GA4 Consent Mode] Consent revoked - tracking disabled');
+            console.log('[GA4] Initialized standard tracking via components.js');
         }
     },
 

@@ -31,8 +31,6 @@ function generateHTML(game, gpu, verdict) {
     return `<!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C84663S6K3"></script>
-    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-C84663S6K3');</script>
     <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
