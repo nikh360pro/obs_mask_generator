@@ -258,32 +258,12 @@ function draw() {
     // Determine stroke offset for mask so it perfectly aligns with border center
     const effectiveStroke = config.borderEnabled ? config.borderThickness : 0;
 
-    // Draw shape based on type
+    // Draw shape based on type using shared helper
     ctx.beginPath();
-    switch (config.shape) {
-        case 'rectangle':
-            if (config.independentCorners) {
-                drawAdvancedRoundedRectPath(ctx, width, height, config.cornerRadiusTL, config.cornerRadiusTR, config.cornerRadiusBR, config.cornerRadiusBL, effectiveStroke);
-            } else {
-                drawRoundedRectPath(ctx, width, height, config.cornerRadius, effectiveStroke);
-            }
-            break;
-        case 'ellipse':
-            drawEllipsePath(ctx, width, height, effectiveStroke);
-            break;
-        case 'polygon':
-            drawPolygonPath(ctx, width, height, config.polygonSides, effectiveStroke);
-            break;
-        case 'squircle':
-            drawSquirclePath(ctx, width, height, config.squircleCurvature, effectiveStroke);
-            break;
-        case 'star':
-            drawStarPath(ctx, width, height, config.starPoints, config.starDepth, effectiveStroke);
-            break;
-    }
-
+    drawShapeToContext(ctx, config, config.width, config.height, effectiveStroke);
     ctx.fill();
     ctx.restore();
+
 
     // If border is enabled, draw it on the preview (but NOT when downloading the mask)
     if (config.borderEnabled && !config.isDownloading) {
@@ -297,27 +277,7 @@ function draw() {
         ctx.globalCompositeOperation = 'source-over';
         
         ctx.beginPath();
-        switch (config.shape) {
-            case 'rectangle':
-                if (config.independentCorners) {
-                    drawAdvancedRoundedRectPath(ctx, width, height, config.cornerRadiusTL, config.cornerRadiusTR, config.cornerRadiusBR, config.cornerRadiusBL, config.borderThickness);
-                } else {
-                    drawRoundedRectPath(ctx, width, height, config.cornerRadius, config.borderThickness);
-                }
-                break;
-            case 'ellipse':
-                drawEllipsePath(ctx, width, height, config.borderThickness);
-                break;
-            case 'polygon':
-                drawPolygonPath(ctx, width, height, config.polygonSides, config.borderThickness);
-                break;
-            case 'squircle':
-                drawSquirclePath(ctx, width, height, config.squircleCurvature, config.borderThickness);
-                break;
-            case 'star':
-                drawStarPath(ctx, width, height, config.starPoints, config.starDepth, config.borderThickness);
-                break;
-        }
+        drawShapeToContext(ctx, config, width, height, config.borderThickness);
         ctx.stroke();
         ctx.restore();
     }
@@ -441,33 +401,44 @@ function drawBorder() {
 
     // Draw shape outline
     borderCtx.beginPath();
-
-    switch (config.shape) {
-        case 'rectangle':
-            if (config.independentCorners) {
-                drawAdvancedRoundedRectPath(borderCtx, width, height, config.cornerRadiusTL, config.cornerRadiusTR, config.cornerRadiusBR, config.cornerRadiusBL, config.borderThickness);
-            } else {
-                drawRoundedRectPath(borderCtx, width, height, config.cornerRadius, config.borderThickness);
-            }
-            break;
-        case 'ellipse':
-            drawEllipsePath(borderCtx, width, height, config.borderThickness);
-            break;
-        case 'polygon':
-            drawPolygonPath(borderCtx, width, height, config.polygonSides, config.borderThickness);
-            break;
-        case 'squircle':
-            drawSquirclePath(borderCtx, width, height, config.squircleCurvature, config.borderThickness);
-            break;
-        case 'star':
-            drawStarPath(borderCtx, width, height, config.starPoints, config.starDepth, config.borderThickness);
-            break;
-    }
-
+    drawShapeToContext(borderCtx, config, width, height, config.borderThickness);
     borderCtx.stroke();
     borderCtx.restore();
 
     return borderCanvas;
+}
+
+/**
+ * Shared shape path helper — draws the correct path for a given cfg into any context.
+ * @param {CanvasRenderingContext2D} context
+ * @param {Object} cfg  - config-shaped object with shape/cornerRadius/etc.
+ * @param {number} w    - canvas width
+ * @param {number} h    - canvas height
+ * @param {number} strokeWidth - half of this is used as inset padding (for border alignment)
+ */
+function drawShapeToContext(context, cfg, w, h, strokeWidth) {
+    strokeWidth = strokeWidth || 0;
+    switch (cfg.shape) {
+        case 'rectangle':
+            if (cfg.independentCorners) {
+                drawAdvancedRoundedRectPath(context, w, h, cfg.cornerRadiusTL, cfg.cornerRadiusTR, cfg.cornerRadiusBR, cfg.cornerRadiusBL, strokeWidth);
+            } else {
+                drawRoundedRectPath(context, w, h, cfg.cornerRadius, strokeWidth);
+            }
+            break;
+        case 'ellipse':
+            drawEllipsePath(context, w, h, strokeWidth);
+            break;
+        case 'polygon':
+            drawPolygonPath(context, w, h, cfg.polygonSides, strokeWidth);
+            break;
+        case 'squircle':
+            drawSquirclePath(context, w, h, cfg.squircleCurvature, strokeWidth);
+            break;
+        case 'star':
+            drawStarPath(context, w, h, cfg.starPoints, cfg.starDepth, strokeWidth);
+            break;
+    }
 }
 
 function drawRoundedRectPath(ctx, width, height, radiusPercent, strokeWidth) {

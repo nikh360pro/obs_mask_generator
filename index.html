@@ -508,6 +508,15 @@
                         Download Border Overlay
                     </button>
                 </div>
+                <!-- Engagement Feature Buttons -->
+                <div style="display: flex; gap: 0.6rem; margin-top: 0.75rem; flex-wrap: wrap;">
+                    <button id="sb-toggle-btn" style="flex: 1; min-width: 180px; display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.6rem 1rem; background: #1f1f23; border: 1px solid #9146ff; border-radius: 8px; color: #9146ff; font-size: 0.85rem; font-weight: 600; font-family: inherit; cursor: pointer; transition: background 0.15s;" onmouseover="this.style.background='rgba(145,70,255,0.12)'" onmouseout="this.style.background='#1f1f23'" aria-label="Open OBS Scene Builder">
+                        🎬 Preview in OBS Scene
+                    </button>
+                    <button id="pack-open-btn" style="flex: 1; min-width: 180px; display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.6rem 1rem; background: #1f1f23; border: 1px solid #00f593; border-radius: 8px; color: #00f593; font-size: 0.85rem; font-weight: 600; font-family: inherit; cursor: pointer; transition: background 0.15s;" onmouseover="this.style.background='rgba(0,245,147,0.08)'" onmouseout="this.style.background='#1f1f23'" aria-label="Open Stream Pack Generator">
+                        📦 Build a Stream Pack
+                    </button>
+                </div>
                 <!-- Social Share Buttons -->
                 <div class="share-buttons"
                     style="display: flex; gap: 0.5rem; margin-top: 1rem; justify-content: center;">
@@ -538,6 +547,29 @@
                     <strong>Tip:</strong> In OBS, add this as an "Image Mask/Blend" filter to your webcam source.
                     White = visible, Black = hidden.
                 </p>
+
+                <!-- ── SCENE BUILDER PANEL ── -->
+                <div id="scene-builder-panel" class="hidden" style="margin-top: 1rem; background: #18181b; border: 1px solid #2f2f35; border-radius: 12px; overflow: hidden;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; border-bottom: 1px solid #2f2f35;">
+                        <span style="font-weight: 700; font-size: 0.9rem;">🎬 OBS Scene Preview</span>
+                        <div style="display: flex; gap: 0.5rem; align-items: center;">
+                            <button id="sb-reset-btn" style="background: #2f2f35; border: none; color: #adadb8; padding: 4px 10px; border-radius: 5px; font-size: 0.75rem; cursor: pointer;">↺ Reset</button>
+                            <button id="sb-close-btn" style="background: none; border: none; color: #848494; font-size: 1.2rem; cursor: pointer; line-height: 1;">✕</button>
+                        </div>
+                    </div>
+                    <div style="padding: 1rem;">
+                        <div id="sb-upload-area" style="border: 2px dashed #3d3d45; border-radius: 10px; padding: 2.5rem 1rem; text-align: center; cursor: pointer; transition: border-color 0.15s;" onmouseover="this.style.borderColor='#9146ff'" onmouseout="this.style.borderColor='#3d3d45'">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🖼️</div>
+                            <p style="color: #adadb8; font-size: 0.85rem; margin: 0;">Click or drag-and-drop an OBS/game screenshot here</p>
+                            <p style="color: #848494; font-size: 0.75rem; margin-top: 0.25rem;">PNG, JPG — your mask will be overlaid on it</p>
+                            <input type="file" id="sb-file-input" accept="image/*" style="display: none;">
+                        </div>
+                        <div id="sb-canvas-wrap" class="hidden" style="text-align: center;">
+                            <canvas id="sb-canvas" style="max-width: 100%; border-radius: 8px; cursor: move; display: block; margin: 0 auto;"></canvas>
+                            <p style="color: #848494; font-size: 0.75rem; margin-top: 0.5rem;">Drag to reposition &bull; Pull corners to resize &bull; Shape follows your current mask settings</p>
+                        </div>
+                    </div>
+                </div>
             </section>
         </main>
 
@@ -766,8 +798,93 @@
         setTimeout(loadGoogleAds, 3500);
     </script>
 
+    <!-- ── STREAM PACK WIZARD MODAL ── -->
+    <div id="pack-wizard-modal" class="hidden" style="position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 1rem;">
+        <div style="background: #18181b; border: 1px solid #2f2f35; border-radius: 16px; width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto; box-shadow: 0 24px 64px rgba(0,0,0,0.7);">
+            <!-- Header -->
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; border-bottom: 1px solid #2f2f35;">
+                <div>
+                    <div style="font-size: 1.1rem; font-weight: 700;">📦 Stream Pack Generator</div>
+                    <div style="color: #848494; font-size: 0.8rem; margin-top: 2px;">Build 3 masks &mdash; Gaming, Just Chatting, Portrait &mdash; download as one ZIP</div>
+                </div>
+                <button id="pack-close-btn" style="background: none; border: none; color: #848494; font-size: 1.4rem; cursor: pointer; padding: 0 4px;">✕</button>
+            </div>
+
+            <!-- Stepper -->
+            <div style="display: flex; align-items: center; justify-content: center; gap: 0; padding: 1.25rem 1.5rem 0;">
+                <div class="pack-step-dot" style="width: 32px; height: 32px; border-radius: 50%; background: #9146ff; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.8rem; flex-shrink: 0; transition: background 0.2s;">1</div>
+                <div style="flex: 1; height: 2px; background: #2f2f35; transition: background 0.2s;"></div>
+                <div class="pack-step-dot" style="width: 32px; height: 32px; border-radius: 50%; background: #2f2f35; color: #848494; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.8rem; flex-shrink: 0; transition: background 0.2s;">2</div>
+                <div style="flex: 1; height: 2px; background: #2f2f35;"></div>
+                <div class="pack-step-dot" style="width: 32px; height: 32px; border-radius: 50%; background: #2f2f35; color: #848494; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.8rem; flex-shrink: 0; transition: background 0.2s;">3</div>
+            </div>
+
+            <!-- Step body -->
+            <div style="padding: 1.25rem 1.5rem;">
+                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem;">
+                    <div id="pack-step-title" style="font-size: 1.2rem; font-weight: 700;">🎮 Gaming</div>
+                    <div id="pack-step-sub" style="color: #848494; font-size: 0.8rem;">1 of 3</div>
+                </div>
+
+                <!-- Mini Canvas Preview -->
+                <canvas id="pack-mini-canvas" width="400" height="225" style="width: 100%; border-radius: 8px; background: #111; display: block; margin-bottom: 1rem;"></canvas>
+
+                <!-- Controls -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem;">
+                    <div>
+                        <label style="display: block; font-size: 0.75rem; color: #848494; margin-bottom: 4px;">WIDTH (px)</label>
+                        <input type="number" id="pack-width" value="1920" min="100" max="7680" style="width: 100%; background: #26262c; border: 1px solid #2f2f35; border-radius: 6px; padding: 6px 10px; color: #efeff1; font-size: 0.875rem; font-family: inherit;">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 0.75rem; color: #848494; margin-bottom: 4px;">HEIGHT (px)</label>
+                        <input type="number" id="pack-height" value="1080" min="100" max="7680" style="width: 100%; background: #26262c; border: 1px solid #2f2f35; border-radius: 6px; padding: 6px 10px; color: #efeff1; font-size: 0.875rem; font-family: inherit;">
+                    </div>
+                </div>
+
+                <!-- Shape -->
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; font-size: 0.75rem; color: #848494; margin-bottom: 6px;">SHAPE</label>
+                    <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+                        <button class="pack-shape-btn active" data-shape="rectangle" style="padding: 5px 12px; border-radius: 6px; border: 1px solid #9146ff; background: rgba(145,70,255,0.15); color: #9146ff; font-size: 0.8rem; cursor: pointer; font-family: inherit;">Rect</button>
+                        <button class="pack-shape-btn" data-shape="ellipse" style="padding: 5px 12px; border-radius: 6px; border: 1px solid #2f2f35; background: #26262c; color: #adadb8; font-size: 0.8rem; cursor: pointer; font-family: inherit;">Circle</button>
+                        <button class="pack-shape-btn" data-shape="polygon" style="padding: 5px 12px; border-radius: 6px; border: 1px solid #2f2f35; background: #26262c; color: #adadb8; font-size: 0.8rem; cursor: pointer; font-family: inherit;">Hex</button>
+                        <button class="pack-shape-btn" data-shape="squircle" style="padding: 5px 12px; border-radius: 6px; border: 1px solid #2f2f35; background: #26262c; color: #adadb8; font-size: 0.8rem; cursor: pointer; font-family: inherit;">Squircle</button>
+                        <button class="pack-shape-btn" data-shape="star" style="padding: 5px 12px; border-radius: 6px; border: 1px solid #2f2f35; background: #26262c; color: #adadb8; font-size: 0.8rem; cursor: pointer; font-family: inherit;">Star</button>
+                    </div>
+                </div>
+
+                <!-- Corner Radius -->
+                <div style="margin-bottom: 1rem;">
+                    <div style="display: flex; justify-content: space-between;">
+                        <label style="font-size: 0.75rem; color: #848494;">CORNER RADIUS</label>
+                        <span id="pack-corner-value" style="font-size: 0.75rem; color: #9146ff;">10%</span>
+                    </div>
+                    <input type="range" id="pack-corner" min="0" max="50" value="10" style="width: 100%; margin-top: 4px; accent-color: #9146ff;">
+                </div>
+
+                <!-- Rotation -->
+                <div style="margin-bottom: 0.5rem;">
+                    <div style="display: flex; justify-content: space-between;">
+                        <label style="font-size: 0.75rem; color: #848494;">ROTATION</label>
+                        <span id="pack-rotation-value" style="font-size: 0.75rem; color: #9146ff;">0deg</span>
+                    </div>
+                    <input type="range" id="pack-rotation" min="0" max="360" value="0" style="width: 100%; margin-top: 4px; accent-color: #9146ff;">
+                </div>
+            </div>
+
+            <!-- Footer Nav -->
+            <div style="display: flex; gap: 0.75rem; padding: 1rem 1.5rem; border-top: 1px solid #2f2f35;">
+                <button id="pack-prev-btn" disabled style="flex: 1; padding: 0.65rem; background: #26262c; border: 1px solid #2f2f35; border-radius: 8px; color: #adadb8; font-size: 0.9rem; font-weight: 600; font-family: inherit; cursor: pointer;">← Back</button>
+                <button id="pack-next-btn" style="flex: 2; padding: 0.65rem; background: linear-gradient(135deg, #9146ff, #772ce8); border: none; border-radius: 8px; color: #fff; font-size: 0.9rem; font-weight: 700; font-family: inherit; cursor: pointer;">Next Step →</button>
+                <button id="pack-download-btn" class="hidden" style="flex: 2; padding: 0.65rem; background: linear-gradient(135deg, #00f593, #00c97a); border: none; border-radius: 8px; color: #000; font-size: 0.9rem; font-weight: 700; font-family: inherit; cursor: pointer;">⬇ Download All as ZIP</button>
+            </div>
+        </div>
+    </div>
+
     <!-- SEO Bait Image for Google Images Indexing -->
     <img src="/assets/obs-circle-mask-example.png" alt="OBS Circle Mask PNG Transparent Download" style="width: 1px; height: 1px; overflow: hidden; position: absolute; opacity: 0; pointer-events: none;">
+    <script src="scene-builder.js" defer></script>
+    <script src="stream-pack.js" defer></script>
 </body>
 
 </html>
