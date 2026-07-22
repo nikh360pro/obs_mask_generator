@@ -83,9 +83,6 @@ const GlobalComponents = {
         injectBody: true,
         html: `
             <style>
-                body.has-promo-banner {
-                    padding-bottom: 60px;
-                }
                 .mynofi-promo-banner {
                     display: flex; align-items: center; justify-content: center;
                     background-color: #18181b; color: #efeff1;
@@ -107,9 +104,6 @@ const GlobalComponents = {
                 .mynofi-banner-link { color: #bf94ff; font-weight: 500; font-size: 14px; display: flex; align-items: center; gap: 4px; }
                 .mynofi-banner-link:hover { color: #a970ff; text-decoration: underline; }
                 @media (max-width: 768px) {
-                    body.has-promo-banner {
-                        padding-bottom: 110px;
-                    }
                     .mynofi-banner-content { flex-direction: column; gap: 8px; text-align: center; }
                     .mynofi-banner-text { font-size: 13px; line-height: 1.4; }
                 }
@@ -136,9 +130,9 @@ const GlobalComponents = {
                 // If excluded, remove the injected banner container
                 const bannerContainer = document.getElementById('mynofiPromoBanner-container');
                 if (bannerContainer) bannerContainer.remove();
-            } else {
-                // Add padding so footer content isn't covered permanently
-                document.body.classList.add('has-promo-banner');
+                
+                // Remove the static padding-bottom that was added in style.css
+                document.body.style.paddingBottom = "0px";
             }
         }
     },
