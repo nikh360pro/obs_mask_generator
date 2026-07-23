@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Twitch Title Generator | Free Stream Titles</title>
+    <meta name="description" content="Generate clickbait, funny, and highly searchable Twitch & YouTube stream titles instantly using AI. 100% free, no signup required.">
+    <!-- OpenGraph / Social Meta Tags -->
+    <meta property="og:title" content="AI Twitch Title Generator | Free Stream Titles">
+    <meta property="og:description" content="Generate clickbait, funny, and highly searchable stream titles instantly using AI. 100% free, no signup required.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/twitch-title-generator/">
+    <meta property="og:image" content="https://obsmaskgenerator.com/assets/images/title-generator-og.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AI Twitch Title Generator | Free Stream Titles">
+    <meta name="twitter:description" content="Generate clickbait, funny, and highly searchable stream titles instantly using AI. 100% free, no signup required.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <style>
+        .generator-container { max-width: 600px; margin: 40px auto; padding: 30px; background: rgba(145, 70, 255, 0.05); border: 1px solid rgba(145, 70, 255, 0.2); border-radius: 12px; }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; margin-bottom: 8px; font-weight: 600; }
+        .input-group input, .input-group select { width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #333; background: #1a1a1a; color: #fff; font-size: 16px; }
+        .btn { width: 100%; padding: 14px; background: #9146ff; color: #fff; border: none; border-radius: 6px; font-size: 16px; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+        .btn:hover { background: #772ce8; }
+        .btn:disabled { background: #555; cursor: not-allowed; }
+        .results { margin-top: 30px; display: none; }
+        .title-card { background: #111; padding: 15px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #333; }
+        .title-card button { background: #333; border: none; color: #fff; padding: 6px 12px; border-radius: 4px; cursor: pointer; }
+        .title-card button:hover { background: #444; }
+    </style>
+    <script src="../components.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "How important are Twitch stream titles?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Twitch stream titles are critical. Since Twitch lacks an advanced discovery algorithm, a highly clickable, curious, or funny title is often the only reason a new viewer will choose your stream over someone else in the directory."
+        }
+      }, {
+        "@type": "Question",
+        "name": "What makes a good YouTube stream title?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Unlike Twitch, YouTube relies heavily on search and the home feed algorithm. A good YouTube stream title must include highly searched keywords while maintaining high CTR (Click-Through Rate) using capitalization or clickbait elements."
+        }
+      }]
+    }
+    </script>
+</head>
+<body>
+    <div class="app-container">
+        <nav class="navbar">
+            <div class="nav-content">
+                <a href="../" class="nav-logo">OBS Tools</a>
+                <div class="nav-links">
+                    <a href="../">Home</a>
+                    <a href="../can-i-stream/">Can I Stream?</a>
+                    <a href="../settings-generator/">Settings Gen</a>
+                </div>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <header style="text-align: center; margin-bottom: 2rem;">
+                <div style="display: inline-block; background: rgba(0, 245, 147, 0.15); color: #00f593; border: 1px solid #00f593; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 0.9rem; margin-bottom: 15px;">100% FREE • NO SIGNUP REQUIRED</div>
+                <h1 style="font-size: 2.5rem; margin-bottom: 10px; background: linear-gradient(to bottom, #ffffff, #aaaaaa); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;">AI Stream Title Generator</h1>
+                <p style="color: #aaa; font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Generate catchy, high-click stream titles for Twitch, YouTube, and Kick instantly to maximize your viewer discovery.</p>
+            </header>
+
+            <div class="generator-container">
+                <div class="input-group">
+                    <label for="platformSelect">Platform Target</label>
+                    <select id="platformSelect">
+                        <option value="twitch">🟣 Twitch (Community Focused)</option>
+                        <option value="youtube">🔴 YouTube (Algorithm/Search Focused)</option>
+                        <option value="kick">🟢 Kick (Edgy/Unfiltered)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="gameInput">Game or Category</label>
+                    <input type="text" id="gameInput" placeholder="e.g. Valorant, Just Chatting, Elden Ring" required>
+                </div>
+                <div class="input-group">
+                    <label for="vibeSelect">Title Vibe</label>
+                    <select id="vibeSelect">
+                        <option value="clickbait">🔥 Clickbait / Hype</option>
+                        <option value="funny">😂 Funny / Meme</option>
+                        <option value="tryhard">🎮 Tryhard / Ranked</option>
+                        <option value="chill">☕ Chill / Relaxing</option>
+                        <option value="question">🤔 Curiosity / Question</option>
+                    </select>
+                </div>
+                <button id="generateBtn" class="btn">Generate Titles & Tags 🚀</button>
+
+                <div id="resultsArea" class="results">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h3 style="margin: 0;">Your Generated Titles:</h3>
+                        <button id="viewHistoryBtn" style="background: transparent; border: 1px solid #555; color: #fff; padding: 5px 10px; border-radius: 4px; cursor: pointer;">🕒 View History</button>
+                    </div>
+                    <div id="titlesList"></div>
+                </div>
+            </div>
+
+            <!-- SEO Content Section -->
+            <article style="max-width: 800px; margin: 4rem auto; padding: 0 20px;">
+                <h2 style="margin-bottom: 1rem; border-bottom: 1px solid #333; padding-bottom: 0.5rem;">Why Your Stream Title Matters More Than Ever</h2>
+                <p style="color: #bbb; line-height: 1.6; margin-bottom: 1.5rem;">In 2026, streaming directories are more saturated than ever. When a viewer scrolls through the <em>Just Chatting</em> or <em>Valorant</em> category, they see a wall of thumbnails. Since your thumbnail is mostly out of your control (it's just live gameplay), your <strong>stream title is the #1 tool you have to increase your Click-Through Rate (CTR)</strong>.</p>
+                
+                <h3 style="margin-bottom: 1rem;">The Anatomy of a Perfect Twitch Title</h3>
+                <ul style="color: #bbb; line-height: 1.6; margin-bottom: 1.5rem; padding-left: 20px;">
+                    <li style="margin-bottom: 8px;"><strong>Curiosity Gap:</strong> Don't just say what you are doing. Make them want to know <em>what happens</em>. Instead of "Playing Ranked", use "Can we hit Immortal before I lose my mind?"</li>
+                    <li style="margin-bottom: 8px;"><strong>Front-load Important Words:</strong> Mobile users only see the first 30-40 characters of your title. Put the hook at the very beginning.</li>
+                    <li style="margin-bottom: 8px;"><strong>Use Brackets and Tags:</strong> Tags like <code>[DROPS]</code>, <code>[ENG/ESP]</code>, or <code>[18+]</code> catch the eye quickly when scanning a directory.</li>
+                </ul>
+
+                <h3 style="margin-bottom: 1rem;">YouTube Streams vs. Twitch Streams</h3>
+                <p style="color: #bbb; line-height: 1.6; margin-bottom: 1.5rem;">If you stream on YouTube, your strategy must completely change. YouTube relies heavily on algorithmic recommendations and search. A Twitch title like "vibing with chat" will completely kill a YouTube stream because it lacks searchable keywords. Our AI generator specifically adjusts its output depending on which platform you select above.</p>
+            </article>
+
+            <!-- SEO Keyword Cloud Section -->
+            <section style="max-width: 800px; margin: 4rem auto; padding: 0 20px;">
+                <h3 style="margin-bottom: 1rem; color: #fff;">Supported Games for Stream Titles & Tags</h3>
+                <p style="color: #888; font-size: 0.9rem; line-height: 1.8;">Our AI is trained to generate highly specific, algorithm-friendly titles and tags for all major streaming categories, including: <br>
+                Valorant, League of Legends, Just Chatting, Grand Theft Auto V, Counter-Strike 2, Dota 2, Apex Legends, Minecraft, Fortnite, World of Warcraft, Escape from Tarkov, Rust, Elden Ring, Dead by Daylight, Roblox, Call of Duty: Warzone, Hearthstone, Rainbow Six Siege, Palworld, Helldivers 2, Overwatch 2, Baldur's Gate 3, Genshin Impact, Final Fantasy XIV, Rocket League, Smite, Destiny 2, Lethal Company, The Sims 4, Osu!, Terraria, Stardew Valley, Fallout 4, Street Fighter 6, Tekken 8, Sea of Thieves, Cyberpunk 2077, Resident Evil 4, Dark Souls III, Bloodborne, Hollow Knight, PUBG: BATTLEGROUNDS, Super Smash Bros. Ultimate, Mario Kart 8 Deluxe, Animal Crossing: New Horizons, Dead Space, VRChat, DayZ, Trackmania, and thousands more.</p>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

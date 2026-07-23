@@ -70,6 +70,11 @@ function generateHTML(game, gpu, verdict) {
                     <h3>⚙️ Get Full Custom Settings</h3>
                     <a href="../../../settings-generator/" class="cta-button">Open Settings Generator →</a>
                 </div>
+                <div class="cta-box" style="margin-top: 15px; border-color: #00f593;">
+                    <h3 style="color: #00f593;">🚀 Streaming ${game.name}?</h3>
+                    <p style="font-size: 0.9rem; margin-bottom: 10px; color: #ccc;">Generate a viral, click-worthy stream title for ${game.name} using our free AI Title Generator.</p>
+                    <a href="../../../twitch-title-generator/" class="cta-button" style="background: #00f593; color: #000;">Generate AI Title →</a>
+                </div>
             </div>
         </article>
     </main>
