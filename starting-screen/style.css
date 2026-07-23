@@ -60,6 +60,87 @@ body {
     font-size: 0.9rem;
 }
 
+/* ========== TEMPLATE GALLERY ========== */
+.template-gallery {
+    margin-bottom: 1.5rem;
+}
+
+.template-gallery .section-title {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.template-scroll {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+.template-scroll::-webkit-scrollbar {
+    height: 6px;
+}
+
+.template-scroll::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+    border-radius: 3px;
+}
+
+.template-scroll::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
+}
+
+.template-card {
+    flex-shrink: 0;
+    width: 120px;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    color: var(--text-primary);
+    font-family: inherit;
+    padding: 0;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.template-card:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(145, 70, 255, 0.2);
+}
+
+.template-card.active {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 1px var(--accent-primary), 0 4px 15px rgba(145, 70, 255, 0.3);
+}
+
+.template-preview {
+    width: 100%;
+    height: 70px;
+}
+
+.template-name {
+    display: block;
+    padding: 8px 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ========== MAIN LAYOUT ========== */
 .main-content {
     display: grid;
     gap: 1.5rem;
@@ -85,19 +166,32 @@ body {
     margin-bottom: 1.25rem;
 }
 
-/* Canvas */
-.canvas-wrapper {
-    margin-bottom: 1rem;
+/* ========== LIVE PREVIEW (iframe) ========== */
+.preview-wrapper {
+    position: relative;
+    width: 100%;
     overflow: hidden;
     border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: #000;
+    margin-bottom: 1rem;
+    /* height is set dynamically by JS */
 }
 
-#screen-canvas {
-    width: 100%;
-    height: auto;
+.preview-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1920px;
+    height: 1080px;
+    border: none;
+    transform-origin: top left;
+    pointer-events: none;
     display: block;
+    /* transform: scale() is set dynamically by JS */
 }
 
+/* ========== DOWNLOAD BUTTONS ========== */
 .download-buttons {
     display: flex;
     gap: 0.75rem;
@@ -132,7 +226,7 @@ body {
     transform: translateY(-2px);
 }
 
-/* Controls */
+/* ========== CONTROLS ========== */
 .control-group {
     margin-bottom: 1.25rem;
 }
@@ -145,6 +239,7 @@ body {
 }
 
 input[type="text"],
+input[type="number"],
 select {
     width: 100%;
     padding: 0.75rem;
@@ -195,7 +290,101 @@ input[type="color"] {
     border-color: white;
 }
 
-/* Toggle */
+/* ========== UPLOAD CONTROLS ========== */
+.upload-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.upload-row input[type="file"] {
+    flex: 1;
+    padding: 8px;
+    background: var(--bg-tertiary);
+    border: 1px dashed var(--border-color);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    cursor: pointer;
+    width: 0;
+    min-width: 0;
+}
+
+.upload-row input[type="file"]::file-selector-button {
+    background: var(--accent-primary);
+    color: white;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-right: 8px;
+    font-weight: 500;
+}
+
+.remove-upload-btn {
+    background: #ff4444;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+.control-sub {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.control-sub label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.control-sub input[type="range"] {
+    flex: 1;
+    accent-color: var(--accent-primary);
+    height: 6px;
+    cursor: pointer;
+}
+
+.control-sub span {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    min-width: 40px;
+    text-align: right;
+}
+
+/* ========== COUNTDOWN ROW ========== */
+.countdown-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.countdown-minutes {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.countdown-minutes input[type="number"] {
+    width: 60px;
+    padding: 6px 8px;
+    text-align: center;
+}
+
+.countdown-minutes span {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* ========== TOGGLE ========== */
 .toggle {
     position: relative;
     display: inline-block;
@@ -238,7 +427,65 @@ input[type="color"] {
     transform: translateX(22px);
 }
 
-/* FAQ & Footer */
+/* ========== SEO GUIDE ========== */
+.seo-guide {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    line-height: 1.7;
+}
+
+.seo-guide h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+.seo-guide h3 {
+    font-size: 1.1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--accent-primary);
+}
+
+.seo-guide p {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.seo-guide ul, .seo-guide ol {
+    color: var(--text-secondary);
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.seo-guide li {
+    margin-bottom: 0.5rem;
+}
+
+.seo-guide a {
+    color: var(--accent-primary);
+}
+
+.guide-highlight {
+    background: rgba(145, 70, 255, 0.08);
+    border-left: 3px solid var(--accent-primary);
+    padding: 1rem 1.25rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1.5rem 0;
+}
+
+.guide-highlight h4 {
+    margin-bottom: 0.5rem;
+    color: var(--accent-primary);
+}
+
+.guide-highlight p {
+    margin-bottom: 0;
+}
+
+/* ========== FAQ & FOOTER ========== */
 .faq-section {
     margin-top: 2rem;
     padding: 1.5rem;
@@ -282,7 +529,7 @@ input[type="color"] {
     text-decoration: none;
 }
 
-/* Social Icons Group */
+/* ========== SOCIAL ICONS ========== */
 .social-icons-group {
     margin-top: 1.5rem;
     padding-top: 1rem;
@@ -320,4 +567,17 @@ input[type="color"] {
 .social-input input::placeholder {
     color: var(--text-secondary);
     opacity: 0.6;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 600px) {
+    .template-card {
+        width: 110px;
+    }
+    .template-preview {
+        height: 55px;
+    }
+    .download-buttons {
+        flex-direction: column;
+    }
 }
