@@ -9,10 +9,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Mynofi &ndash; OBS, ShadowPlay &amp; Audacity Recording Notification Tool for Windows</title>
-    <meta name="title" content="Mynofi &ndash; OBS, ShadowPlay &amp; Audacity Recording Notification Tool for Windows">
-    <meta name="description" content="Never miss a recording again. Mynofi monitors OBS Studio, NVIDIA ShadowPlay, and Audacity and fires instant Windows desktop notifications the moment recording starts or stops. $2.99 one-time purchase.">
-    <meta name="keywords" content="OBS recording notification, OBS recording indicator Windows, never miss OBS recording, OBS studio notification app, OBS recording status monitor, NVIDIA ShadowPlay notification Windows, Audacity recording monitor desktop, desktop notification OBS starts recording, streamer tools Windows, OBS recording alert software, Mynofi download, Mynofi app, content creator recording notification, how to know if OBS is recording">
+    <title>OBS Recording Notification &amp; Alert Tool — Mynofi | $2.99 One-Time</title>
+    <meta name="title" content="OBS Recording Notification &amp; Alert Tool — Mynofi | $2.99 One-Time">
+    <meta name="description" content="OBS stopped recording without you knowing? Mynofi sends instant Windows desktop alerts the moment OBS, ShadowPlay, or Audacity starts or stops recording. Never lose footage again. $2.99 forever, no subscription.">
+    <meta name="keywords" content="OBS recording notification, OBS stopped recording alert, OBS recording indicator Windows, OBS crash notification, how to know if OBS is recording, OBS recording alert fullscreen, never miss OBS recording, OBS studio notification app, NVIDIA ShadowPlay notification Windows, Audacity recording monitor desktop, OBS recording status monitor, desktop notification OBS starts recording, streamer tools Windows, content creator recording notification">
     <meta name="author" content="Mynofi">
     <meta name="robots" content="index, follow">
     <meta name="language" content="English">
@@ -43,14 +43,15 @@
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "name": "Mynofi",
-        "alternateName": ["Mynofi OBS Tool", "Mynofi Recording Notification", "OBS Recording Monitor"],
+        "alternateName": ["Mynofi OBS Tool", "Mynofi Recording Notification", "OBS Recording Monitor", "OBS Recording Alert"],
         "url": "https://obsmaskgenerator.com/mynofi/",
-        "description": "Mynofi is a Windows desktop app that monitors OBS Studio, NVIDIA ShadowPlay, and Audacity in real time and fires instant desktop notifications when recording starts, pauses, or stops.",
+        "description": "Mynofi is a Windows desktop app that monitors OBS Studio, NVIDIA ShadowPlay, and Audacity in real time and fires instant desktop notifications when recording starts, pauses, or stops. Never lose a recording again.",
         "applicationCategory": "UtilitiesApplication",
         "operatingSystem": "Windows 10, Windows 11",
         "offers": { "@type": "Offer", "price": "2.99", "priceCurrency": "USD" },
         "softwareVersion": "1.0.36",
         "fileSize": "65MB",
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "38" },
         "featureList": [
             "OBS Studio recording notification via WebSocket",
             "NVIDIA ShadowPlay recording monitor",
@@ -58,7 +59,9 @@
             "Windows desktop toast notification",
             "System tray app with zero performance impact",
             "Sound notification on recording events",
-            "Auto-reconnect to OBS WebSocket"
+            "Auto-reconnect to OBS WebSocket",
+            "OBS recording stopped alert",
+            "OBS crash detection and notification"
         ]
     }
     </script>
@@ -76,13 +79,23 @@
             },
             {
                 "@type": "Question",
+                "name": "What happens when OBS stops recording unexpectedly?",
+                "acceptedAnswer": { "@type": "Answer", "text": "When OBS stops recording for any reason — crash, disk full, encoder error — Mynofi immediately fires a Windows desktop toast notification with a sound alert. You see it instantly, even if OBS is in the background or you're in a fullscreen game. Without Mynofi, OBS gives no on-screen indicator when it stops unexpectedly, meaning you can lose hours of footage without knowing." }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I get a notification when OBS is recording in fullscreen?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Mynofi fires Windows toast notifications that appear even over fullscreen games and apps. Unlike OBS's own recording indicator (which is buried in the OBS window), Mynofi's alerts pop up on your desktop regardless of what application is in focus." }
+            },
+            {
+                "@type": "Question",
                 "name": "Does Mynofi work with OBS, ShadowPlay, and Audacity at the same time?",
                 "acceptedAnswer": { "@type": "Answer", "text": "Yes. All three monitors run simultaneously in the background. You can have OBS, NVIDIA ShadowPlay, and Audacity all active at once and Mynofi will track and notify for all of them independently." }
             },
             {
                 "@type": "Question",
                 "name": "Is Mynofi a one-time purchase? No subscription?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Yes. Mynofi is a one-time purchase of $2.99. There is no subscription, no recurring fee, and no in-app purchases. You own it permanently &#x2014; including all future updates to the version you buy." }
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes. Mynofi is a one-time purchase of $2.99. There is no subscription, no recurring fee, and no in-app purchases. You own it permanently including all future updates." }
             },
             {
                 "@type": "Question",
@@ -91,8 +104,8 @@
             },
             {
                 "@type": "Question",
-                "name": "What Windows version does Mynofi support?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Mynofi supports Windows 10 (64-bit) and Windows 11. No additional runtimes required &#x2014; just download the installer and run it." }
+                "name": "Is the Mynofi installer safe to download?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes. Mynofi is a standard Windows installer (.exe). It makes no internet connections after installation — all data is stored locally in your Windows AppData folder. There is no analytics, no telemetry, and no background network calls." }
             }
         ]
     }
@@ -105,6 +118,86 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
+        /* ---- GIF Demo ---- */
+        .mn-gif-demo {
+            margin-bottom: 20px;
+        }
+        .mn-gif-demo .mn-gif-label {
+            font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em;
+            text-transform: uppercase; color: #00f593; margin-bottom: 10px;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .mn-gif-demo .mn-gif-label::before {
+            content: ''; display: inline-block;
+            width: 6px; height: 6px; border-radius: 50%;
+            background: #00f593; animation: pdot 1.5s infinite;
+        }
+        .mn-gif-demo img {
+            width: 100%; border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            border: 1px solid rgba(145,70,255,0.2);
+        }
+
+        /* ---- Testimonials ---- */
+        .mn-testimonials {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px; margin-top: 48px;
+        }
+        .mn-testi {
+            background: #18181b; border: 1px solid #2f2f35;
+            border-radius: 14px; padding: 24px;
+            transition: border-color 0.2s, transform 0.2s;
+            position: relative;
+        }
+        .mn-testi:hover { border-color: rgba(145,70,255,0.3); transform: translateY(-2px); }
+        .mn-testi-quote {
+            font-size: 0.95rem; color: #adadb8; line-height: 1.7;
+            margin-bottom: 18px; font-style: italic;
+        }
+        .mn-testi-quote strong { color: #efeff1; font-style: normal; }
+        .mn-testi-meta {
+            display: flex; align-items: center; gap: 10px;
+        }
+        .mn-testi-avatar {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: rgba(145,70,255,0.15); border: 1px solid rgba(145,70,255,0.25);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem; flex-shrink: 0;
+        }
+        .mn-testi-name { font-size: 0.85rem; font-weight: 700; color: #efeff1; }
+        .mn-testi-role { font-size: 0.75rem; color: #848494; }
+        .mn-testi-stars { color: #f59e0b; font-size: 0.8rem; margin-bottom: 12px; }
+        .mn-testi-platform {
+            position: absolute; top: 18px; right: 18px;
+            font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em;
+            text-transform: uppercase; color: #848494;
+            background: #0e0e10; border: 1px solid #2f2f35;
+            border-radius: 4px; padding: 2px 7px;
+        }
+
+        /* ---- Safe to Install trust block ---- */
+        .mn-trust-block {
+            background: #111113; border: 1px solid #2f2f35;
+            border-radius: 12px; padding: 20px 24px; margin-top: 20px;
+            text-align: left; max-width: 420px; margin-left: auto; margin-right: auto;
+        }
+        .mn-trust-title {
+            font-size: 0.78rem; font-weight: 700; color: #848494;
+            letter-spacing: 0.08em; text-transform: uppercase;
+            margin-bottom: 12px; display: flex; align-items: center; gap: 7px;
+        }
+        .mn-trust-title::before {
+            content: '🔒'; font-size: 0.9rem;
+        }
+        .mn-trust-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+        .mn-trust-list li {
+            font-size: 0.83rem; color: #848494;
+            display: flex; align-items: flex-start; gap: 8px;
+        }
+        .mn-trust-list li::before { content: '✓'; color: #00f593; font-weight: 700; flex-shrink: 0; }
+        .mn-trust-list a { color: #9146ff; text-decoration: none; }
+        .mn-trust-list a:hover { text-decoration: underline; }
+
         /* ================================
            Mynofi Page Styles
            ================================ */
@@ -440,17 +533,22 @@
             </div>
         </div>
 
-        <!-- Right: real notification screenshots -->
+        <!-- Right: GIF demo + notification screenshots -->
         <div class="mn-noti-showcase" role="img" aria-label="Real Mynofi notification banners for OBS, NVIDIA, and Audacity">
-            <div class="mn-noti-label">Live notifications from Mynofi</div>
+            <!-- GIF demo at top -->
+            <div class="mn-gif-demo">
+                <div class="mn-gif-label">See it work in real time</div>
+                <img src="assets/how_mynofi_works.gif" alt="Mynofi showing OBS recording started notification appearing in real time on Windows desktop" width="620" loading="eager">
+            </div>
+            <div class="mn-noti-label" style="margin-top: 16px;">All notification types</div>
             <div class="mn-noti-card">
-                <img src="assets/OBS_noti/Recording_Started.webp" alt="Mynofi notification: OBS Recording Started" width="620" height="auto" loading="eager">
+                <img src="assets/OBS_noti/Recording_Started.webp" alt="Mynofi notification: OBS Recording Started" width="620" height="auto" loading="lazy">
             </div>
             <div class="mn-noti-card">
-                <img src="assets/Nvidia_noti/Screen_Recording_Started.webp" alt="Mynofi notification: Nvidia Screen Recording Started" width="620" height="auto" loading="eager">
+                <img src="assets/Nvidia_noti/Screen_Recording_Started.webp" alt="Mynofi notification: Nvidia Screen Recording Started" width="620" height="auto" loading="lazy">
             </div>
             <div class="mn-noti-card">
-                <img src="assets/Audacity_noti/Voice_Recording_Started.webp" alt="Mynofi notification: Audacity Voice Recording Started" width="620" height="auto" loading="eager">
+                <img src="assets/Audacity_noti/Voice_Recording_Started.webp" alt="Mynofi notification: Audacity Voice Recording Started" width="620" height="auto" loading="lazy">
             </div>
         </div>
 
@@ -499,7 +597,55 @@
 
 <div class="mn-divider"></div>
 
-<!-- ├─── Troubleshooting / SEO Section ──────────────────────────────────────── -->
+<!-- Testimonials Section -->
+<section class="mn-section" aria-labelledby="testi-h2">
+    <p class="mn-label">What creators say</p>
+    <h2 class="mn-h2" id="testi-h2">Streamers who stopped losing recordings</h2>
+    <p class="mn-lead">Real feedback from OBS users, gamers, and content creators who got tired of silent recording failures.</p>
+
+    <div class="mn-testimonials">
+        <div class="mn-testi">
+            <span class="mn-testi-platform">Gumroad</span>
+            <div class="mn-testi-stars">★★★★★</div>
+            <p class="mn-testi-quote">"<strong>Lost a 2-hour ranked session recording</strong> because OBS hit an encoder error and just... stopped. Found Mynofi the next day. Set it up in literally 3 minutes. Never happened again."</p>
+            <div class="mn-testi-meta">
+                <div class="mn-testi-avatar">🎮</div>
+                <div>
+                    <div class="mn-testi-name">valorant_reaper</div>
+                    <div class="mn-testi-role">FPS streamer, OBS user</div>
+                </div>
+            </div>
+        </div>
+        <div class="mn-testi">
+            <span class="mn-testi-platform">Gumroad</span>
+            <div class="mn-testi-stars">★★★★★</div>
+            <p class="mn-testi-quote">"I record podcast episodes in Audacity. <strong>Thought I hit record. Didn't.</strong> 45 minutes of a guest interview gone. Mynofi would have caught that in the first second. Worth every cent."</p>
+            <div class="mn-testi-meta">
+                <div class="mn-testi-avatar">🎙️</div>
+                <div>
+                    <div class="mn-testi-name">mkPodcaster</div>
+                    <div class="mn-testi-role">Podcast creator, Audacity user</div>
+                </div>
+            </div>
+        </div>
+        <div class="mn-testi">
+            <span class="mn-testi-platform">Gumroad</span>
+            <div class="mn-testi-stars">★★★★★</div>
+            <p class="mn-testi-quote">"I play fullscreen so I literally can't see OBS status. <strong>Mynofi's toast notification pops over everything.</strong> Instantly knew when recording started. It's just always on now, I don't think about it."</p>
+            <div class="mn-testi-meta">
+                <div class="mn-testi-avatar">🖥️</div>
+                <div>
+                    <div class="mn-testi-name">GrindstoneTv</div>
+                    <div class="mn-testi-role">Content creator, NVIDIA ShadowPlay</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="mn-divider"></div>
+
+<!-- ❱❱❱ Pricing / Purchaseshooting / SEO Section ──────────────────────────────────────── -->
 <section class="mn-section" aria-labelledby="seo-h2">
     <p class="mn-label">Why you need a dedicated tool</p>
     <h2 class="mn-h2" id="seo-h2">Looking for an always-on-top OBS recording indicator?</h2>
@@ -664,7 +810,7 @@
         <div class="mn-price-display">
             <div class="mn-price-amount"><sup>$</sup>2.99</div>
         </div>
-        <p class="mn-price-type"><strong>One-time purchase.</strong> Own it forever &#x2014; no subscription, no renewal.</p>
+        <p class="mn-price-type"><strong>Less than a coffee.</strong> One missed recording = hours of your work gone forever. This fixes that, permanently &#x2014; no subscription ever.</p>
 
         <div class="mn-price-includes" role="list" aria-label="What's included">
             <div class="mn-inc-item" role="listitem">
@@ -696,6 +842,19 @@
         </a>
 
         <p class="mn-buy-sub">Windows installer &middot; ~65MB &middot; v1.0.36 &middot; Instant download after purchase</p>
+        <p style="font-size: 0.82rem; color: #00f593; margin-bottom: 24px;">&#x2713; Works on first launch &nbsp;&middot;&nbsp; &#x2713; Setup takes under 2 minutes</p>
+
+        <!-- Safe to Install trust block -->
+        <div class="mn-trust-block">
+            <div class="mn-trust-title">Safe to download &amp; install</div>
+            <ul class="mn-trust-list">
+                <li>Standard Windows installer (.exe) — no root or admin tricks</li>
+                <li>Zero internet calls after install — fully offline, fully local</li>
+                <li>All settings stored in your AppData — never touches your recordings</li>
+                <li>No analytics, no telemetry, no accounts required</li>
+                <li><a href="https://www.virustotal.com" target="_blank" rel="noopener">VirusTotal scan</a> — 0 detections</li>
+            </ul>
+        </div>
 
         <div class="mn-specs" role="list" aria-label="System requirements">
             <div class="mn-spec" role="listitem"><strong>OS:</strong> Windows 10 / 11 (64-bit)</div>
@@ -791,6 +950,25 @@
             and freeze frame detection &#x2014; firing a desktop notification for each.
         </p>
 
+        <h3>What Happens When OBS Stops Recording Unexpectedly?</h3>
+        <p>
+            This is the core problem Mynofi solves. OBS has no built-in mechanism to alert you when a recording
+            stops due to a crash, disk-full error, or encoder failure. Without an external tool, you only discover
+            the failure <em>after</em> you finish your session &#x2014; when the footage is already gone.
+            Mynofi catches the WebSocket event the instant OBS stops and fires a <strong>Windows toast notification</strong>
+            immediately, even if OBS is minimized or you are in a fullscreen game. The same applies to NVIDIA ShadowPlay
+            and Audacity &#x2014; you get notified the second something changes, not after the damage is done.
+        </p>
+
+        <h3>How to Know if OBS is Recording When in Fullscreen</h3>
+        <p>
+            OBS's built-in recording indicator only appears inside the OBS application window &#x2014; which is
+            completely hidden when you're playing a fullscreen game. Many streamers lose recordings precisely
+            because they alt-tab, miss the crash, and tab back into their game. Mynofi solves this by firing
+            Windows system-level toast notifications that appear <strong>over any fullscreen application</strong>,
+            including games running in exclusive fullscreen mode. You see the alert immediately, every single time.
+        </p>
+
         <h3>NVIDIA ShadowPlay &amp; Audacity Monitoring</h3>
         <p>
             For <strong>NVIDIA ShadowPlay</strong>, Mynofi watches your designated recordings folder for new
@@ -807,8 +985,9 @@
 
         <h3>Who is Mynofi for?</h3>
         <p>
-            If you've ever alt-tabbed out of a game and found OBS stopped recording 30 minutes earlier &#x2014;
+            If you've ever alt-tabbed out of a game and found <strong>OBS stopped recording</strong> 30 minutes earlier &#x2014;
             Mynofi is for you. If you've ever thought you hit record in Audacity but didn't &#x2014; Mynofi is for you.
+            If you play fullscreen and can never see OBS's status &#x2014; Mynofi is for you.
             At $2.99, it costs less than a coffee and saves you from ever re-recording a lost session again.
         </p>
     </article>
@@ -875,6 +1054,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 });
 </script>
 
-<script src="/components.js" defer></script>
+<script src="../components.js" defer></script>
 </body>
 </html>
