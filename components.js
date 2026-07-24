@@ -69,6 +69,7 @@ const GlobalComponents = {
                     text-decoration: none;
                     font-family: 'Inter', system-ui, sans-serif;
                     transition: all 0.2s ease;
+                    touch-action: pan-x;
                 }
 
                 .mynofi-promo-banner-v2:hover {
