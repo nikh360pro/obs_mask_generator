@@ -106,6 +106,12 @@ body {
     min-height: 100vh;
 }
 
+@media (max-width: 600px) {
+    .app-container {
+        padding: 8px;
+    }
+}
+
 /* ============================
    Header
    ============================ */
@@ -609,6 +615,26 @@ body {
     overflow: hidden;
     position: relative;
     padding: var(--space-md);
+}
+
+/* Mobile: let canvas be fully visible, no fixed height */
+@media (max-width: 768px) {
+    .canvas-container {
+        height: auto;
+        min-height: unset;
+        max-height: unset;
+        overflow: visible;
+        padding: var(--space-sm);
+    }
+    .canvas-wrapper {
+        width: 100%;
+    }
+    #preview-canvas {
+        width: 100% !important;
+        height: auto !important;
+        max-width: 100%;
+        max-height: none;
+    }
 }
 
 /* For 100% zoom mode - allow scrolling */
