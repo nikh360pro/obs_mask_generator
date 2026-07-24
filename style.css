@@ -75,8 +75,7 @@ html {
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-y;
+    overflow-x: hidden;
 }
 
 body {
@@ -86,8 +85,7 @@ body {
     line-height: 1.5;
     min-height: 100vh;
     padding-bottom: 60px; /* Reserve space for sticky promo banner */
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: none;
+    overflow-x: hidden;
 }
 
 @media (max-width: 768px) {
@@ -992,5 +990,81 @@ body {
     .nav-content {
         flex-direction: column;
         gap: 15px;
+    }
+}
+
+/* ============================
+   MOBILE COMPREHENSIVE FIXES
+   ============================ */
+@media (max-width: 768px) {
+
+    /* Prevent anything from causing horizontal overflow */
+    * { max-width: 100%; box-sizing: border-box; }
+
+    /* Hide the nav-links bar inside the preview panel on mobile
+       (it causes horizontal overflow and isn't needed there) */
+    .preview-panel .nav-links {
+        display: none;
+    }
+
+    /* Make feature buttons stack vertically and fit screen */
+    .preview-panel > div[style*="display: flex"][style*="gap"] {
+        flex-direction: column !important;
+    }
+
+    /* Fix min-width on scene/pack buttons */
+    #sb-toggle-btn,
+    #pack-open-btn {
+        min-width: unset !important;
+        width: 100% !important;
+    }
+
+    /* Preset grid: 3 columns on mobile */
+    .presets-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    /* Download buttons: stack vertically */
+    .download-actions {
+        flex-direction: column;
+    }
+    .download-btn {
+        width: 100%;
+        min-width: unset;
+    }
+
+    /* Header title: smaller font on mobile */
+    .logo h1 {
+        font-size: 1rem;
+    }
+    .tagline {
+        font-size: 0.85rem;
+        text-align: center;
+    }
+
+    /* Controls panel full width, no horizontal scroll */
+    .controls-panel {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* Size inputs side by side */
+    .size-inputs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    /* Shape buttons: wrap on mobile */
+    .shape-buttons {
+        flex-wrap: wrap;
+    }
+    .shape-btn {
+        flex: 1 1 45%;
+    }
+
+    /* Zoom controls */
+    .zoom-controls {
+        justify-content: center;
     }
 }
