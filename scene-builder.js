@@ -67,7 +67,7 @@
         window.addEventListener("mousemove", onMouseMove);
         window.addEventListener("mouseup", onMouseUp);
         sb.canvas.addEventListener("touchstart", onTouchStart, { passive: false });
-        window.addEventListener("touchmove", onTouchMove, { passive: false });
+        sb.canvas.addEventListener("touchmove", onTouchMove, { passive: false });
         window.addEventListener("touchend", onTouchEnd);
 
         syncMaskFromConfig(); resizeCanvas(); render();
@@ -251,7 +251,7 @@
     function onMouseUp() { sb.dragging = false; sb.resizing = false; }
 
     function onTouchStart(e) { if (e.touches.length !== 1) return; e.preventDefault(); onMouseDown({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); }
-    function onTouchMove(e) { if (e.touches.length !== 1) return; e.preventDefault(); onMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); }
+    function onTouchMove(e) { if (e.touches.length !== 1) return; if (sb.dragging || sb.resizing) { e.preventDefault(); } onMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); }
     function onTouchEnd() { onMouseUp(); }
 
     document.addEventListener("DOMContentLoaded", init);
