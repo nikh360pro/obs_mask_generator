@@ -634,7 +634,7 @@
                     <div class="toggle-row">
                         <span class="toggle-label">Mirror (flip horizontal)</span>
                         <label class="toggle">
-                            <input type="checkbox" id="mirror-toggle" checked onchange="updateMirror()">
+                            <input type="checkbox" id="mirror-toggle" onchange="updateMirror()">
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
@@ -760,7 +760,7 @@
     let isRunning     = false;
     let animFrame     = null;
     let bgType        = 'transparent';
-    let isMirrored    = true;
+    let isMirrored    = false;
     let customBgImage = null;
     let frameCount = 0, lastFpsTime = performance.now();
 
