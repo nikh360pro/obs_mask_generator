@@ -940,7 +940,7 @@
                 segmenter = await ImageSegmenter.createFromOptions(vision, {
                     baseOptions: {
                         // Newer, GPU-accelerated selfie segmenter (better quality than old package)
-                        modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/image_segmenter/selfie_segmenter_256x256/float16/latest/selfie_segmenter_256x256.tflite',
+                        modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/image_segmenter/selfie_segmenter/float16/latest/selfie_segmenter.tflite',
                         delegate: 'GPU',
                     },
                     runningMode: 'VIDEO',
