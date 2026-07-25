@@ -747,261 +747,294 @@
         </footer>
     </div>
 
-    <!-- MediaPipe Selfie Segmentation -->
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js" crossorigin="anonymous"></script>
+    <!--
+        Engine: @mediapipe/tasks-vision (2024) — GPU delegate, selfie_segmenter_256x256 model
+        Fixes:  single getUserMedia (no double camera prompt), pixel-level smoothstep (no halos)
+    -->
+    <script type="module">
+    import { ImageSegmenter, FilesetResolver }
+        from 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.15/vision_bundle.mjs';
 
-    <script>
-        // ============================================================
-        //  State
-        // ============================================================
-        let bgType = 'transparent';
-        let isMirrored = true;
-        let customBgImage = null;
-        let isRunning = false;
-        let frameCount = 0;
-        let lastFpsTime = performance.now();
-        let mpCamera = null;
-        let selfieSegmentation = null;
+    // ── State ────────────────────────────────────────────────────
+    let segmenter     = null;
+    let isRunning     = false;
+    let animFrame     = null;
+    let bgType        = 'transparent';
+    let isMirrored    = true;
+    let customBgImage = null;
+    let frameCount = 0, lastFpsTime = performance.now();
 
-        // Canvas elements
-        const outputCanvas = document.getElementById('output-canvas');
-        const ctx = outputCanvas.getContext('2d');
+    // ── Canvas pipeline ──────────────────────────────────────────
+    const outputCanvas = document.getElementById('output-canvas');
+    const ctx          = outputCanvas.getContext('2d', { alpha: true });
 
-        // Two offscreen canvases for clean compositing pipeline
-        const maskCanvas = document.createElement('canvas');  // processes the segmentation mask
-        const maskCtx = maskCanvas.getContext('2d');
-        const personCanvas = document.createElement('canvas'); // holds extracted person only
-        const personCtx = personCanvas.getContext('2d');
+    // frameCanvas: video frame (mirrored if needed) — read pixels from here
+    const frameCanvas = document.createElement('canvas');
+    const frameCtx    = frameCanvas.getContext('2d', { alpha: false, willReadFrequently: true });
 
-        // ============================================================
-        //  UI Helpers
-        // ============================================================
-        function setStatus(mode, text) {
-            const pill = document.getElementById('status-pill');
-            const mainPill = document.getElementById('main-status');
-            const textEl = document.getElementById('status-text');
-            const dot = pill.querySelector('.status-dot');
+    // maskCanvas: only needed as a fallback to read mask pixels
+    const maskCanvas  = document.createElement('canvas');
+    const maskCtx     = maskCanvas.getContext('2d', { alpha: false, willReadFrequently: true });
 
-            pill.className = `status-pill ${mode}`;
-            mainPill.className = `status-pill ${mode}`;
-            mainPill.innerHTML = `<span class="status-dot${mode==='loading'?' pulse':''}"></span><span>${text}</span>`;
-            textEl.textContent = text;
-            dot.className = `status-dot${mode==='loading'?' pulse':''}`;
-        }
+    // ── Expose to window for inline onclick= handlers ─────────────
+    window.startCamera  = startCamera;
+    window.stopCamera   = stopCamera;
+    window.setBgType    = setBgType;
+    window.updateMirror = updateMirror;
+    window.loadBgImage  = loadBgImage;
+    window.copyPageUrl  = copyPageUrl;
 
-        function setBgType(btn) {
-            document.querySelectorAll('.bg-type-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            bgType = btn.dataset.type;
+    // ── UI helpers ───────────────────────────────────────────────
+    function setStatus(mode, text) {
+        ['status-pill', 'main-status'].forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.className = `status-pill ${mode}`;
+            el.innerHTML = `<span class="status-dot${mode === 'loading' ? ' pulse' : ''}"></span><span>${text}</span>`;
+        });
+        const t = document.getElementById('status-text');
+        if (t) t.textContent = text;
+    }
 
-            document.getElementById('color-control').style.display = bgType === 'color' ? '' : 'none';
-            document.getElementById('blur-control').style.display = bgType === 'blur' ? '' : 'none';
-            document.getElementById('image-control').style.display = bgType === 'image' ? '' : 'none';
-        }
+    function setBgType(btn) {
+        document.querySelectorAll('.bg-type-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        bgType = btn.dataset.type;
+        document.getElementById('color-control').style.display = bgType === 'color' ? '' : 'none';
+        document.getElementById('blur-control').style.display  = bgType === 'blur'  ? '' : 'none';
+        document.getElementById('image-control').style.display = bgType === 'image' ? '' : 'none';
+    }
 
-        function updateMirror() {
-            isMirrored = document.getElementById('mirror-toggle').checked;
-        }
+    function updateMirror() {
+        isMirrored = document.getElementById('mirror-toggle').checked;
+    }
 
-        function loadBgImage(input) {
-            if (!input.files[0]) return;
-            const reader = new FileReader();
-            reader.onload = e => {
-                const img = new Image();
-                img.onload = () => { customBgImage = img; };
-                img.src = e.target.result;
-            };
-            reader.readAsDataURL(input.files[0]);
-            document.getElementById('image-name').textContent = '✅ ' + input.files[0].name;
-            document.getElementById('image-name').style.display = '';
-        }
+    function loadBgImage(input) {
+        if (!input.files[0]) return;
+        const reader = new FileReader();
+        reader.onload = e => {
+            const img = new Image();
+            img.onload = () => { customBgImage = img; };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+        const n = document.getElementById('image-name');
+        if (n) { n.textContent = '✅ ' + input.files[0].name; n.style.display = ''; }
+    }
 
-        function copyPageUrl() {
-            const url = window.location.href;
-            navigator.clipboard.writeText(url).then(() => {
-                const btn = document.getElementById('copy-url-btn');
-                btn.textContent = '✅ Copied!';
-                btn.classList.add('copied');
-                setTimeout(() => {
-                    btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Page URL for OBS`;
-                    btn.classList.remove('copied');
-                }, 2500);
-            });
-        }
+    function copyPageUrl() {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            const btn = document.getElementById('copy-url-btn');
+            btn.textContent = '✅ Copied!';
+            btn.classList.add('copied');
+            setTimeout(() => {
+                btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Page URL for OBS`;
+                btn.classList.remove('copied');
+            }, 2500);
+        });
+    }
 
-        // ============================================================
-        //  MediaPipe Rendering — Clean 3-stage pipeline
-        // ============================================================
-        function onResults(results) {
-            const W = outputCanvas.width;
-            const H = outputCanvas.height;
+    // ── Core render: called every animation frame ────────────────
+    function renderFrame(video, result) {
+        const W = outputCanvas.width;
+        const H = outputCanvas.height;
 
-            maskCanvas.width = W;
-            maskCanvas.height = H;
-            personCanvas.width = W;
-            personCanvas.height = H;
+        if (frameCanvas.width !== W)  frameCanvas.width  = W;
+        if (frameCanvas.height !== H) frameCanvas.height = H;
 
-            const smoothing = parseInt(document.getElementById('edge-smooth').value);
+        // 1. Draw video to frameCanvas (apply mirror)
+        frameCtx.save();
+        if (isMirrored) { frameCtx.scale(-1, 1); frameCtx.drawImage(video, -W, 0, W, H); }
+        else             { frameCtx.drawImage(video, 0, 0, W, H); }
+        frameCtx.restore();
 
-            // ── Stage 1: Process the mask ──────────────────────────────
-            // contrast(300%) sharpens soft edges → pushes values toward 0 or 255
-            // Then a tiny blur adds natural feathering WITHOUT halos
-            maskCtx.clearRect(0, 0, W, H);
-            let maskFilter = 'contrast(300%) brightness(1.05)';
-            if (smoothing > 0) maskFilter += ` blur(${smoothing}px)`;
-            maskCtx.filter = maskFilter;
-            maskCtx.drawImage(results.segmentationMask, 0, 0, W, H);
-            maskCtx.filter = 'none';
-
-            // ── Stage 2: Extract person using the clean mask ───────────
-            // Draw video to personCanvas (with mirror if set)
-            personCtx.clearRect(0, 0, W, H);
-            if (isMirrored) {
-                personCtx.save();
-                personCtx.scale(-1, 1);
-                personCtx.drawImage(results.image, -W, 0, W, H);
-                personCtx.restore();
-            } else {
-                personCtx.drawImage(results.image, 0, 0, W, H);
-            }
-            // destination-in: keep existing pixels only where mask has content
-            personCtx.globalCompositeOperation = 'destination-in';
-            personCtx.drawImage(maskCanvas, 0, 0);
-            personCtx.globalCompositeOperation = 'source-over';
-
-            // ── Stage 3: Composite background + person ─────────────────
-            ctx.clearRect(0, 0, W, H);
-
-            if (bgType === 'blur') {
-                const blurAmt = parseInt(document.getElementById('blur-amount').value);
-                ctx.filter = `blur(${blurAmt}px) scale(1.05)`;
-                if (isMirrored) {
-                    ctx.save();
-                    ctx.scale(-1, 1);
-                    ctx.drawImage(results.image, -W * 1.05, -H * 0.025, W * 1.1, H * 1.05);
-                    ctx.restore();
-                } else {
-                    ctx.drawImage(results.image, -W * 0.025, -H * 0.025, W * 1.05, H * 1.05);
-                }
-                ctx.filter = 'none';
-            } else if (bgType === 'color') {
-                ctx.fillStyle = document.getElementById('bg-color').value;
-                ctx.fillRect(0, 0, W, H);
-            } else if (bgType === 'image' && customBgImage) {
-                ctx.drawImage(customBgImage, 0, 0, W, H);
-            } else if (bgType === 'image') {
-                ctx.fillStyle = '#1f1f23';
-                ctx.fillRect(0, 0, W, H);
-            }
-            // transparent: already cleared — alpha channel stays 0
-
-            // Draw extracted person over background
-            ctx.drawImage(personCanvas, 0, 0);
-
-            // FPS counter
-            frameCount++;
-            const now = performance.now();
-            if (now - lastFpsTime >= 1000) {
-                const fps = Math.round(frameCount * 1000 / (now - lastFpsTime));
-                document.getElementById('fps-badge').textContent = fps + ' FPS';
-                document.getElementById('fps-display').textContent = fps + ' FPS';
-                frameCount = 0;
-                lastFpsTime = now;
-            }
-        }
-
-        // ============================================================
-        //  Start Camera
-        // ============================================================
-        async function startCamera() {
-            const btn = document.getElementById('start-btn');
-            btn.disabled = true;
-            setStatus('loading', 'Loading AI model...');
-
+        // 2. Get confidence mask as Float32Array (0 = background, 1 = person)
+        let maskF32 = null;
+        const maskImg = result && result.confidenceMasks && result.confidenceMasks[0];
+        if (maskImg) {
             try {
-                // Init MediaPipe Selfie Segmentation
-                selfieSegmentation = new SelfieSegmentation({
-                    locateFile: (file) =>
-                        `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/${file}`
-                });
+                maskF32 = maskImg.getAsFloat32Array();
+            } catch (e) {
+                // Fallback: blit to canvas and read pixels
+                if (maskCanvas.width !== W)  maskCanvas.width  = W;
+                if (maskCanvas.height !== H) maskCanvas.height = H;
+                maskCtx.clearRect(0, 0, W, H);
+                maskCtx.drawImage(maskImg, 0, 0, W, H);
+                const raw = maskCtx.getImageData(0, 0, W, H).data;
+                maskF32 = new Float32Array(W * H);
+                for (let i = 0; i < maskF32.length; i++) maskF32[i] = raw[i * 4] / 255;
+            }
+        }
 
-                selfieSegmentation.setOptions({
-                    modelSelection: 0, // General model — better quality for portrait/close-up
-                    selfieMode: true,
-                });
+        // 3. Apply pixel-level smoothstep threshold to alpha channel
+        const imgData = frameCtx.getImageData(0, 0, W, H);
+        const px = imgData.data;
 
-                selfieSegmentation.onResults(onResults);
+        if (maskF32 && maskF32.length === W * H) {
+            const smooth  = parseInt(document.getElementById('edge-smooth').value) || 0;
+            const halfZone = 0.10 + smooth * 0.022;   // feather zone half-width
+            const thresh   = 0.50;                     // decision boundary
 
-                // Get webcam
-                setStatus('loading', 'Requesting camera...');
-                const stream = await navigator.mediaDevices.getUserMedia({
-                    video: { width: 1280, height: 720, facingMode: 'user' },
-                    audio: false
-                });
+            for (let i = 0, a = 3; i < maskF32.length; i++, a += 4) {
+                // Smooth-step: clean sigmoid-like curve, zero halos
+                let t = (maskF32[i] - (thresh - halfZone)) / (halfZone * 2);
+                t = t < 0 ? 0 : t > 1 ? 1 : t;
+                px[a] = (t * t * (3 - 2 * t) * 255) | 0;
+            }
+        }
 
-                const video = document.getElementById('webcam-video');
-                video.srcObject = stream;
-                await video.play();
+        // 4. Write masked person pixels to outputCanvas
+        ctx.clearRect(0, 0, W, H);
 
-                outputCanvas.width = video.videoWidth || 1280;
-                outputCanvas.height = video.videoHeight || 720;
+        // Draw background first
+        if (bgType === 'blur') {
+            const amt = parseInt(document.getElementById('blur-amount').value);
+            ctx.filter = `blur(${amt}px)`;
+            ctx.save();
+            if (isMirrored) { ctx.scale(-1, 1); ctx.drawImage(video, -W, 0, W, H); }
+            else             { ctx.drawImage(video, 0, 0, W, H); }
+            ctx.restore();
+            ctx.filter = 'none';
+        } else if (bgType === 'color') {
+            ctx.fillStyle = document.getElementById('bg-color').value;
+            ctx.fillRect(0, 0, W, H);
+        } else if (bgType === 'image') {
+            if (customBgImage) ctx.drawImage(customBgImage, 0, 0, W, H);
+            else { ctx.fillStyle = '#14141a'; ctx.fillRect(0, 0, W, H); }
+        }
+        // transparent → already cleared, alpha = 0
 
-                setStatus('loading', 'Starting background removal...');
+        // Draw person (with mask applied as alpha)
+        frameCtx.putImageData(imgData, 0, 0);
+        ctx.drawImage(frameCanvas, 0, 0);
 
-                // Hide placeholder
-                document.getElementById('canvas-placeholder').style.display = 'none';
-                document.getElementById('fps-badge').style.display = '';
-                document.getElementById('fps-display').style.display = '';
+        // Free GPU memory
+        try { result.close(); } catch (e) {}
 
-                // Use Camera utility for frame loop
-                mpCamera = new Camera(video, {
-                    onFrame: async () => {
-                        await selfieSegmentation.send({ image: video });
+        // FPS counter
+        frameCount++;
+        const now = performance.now();
+        if (now - lastFpsTime >= 1000) {
+            const fps = Math.round(frameCount * 1000 / (now - lastFpsTime));
+            const fb  = document.getElementById('fps-badge');
+            const fd  = document.getElementById('fps-display');
+            if (fb) fb.textContent = fps + ' FPS';
+            if (fd) fd.textContent = fps + ' FPS';
+            frameCount = 0;
+            lastFpsTime = now;
+        }
+    }
+
+    // ── Start Camera ─────────────────────────────────────────────
+    async function startCamera() {
+        const btn = document.getElementById('start-btn');
+        btn.disabled = true;
+        setStatus('loading', 'Loading AI model…');
+
+        try {
+            // Load model once (cached after first load)
+            if (!segmenter) {
+                const vision = await FilesetResolver.forVisionTasks(
+                    'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.15/wasm'
+                );
+                segmenter = await ImageSegmenter.createFromOptions(vision, {
+                    baseOptions: {
+                        // Newer, GPU-accelerated selfie segmenter (better quality than old package)
+                        modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/image_segmenter/selfie_segmenter_256x256/float16/latest/selfie_segmenter_256x256.tflite',
+                        delegate: 'GPU',
                     },
-                    width: outputCanvas.width,
-                    height: outputCanvas.height
+                    runningMode: 'VIDEO',
+                    outputCategoryMask:    false,
+                    outputConfidenceMasks: true,   // float32 confidence per pixel
                 });
-
-                await mpCamera.start();
-                isRunning = true;
-                setStatus('running', 'Background removed ✓');
-
-                btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Stop Camera`;
-                btn.disabled = false;
-                btn.onclick = stopCamera;
-
-            } catch (err) {
-                console.error(err);
-                setStatus('error', err.name === 'NotAllowedError' ? 'Camera permission denied' : 'Error: ' + err.message);
-                btn.disabled = false;
-                btn.onclick = startCamera;
             }
-        }
 
-        function stopCamera() {
-            if (mpCamera) { mpCamera.stop(); mpCamera = null; }
+            setStatus('loading', 'Requesting camera…');
+
+            // SINGLE getUserMedia — no camera_utils, no double permission prompt
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: {
+                    width:     { ideal: 1280 },
+                    height:    { ideal: 720  },
+                    frameRate: { ideal: 30   },
+                    facingMode: 'user',
+                },
+                audio: false,
+            });
+
             const video = document.getElementById('webcam-video');
-            if (video.srcObject) {
-                video.srcObject.getTracks().forEach(t => t.stop());
-                video.srcObject = null;
-            }
-            if (selfieSegmentation) { selfieSegmentation.close(); selfieSegmentation = null; }
-            isRunning = false;
-            ctx.clearRect(0, 0, outputCanvas.width, outputCanvas.height);
-            document.getElementById('canvas-placeholder').style.display = '';
-            document.getElementById('fps-badge').style.display = 'none';
-            document.getElementById('fps-display').style.display = 'none';
-            setStatus('idle', 'Stopped');
+            video.srcObject = stream;
+            // Wait for metadata before reading dimensions
+            await new Promise(resolve => {
+                if (video.readyState >= 1) { resolve(); return; }
+                video.onloadedmetadata = resolve;
+            });
+            await video.play();
 
-            const btn = document.getElementById('start-btn');
-            btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg> Allow Camera &amp; Start`;
-            btn.onclick = startCamera;
+            outputCanvas.width  = video.videoWidth  || 1280;
+            outputCanvas.height = video.videoHeight || 720;
+
+            document.getElementById('canvas-placeholder').style.display = 'none';
+            const fb = document.getElementById('fps-badge');
+            const fd = document.getElementById('fps-display');
+            if (fb) fb.style.display = '';
+            if (fd) fd.style.display = '';
+
+            isRunning = true;
+            setStatus('running', 'Background removed ✓');
+
+            btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Stop Camera`;
+            btn.disabled  = false;
+            btn.onclick   = stopCamera;
+
+            // Frame loop — driven by requestAnimationFrame at camera FPS
+            function loop(timestamp) {
+                if (!isRunning) return;
+                if (video.readyState >= 2) {
+                    const result = segmenter.segmentForVideo(video, timestamp);
+                    renderFrame(video, result);
+                }
+                animFrame = requestAnimationFrame(loop);
+            }
+            animFrame = requestAnimationFrame(loop);
+
+        } catch (err) {
+            console.error('BG Removal Error:', err);
+            const msg = err.name === 'NotAllowedError'  ? 'Camera permission denied'
+                      : err.name === 'NotFoundError'    ? 'No camera found'
+                      : 'Error: ' + err.message;
+            setStatus('error', msg);
+            btn.disabled = false;
+            btn.onclick  = startCamera;
         }
+    }
+
+    // ── Stop Camera ──────────────────────────────────────────────
+    function stopCamera() {
+        isRunning = false;
+        if (animFrame) { cancelAnimationFrame(animFrame); animFrame = null; }
+
+        const video = document.getElementById('webcam-video');
+        if (video && video.srcObject) {
+            video.srcObject.getTracks().forEach(t => t.stop());
+            video.srcObject = null;
+        }
+
+        ctx.clearRect(0, 0, outputCanvas.width, outputCanvas.height);
+        document.getElementById('canvas-placeholder').style.display = '';
+        const fb = document.getElementById('fps-badge');
+        const fd = document.getElementById('fps-display');
+        if (fb) fb.style.display = 'none';
+        if (fd) fd.style.display = 'none';
+        setStatus('idle', 'Stopped');
+
+        const btn = document.getElementById('start-btn');
+        btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg> Allow Camera &amp; Start`;
+        btn.onclick = startCamera;
+    }
     </script>
 
-    <!-- Global components (GA4 + Mynofi promo) -->
+    <!-- Global components: GA4 + Mynofi promo -->
     <script src="/components.js" defer></script>
 </body>
-
 </html>
