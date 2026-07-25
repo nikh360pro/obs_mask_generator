@@ -842,11 +842,8 @@
         if (frameCanvas.width !== W)  frameCanvas.width  = W;
         if (frameCanvas.height !== H) frameCanvas.height = H;
 
-        // 1. Draw video to frameCanvas (apply mirror)
-        frameCtx.save();
-        if (isMirrored) { frameCtx.scale(-1, 1); frameCtx.drawImage(video, -W, 0, W, H); }
-        else             { frameCtx.drawImage(video, 0, 0, W, H); }
-        frameCtx.restore();
+        // 1. Draw video to frameCanvas UNMIRRORED (mask from Mediapipe is unmirrored)
+        frameCtx.drawImage(video, 0, 0, W, H);
 
         // 2. Get confidence mask as Float32Array (0 = background, 1 = person)
         let maskF32 = null;
@@ -856,7 +853,6 @@
             try {
                 maskF32 = maskImg.getAsFloat32Array();
             } catch (e) {
-                // Fallback: blit to canvas and read pixels
                 if (maskCanvas.width !== W)  maskCanvas.width  = W;
                 if (maskCanvas.height !== H) maskCanvas.height = H;
                 maskCtx.clearRect(0, 0, W, H);
@@ -884,17 +880,23 @@
             }
         }
 
-        // 4. Write masked person pixels to outputCanvas
+        // Put the masked unmirrored image back
+        frameCtx.putImageData(imgData, 0, 0);
+
+        // 4. Write masked person pixels to outputCanvas (Mirror everything here!)
         ctx.clearRect(0, 0, W, H);
+
+        ctx.save();
+        if (isMirrored) {
+            ctx.scale(-1, 1);
+            ctx.translate(-W, 0);
+        }
 
         // Draw background first
         if (bgType === 'blur') {
             const amt = parseInt(document.getElementById('blur-amount').value);
             ctx.filter = `blur(${amt}px)`;
-            ctx.save();
-            if (isMirrored) { ctx.scale(-1, 1); ctx.drawImage(video, -W, 0, W, H); }
-            else             { ctx.drawImage(video, 0, 0, W, H); }
-            ctx.restore();
+            ctx.drawImage(video, 0, 0, W, H);
             ctx.filter = 'none';
         } else if (bgType === 'color') {
             ctx.fillStyle = document.getElementById('bg-color').value;
@@ -903,11 +905,11 @@
             if (customBgImage) ctx.drawImage(customBgImage, 0, 0, W, H);
             else { ctx.fillStyle = '#14141a'; ctx.fillRect(0, 0, W, H); }
         }
-        // transparent → already cleared, alpha = 0
 
         // Draw person (with mask applied as alpha)
-        frameCtx.putImageData(imgData, 0, 0);
         ctx.drawImage(frameCanvas, 0, 0);
+
+        ctx.restore();
 
         // Free GPU memory
         try { result.close(); } catch (e) {}
