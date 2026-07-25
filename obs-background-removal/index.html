@@ -623,8 +623,8 @@
                 <div class="control-card">
                     <h3>Edge Smoothing</h3>
                     <div class="slider-row">
-                        <input type="range" id="edge-smooth" min="0" max="12" value="4" oninput="document.getElementById('smooth-val').textContent=this.value">
-                        <span class="slider-val" id="smooth-val">4</span>
+                        <input type="range" id="edge-smooth" min="0" max="8" value="1" oninput="document.getElementById('smooth-val').textContent=this.value">
+                        <span class="slider-val" id="smooth-val">1</span>
                     </div>
                 </div>
 
@@ -768,9 +768,11 @@
         const outputCanvas = document.getElementById('output-canvas');
         const ctx = outputCanvas.getContext('2d');
 
-        // Offscreen canvas for mask + compositing
-        const tmpCanvas = document.createElement('canvas');
-        const tmpCtx = tmpCanvas.getContext('2d');
+        // Two offscreen canvases for clean compositing pipeline
+        const maskCanvas = document.createElement('canvas');  // processes the segmentation mask
+        const maskCtx = maskCanvas.getContext('2d');
+        const personCanvas = document.createElement('canvas'); // holds extracted person only
+        const personCtx = personCanvas.getContext('2d');
 
         // ============================================================
         //  UI Helpers
@@ -829,51 +831,58 @@
         }
 
         // ============================================================
-        //  MediaPipe Rendering
+        //  MediaPipe Rendering — Clean 3-stage pipeline
         // ============================================================
         function onResults(results) {
             const W = outputCanvas.width;
             const H = outputCanvas.height;
 
-            tmpCanvas.width = W;
-            tmpCanvas.height = H;
+            maskCanvas.width = W;
+            maskCanvas.height = H;
+            personCanvas.width = W;
+            personCanvas.height = H;
 
-            // Step 1: Draw the segmentation mask to temp canvas (with smoothing)
             const smoothing = parseInt(document.getElementById('edge-smooth').value);
-            tmpCtx.clearRect(0, 0, W, H);
-            if (smoothing > 0) {
-                tmpCtx.filter = `blur(${smoothing}px)`;
-            }
-            tmpCtx.drawImage(results.segmentationMask, 0, 0, W, H);
-            tmpCtx.filter = 'none';
 
-            // Step 2: Extract person pixels using 'destination-in' with the mask
-            tmpCtx.globalCompositeOperation = 'source-in';
+            // ── Stage 1: Process the mask ──────────────────────────────
+            // contrast(300%) sharpens soft edges → pushes values toward 0 or 255
+            // Then a tiny blur adds natural feathering WITHOUT halos
+            maskCtx.clearRect(0, 0, W, H);
+            let maskFilter = 'contrast(300%) brightness(1.05)';
+            if (smoothing > 0) maskFilter += ` blur(${smoothing}px)`;
+            maskCtx.filter = maskFilter;
+            maskCtx.drawImage(results.segmentationMask, 0, 0, W, H);
+            maskCtx.filter = 'none';
+
+            // ── Stage 2: Extract person using the clean mask ───────────
+            // Draw video to personCanvas (with mirror if set)
+            personCtx.clearRect(0, 0, W, H);
             if (isMirrored) {
-                tmpCtx.save();
-                tmpCtx.scale(-1, 1);
-                tmpCtx.drawImage(results.image, -W, 0, W, H);
-                tmpCtx.restore();
+                personCtx.save();
+                personCtx.scale(-1, 1);
+                personCtx.drawImage(results.image, -W, 0, W, H);
+                personCtx.restore();
             } else {
-                tmpCtx.drawImage(results.image, 0, 0, W, H);
+                personCtx.drawImage(results.image, 0, 0, W, H);
             }
-            tmpCtx.globalCompositeOperation = 'source-over';
+            // destination-in: keep existing pixels only where mask has content
+            personCtx.globalCompositeOperation = 'destination-in';
+            personCtx.drawImage(maskCanvas, 0, 0);
+            personCtx.globalCompositeOperation = 'source-over';
 
-            // Step 3: Draw background + person onto main canvas
+            // ── Stage 3: Composite background + person ─────────────────
             ctx.clearRect(0, 0, W, H);
 
-            if (bgType === 'transparent') {
-                // Background stays transparent (cleared above)
-            } else if (bgType === 'blur') {
+            if (bgType === 'blur') {
                 const blurAmt = parseInt(document.getElementById('blur-amount').value);
-                ctx.filter = `blur(${blurAmt}px)`;
+                ctx.filter = `blur(${blurAmt}px) scale(1.05)`;
                 if (isMirrored) {
                     ctx.save();
                     ctx.scale(-1, 1);
-                    ctx.drawImage(results.image, -W, 0, W, H);
+                    ctx.drawImage(results.image, -W * 1.05, -H * 0.025, W * 1.1, H * 1.05);
                     ctx.restore();
                 } else {
-                    ctx.drawImage(results.image, 0, 0, W, H);
+                    ctx.drawImage(results.image, -W * 0.025, -H * 0.025, W * 1.05, H * 1.05);
                 }
                 ctx.filter = 'none';
             } else if (bgType === 'color') {
@@ -882,13 +891,13 @@
             } else if (bgType === 'image' && customBgImage) {
                 ctx.drawImage(customBgImage, 0, 0, W, H);
             } else if (bgType === 'image') {
-                // No image loaded yet — show checker
                 ctx.fillStyle = '#1f1f23';
                 ctx.fillRect(0, 0, W, H);
             }
+            // transparent: already cleared — alpha channel stays 0
 
-            // Step 4: Draw extracted person over background
-            ctx.drawImage(tmpCanvas, 0, 0);
+            // Draw extracted person over background
+            ctx.drawImage(personCanvas, 0, 0);
 
             // FPS counter
             frameCount++;
@@ -918,7 +927,7 @@
                 });
 
                 selfieSegmentation.setOptions({
-                    modelSelection: 1, // Landscape model — faster
+                    modelSelection: 0, // General model — better quality for portrait/close-up
                     selfieMode: true,
                 });
 
