@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>OBS Background Removal Tool — Free, Real-Time, No Green Screen</title>
+    <meta name="title" content="OBS Background Removal Tool — Free, Real-Time, No Green Screen">
+    <meta name="description"
+        content="Remove your webcam background in OBS for free. Browser-based AI tool — no plugin, no green screen needed. Works as OBS Browser Source. Transparent, blur, or custom background.">
+    <meta name="keywords"
+        content="obs background removal, remove background obs, obs virtual green screen, obs webcam background remover, obs background blur, remove background without green screen obs, obs browser source background removal">
+    <meta name="author" content="OBS Mask Generator">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://obsmaskgenerator.com/obs-background-removal/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/obs-background-removal/">
+    <meta property="og:title" content="OBS Background Removal Tool — Free, Real-Time, No Green Screen">
+    <meta property="og:description" content="Remove your webcam background in OBS for free. No plugin, no green screen. Works as OBS Browser Source.">
+    <meta property="og:image" content="https://obsmaskgenerator.com/og-image.png">
+    <meta property="og:site_name" content="OBS Mask Generator">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://obsmaskgenerator.com/obs-background-removal/">
+    <meta property="twitter:title" content="OBS Background Removal Tool — Free, Real-Time">
+    <meta property="twitter:image" content="https://obsmaskgenerator.com/og-image.png">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "OBS Background Removal Tool",
+        "url": "https://obsmaskgenerator.com/obs-background-removal/",
+        "description": "Free browser-based AI background removal tool for OBS streamers. No green screen or plugin required. Works as an OBS Browser Source.",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "featureList": [
+            "Real-time background removal at 30 FPS",
+            "Transparent background for OBS",
+            "Background blur effect",
+            "Solid color background",
+            "Custom image background upload",
+            "Works as OBS Browser Source",
+            "No plugin installation required",
+            "No green screen needed"
+        ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How do I remove background in OBS without a green screen?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Use this free browser tool — it removes your webcam background using AI in real-time. Then add the page URL as a Browser Source in OBS. No green screen, no plugin needed."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Does OBS have background removal built in?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "OBS Studio does not have built-in background removal. You can use the Background Removal plugin, or use a Browser Source pointing to this free web tool — which runs AI background removal directly in the browser."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I use this as an OBS Browser Source?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Open OBS, click + in the Sources panel, choose Browser Source, paste the URL of this page, set width/height to 1920x1080 (or your webcam resolution), check 'Allow Transparency', and click OK."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* =====================
+           Tool Layout
+        ===================== */
+        .tool-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        @media (max-width: 900px) {
+            .tool-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* =====================
+           Controls Panel
+        ===================== */
+        .controls-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .control-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+        }
+
+        .control-card h3 {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        /* Background Type Selector */
+        .bg-type-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .bg-type-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 10px 8px;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.15s ease;
+            text-align: center;
+        }
+
+        .bg-type-btn:hover { border-color: var(--accent-primary); color: var(--text-primary); }
+        .bg-type-btn.active {
+            background: rgba(145, 70, 255, 0.15);
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        .bg-type-icon { font-size: 1.2rem; display: block; margin-bottom: 4px; }
+
+        /* Slider */
+        .slider-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .slider-row input[type="range"] {
+            flex: 1;
+            accent-color: var(--accent-primary);
+            cursor: pointer;
+        }
+
+        .slider-val {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            min-width: 32px;
+            text-align: right;
+            font-weight: 600;
+        }
+
+        /* Color Picker */
+        .color-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input[type="color"] {
+            width: 44px;
+            height: 36px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: none;
+            cursor: pointer;
+            padding: 2px;
+        }
+
+        .color-label { font-size: 0.85rem; color: var(--text-secondary); }
+
+        /* Toggle */
+        .toggle-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .toggle-label { font-size: 0.85rem; color: var(--text-secondary); }
+
+        .toggle {
+            position: relative;
+            width: 40px;
+            height: 22px;
+        }
+
+        .toggle input { opacity: 0; width: 0; height: 0; }
+
+        .toggle-slider {
+            position: absolute;
+            inset: 0;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-color);
+            border-radius: 22px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            left: 2px;
+            top: 2px;
+            background: var(--text-muted);
+            border-radius: 50%;
+            transition: 0.2s;
+        }
+
+        .toggle input:checked + .toggle-slider { background: rgba(145,70,255,0.2); border-color: var(--accent-primary); }
+        .toggle input:checked + .toggle-slider::before { transform: translateX(18px); background: var(--accent-primary); }
+
+        /* File Upload */
+        .upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.2s;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .upload-area:hover { border-color: var(--accent-primary); color: var(--text-secondary); }
+        .upload-area input { display: none; }
+
+        /* Start Button */
+        .start-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .start-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(145,70,255,0.35); }
+        .start-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        /* Status */
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .status-pill.idle { background: var(--bg-tertiary); color: var(--text-muted); }
+        .status-pill.running { background: rgba(0,245,147,0.1); color: var(--success); border: 1px solid rgba(0,245,147,0.3); }
+        .status-pill.loading { background: rgba(255,184,0,0.1); color: var(--warning); border: 1px solid rgba(255,184,0,0.3); }
+        .status-pill.error { background: rgba(235,4,0,0.1); color: var(--error); border: 1px solid rgba(235,4,0,0.3); }
+
+        .status-dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        .status-dot.pulse { animation: pulse 1.2s ease-in-out infinite; }
+        @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+
+        /* =====================
+           Preview Panel
+        ===================== */
+        .preview-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .preview-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .preview-header h2 {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+        }
+
+        .canvas-wrap {
+            position: relative;
+            background: repeating-conic-gradient(#2a2a2e 0% 25%, #1f1f23 0% 50%) 0 0 / 20px 20px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #output-canvas {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .canvas-placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .canvas-placeholder svg { opacity: 0.3; }
+
+        #webcam-video { display: none; }
+
+        /* FPS badge */
+        .fps-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.6);
+            color: var(--success);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-family: monospace;
+            display: none;
+        }
+
+        /* =====================
+           OBS Setup Card
+        ===================== */
+        .obs-setup-card {
+            background: linear-gradient(135deg, rgba(145,70,255,0.08), rgba(119,44,232,0.05));
+            border: 1px solid rgba(145,70,255,0.3);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+        }
+
+        .obs-setup-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .obs-setup-card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 14px;
+        }
+
+        .obs-steps {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .obs-steps li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .step-num {
+            background: var(--accent-primary);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            min-width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .copy-url-btn {
+            width: 100%;
+            padding: 10px 16px;
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .copy-url-btn:hover { background: var(--accent-hover); }
+        .copy-url-btn.copied { background: var(--success); color: #000; }
+
+        /* =====================
+           SEO Article Section
+        ===================== */
+        .seo-article {
+            max-width: 860px;
+            margin: 40px auto;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .seo-article h2 {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin: 2rem 0 1rem;
+        }
+
+        .seo-article h3 {
+            font-size: 1.15rem;
+            color: var(--text-primary);
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        .seo-article p { margin-bottom: 1rem; }
+
+        .seo-article ol, .seo-article ul {
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .seo-article li { margin-bottom: 0.5rem; }
+        .seo-article strong { color: var(--text-primary); }
+
+        .tip-box {
+            background: var(--bg-secondary);
+            border-left: 3px solid var(--accent-primary);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: 14px 18px;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .tip-box strong { color: var(--accent-primary); }
+    </style>
+
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4560264570048889"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="app-container">
+
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="url(#logo-grad)" />
+                    <path d="M8 16C8 11.58 11.58 8 16 8C20.42 8 24 11.58 24 16C24 20.42 20.42 24 16 24"
+                        stroke="white" stroke-width="2.5" stroke-linecap="round" />
+                    <circle cx="16" cy="16" r="4" fill="white" />
+                    <defs>
+                        <linearGradient id="logo-grad" x1="0" y1="0" x2="32" y2="32">
+                            <stop offset="0" stop-color="#9146FF" />
+                            <stop offset="1" stop-color="#6441A5" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <h1>OBS Background Removal — Free Real-Time Tool</h1>
+            </div>
+            <p class="tagline">Remove your webcam background in OBS without a green screen or plugin. AI-powered, runs in your browser at 30 FPS.</p>
+        </header>
+
+        <!-- Hidden video element for camera feed -->
+        <video id="webcam-video" autoplay playsinline muted></video>
+
+        <!-- Main Tool Layout -->
+        <main class="tool-layout">
+
+            <!-- Left: Controls -->
+            <aside class="controls-panel">
+
+                <!-- Status -->
+                <div class="control-card" style="padding: 12px 16px;">
+                    <div style="display:flex; align-items:center; justify-content:space-between;">
+                        <span id="status-pill" class="status-pill idle">
+                            <span class="status-dot"></span>
+                            <span id="status-text">Ready</span>
+                        </span>
+                        <span id="fps-display" style="font-size:0.75rem; color:var(--text-muted); font-weight:600; display:none;"></span>
+                    </div>
+                </div>
+
+                <!-- Start Button -->
+                <button class="start-btn" id="start-btn" onclick="startCamera()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                    </svg>
+                    Allow Camera &amp; Start
+                </button>
+
+                <!-- Background Type -->
+                <div class="control-card">
+                    <h3>Background Type</h3>
+                    <div class="bg-type-grid">
+                        <button class="bg-type-btn active" data-type="transparent" onclick="setBgType(this)">
+                            <span class="bg-type-icon">⬜</span>Transparent
+                        </button>
+                        <button class="bg-type-btn" data-type="blur" onclick="setBgType(this)">
+                            <span class="bg-type-icon">🌫️</span>Blur
+                        </button>
+                        <button class="bg-type-btn" data-type="color" onclick="setBgType(this)">
+                            <span class="bg-type-icon">🎨</span>Solid Color
+                        </button>
+                        <button class="bg-type-btn" data-type="image" onclick="setBgType(this)">
+                            <span class="bg-type-icon">🖼️</span>Custom Image
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Color Picker (shown when type=color) -->
+                <div class="control-card" id="color-control" style="display:none;">
+                    <h3>Background Color</h3>
+                    <div class="color-row">
+                        <input type="color" id="bg-color" value="#00b140">
+                        <span class="color-label">Click to choose any color</span>
+                    </div>
+                    <div style="margin-top:10px; display:flex; gap:6px; flex-wrap:wrap;">
+                        <button onclick="document.getElementById('bg-color').value='#00b140'" style="background:#00b140; width:28px; height:28px; border-radius:6px; border:none; cursor:pointer;" title="Green Screen Green"></button>
+                        <button onclick="document.getElementById('bg-color').value='#0047AB'" style="background:#0047AB; width:28px; height:28px; border-radius:6px; border:none; cursor:pointer;" title="Blue Screen Blue"></button>
+                        <button onclick="document.getElementById('bg-color').value='#000000'" style="background:#000; border:1px solid #444; width:28px; height:28px; border-radius:6px; cursor:pointer;" title="Black"></button>
+                        <button onclick="document.getElementById('bg-color').value='#ffffff'" style="background:#fff; border:1px solid #444; width:28px; height:28px; border-radius:6px; cursor:pointer;" title="White"></button>
+                    </div>
+                </div>
+
+                <!-- Blur Amount (shown when type=blur) -->
+                <div class="control-card" id="blur-control" style="display:none;">
+                    <h3>Blur Strength</h3>
+                    <div class="slider-row">
+                        <input type="range" id="blur-amount" min="4" max="30" value="12" oninput="document.getElementById('blur-val').textContent=this.value+'px'">
+                        <span class="slider-val" id="blur-val">12px</span>
+                    </div>
+                </div>
+
+                <!-- Custom Image (shown when type=image) -->
+                <div class="control-card" id="image-control" style="display:none;">
+                    <h3>Background Image</h3>
+                    <label class="upload-area" for="bg-image-input">
+                        <input type="file" id="bg-image-input" accept="image/*" onchange="loadBgImage(this)">
+                        <div>📁 Click to upload<br><span style="font-size:0.75rem;">JPG, PNG, WebP supported</span></div>
+                    </label>
+                    <p id="image-name" style="font-size:0.75rem; color:var(--text-muted); margin-top:8px; display:none;"></p>
+                </div>
+
+                <!-- Edge Smoothing -->
+                <div class="control-card">
+                    <h3>Edge Smoothing</h3>
+                    <div class="slider-row">
+                        <input type="range" id="edge-smooth" min="0" max="12" value="4" oninput="document.getElementById('smooth-val').textContent=this.value">
+                        <span class="slider-val" id="smooth-val">4</span>
+                    </div>
+                </div>
+
+                <!-- Mirror Toggle -->
+                <div class="control-card">
+                    <h3>Camera Options</h3>
+                    <div class="toggle-row">
+                        <span class="toggle-label">Mirror (flip horizontal)</span>
+                        <label class="toggle">
+                            <input type="checkbox" id="mirror-toggle" checked onchange="updateMirror()">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+            </aside>
+
+            <!-- Right: Preview -->
+            <section class="preview-panel">
+                <div class="preview-header">
+                    <h2>Live Preview</h2>
+                    <span id="main-status" class="status-pill idle">
+                        <span class="status-dot"></span>
+                        <span>Camera off</span>
+                    </span>
+                </div>
+
+                <div class="canvas-wrap">
+                    <canvas id="output-canvas" width="1280" height="720"></canvas>
+                    <div class="canvas-placeholder" id="canvas-placeholder">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/>
+                        </svg>
+                        <span>Click "Allow Camera &amp; Start" to begin</span>
+                        <span style="font-size:0.8rem; opacity:0.6;">Background removed in real-time</span>
+                    </div>
+                    <div class="fps-badge" id="fps-badge"></div>
+                </div>
+
+                <!-- OBS Setup Instructions -->
+                <div class="obs-setup-card">
+                    <h3>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9146ff" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                        Use This as Your OBS Webcam Source
+                    </h3>
+                    <p>Add this page as a <strong>Browser Source</strong> in OBS — your background will be removed automatically.</p>
+                    <ol class="obs-steps">
+                        <li><span class="step-num">1</span><span>Start the camera above so the background is removed</span></li>
+                        <li><span class="step-num">2</span><span>In OBS, click <strong>+</strong> in the Sources panel → choose <strong>Browser Source</strong></span></li>
+                        <li><span class="step-num">3</span><span>Paste this page URL into the URL field</span></li>
+                        <li><span class="step-num">4</span><span>Set Width: <strong>1920</strong>, Height: <strong>1080</strong> (match your webcam resolution)</span></li>
+                        <li><span class="step-num">5</span><span>✅ Check <strong>"Allow Transparency"</strong> — this makes the background truly transparent in OBS</span></li>
+                        <li><span class="step-num">6</span><span>Click OK. Your webcam now has no background!</span></li>
+                    </ol>
+                    <button class="copy-url-btn" id="copy-url-btn" onclick="copyPageUrl()">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy Page URL for OBS
+                    </button>
+                </div>
+
+            </section>
+        </main>
+
+        <!-- SEO Article -->
+        <article class="seo-article">
+            <h2>How to Remove Background in OBS Without a Green Screen</h2>
+            <p>Removing your webcam background in OBS is one of the most searched streaming questions — and for good reason. A clean, distraction-free background makes your stream look professional instantly. The problem is that most guides tell you to either buy a green screen or install a plugin. This tool does neither.</p>
+
+            <p>This browser-based tool uses <strong>Google's MediaPipe AI model</strong> to detect and remove your background in real-time at up to 30 FPS — directly in your browser, with no installation required. The output is a clean canvas element you add to OBS as a Browser Source.</p>
+
+            <div class="tip-box">
+                <strong>💡 Pro Tip:</strong> After adding the Browser Source in OBS, right-click it in the preview and select <strong>Filters → Chroma Key</strong> if you're using a solid color background. Or use transparent mode and just check "Allow Transparency" in the Browser Source settings.
+            </div>
+
+            <h2>OBS Background Removal: Plugin vs Browser Source</h2>
+            <p>There are two main ways to remove your background in OBS:</p>
+            <ol>
+                <li><strong>OBS Background Removal Plugin</strong> — A downloadable plugin (royshilkrot's Background Removal) that adds a filter directly to your OBS webcam source. Excellent performance, but requires installation and may not work on all systems.</li>
+                <li><strong>Browser Source (this tool)</strong> — No installation. Open the tool, allow camera access, and add the URL to OBS as a Browser Source. Works on Windows, Mac, and Linux without touching OBS settings.</li>
+            </ol>
+
+            <h3>When to Use the Browser Source Method</h3>
+            <ul>
+                <li>You can't install plugins (school/work computer, locked-down system)</li>
+                <li>The OBS plugin isn't available for your OS version</li>
+                <li>You want a quick test without committing to an install</li>
+                <li>You need a custom background image without plugin configuration</li>
+            </ul>
+
+            <h2>What Does "Allow Transparency" Mean in OBS?</h2>
+            <p>When you add a Browser Source in OBS, the <strong>"Allow Transparency"</strong> checkbox tells OBS to respect the alpha channel (transparent pixels) in the browser output. If you choose "Transparent" mode in this tool and check that box in OBS, your webcam will appear with a completely transparent background — no green spill, no artifacts.</p>
+            <p>If you don't check it, OBS will show the checker pattern (transparency) as black, so always enable it when using transparent background mode.</p>
+
+            <h2>Does This Work for Streamlabs OBS?</h2>
+            <p>Yes. Streamlabs OBS also supports Browser Sources with the same "Allow Transparency" option. The setup steps are identical — add a new Browser Source, paste the URL, set resolution, and check Allow Transparency.</p>
+
+            <h2>System Requirements</h2>
+            <p>The AI model runs in your browser using WebAssembly and WebGL acceleration. Most laptops and desktops made after 2018 can run it smoothly at 30 FPS. Chrome and Edge give the best performance. Firefox is supported but may run at a slightly lower frame rate due to WebGL handling differences.</p>
+        </article>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Free OBS Tools &amp; Generators | No signup required | <a href="/privacy-policy.html"
+                    style="color: var(--accent-primary, #9146ff);">Privacy Policy</a></p>
+            <div style="margin-top: 15px; font-size: 0.85em; line-height: 1.8;">
+                <p><strong style="color: #a78bfa;">OBS Tools:</strong>
+                    <a href="/" style="color: #9146ff;">Webcam Mask</a> |
+                    <a href="/settings-generator/" style="color: #9146ff;">Settings Generator</a> |
+                    <a href="/bitrate-calculator/" style="color: #9146ff;">Bitrate Calc</a> |
+                    <a href="/hotkey-reference/" style="color: #9146ff;">Hotkey Reference</a> |
+                    <a href="/overlay-generator/" style="color: #9146ff;">Overlay Generator</a> |
+                    <a href="/can-i-stream/" style="color: #9146ff;">Can I Stream?</a>
+                </p>
+                <p><strong style="color: #a78bfa;">Related:</strong>
+                    <a href="/blog/obs-background-removal-guide.html" style="color: #9146ff;">BG Removal Guide</a> |
+                    <a href="/blog/obs-hotkeys-guide.html" style="color: #9146ff;">OBS Hotkeys</a> |
+                    <a href="/guides/" style="color: #9146ff;">Troubleshooting Guides</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- MediaPipe Selfie Segmentation -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js" crossorigin="anonymous"></script>
+
+    <script>
+        // ============================================================
+        //  State
+        // ============================================================
+        let bgType = 'transparent';
+        let isMirrored = true;
+        let customBgImage = null;
+        let isRunning = false;
+        let frameCount = 0;
+        let lastFpsTime = performance.now();
+        let mpCamera = null;
+        let selfieSegmentation = null;
+
+        // Canvas elements
+        const outputCanvas = document.getElementById('output-canvas');
+        const ctx = outputCanvas.getContext('2d');
+
+        // Offscreen canvas for mask + compositing
+        const tmpCanvas = document.createElement('canvas');
+        const tmpCtx = tmpCanvas.getContext('2d');
+
+        // ============================================================
+        //  UI Helpers
+        // ============================================================
+        function setStatus(mode, text) {
+            const pill = document.getElementById('status-pill');
+            const mainPill = document.getElementById('main-status');
+            const textEl = document.getElementById('status-text');
+            const dot = pill.querySelector('.status-dot');
+
+            pill.className = `status-pill ${mode}`;
+            mainPill.className = `status-pill ${mode}`;
+            mainPill.innerHTML = `<span class="status-dot${mode==='loading'?' pulse':''}"></span><span>${text}</span>`;
+            textEl.textContent = text;
+            dot.className = `status-dot${mode==='loading'?' pulse':''}`;
+        }
+
+        function setBgType(btn) {
+            document.querySelectorAll('.bg-type-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            bgType = btn.dataset.type;
+
+            document.getElementById('color-control').style.display = bgType === 'color' ? '' : 'none';
+            document.getElementById('blur-control').style.display = bgType === 'blur' ? '' : 'none';
+            document.getElementById('image-control').style.display = bgType === 'image' ? '' : 'none';
+        }
+
+        function updateMirror() {
+            isMirrored = document.getElementById('mirror-toggle').checked;
+        }
+
+        function loadBgImage(input) {
+            if (!input.files[0]) return;
+            const reader = new FileReader();
+            reader.onload = e => {
+                const img = new Image();
+                img.onload = () => { customBgImage = img; };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+            document.getElementById('image-name').textContent = '✅ ' + input.files[0].name;
+            document.getElementById('image-name').style.display = '';
+        }
+
+        function copyPageUrl() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                const btn = document.getElementById('copy-url-btn');
+                btn.textContent = '✅ Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Page URL for OBS`;
+                    btn.classList.remove('copied');
+                }, 2500);
+            });
+        }
+
+        // ============================================================
+        //  MediaPipe Rendering
+        // ============================================================
+        function onResults(results) {
+            const W = outputCanvas.width;
+            const H = outputCanvas.height;
+
+            tmpCanvas.width = W;
+            tmpCanvas.height = H;
+
+            // Step 1: Draw the segmentation mask to temp canvas (with smoothing)
+            const smoothing = parseInt(document.getElementById('edge-smooth').value);
+            tmpCtx.clearRect(0, 0, W, H);
+            if (smoothing > 0) {
+                tmpCtx.filter = `blur(${smoothing}px)`;
+            }
+            tmpCtx.drawImage(results.segmentationMask, 0, 0, W, H);
+            tmpCtx.filter = 'none';
+
+            // Step 2: Extract person pixels using 'destination-in' with the mask
+            tmpCtx.globalCompositeOperation = 'source-in';
+            if (isMirrored) {
+                tmpCtx.save();
+                tmpCtx.scale(-1, 1);
+                tmpCtx.drawImage(results.image, -W, 0, W, H);
+                tmpCtx.restore();
+            } else {
+                tmpCtx.drawImage(results.image, 0, 0, W, H);
+            }
+            tmpCtx.globalCompositeOperation = 'source-over';
+
+            // Step 3: Draw background + person onto main canvas
+            ctx.clearRect(0, 0, W, H);
+
+            if (bgType === 'transparent') {
+                // Background stays transparent (cleared above)
+            } else if (bgType === 'blur') {
+                const blurAmt = parseInt(document.getElementById('blur-amount').value);
+                ctx.filter = `blur(${blurAmt}px)`;
+                if (isMirrored) {
+                    ctx.save();
+                    ctx.scale(-1, 1);
+                    ctx.drawImage(results.image, -W, 0, W, H);
+                    ctx.restore();
+                } else {
+                    ctx.drawImage(results.image, 0, 0, W, H);
+                }
+                ctx.filter = 'none';
+            } else if (bgType === 'color') {
+                ctx.fillStyle = document.getElementById('bg-color').value;
+                ctx.fillRect(0, 0, W, H);
+            } else if (bgType === 'image' && customBgImage) {
+                ctx.drawImage(customBgImage, 0, 0, W, H);
+            } else if (bgType === 'image') {
+                // No image loaded yet — show checker
+                ctx.fillStyle = '#1f1f23';
+                ctx.fillRect(0, 0, W, H);
+            }
+
+            // Step 4: Draw extracted person over background
+            ctx.drawImage(tmpCanvas, 0, 0);
+
+            // FPS counter
+            frameCount++;
+            const now = performance.now();
+            if (now - lastFpsTime >= 1000) {
+                const fps = Math.round(frameCount * 1000 / (now - lastFpsTime));
+                document.getElementById('fps-badge').textContent = fps + ' FPS';
+                document.getElementById('fps-display').textContent = fps + ' FPS';
+                frameCount = 0;
+                lastFpsTime = now;
+            }
+        }
+
+        // ============================================================
+        //  Start Camera
+        // ============================================================
+        async function startCamera() {
+            const btn = document.getElementById('start-btn');
+            btn.disabled = true;
+            setStatus('loading', 'Loading AI model...');
+
+            try {
+                // Init MediaPipe Selfie Segmentation
+                selfieSegmentation = new SelfieSegmentation({
+                    locateFile: (file) =>
+                        `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/${file}`
+                });
+
+                selfieSegmentation.setOptions({
+                    modelSelection: 1, // Landscape model — faster
+                    selfieMode: true,
+                });
+
+                selfieSegmentation.onResults(onResults);
+
+                // Get webcam
+                setStatus('loading', 'Requesting camera...');
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { width: 1280, height: 720, facingMode: 'user' },
+                    audio: false
+                });
+
+                const video = document.getElementById('webcam-video');
+                video.srcObject = stream;
+                await video.play();
+
+                outputCanvas.width = video.videoWidth || 1280;
+                outputCanvas.height = video.videoHeight || 720;
+
+                setStatus('loading', 'Starting background removal...');
+
+                // Hide placeholder
+                document.getElementById('canvas-placeholder').style.display = 'none';
+                document.getElementById('fps-badge').style.display = '';
+                document.getElementById('fps-display').style.display = '';
+
+                // Use Camera utility for frame loop
+                mpCamera = new Camera(video, {
+                    onFrame: async () => {
+                        await selfieSegmentation.send({ image: video });
+                    },
+                    width: outputCanvas.width,
+                    height: outputCanvas.height
+                });
+
+                await mpCamera.start();
+                isRunning = true;
+                setStatus('running', 'Background removed ✓');
+
+                btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Stop Camera`;
+                btn.disabled = false;
+                btn.onclick = stopCamera;
+
+            } catch (err) {
+                console.error(err);
+                setStatus('error', err.name === 'NotAllowedError' ? 'Camera permission denied' : 'Error: ' + err.message);
+                btn.disabled = false;
+                btn.onclick = startCamera;
+            }
+        }
+
+        function stopCamera() {
+            if (mpCamera) { mpCamera.stop(); mpCamera = null; }
+            const video = document.getElementById('webcam-video');
+            if (video.srcObject) {
+                video.srcObject.getTracks().forEach(t => t.stop());
+                video.srcObject = null;
+            }
+            if (selfieSegmentation) { selfieSegmentation.close(); selfieSegmentation = null; }
+            isRunning = false;
+            ctx.clearRect(0, 0, outputCanvas.width, outputCanvas.height);
+            document.getElementById('canvas-placeholder').style.display = '';
+            document.getElementById('fps-badge').style.display = 'none';
+            document.getElementById('fps-display').style.display = 'none';
+            setStatus('idle', 'Stopped');
+
+            const btn = document.getElementById('start-btn');
+            btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg> Allow Camera &amp; Start`;
+            btn.onclick = startCamera;
+        }
+    </script>
+
+    <!-- Global components (GA4 + Mynofi promo) -->
+    <script src="/components.js" defer></script>
+</body>
+
+</html>
