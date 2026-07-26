@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -748,35 +748,33 @@
     </div>
 
     <!--
-        Engine: @mediapipe/tasks-vision (2024) — GPU delegate, selfie_segmenter_256x256 model
-        Fixes:  single getUserMedia (no double camera prompt), pixel-level smoothstep (no halos)
+        Engine: @tensorflow-models/body-pix (BodyPix v2) â€” WebGL backend
+        Much cleaner edges than selfie_segmenter. Async segmentation loop.
     -->
-    <script type="module">
-    import { ImageSegmenter, FilesetResolver }
-        from 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.15/vision_bundle.mjs';
-
-    // ── State ────────────────────────────────────────────────────
-    let segmenter     = null;
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix@2.2.0/dist/body-pix.min.js"></script>
+    <script>
+    // â”€â”€ State â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    let net           = null;
     let isRunning     = false;
     let animFrame     = null;
     let bgType        = 'transparent';
     let isMirrored    = false;
     let customBgImage = null;
-    let frameCount = 0, lastFpsTime = performance.now();
+    let frameCount    = 0, lastFpsTime = performance.now();
+    let segProcessing = false;
 
-    // ── Canvas pipeline ──────────────────────────────────────────
+    // â”€â”€ Canvas pipeline â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     const outputCanvas = document.getElementById('output-canvas');
     const ctx          = outputCanvas.getContext('2d', { alpha: true });
 
-    // frameCanvas: video frame (mirrored if needed) — read pixels from here
     const frameCanvas = document.createElement('canvas');
     const frameCtx    = frameCanvas.getContext('2d', { alpha: true, willReadFrequently: true });
 
-    // maskCanvas: only needed as a fallback to read mask pixels
     const maskCanvas  = document.createElement('canvas');
-    const maskCtx     = maskCanvas.getContext('2d', { alpha: false, willReadFrequently: true });
+    const maskCtx     = maskCanvas.getContext('2d', { alpha: false });
 
-    // ── Expose to window for inline onclick= handlers ─────────────
+    // â”€â”€ Expose to window for inline onclick= handlers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     window.startCamera  = startCamera;
     window.stopCamera   = stopCamera;
     window.setBgType    = setBgType;
@@ -784,25 +782,24 @@
     window.loadBgImage  = loadBgImage;
     window.copyPageUrl  = copyPageUrl;
 
-    // ── UI helpers ───────────────────────────────────────────────
     function setStatus(mode, text) {
         ['status-pill', 'main-status'].forEach(id => {
             const el = document.getElementById(id);
             if (!el) return;
-            el.className = `status-pill ${mode}`;
-            el.innerHTML = `<span class="status-dot${mode === 'loading' ? ' pulse' : ''}"></span><span>${text}</span>`;
+            el.textContent = text;
+            el.className = el.className.replace(/\bstatus--(running|loading|error|idle)\b/g, '');
+            el.classList.add('status--' + mode);
         });
-        const t = document.getElementById('status-text');
-        if (t) t.textContent = text;
     }
 
-    function setBgType(btn) {
-        document.querySelectorAll('.bg-type-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        bgType = btn.dataset.type;
-        document.getElementById('color-control').style.display = bgType === 'color' ? '' : 'none';
-        document.getElementById('blur-control').style.display  = bgType === 'blur'  ? '' : 'none';
-        document.getElementById('image-control').style.display = bgType === 'image' ? '' : 'none';
+    function setBgType(type) {
+        bgType = type;
+        document.querySelectorAll('.bg-btn').forEach(b => b.classList.remove('active'));
+        const btn = document.getElementById('bg-' + type);
+        if (btn) btn.classList.add('active');
+        document.getElementById('color-picker-row').style.display = type === 'color' ? '' : 'none';
+        document.getElementById('blur-row').style.display          = type === 'blur'  ? '' : 'none';
+        document.getElementById('image-upload-row').style.display  = type === 'image' ? '' : 'none';
     }
 
     function updateMirror() {
@@ -819,155 +816,126 @@
         };
         reader.readAsDataURL(input.files[0]);
         const n = document.getElementById('image-name');
-        if (n) { n.textContent = '✅ ' + input.files[0].name; n.style.display = ''; }
+        if (n) { n.textContent = 'âœ… ' + input.files[0].name; n.style.display = ''; }
     }
 
     function copyPageUrl() {
         navigator.clipboard.writeText(window.location.href).then(() => {
             const btn = document.getElementById('copy-url-btn');
-            btn.textContent = '✅ Copied!';
+            btn.textContent = 'âœ… Copied!';
             btn.classList.add('copied');
             setTimeout(() => {
-                btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Page URL for OBS`;
+                btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Page URL for OBS';
                 btn.classList.remove('copied');
             }, 2500);
         });
     }
 
-    // ── Core render: called every animation frame ────────────────
-    function renderFrame(video, result) {
+    // â”€â”€ Core render â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    function renderFrame(video, segmentation) {
         const W = outputCanvas.width;
         const H = outputCanvas.height;
 
         if (frameCanvas.width !== W)  frameCanvas.width  = W;
         if (frameCanvas.height !== H) frameCanvas.height = H;
+        if (maskCanvas.width  !== W)  maskCanvas.width   = W;
+        if (maskCanvas.height !== H)  maskCanvas.height  = H;
 
-        // 1. Draw video to frameCanvas UNMIRRORED (mask from Mediapipe is unmirrored)
+        // Build white=person / black=bg mask at model resolution
+        const mW  = segmentation.width;
+        const mH  = segmentation.height;
+        const raw = segmentation.data;
+
+        const maskImgData = new ImageData(mW, mH);
+        const md = maskImgData.data;
+        for (let i = 0; i < raw.length; i++) {
+            const v = raw[i] === 1 ? 255 : 0;
+            md[i * 4]     = v;
+            md[i * 4 + 1] = v;
+            md[i * 4 + 2] = v;
+            md[i * 4 + 3] = 255;
+        }
+
+        const tmpMask = document.createElement('canvas');
+        tmpMask.width = mW; tmpMask.height = mH;
+        tmpMask.getContext('2d').putImageData(maskImgData, 0, 0);
+
+        // Scale mask to output size with edge blur
+        const smooth = parseInt(document.getElementById('edge-smooth').value) || 0;
+        maskCtx.clearRect(0, 0, W, H);
+        maskCtx.filter = smooth > 0 ? ('blur(' + (smooth * 2 + 1) + 'px)') : 'none';
+        maskCtx.drawImage(tmpMask, 0, 0, W, H);
+        maskCtx.filter = 'none';
+
+        // Draw video frame to frameCanvas
+        frameCtx.clearRect(0, 0, W, H);
         frameCtx.drawImage(video, 0, 0, W, H);
 
-        // 2. Get confidence mask as Float32Array (0 = background, 1 = person)
-        let maskF32 = null;
-        const masks = result && result.confidenceMasks;
-        const maskImg = masks ? (masks.length > 1 ? masks[1] : masks[0]) : null;
-        if (maskImg) {
-            try {
-                maskF32 = maskImg.getAsFloat32Array();
-            } catch (e) {
-                if (maskCanvas.width !== W)  maskCanvas.width  = W;
-                if (maskCanvas.height !== H) maskCanvas.height = H;
-                maskCtx.clearRect(0, 0, W, H);
-                maskCtx.drawImage(maskImg, 0, 0, W, H);
-                const raw = maskCtx.getImageData(0, 0, W, H).data;
-                maskF32 = new Float32Array(W * H);
-                for (let i = 0; i < maskF32.length; i++) maskF32[i] = raw[i * 4] / 255;
-            }
-        }
+        // destination-in: keeps pixels where mask is white (person), rest transparent
+        frameCtx.globalCompositeOperation = 'destination-in';
+        frameCtx.drawImage(maskCanvas, 0, 0);
+        frameCtx.globalCompositeOperation = 'source-over';
 
-        // 3. Apply pixel-level smoothstep threshold to alpha channel
-        const imgData = frameCtx.getImageData(0, 0, W, H);
-        const px = imgData.data;
-
-        if (maskF32 && maskF32.length === W * H) {
-            const smooth  = parseInt(document.getElementById('edge-smooth').value) || 0;
-            const halfZone = 0.10 + smooth * 0.022;   // feather zone half-width
-            const thresh   = 0.50;                     // decision boundary
-
-            for (let i = 0, a = 3; i < maskF32.length; i++, a += 4) {
-                // Smooth-step: clean sigmoid-like curve, zero halos
-                let t = (maskF32[i] - (thresh - halfZone)) / (halfZone * 2);
-                t = t < 0 ? 0 : t > 1 ? 1 : t;
-                px[a] = (t * t * (3 - 2 * t) * 255) | 0;
-            }
-        }
-
-        // Put the masked unmirrored image back
-        frameCtx.putImageData(imgData, 0, 0);
-
-        // 4. Write masked person pixels to outputCanvas (Mirror everything here!)
+        // Composite to output
         ctx.clearRect(0, 0, W, H);
-
         ctx.save();
-        if (isMirrored) {
-            ctx.scale(-1, 1);
-            ctx.translate(-W, 0);
-        }
+        if (isMirrored) { ctx.scale(-1, 1); ctx.translate(-W, 0); }
 
-        // Draw background first
         if (bgType === 'blur') {
-            const amt = parseInt(document.getElementById('blur-amount').value);
-            ctx.filter = `blur(${amt}px)`;
+            const amt = parseInt(document.getElementById('blur-amount').value) || 8;
+            ctx.filter = 'blur(' + amt + 'px)';
             ctx.drawImage(video, 0, 0, W, H);
             ctx.filter = 'none';
         } else if (bgType === 'color') {
-            ctx.fillStyle = document.getElementById('bg-color').value;
+            ctx.fillStyle = document.getElementById('bg-color').value || '#00ff00';
             ctx.fillRect(0, 0, W, H);
         } else if (bgType === 'image') {
             if (customBgImage) ctx.drawImage(customBgImage, 0, 0, W, H);
             else { ctx.fillStyle = '#14141a'; ctx.fillRect(0, 0, W, H); }
         }
 
-        // Draw person (with mask applied as alpha)
         ctx.drawImage(frameCanvas, 0, 0);
-
         ctx.restore();
-
-        // Free GPU memory
-        try { result.close(); } catch (e) {}
 
         // FPS counter
         frameCount++;
         const now = performance.now();
         if (now - lastFpsTime >= 1000) {
             const fps = Math.round(frameCount * 1000 / (now - lastFpsTime));
-            const fb  = document.getElementById('fps-badge');
-            const fd  = document.getElementById('fps-display');
-            if (fb) fb.textContent = fps + ' FPS';
-            if (fd) fd.textContent = fps + ' FPS';
+            ['fps-badge', 'fps-display'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = fps + ' FPS';
+            });
             frameCount = 0;
             lastFpsTime = now;
         }
     }
 
-    // ── Start Camera ─────────────────────────────────────────────
+    // â”€â”€ Start Camera â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     async function startCamera() {
         const btn = document.getElementById('start-btn');
         btn.disabled = true;
-        setStatus('loading', 'Loading AI model…');
+        setStatus('loading', 'Loading AI model...');
 
         try {
-            // Load model once (cached after first load)
-            if (!segmenter) {
-                const vision = await FilesetResolver.forVisionTasks(
-                    'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.15/wasm'
-                );
-                segmenter = await ImageSegmenter.createFromOptions(vision, {
-                    baseOptions: {
-                        // Newer, GPU-accelerated selfie segmenter (better quality than old package)
-                        modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/image_segmenter/selfie_segmenter/float16/latest/selfie_segmenter.tflite',
-                        delegate: 'GPU',
-                    },
-                    runningMode: 'VIDEO',
-                    outputCategoryMask:    false,
-                    outputConfidenceMasks: true,   // float32 confidence per pixel
+            if (!net) {
+                net = await bodyPix.load({
+                    architecture: 'MobileNetV1',
+                    outputStride: 16,
+                    multiplier:   0.75,
+                    quantBytes:   2,
                 });
             }
 
-            setStatus('loading', 'Requesting camera…');
+            setStatus('loading', 'Requesting camera...');
 
-            // SINGLE getUserMedia — no camera_utils, no double permission prompt
             const stream = await navigator.mediaDevices.getUserMedia({
-                video: {
-                    width:     { ideal: 1280 },
-                    height:    { ideal: 720  },
-                    frameRate: { ideal: 30   },
-                    facingMode: 'user',
-                },
+                video: { width: { ideal: 1280 }, height: { ideal: 720 }, frameRate: { ideal: 30 }, facingMode: 'user' },
                 audio: false,
             });
 
             const video = document.getElementById('webcam-video');
             video.srcObject = stream;
-            // Wait for metadata before reading dimensions
             await new Promise(resolve => {
                 if (video.readyState >= 1) { resolve(); return; }
                 video.onloadedmetadata = resolve;
@@ -978,24 +946,32 @@
             outputCanvas.height = video.videoHeight || 720;
 
             document.getElementById('canvas-placeholder').style.display = 'none';
-            const fb = document.getElementById('fps-badge');
-            const fd = document.getElementById('fps-display');
-            if (fb) fb.style.display = '';
-            if (fd) fd.style.display = '';
+            ['fps-badge', 'fps-display'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.style.display = '';
+            });
 
             isRunning = true;
-            setStatus('running', 'Background removed ✓');
-
-            btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Stop Camera`;
+            setStatus('running', 'Background removed');
+            btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Stop Camera';
             btn.disabled  = false;
             btn.onclick   = stopCamera;
 
-            // Frame loop — driven by requestAnimationFrame at camera FPS
-            function loop(timestamp) {
+            async function loop() {
                 if (!isRunning) return;
-                if (video.readyState >= 2) {
-                    const result = segmenter.segmentForVideo(video, timestamp);
-                    renderFrame(video, result);
+                if (!segProcessing && video.readyState >= 2) {
+                    segProcessing = true;
+                    try {
+                        const seg = await net.segmentPerson(video, {
+                            flipHorizontal:        false,
+                            internalResolution:    'medium',
+                            segmentationThreshold: 0.7,
+                            maxDetections:         1,
+                            scoreThreshold:        0.2,
+                        });
+                        renderFrame(video, seg);
+                    } catch(e) { console.warn('Segmentation error:', e); }
+                    segProcessing = false;
                 }
                 animFrame = requestAnimationFrame(loop);
             }
@@ -1003,8 +979,8 @@
 
         } catch (err) {
             console.error('BG Removal Error:', err);
-            const msg = err.name === 'NotAllowedError'  ? 'Camera permission denied'
-                      : err.name === 'NotFoundError'    ? 'No camera found'
+            const msg = err.name === 'NotAllowedError' ? 'Camera permission denied'
+                      : err.name === 'NotFoundError'   ? 'No camera found'
                       : 'Error: ' + err.message;
             setStatus('error', msg);
             btn.disabled = false;
@@ -1012,36 +988,33 @@
         }
     }
 
-    // ── Stop Camera ──────────────────────────────────────────────
+    // â”€â”€ Stop Camera â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     function stopCamera() {
         isRunning = false;
         if (animFrame) { cancelAnimationFrame(animFrame); animFrame = null; }
-
         const video = document.getElementById('webcam-video');
         if (video && video.srcObject) {
             video.srcObject.getTracks().forEach(t => t.stop());
             video.srcObject = null;
         }
-
         ctx.clearRect(0, 0, outputCanvas.width, outputCanvas.height);
         document.getElementById('canvas-placeholder').style.display = '';
-        const fb = document.getElementById('fps-badge');
-        const fd = document.getElementById('fps-display');
-        if (fb) fb.style.display = 'none';
-        if (fd) fd.style.display = 'none';
+        ['fps-badge', 'fps-display'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.style.display = 'none';
+        });
         setStatus('idle', 'Stopped');
-
         const btn = document.getElementById('start-btn');
-        btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg> Allow Camera &amp; Start`;
+        btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg> Allow Camera &amp; Start';
         btn.onclick = startCamera;
     }
 
-    // ── Auto-start in OBS ─────────────────────────────────────────
-    window.addEventListener('DOMContentLoaded', () => {
-        if (window.obsstudio || navigator.userAgent.includes('OBS')) {
-            startCamera();
-        }
-    });
+    // â”€â”€ Auto-start: OBS or ?obs=1 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    (function() {
+        const isOBS    = window.obsstudio || navigator.userAgent.includes('OBS');
+        const obsParam = new URLSearchParams(window.location.search).get('obs') === '1';
+        if (isOBS || obsParam) setTimeout(startCamera, 500);
+    })();
     </script>
 
     <!-- Global components: GA4 + Mynofi promo -->
