@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- NEW: AI Webcam Tools — Mass-Market (July 2026) -->
+  <url>
+    <loc>https://obsmaskgenerator.com/obs-background-removal/</loc>
+    <lastmod>2026-07-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://obsmaskgenerator.com/webcam-background-blur/</loc>
+    <lastmod>2026-07-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://obsmaskgenerator.com/virtual-background-no-green-screen/</loc>
+    <lastmod>2026-07-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://obsmaskgenerator.com/remove-video-background/</loc>
+    <lastmod>2026-07-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
   <!-- NEW: Mynofi — OBS Recording Notification App (July 2026) -->
   <url>
     <loc>https://obsmaskgenerator.com/mynofi/</loc>
