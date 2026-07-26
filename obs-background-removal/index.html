@@ -668,42 +668,49 @@
                 <div class="obs-setup-card">
                     <h3>
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9146ff" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-                        How to Use in OBS Studio
+                        How to Use This in OBS Studio
                     </h3>
 
-                    <!-- Step 1: In browser first -->
-                    <p style="margin:0 0 12px; font-size:0.85rem; color:var(--text-muted);">There are two ways to add background removal to OBS:</p>
+                    <div style="background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:.82rem;color:#fca5a5;">
+                        <strong>&#9888; Important:</strong> OBS Browser Source <strong>cannot access your webcam</strong> — this is an OBS security restriction, not a bug. Use one of the methods below instead.
+                    </div>
 
-                    <div style="background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.25);border-radius:10px;padding:14px 16px;margin-bottom:14px;">
-                        <p style="margin:0 0 8px;font-weight:700;color:#a5b4fc;font-size:0.85rem;">&#9312; Recommended: Start in browser, capture window in OBS</p>
+                    <!-- Method 1: Window Capture -->
+                    <div style="background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.3);border-radius:10px;padding:14px 16px;margin-bottom:12px;">
+                        <p style="margin:0 0 8px;font-weight:700;color:#a5b4fc;font-size:0.85rem;">&#9312; Recommended &mdash; Window Capture + Chroma Key</p>
                         <ol class="obs-steps" style="margin:0;">
-                            <li><span class="step-num">1</span><span>Start the camera on <strong>this page in your browser</strong> (Chrome/Edge)</span></li>
-                            <li><span class="step-num">2</span><span>In OBS: click <strong>+</strong> &rarr; <strong>Window Capture</strong> &rarr; select this browser window</span></li>
-                            <li><span class="step-num">3</span><span>Use a <strong>Chroma Key filter</strong> on the capture (set color to green if using Solid Color mode)</span></li>
+                            <li><span class="step-num">1</span><span>Open this page in <strong>Chrome or Edge</strong> on your computer</span></li>
+                            <li><span class="step-num">2</span><span>Click <strong>Allow Camera &amp; Start</strong> and grant camera permission</span></li>
+                            <li><span class="step-num">3</span><span>Select <strong>Solid Color</strong> background &rarr; pick green (<code style="font-size:.8em;background:rgba(0,0,0,.4);padding:1px 5px;border-radius:3px;">#00b140</code>)</span></li>
+                            <li><span class="step-num">4</span><span>In OBS: <strong>Sources + &rarr; Window Capture</strong> &rarr; select the Chrome window</span></li>
+                            <li><span class="step-num">5</span><span>Right-click the source &rarr; <strong>Filters &rarr; + &rarr; Chroma Key</strong> &rarr; set key color to <strong>Green</strong></span></li>
+                            <li><span class="step-num">6</span><span>&#9989; Done — your background is removed in OBS!</span></li>
                         </ol>
                     </div>
 
-                    <div style="background:rgba(20,20,30,.5);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 16px;margin-bottom:14px;">
-                        <p style="margin:0 0 8px;font-weight:700;color:#e2e8f0;font-size:0.85rem;">&#9313; Browser Source (requires camera permission step)</p>
+                    <!-- Method 2: OBS Plugin -->
+                    <div style="background:rgba(20,20,30,.6);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:14px 16px;margin-bottom:14px;">
+                        <p style="margin:0 0 8px;font-weight:700;color:#e2e8f0;font-size:0.85rem;">&#9313; Alternative &mdash; Free OBS Background Removal Plugin</p>
+                        <p style="margin:0 0 10px;font-size:.82rem;color:#94a3b8;">Works natively inside OBS with no browser needed. Best quality.</p>
                         <ol class="obs-steps" style="margin:0;">
-                            <li><span class="step-num">1</span><span>In OBS: <strong>Sources + &rarr; Browser Source</strong></span></li>
-                            <li><span class="step-num">2</span><span>URL: <code style="background:rgba(0,0,0,.4);padding:2px 6px;border-radius:4px;font-size:.8em;">https://obsmaskgenerator.com/obs-background-removal/</code></span></li>
-                            <li><span class="step-num">3</span><span>Width: <strong>1920</strong>, Height: <strong>1080</strong> &mdash; ✅ check <strong>Allow Transparency</strong></span></li>
-                            <li><span class="step-num">4</span><span>Click <strong>OK</strong> to add the source</span></li>
-                            <li><span class="step-num">5</span><span>Right-click the source in Sources list &rarr; click <strong>Interact</strong></span></li>
-                            <li><span class="step-num">6</span><span>In the Interact window: click <strong>Allow Camera &amp; Start</strong> &rarr; click <strong>Allow</strong> in the camera dialog</span></li>
+                            <li><span class="step-num">1</span><span>Download the free plugin: <a href="https://github.com/royshil/obs-backgroundremoval/releases" target="_blank" rel="noopener" style="color:#a5b4fc;">github.com/royshil/obs-backgroundremoval</a></span></li>
+                            <li><span class="step-num">2</span><span>Install it and restart OBS</span></li>
+                            <li><span class="step-num">3</span><span>Click your webcam source &rarr; <strong>Filters &rarr; + &rarr; Background Removal</strong></span></li>
+                            <li><span class="step-num">4</span><span>&#9989; Background removed directly in OBS!</span></li>
                         </ol>
-                        <p style="margin:10px 0 0;font-size:.78rem;color:#f59e0b;">&#9888; Camera permission denied? &rarr; use the <strong>Interact</strong> button (Step 5) to grant access inside OBS.</p>
                     </div>
 
                     <button class="copy-url-btn" id="copy-url-btn" onclick="copyPageUrl()">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                        Copy Page URL for OBS
+                        Copy Page URL
                     </button>
                 </div>
-
             </section>
         </main>
+
+
+
+
 
         <!-- SEO Article -->
         <article class="seo-article">
