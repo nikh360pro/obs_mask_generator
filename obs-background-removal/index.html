@@ -748,9 +748,8 @@
     </div>
 
     <!--
-        Engine: MediaPipe Image Segmenter — selfie_multiclass_256x256 (GPU delegate)
-        Approach: GPU inference + process at 256px wide + GPU bilinear upscale for smooth edges
-        Handles hair, skin, face, clothes separately — beats basic binary segmenters
+        Engine: MediaPipe Image Segmenter v4 — selfie_multiclass_256x256 (GPU delegate)
+        Fixes: pre-allocated canvases (no per-frame allocs), 30 FPS cap, sharper threshold
     -->
     <script type="module">
     import { ImageSegmenter, FilesetResolver }
@@ -764,28 +763,34 @@
     let isMirrored    = false;
     let customBgImage = null;
     let frameCount    = 0, lastFpsTime = performance.now();
+    let lastSegTime   = 0;                   // FPS cap
+    const TARGET_MS   = 1000 / 30;          // 30 FPS cap (prevents buffer pool overflow)
 
     // ── Canvas pipeline ───────────────────────────────────────────
     const outputCanvas = document.getElementById('output-canvas');
     const ctx          = outputCanvas.getContext('2d', { alpha: true });
 
-    // Full-res frame canvas (person pixels, transparent background)
-    const frameCanvas  = document.createElement('canvas');
-    const frameCtx     = frameCanvas.getContext('2d', { alpha: true });
+    // Full-res frame canvas
+    const frameCanvas = document.createElement('canvas');
+    const frameCtx    = frameCanvas.getContext('2d', { alpha: true });
 
-    // Small process canvas — we feed THIS to MediaPipe (256px wide, 16:9)
-    // Model runs at 256x256 internally so we lose nothing by downsizing first.
-    // GPU bilinear upscale from 256→1280 gives naturally smooth edges for free.
-    const procW        = 256;
-    const procH        = 144;
-    const procCanvas   = document.createElement('canvas');
-    procCanvas.width   = procW;
-    procCanvas.height  = procH;
-    const procCtx      = procCanvas.getContext('2d');
+    // Process canvas — 16:9 at 512×288 (better than 256×144 for model accuracy)
+    // MediaPipe internally runs at 256×256, but 512×288 gives it more detail to work with.
+    const procW = 512, procH = 288;
+    const procCanvas = document.createElement('canvas');
+    procCanvas.width  = procW;
+    procCanvas.height = procH;
+    const procCtx = procCanvas.getContext('2d');
 
-    // Alpha mask canvas — receives upscaled float32 alpha from model
-    const alphaCanvas  = document.createElement('canvas');
-    const alphaCtx     = alphaCanvas.getContext('2d', { alpha: true });
+    // Alpha mask canvas — used for destination-in compositing
+    const alphaCanvas = document.createElement('canvas');
+    const alphaCtx    = alphaCanvas.getContext('2d', { alpha: true });
+
+    // ── Pre-allocated mask buffers (avoid per-frame allocations!) ─
+    // Created once, resized only if mask dimensions change (they won't)
+    let tmpMask    = null;  // canvas at mask resolution
+    let tmpCtx     = null;
+    let maskImgBuf = null;  // ImageData reused every frame
 
     // ── Expose to window ──────────────────────────────────────────
     window.startCamera  = startCamera;
@@ -836,14 +841,14 @@
         };
         reader.readAsDataURL(input.files[0]);
         const n = document.getElementById('image-name');
-        if (n) { n.textContent = '✅ ' + input.files[0].name; n.style.display = ''; }
+        if (n) { n.textContent = '\u2705 ' + input.files[0].name; n.style.display = ''; }
     }
 
     function copyPageUrl() {
         navigator.clipboard.writeText(window.location.href).then(() => {
             const btn = document.getElementById('copy-url-btn');
             if (!btn) return;
-            btn.textContent = '✅ Copied!';
+            btn.textContent = '\u2705 Copied!';
             setTimeout(() => { btn.textContent = 'Copy Page URL for OBS'; }, 2500);
         });
     }
@@ -858,56 +863,63 @@
         if (alphaCanvas.width  !== W) alphaCanvas.width  = W;
         if (alphaCanvas.height !== H) alphaCanvas.height = H;
 
-        // ── 1. Build alpha mask at MODEL resolution (small & fast) ──
-        // confidenceMasks[0] = background class probability (1.0 = bg, 0.0 = person)
+        // confidenceMasks[0] = background probability (1.0=bg, 0.0=person)
         const bgMask = confidenceMasks[0].getAsFloat32Array();
         const mW     = confidenceMasks[0].width;
         const mH     = confidenceMasks[0].height;
 
-        // JS loop at model resolution (e.g. 256×144 = 36,864 pixels — very fast)
-        const maskImgData = new ImageData(mW, mH);
-        const md = maskImgData.data;
-        for (let i = 0; i < bgMask.length; i++) {
-            // person probability = 1 - background probability
-            const personProb = 1.0 - bgMask[i];
-
-            // Smoothstep: sharp centre, anti-aliased edges
-            const t = personProb < 0 ? 0 : personProb > 1 ? 1 : personProb;
-            const alpha = t * t * (3.0 - 2.0 * t);
-
-            md[i * 4]     = 255;          // R (white — only alpha matters for dest-in)
-            md[i * 4 + 1] = 255;          // G
-            md[i * 4 + 2] = 255;          // B
-            md[i * 4 + 3] = alpha * 255 | 0;  // A: 255=person, 0=background
+        // ── Pre-allocate mask canvas once (reuse every frame) ──────
+        if (!tmpMask || tmpMask.width !== mW || tmpMask.height !== mH) {
+            tmpMask    = document.createElement('canvas');
+            tmpMask.width  = mW;
+            tmpMask.height = mH;
+            tmpCtx     = tmpMask.getContext('2d');
+            maskImgBuf = new ImageData(mW, mH);  // reused buffer — no alloc per frame
         }
+        const md = maskImgBuf.data;
 
-        // Draw mask at model res into small canvas
-        const tmpMask = document.createElement('canvas');
-        tmpMask.width = mW; tmpMask.height = mH;
-        tmpMask.getContext('2d').putImageData(maskImgData, 0, 0);
+        // ── Build alpha mask (fast loop at model resolution) ───────
+        // Threshold remap: require ≥35% confidence to be treated as person.
+        // This aggressively removes bg bleed while keeping soft edges on real person.
+        const THRESHOLD = 0.35;
+        const RANGE     = 1.0 - THRESHOLD;  // 0.65
+        for (let i = 0; i < bgMask.length; i++) {
+            const personProb = 1.0 - bgMask[i];
+            // Remap [THRESHOLD, 1.0] → [0, 1] so background bleed is fully cut
+            const t = personProb <= THRESHOLD ? 0
+                    : personProb >= 1.0       ? 1
+                    : (personProb - THRESHOLD) / RANGE;
+            // Smoothstep: crisp center, soft anti-aliased edges
+            const alpha = t * t * (3.0 - 2.0 * t);
+            // Only alpha matters for destination-in compositing (RGB ignored)
+            md[i * 4]     = 255;
+            md[i * 4 + 1] = 255;
+            md[i * 4 + 2] = 255;
+            md[i * 4 + 3] = (alpha * 255) | 0;
+        }
+        tmpCtx.putImageData(maskImgBuf, 0, 0);
 
-        // ── 2. Scale mask to full canvas size via GPU bilinear interpolation ──
-        // This is the magic: GPU bilinearly interpolates the alpha values,
-        // turning the 256px mask edges into naturally smooth, anti-aliased transitions
-        // WITHOUT any manual blur pass that creates halos.
+        // ── GPU bilinear upscale: mask resolution → canvas resolution ──
+        // The GPU interpolates alpha values between mask pixels, producing
+        // naturally smooth, anti-aliased edges with NO manual blur halos.
         alphaCtx.clearRect(0, 0, W, H);
-        alphaCtx.drawImage(tmpMask, 0, 0, W, H);  // GPU bilinear upscale
+        alphaCtx.drawImage(tmpMask, 0, 0, W, H);
 
-        // ── 3. Cut out person from full-res video using the alpha mask ──
+        // ── Cut person from full-res frame ─────────────────────────
         frameCtx.clearRect(0, 0, W, H);
         frameCtx.drawImage(video, 0, 0, W, H);
         frameCtx.globalCompositeOperation = 'destination-in';
         frameCtx.drawImage(alphaCanvas, 0, 0);
         frameCtx.globalCompositeOperation = 'source-over';
 
-        // ── 4. Composite: background + person layer ────────────────
+        // ── Composite: background layer + person ───────────────────
         ctx.clearRect(0, 0, W, H);
         ctx.save();
         if (isMirrored) { ctx.scale(-1, 1); ctx.translate(-W, 0); }
 
         if (bgType === 'blur') {
             const amt = parseInt(document.getElementById('blur-amount').value) || 12;
-            ctx.filter = `blur(${amt}px)`;
+            ctx.filter = 'blur(' + amt + 'px)';
             ctx.drawImage(video, 0, 0, W, H);
             ctx.filter = 'none';
         } else if (bgType === 'color') {
@@ -917,13 +929,15 @@
             if (customBgImage) ctx.drawImage(customBgImage, 0, 0, W, H);
             else { ctx.fillStyle = '#14141a'; ctx.fillRect(0, 0, W, H); }
         }
-        // transparent: nothing behind person
 
         ctx.drawImage(frameCanvas, 0, 0);
         ctx.restore();
 
-        // Free GPU memory from MediaPipe mask
-        confidenceMasks.forEach(m => m.close());
+        // ── Free ALL MediaPipe GPU mask buffers ────────────────────
+        // Must close every mask returned (multiclass returns 6 classes)
+        for (let i = 0; i < confidenceMasks.length; i++) {
+            confidenceMasks[i].close();
+        }
 
         // FPS counter
         frameCount++;
@@ -943,7 +957,7 @@
     async function startCamera() {
         const btn = document.getElementById('start-btn');
         btn.disabled = true;
-        setStatus('loading', 'Loading AI model…');
+        setStatus('loading', 'Loading AI model...');
 
         try {
             if (!segmenter) {
@@ -952,19 +966,16 @@
                 );
                 segmenter = await ImageSegmenter.createFromOptions(vision, {
                     baseOptions: {
-                        // selfie_multiclass: handles hair, face, skin, clothes separately
-                        // Far better quality than binary segmenters
                         modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/image_segmenter/selfie_multiclass_256x256/float32/latest/selfie_multiclass_256x256.tflite',
                         delegate: 'GPU',
                     },
-                    runningMode:          'VIDEO',
-                    outputCategoryMask:   false,
-                    outputConfidenceMasks: true,  // float32 probability per class
+                    runningMode:           'VIDEO',
+                    outputCategoryMask:    false,
+                    outputConfidenceMasks: true,
                 });
             }
 
-            setStatus('loading', 'Starting camera…');
-
+            setStatus('loading', 'Starting camera...');
             const stream = await navigator.mediaDevices.getUserMedia({
                 video: { width: { ideal: 1280 }, height: { ideal: 720 }, frameRate: { ideal: 30 }, facingMode: 'user' },
                 audio: false,
@@ -993,18 +1004,20 @@
             btn.disabled  = false;
             btn.onclick   = stopCamera;
 
-            // ── Render loop ────────────────────────────────────────
-            // MediaPipe segmentForVideo is SYNCHRONOUS — no async queuing.
-            // We feed a 256×144 canvas to keep the JS pixel loop tiny.
+            // ── Render loop with 30 FPS cap ───────────────────────
             function loop() {
                 if (!isRunning) return;
+                const now = performance.now();
 
-                if (video.readyState >= 2 && segmenter) {
-                    // Downscale video to process canvas (256×144)
+                // Only segment at 30 FPS to prevent MediaPipe buffer pool overflow
+                if (now - lastSegTime >= TARGET_MS && video.readyState >= 2 && segmenter) {
+                    lastSegTime = now;
+
+                    // Downscale video to 512x288 process canvas
                     procCtx.drawImage(video, 0, 0, procW, procH);
 
-                    // GPU inference (synchronous, fast)
-                    const result = segmenter.segmentForVideo(procCanvas, performance.now());
+                    // GPU inference — synchronous, returns immediately
+                    const result = segmenter.segmentForVideo(procCanvas, now);
 
                     if (result.confidenceMasks && result.confidenceMasks.length > 0) {
                         renderFrame(video, result.confidenceMasks);
