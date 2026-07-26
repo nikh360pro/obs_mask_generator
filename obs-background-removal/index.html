@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -783,23 +783,36 @@
     window.copyPageUrl  = copyPageUrl;
 
     function setStatus(mode, text) {
+        // status-pill (left panel) has a child <span> for text
         ['status-pill', 'main-status'].forEach(id => {
             const el = document.getElementById(id);
             if (!el) return;
-            el.textContent = text;
-            el.className = el.className.replace(/\bstatus--(running|loading|error|idle)\b/g, '');
-            el.classList.add('status--' + mode);
+            // Update the text node inside (may have child spans)
+            const textSpan = el.querySelector('span:last-child');
+            if (textSpan) textSpan.textContent = text;
+            else el.textContent = text;
+            // Map mode → CSS class used in the HTML (idle / running / loading / error)
+            el.className = el.className.replace(/\b(idle|running|loading|error)\b/g, '');
+            el.classList.add(mode);
         });
     }
 
-    function setBgType(type) {
+    // HTML calls: onclick="setBgType(this)"  — receives the button element
+    function setBgType(btnOrType) {
+        const type = (typeof btnOrType === 'string') ? btnOrType : btnOrType.dataset.type;
         bgType = type;
-        document.querySelectorAll('.bg-btn').forEach(b => b.classList.remove('active'));
-        const btn = document.getElementById('bg-' + type);
-        if (btn) btn.classList.add('active');
-        document.getElementById('color-picker-row').style.display = type === 'color' ? '' : 'none';
-        document.getElementById('blur-row').style.display          = type === 'blur'  ? '' : 'none';
-        document.getElementById('image-upload-row').style.display  = type === 'image' ? '' : 'none';
+        // Toggle active class on the bg-type buttons
+        document.querySelectorAll('.bg-type-btn').forEach(b => b.classList.remove('active'));
+        const activeBtn = (typeof btnOrType === 'object') ? btnOrType
+                        : document.querySelector('[data-type="' + type + '"]');
+        if (activeBtn) activeBtn.classList.add('active');
+        // Show/hide conditional panels — use actual IDs from the HTML
+        const colorCtrl = document.getElementById('color-control');
+        const blurCtrl  = document.getElementById('blur-control');
+        const imageCtrl = document.getElementById('image-control');
+        if (colorCtrl) colorCtrl.style.display = type === 'color' ? '' : 'none';
+        if (blurCtrl)  blurCtrl.style.display  = type === 'blur'  ? '' : 'none';
+        if (imageCtrl) imageCtrl.style.display = type === 'image' ? '' : 'none';
     }
 
     function updateMirror() {
@@ -816,7 +829,7 @@
         };
         reader.readAsDataURL(input.files[0]);
         const n = document.getElementById('image-name');
-        if (n) { n.textContent = 'âœ… ' + input.files[0].name; n.style.display = ''; }
+        if (n) { n.textContent = '✅ ' + input.files[0].name; n.style.display = ''; }
     }
 
     function copyPageUrl() {
