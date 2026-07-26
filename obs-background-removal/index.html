@@ -772,7 +772,7 @@
     const frameCtx    = frameCanvas.getContext('2d', { alpha: true, willReadFrequently: true });
 
     const maskCanvas  = document.createElement('canvas');
-    const maskCtx     = maskCanvas.getContext('2d', { alpha: false });
+    const maskCtx     = maskCanvas.getContext('2d', { alpha: true });  // MUST be true — destination-in reads alpha
 
     // â”€â”€ Expose to window for inline onclick= handlers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     window.startCamera  = startCamera;
@@ -862,11 +862,12 @@
         const maskImgData = new ImageData(mW, mH);
         const md = maskImgData.data;
         for (let i = 0; i < raw.length; i++) {
-            const v = raw[i] === 1 ? 255 : 0;
-            md[i * 4]     = v;
-            md[i * 4 + 1] = v;
-            md[i * 4 + 2] = v;
-            md[i * 4 + 3] = 255;
+            // destination-in ONLY reads source alpha — RGB values don't matter
+            // person pixel → alpha 255 (keep) | background → alpha 0 (remove)
+            md[i * 4]     = 255;
+            md[i * 4 + 1] = 255;
+            md[i * 4 + 2] = 255;
+            md[i * 4 + 3] = raw[i] === 1 ? 255 : 0;
         }
 
         const tmpMask = document.createElement('canvas');
