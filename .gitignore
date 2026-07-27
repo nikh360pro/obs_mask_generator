@@ -3,3 +3,10 @@ Brainstorming Unique OBS Tools.md
 github-models.md
 AI Gamertag Tool Development.md
 Updating Tool Footers.md
+
+# Cloudflare Worker (deployed separately, not part of static site)
+stream-analyzer-worker/
+
+# Node dependencies
+node_modules/
+.wrangler/
