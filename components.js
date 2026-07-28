@@ -7,42 +7,45 @@
 
 const GlobalComponents = {
     /**
-     * Google Analytics 4 (Standard Tracking)
-     * Centralized GA4 tracking for all 1400+ pages.
+     * Google Tag Manager (Bot Protection & Tracking)
+     * Centralized GTM for all 1400+ pages. Replaces direct GA4 to prevent bot spam.
      */
-    ga4ConsentMode: {
-        measurementId: 'G-C84663S6K3',
+    gtmContainer: {
+        containerId: 'GTM-KS8RFC9V',
 
         init: function() {
             // Skip on localhost
             if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-                console.log('[GA4] Skipped - localhost detected');
+                console.log('[GTM] Skipped - localhost detected');
                 return;
             }
 
-            // Prevent double initialization if already loaded
-            if (window.dataLayer && window.dataLayer.some(item => item[0] === 'config' && item[1] === this.measurementId)) {
+            // Prevent double initialization
+            if (document.getElementById('gtm-script-tag')) {
                 return;
             }
 
-            // Step 1: Initialize dataLayer BEFORE GA4 script loads
-            window.dataLayer = window.dataLayer || [];
-            function gtag() { dataLayer.push(arguments); }
-            window.gtag = gtag;
+            // Step 1: Initialize GTM script
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;
+            j.id = 'gtm-script-tag';
+            f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer',this.containerId);
 
-            // Step 2: Load GA4 script (loads ONCE, immediately)
-            const script = document.createElement('script');
-            script.async = true;
-            script.src = 'https://www.googletagmanager.com/gtag/js?id=' + this.measurementId;
-            document.head.appendChild(script);
+            // Step 2: Inject noscript iframe for GTM
+            const noscript = document.createElement('noscript');
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://www.googletagmanager.com/ns.html?id=${this.containerId}`;
+            iframe.height = "0";
+            iframe.width = "0";
+            iframe.style.display = "none";
+            iframe.style.visibility = "hidden";
+            noscript.appendChild(iframe);
+            document.body.insertBefore(noscript, document.body.firstChild);
 
-            // Step 3: Initialize GA4
-            gtag('js', new Date());
-            gtag('config', this.measurementId, {
-                'anonymize_ip': true
-            });
-
-            console.log('[GA4] Initialized standard tracking via components.js');
+            console.log('[GTM] Initialized standard tracking via components.js');
         }
     },
 
@@ -299,9 +302,9 @@ const GlobalComponents = {
             }
         });
 
-        // Initialize GA4 Consent Mode (runs independently of other components)
-        if (this.ga4ConsentMode && this.ga4ConsentMode.init) {
-            this.ga4ConsentMode.init();
+        // Initialize GTM (runs independently of other components)
+        if (this.gtmContainer && this.gtmContainer.init) {
+            this.gtmContainer.init();
         }
     }
 };
