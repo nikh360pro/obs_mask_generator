@@ -3,6 +3,27 @@ Allow: /
 Disallow: /*?*
 Disallow: /scripts/
 Disallow: /data/
+Disallow: /can-i-stream/
+Disallow: /settings-generator/
+Disallow: /overlay-generator/
+Disallow: /twitch-panel-generator/
+Disallow: /twitch-title-generator/
+Disallow: /guides/
+Disallow: /obs-background-removal/
+Disallow: /bitrate-calculator/
+Disallow: /aspect-ratio-calculator/
+Disallow: /chat-overlay-editor/
+Disallow: /countdown-timer/
+Disallow: /emote-text-maker/
+Disallow: /quality-checker/
+Disallow: /recording-size-calculator/
+Disallow: /remove-video-background/
+Disallow: /stream-analyzer/
+Disallow: /stream-schedule/
+Disallow: /twitch-emote-resizer/
+Disallow: /vertical-stream-layout/
+Disallow: /virtual-background-no-green-screen/
+Disallow: /webcam-background-blur/
 
 Crawl-delay: 1
 

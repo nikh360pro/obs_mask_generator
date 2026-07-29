@@ -170,10 +170,21 @@
 <body>
     <!-- Global Banner (Promotes Video Background Remover) -->
 
-    <!-- Cookie Consent Banner -->
-
+    <!-- Cookie Consent Banner will be handled by AdSense -->
 
     <div class="app-container">
+        <!-- Top Navigation -->
+        <nav class="top-nav" aria-label="Main Navigation">
+            <div class="nav-container">
+                <a href="/" class="nav-logo" style="color: #fff; text-decoration: none; font-weight: bold; font-size: 1.1rem;">OBS Tools</a>
+                <ul class="nav-links">
+                    <li><a href="/blog/">Blog & Guides</a></li>
+                    <li><a href="/about.html">About</a></li>
+                    <li><a href="/contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+
         <!-- Header -->
         <header class="header">
             <div class="logo">
@@ -806,6 +817,63 @@
             </ul>
             <p>All shapes are generated as 1920×1080 (or any custom resolution) transparent PNG files, ready to apply directly in OBS Studio or Streamlabs OBS via the Image Mask/Blend filter.</p>
         </article>
+
+        <!-- Comprehensive Guide & FAQ (AdSense E-E-A-T Content) -->
+        <section class="comprehensive-guide">
+            <h2>The Ultimate Guide to OBS Webcam Masks (2026)</h2>
+            <p>If you're looking to elevate your Twitch, YouTube, or Facebook Gaming stream, shaping your webcam is one of the easiest ways to look professional. Standard rectangular webcams take up too much screen real estate and often look amateurish. By using an <strong>OBS mask generator</strong>, you can quickly convert your 16:9 camera into a perfect circle, a sleek squircle, or an aggressive hexagon.</p>
+            
+            <h3>Why Use a PNG Mask Instead of a Plugin?</h3>
+            <p>Many streamers make the mistake of installing third-party OBS plugins to alter their camera shape. While plugins work, they often consume unnecessary CPU resources and can break when OBS Studio updates. Using a simple <strong>transparent PNG mask</strong> combined with OBS's native <em>Image Mask/Blend</em> filter is 100% stable, uses zero extra processing power, and works across both OBS Studio and Streamlabs Desktop seamlessly.</p>
+
+            <h3>How to Apply Your Custom Webcam Mask in OBS</h3>
+            <ol>
+                <li><strong>Generate your shape:</strong> Use the free tool above to select your desired shape (e.g., Circle). Adjust the canvas size to match your webcam resolution (typically 1920x1080).</li>
+                <li><strong>Download the PNG:</strong> Click the "Download Mask (PNG)" button to save the black-and-transparent file to your computer.</li>
+                <li><strong>Open OBS Studio:</strong> Right-click on your Video Capture Device (Webcam) source in the Sources panel and select <strong>Filters</strong>.</li>
+                <li><strong>Add the Filter:</strong> Click the '+' icon under Effect Filters and select <strong>Image Mask/Blend</strong>.</li>
+                <li><strong>Configure:</strong> Change the "Type" to <em>Alpha Mask (Alpha Channel)</em>. Click "Browse" and locate the PNG file you just downloaded. Your camera will instantly take the shape of the mask!</li>
+            </ol>
+
+            <h3>Frequently Asked Questions (FAQ)</h3>
+            <div class="faq-accordion">
+                <details>
+                    <summary>Where can I download free OBS image masks?</summary>
+                    <p>Right here! OBS Mask Generator offers free OBS image mask downloads. Select a preset (circle, rounded rectangle, hexagon), customize it, and download the PNG. No signup required.</p>
+                </details>
+                <details>
+                    <summary>Do I need an OBS mask plugin?</summary>
+                    <p>No. OBS Studio has built-in Image Mask/Blend filter support. Simply download a PNG mask from our generator and apply it using native filters.</p>
+                </details>
+                <details>
+                    <summary>How do I add rounded corners to my webcam in OBS?</summary>
+                    <p>Use our tool to create a rounded rectangle mask PNG, then in OBS right-click your webcam source, go to Filters, add Image Mask/Blend, and select the downloaded file.</p>
+                </details>
+            </div>
+        </section>
+
+        <!-- Latest Streaming Guides -->
+        <section class="latest-guides">
+            <h2>Latest Streaming Guides</h2>
+            <div class="guides-grid">
+                <a href="/blog/best-obs-settings.html" class="guide-card">
+                    <div class="guide-title">Best OBS Settings for 1080p 60fps</div>
+                    <div class="guide-author">By Nikhil Agarwal</div>
+                </a>
+                <a href="/blog/fix-obs-audio-delay.html" class="guide-card">
+                    <div class="guide-title">How to Fix OBS Audio Delay/Desync</div>
+                    <div class="guide-author">By Nikhil Agarwal</div>
+                </a>
+                <a href="/blog/best-bitrate-streaming.html" class="guide-card">
+                    <div class="guide-title">Ultimate Guide to Twitch Bitrate</div>
+                    <div class="guide-author">By Nikhil Agarwal</div>
+                </a>
+                <a href="/blog/obs-hotkeys-guide.html" class="guide-card">
+                    <div class="guide-title">Essential OBS Hotkeys for Streamers</div>
+                    <div class="guide-author">By Nikhil Agarwal</div>
+                </a>
+            </div>
+        </section>
 
         <!-- Footer -->
         <footer class="footer">
