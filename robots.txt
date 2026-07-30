@@ -20,7 +20,6 @@ Disallow: /recording-size-calculator/
 Disallow: /remove-video-background/
 Disallow: /stream-analyzer/
 Disallow: /stream-schedule/
-Disallow: /twitch-emote-resizer/
 Disallow: /vertical-stream-layout/
 Disallow: /virtual-background-no-green-screen/
 Disallow: /webcam-background-blur/
