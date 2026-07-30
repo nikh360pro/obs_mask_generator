@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Kick Chat Overlay OBS: Custom CSS Generator (BotRix & Streamlabs)</title>
+    <meta name="title" content="Kick Chat Overlay OBS: Custom CSS Generator (BotRix & Streamlabs)">
+    <meta name="description"
+        content="Free visual editor to create custom Kick chat overlays for OBS Studio. Generate CSS for BotRix and Streamlabs chat widgets instantly with transparent backgrounds and outlines.">
+    <meta name="keywords"
+        content="kick chat overlay obs, kick chat overlay, custom kick chat css botrix, how to add kick chat to obs, streamlabs kick chat, kick botrix chat">
+    <meta name="author" content="OBS Mask Generator">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    <link rel="canonical" href="https://obsmaskgenerator.com/kick-chat-overlay-obs/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://obsmaskgenerator.com/kick-chat-overlay-obs/">
+    <meta property="og:title" content="Kick Chat Overlay OBS: Custom CSS Generator">
+    <meta property="og:description"
+        content="Visually customize your Kick chat overlay and generate OBS CSS instantly. Works perfectly with BotRix and Streamlabs.">
+    <meta property="og:image" content="https://obsmaskgenerator.com/og-image.png">
+    <meta property="og:site_name" content="OBS Mask Generator">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://obsmaskgenerator.com/kick-chat-overlay-obs/">
+    <meta property="twitter:title" content="Kick Chat Overlay OBS: Custom CSS Generator">
+    <meta property="twitter:description"
+        content="Visually customize your Kick chat overlay and generate OBS CSS instantly. Works perfectly with BotRix and Streamlabs.">
+    <meta property="twitter:image" content="https://obsmaskgenerator.com/og-image.png">
+
+    <!-- Structured Data - WebApplication -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Kick Chat Overlay CSS Generator",
+        "url": "https://obsmaskgenerator.com/kick-chat-overlay-obs/",
+        "description": "Visual tool to generate custom CSS for Kick chat browser sources (BotRix and Streamlabs) in OBS Studio.",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Windows, macOS, Linux",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+    </script>
+
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [{
+            "@type": "Question",
+            "name": "How do I add Kick chat to OBS Studio?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "To add Kick chat to OBS, you need a widget service like BotRix or Streamlabs. Connect your Kick account to the service, copy the 'Chat Widget' Browser Source URL, and paste it into a new Browser Source in OBS."
+            }
+        }, {
+            "@type": "Question",
+            "name": "How do I make my Kick chat transparent in OBS?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Using our Kick Chat Overlay CSS Generator, you can set the background opacity to 0% for full transparency, or around 50% for a semi-transparent look that keeps text readable against gameplay."
+            }
+        }, {
+            "@type": "Question",
+            "name": "Does this tool work with BotRix?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes! We have a dedicated toggle to generate custom CSS that specifically overrides the BotRix chat widget classes."
+            }
+        }]
+    }
+    </script>
+
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "OBS Tools", "item": "https://obsmaskgenerator.com/"},
+            {"@type": "ListItem", "position": 2, "name": "Kick Chat Overlay OBS", "item": "https://obsmaskgenerator.com/kick-chat-overlay-obs/"}
+        ]
+    }
+    </script>
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --kick-green: #53fc18;
+            --kick-green-hover: #45d613;
+        }
+
+        .editor-grid {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: var(--space-xl);
+            margin-bottom: var(--space-xl);
+        }
+        @media (max-width: 768px) {
+            .editor-grid { grid-template-columns: 1fr; }
+        }
+        .controls-panel {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+        }
+        
+        .controls-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .bot-toggle {
+            display: flex;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        .bot-btn {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            background: transparent;
+            color: var(--text-secondary);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .bot-btn.active {
+            background: var(--kick-green);
+            color: #000;
+        }
+
+        .form-group { margin-bottom: var(--space-md); }
+        .form-group label {
+            display: block;
+            margin-bottom: var(--space-xs);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .input-control {
+            width: 100%;
+            padding: 8px;
+            background: var(--bg-tertiary);
+            color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+        
+        .toggle-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .toggle-group input[type="checkbox"] {
+            accent-color: var(--kick-green);
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .preview-container {
+            background-image: linear-gradient(45deg, #18181b 25%, transparent 25%), linear-gradient(-45deg, #18181b 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #18181b 75%), linear-gradient(-45deg, transparent 75%, #18181b 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+            background-color: #222;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            overflow: hidden;
+        }
+
+        .chat-preview-box {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        /* BotRix specific HTML structure mock */
+        .chat-line {
+            padding: 8px 12px;
+            border-radius: 4px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            word-wrap: break-word;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        
+        .chat-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #444;
+            flex-shrink: 0;
+            display: block;
+        }
+        
+        .chat-badges {
+            display: flex;
+            gap: 4px;
+            margin-right: 4px;
+        }
+        .badge {
+            width: 16px;
+            height: 16px;
+            background: var(--kick-green);
+            border-radius: 3px;
+            display: inline-block;
+        }
+        
+        .chat-name { font-weight: bold; color: var(--kick-green); }
+        .chat-text-wrapper { flex: 1; }
+
+        .btn-primary {
+            width: 100%;
+            padding: var(--space-sm) var(--space-md);
+            background-color: var(--kick-green);
+            color: #000;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: 700;
+            transition: background-color var(--transition-fast);
+        }
+        .btn-primary:hover { background-color: var(--kick-green-hover); }
+        
+        .css-output-box {
+            width: 100%;
+            height: 150px;
+            background: #000;
+            color: var(--kick-green);
+            font-family: monospace;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        /* SEO Content Section */
+        .seo-content {
+            max-width: 800px;
+            margin: var(--space-xl) auto;
+            background: var(--bg-secondary);
+            padding: var(--space-xl);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+        }
+        .seo-content h2 {
+            color: var(--kick-green);
+            margin-top: var(--space-lg);
+            margin-bottom: var(--space-sm);
+        }
+        .seo-content h3 {
+            color: white;
+            margin-top: var(--space-md);
+            margin-bottom: var(--space-xs);
+        }
+        .seo-content p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--space-md);
+        }
+        .seo-content ul, .seo-content ol {
+            color: var(--text-secondary);
+            margin-left: 20px;
+            margin-bottom: var(--space-md);
+        }
+        .seo-content li {
+            margin-bottom: 8px;
+        }
+        .highlight-box {
+            background: rgba(83, 252, 24, 0.1);
+            border-left: 4px solid var(--kick-green);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <a href="/" style="text-decoration: none; color: white;">OBS Mask Generator</a>
+            </div>
+            <nav class="nav">
+                <a href="/">Home</a>
+                <a href="/vertical-stream-layout/">Vertical Plugin</a>
+                <a href="/chat-overlay-editor/">Twitch Chat</a>
+                <a href="/kick-chat-overlay-obs/" style="color: var(--kick-green);">Kick Chat</a>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <div style="text-align: center; margin-bottom: var(--space-lg);">
+                <h1 style="color: var(--kick-green);">Kick Chat Overlay CSS Generator</h1>
+                <p class="subtitle">Customize your BotRix or Streamlabs Kick chat widget instantly. Make it transparent, add outlines, and generate OBS Browser Source CSS.</p>
+            </div>
+
+            <div class="editor-grid">
+                <!-- Controls Panel -->
+                <div class="controls-panel">
+                    
+                    <div class="controls-header">
+                        <label style="color: white; font-weight: 600; margin-bottom: 10px; display: block;">Select Chat Bot Provider:</label>
+                        <div class="bot-toggle">
+                            <button id="btn-botrix" class="bot-btn active">BotRix</button>
+                            <button id="btn-streamlabs" class="bot-btn">Streamlabs</button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ctrl-font">Font Family</label>
+                        <select id="ctrl-font" class="input-control">
+                            <option value="Inter, sans-serif">Inter (Clean)</option>
+                            <option value="Outfit, sans-serif">Outfit (Modern)</option>
+                            <option value="Arial, sans-serif">Arial</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ctrl-font-size">Font Size (px)</label>
+                        <input type="range" id="ctrl-font-size" class="input-control" min="12" max="32" value="15">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ctrl-bg-color">Background Color</label>
+                        <input type="color" id="ctrl-bg-color" class="input-control" value="#000000" style="padding: 0; height: 40px;">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ctrl-bg-opacity">Background Opacity (%)</label>
+                        <input type="range" id="ctrl-bg-opacity" class="input-control" min="0" max="100" value="50">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ctrl-user-color">Default Username Color</label>
+                        <input type="color" id="ctrl-user-color" class="input-control" value="#53fc18" style="padding: 0; height: 40px;">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ctrl-text-color">Message Text Color</label>
+                        <input type="color" id="ctrl-text-color" class="input-control" value="#ffffff" style="padding: 0; height: 40px;">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ctrl-radius">Border Radius (px)</label>
+                        <input type="range" id="ctrl-radius" class="input-control" min="0" max="24" value="4">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ctrl-spacing">Message Spacing (px)</label>
+                        <input type="range" id="ctrl-spacing" class="input-control" min="0" max="30" value="10">
+                    </div>
+
+                    <div style="margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+                        <div class="toggle-group">
+                            <input type="checkbox" id="ctrl-outline" checked>
+                            <label for="ctrl-outline" style="margin: 0; color: white;">Add Text Outline (Readability)</label>
+                        </div>
+                        <div class="toggle-group">
+                            <input type="checkbox" id="ctrl-hide-avatar">
+                            <label for="ctrl-hide-avatar" style="margin: 0; color: white;">Hide User Avatars (BotRix)</label>
+                        </div>
+                        <div class="toggle-group">
+                            <input type="checkbox" id="ctrl-hide-badges">
+                            <label for="ctrl-hide-badges" style="margin: 0; color: white;">Hide Chat Badges</label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Preview Panel -->
+                <div class="preview-panel">
+                    <div class="preview-container">
+                        <div class="chat-preview-box" id="chat-preview">
+                            <div class="chat-line">
+                                <div class="chat-avatar" id="avatar-1"></div>
+                                <div class="chat-text-wrapper">
+                                    <div class="chat-badges" id="badges-1"><span class="badge"></span></div>
+                                    <span class="chat-name">KickViewer99</span> 
+                                    <span class="chat-message-text">Just tuned in! The stream quality looks incredibly crisp today.</span>
+                                </div>
+                            </div>
+                            <div class="chat-line">
+                                <div class="chat-avatar" id="avatar-2"></div>
+                                <div class="chat-text-wrapper">
+                                    <span class="chat-name">GamerPro</span> 
+                                    <span class="chat-message-text">Can you show me what OBS settings you are using for this game?</span>
+                                </div>
+                            </div>
+                            <div class="chat-line">
+                                <div class="chat-avatar" id="avatar-3"></div>
+                                <div class="chat-text-wrapper">
+                                    <div class="chat-badges" id="badges-3"><span class="badge"></span><span class="badge" style="background:#ff9900;"></span></div>
+                                    <span class="chat-name">ModAccount</span> 
+                                    <span class="chat-message-text">Welcome to the stream everyone! Be sure to drop a follow if you are new here.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: var(--space-md);">
+                        <button id="generate-btn" class="btn-primary">Generate & Copy CSS</button>
+                        <textarea id="css-output" class="css-output-box" readonly placeholder="Your generated CSS will appear here..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ultimate Guide to Kick Chat Overlays -->
+            <article class="seo-content">
+                <h2>The Ultimate Guide to Kick Chat Overlays in OBS Studio</h2>
+                <p>When you transition to streaming on Kick, one of the first things you'll realize is that reading a fast-moving chat on a second monitor can be tough. Adding a <strong>Kick chat overlay</strong> directly to your OBS Studio broadcast not only helps you read messages without turning your head, but it massively boosts viewer engagement. When viewers see their name pop up on the stream, they are far more likely to chat again.</p>
+
+                <div class="highlight-box">
+                    <p style="margin:0; color: white;"><strong>Pro Tip:</strong> Never use a solid background for your chat widget. Always use a transparent or semi-transparent background (around 50% opacity) so your gameplay isn't completely blocked. Use the CSS Generator above to achieve this instantly.</p>
+                </div>
+
+                <h3>Step 1: Choose Your Chat Widget Provider (BotRix vs. Streamlabs)</h3>
+                <p>Because Kick is a newer platform, you cannot simply copy a URL directly from the Kick website into OBS. You must use a third-party chat bot that integrates with Kick's API.</p>
+                <ul>
+                    <li><strong>BotRix:</strong> The undisputed king of Kick streaming right now. It is incredibly reliable, updates fast, and pulls in user avatars. Our CSS generator has a dedicated BotRix mode specifically for this widget.</li>
+                    <li><strong>Streamlabs:</strong> A staple in the streaming community. Recently, Streamlabs added official support for Kick. If you already use Streamlabs for Twitch, you can easily add your Kick account to it.</li>
+                </ul>
+
+                <h3>Step 2: How to Connect BotRix to Kick and Get the URL</h3>
+                <p>If you've chosen BotRix (highly recommended), follow these exact steps to generate your base browser source URL:</p>
+                <ol>
+                    <li>Go to <a href="https://botrix.live" target="_blank" rel="noopener noreferrer" style="color: var(--kick-green);">Botrix.live</a> and log in using your Twitch, YouTube, or Discord account.</li>
+                    <li>On the main dashboard, locate the <strong>Kick</strong> section and click "Sign in with Kick". Follow the prompt to make BotRix a moderator in your channel.</li>
+                    <li>Once connected, navigate to the <strong>Widgets</strong> tab on the left sidebar, and select <strong>Chat</strong>.</li>
+                    <li>Here, you can configure basic settings. Make sure you check "Hide Bot Messages" so commands don't clutter your screen.</li>
+                    <li>At the bottom of the page, click the <strong>Copy Widget URL</strong> button.</li>
+                </ol>
+
+                <h3>Step 3: How to Add the Kick Chat Browser Source in OBS</h3>
+                <p>Now that you have your BotRix or Streamlabs URL, it's time to put it on your stream.</p>
+                <ol>
+                    <li>Open <strong>OBS Studio</strong>.</li>
+                    <li>In the <strong>Sources</strong> dock, click the <strong>+</strong> (Plus) icon and select <strong>Browser</strong>.</li>
+                    <li>Name the source "Kick Chat Overlay" and click OK.</li>
+                    <li>In the <strong>URL</strong> field, paste the link you copied from BotRix/Streamlabs.</li>
+                    <li>Change the <strong>Width</strong> to 400 and the <strong>Height</strong> to 600 (this provides a nice vertical column).</li>
+                    <li><strong>Crucial Step:</strong> Scroll down to the <strong>Custom CSS</strong> box. Delete whatever is in there. Scroll to the top of this page, design your chat using our generator, click "Generate CSS", and paste our custom code into this box!</li>
+                </ol>
+
+                <h3>Troubleshooting: Why is my Kick Chat not showing?</h3>
+                <p>If you've followed the steps above and your chat isn't appearing on screen when people type, check these common issues:</p>
+                <ul>
+                    <li><strong>BotRix Mod Status:</strong> If BotRix is not a moderator in your Kick channel, it cannot read the chat API properly. Go to your Kick creator dashboard and ensure `/mod botrix` has been executed.</li>
+                    <li><strong>OBS Cache:</strong> Sometimes OBS caches the browser source incorrectly. Double-click your Browser Source in OBS, scroll down, and click the "Refresh cache of current page" button.</li>
+                    <li><strong>CSS Errors:</strong> If you manually typed CSS and missed a bracket `}`, the entire code will break. Always use a generator (like the one above) to ensure your CSS syntax is perfect.</li>
+                </ul>
+            </article>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="/privacy-policy.html">Privacy Policy</a>
+                <a href="/terms.html">Terms of Service</a>
+                <a href="/about.html">About Us</a>
+            </div>
+            <p>&copy; <span id="year"></span> OBS Mask Generator. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../components.js"></script>
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

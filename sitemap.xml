@@ -31,6 +31,12 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://obsmaskgenerator.com/kick-chat-overlay-obs/</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://obsmaskgenerator.com/twitch-emote-resizer/</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
