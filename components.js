@@ -71,8 +71,13 @@ const GlobalComponents = {
                     padding: 24px 36px;
                     text-decoration: none;
                     font-family: 'Inter', system-ui, sans-serif;
-                    transition: all 0.2s ease;
+                    transform: translateY(150%);
+                    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease, border-color 0.2s ease;
                     touch-action: pan-x;
+                }
+
+                .mynofi-promo-banner-v2.show-banner {
+                    transform: translateY(0);
                 }
 
                 .mynofi-promo-banner-v2:hover {
@@ -258,6 +263,12 @@ const GlobalComponents = {
                 // Dynamically add massive padding to the body so the 1.5x banner doesn't cover footer links
                 const isMobile = window.innerWidth <= 768;
                 document.body.style.paddingBottom = isMobile ? "130px" : "180px";
+
+                // Add delay for sliding up the banner
+                setTimeout(() => {
+                    const banner = document.querySelector(".mynofi-promo-banner-v2");
+                    if (banner) banner.classList.add("show-banner");
+                }, 10000);
             }
         }
     },
