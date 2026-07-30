@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShadowPlay Not Recording? 5 Quick Fixes (2026 Guide) | OBS Tools</title>
+    <meta name="description"
+        content="Is NVIDIA ShadowPlay (GeForce Experience) failing to record your gameplay? We cover the audio routing fixes, desktop capture settings, and how to get proper notifications.">
+    <meta name="keywords"
+        content="shadowplay not recording, nvidia shadowplay not recording, shadowplay not recording audio, shadowplay not saving clips, geforce experience recording stopped">
+    <meta name="author" content="OBS Mask Generator">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://obsmaskgenerator.com/blog/shadowplay-not-recording-fix.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://obsmaskgenerator.com/blog/shadowplay-not-recording-fix.html">
+    <meta property="og:title" content="ShadowPlay Not Recording? 5 Quick Fixes (2026 Guide)">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "ShadowPlay Not Recording? How to Fix NVIDIA Instant Replay",
+        "author": { "@type": "Person", "name": "Nikhil Agarwal" },
+        "datePublished": "2026-07-30",
+        "dateModified": "2026-07-30"
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="blog-style.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <script src="/components.js" defer></script>
+</head>
+
+<body>
+    <header class="blog-header">
+        <div class="header-content">
+            <a href="../" class="logo">OBS Tools</a>
+            <nav>
+                <a href="../">Tools</a>
+                <a href="/blog/" class="active">Blog</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="blog-container">
+        <article class="blog-article">
+            <div class="article-header">
+                <div class="breadcrumb">
+                    <a href="../">Home</a> › <a href="/blog/">Blog</a> › ShadowPlay Not Recording
+                </div>
+                <h1>ShadowPlay Not Recording? How to Fix NVIDIA Instant Replay</h1>
+                <p class="article-meta">By Nikhil Agarwal • Published July 2026 • 5 min read</p>
+            </div>
+
+            <div class="article-content">
+                <p class="intro">
+                    NVIDIA ShadowPlay (now part of the NVIDIA App/GeForce Experience) is incredible for clipping epic moments with zero performance loss. But there is a massive catch: it is notorious for silently turning itself off, leaving you frantically mashing your hotkey with nothing to show for it. Here is how to fix it immediately.
+                </p>
+
+                <div class="info-box highlight"
+                    style="background: rgba(118, 171, 126, 0.1); border-left: 4px solid #76ab7e; padding: 1.5rem; margin: 2rem 0; border-radius: 4px;">
+                    <h3 style="margin-top: 0; color: #76ab7e;">🚀 The Quick Answer</h3>
+                    <p style="margin-bottom: 0;">If ShadowPlay refuses to turn on or record, the most common fix is to <strong>turn on "Desktop Capture"</strong> in your Privacy Control settings, or to simply <strong>restart the NVIDIA Local System Container service</strong> in Windows Services.</p>
+                </div>
+
+                <h2>Why is NVIDIA ShadowPlay Not Recording? (5 Quick Fixes)</h2>
+                
+                <p>As a heavy user of Instant Replay, I've run into every single ShadowPlay bug imaginable. Usually, the issue stems from Windows permissions, a hanging background service, or a misconfigured audio track. Let's run through the definitive checklist to get your clips saving again.</p>
+
+                <h3>1. Turn on Privacy Control (Desktop Capture)</h3>
+                <p>If you are playing a game in "Borderless Windowed" mode, or playing a game that NVIDIA doesn't officially recognize, ShadowPlay won't record it because it thinks you are just staring at your desktop.</p>
+                <ul>
+                    <li><strong>The Fix:</strong> Press <code>Alt + Z</code> to open the overlay. Click the Gear icon (Settings). Scroll down to <strong>Privacy Control</strong>. Toggle "Desktop Capture" to <strong>ON</strong>. This forces ShadowPlay to record everything on your primary monitor, regardless of whether it recognizes the game.</li>
+                </ul>
+
+                <h3>2. Restart the NVIDIA Local System Container Service</h3>
+                <p>If you press your record hotkey and absolutely nothing happens (not even a red line through the recording icon), the background service has crashed.</p>
+                <ul>
+                    <li><strong>The Fix:</strong> Press the Windows Key, type <code>Services.msc</code>, and hit Enter. Scroll down the list until you find <strong>NVIDIA Local System Container</strong>. Right-click it and select <strong>Restart</strong>. Do the same for <strong>NVIDIA Display Container LS</strong>. This forces the overlay to reboot without restarting your PC.</li>
+                </ul>
+
+                <h3>3. ShadowPlay Not Recording Audio (Or Discord Audio)</h3>
+                <p>You saved the clip, but it's completely silent, or your mic is missing. This happens when NVIDIA splits your audio tracks into two separate files, and your media player (like VLC) is only playing track one.</p>
+                <ul>
+                    <li><strong>The Fix:</strong> Press <code>Alt + Z</code> > Settings > Audio. Under the microphone settings, change "Separate both tracks" to <strong>"Create a single track"</strong>. This bakes your microphone, Discord, and game audio into one single audio layer that works flawlessly in all video players and editors.</li>
+                </ul>
+                
+                <h3>4. You Ran Out of Dedicated Temp Space</h3>
+                <p>ShadowPlay requires "Temporary File" space to constantly write the last 5 minutes of gameplay. If your C: drive is full, Instant Replay will immediately turn itself off.</p>
+                <ul>
+                    <li><strong>The Fix:</strong> Go to Settings > Recordings. Change the "Temporary Files" directory to a drive that has at least 20GB of free space.</li>
+                </ul>
+
+                <h2>Why ShadowPlay's Built-in Notifications Are Broken</h2>
+                
+                <p>Even if you apply all the fixes above, you are going to face a harsh reality: <strong>NVIDIA updates break ShadowPlay constantly.</strong></p>
+                
+                <p>One day it works perfectly, and the next day—after a silent driver update—Instant Replay turns itself off. Because NVIDIA's overlay notifications only pop up if the software is <em>working</em>, you get absolutely no warning when the software has crashed in the background.</p>
+                
+                <p>You play for three hours, hit <code>Alt + F10</code> to save an insane clutch, and realize the icon in the corner was missing the entire time. The clip is gone forever.</p>
+
+                <div class="cta-box" style="background: #111113; border: 1px solid #2f2f35; padding: 2rem; border-radius: 12px; margin-top: 2rem; text-align: center;">
+                    <h3 style="color: #00f593; margin-top: 0; font-size: 1.5rem;">Stop Relying on the Overlay Icon</h3>
+                    <p style="color: #adadb8; margin-bottom: 1.5rem;">Never lose a clip again. Mynofi is a lightweight Windows utility that actively monitors ShadowPlay, OBS, and Audacity. If your ShadowPlay recording crashes, turns off, or fails to save a clip, Mynofi instantly fires a Windows Desktop Alert right over your game.</p>
+                    <a href="/mynofi/" class="cta-button" style="background: #9146ff; color: #fff; padding: 15px 30px; border-radius: 8px; font-weight: bold; text-decoration: none; display: inline-block;">Get Mynofi for $4.99 (One-Time) →</a>
+                    <p style="font-size: 0.8rem; color: #848494; margin-top: 15px;">Zero performance impact. One-time purchase. Total peace of mind.</p>
+                </div>
+
+                <h2>Summary</h2>
+                <p>To keep ShadowPlay running smoothly, ensure Desktop Capture is enabled and your audio tracks are merged. But as any veteran PC gamer knows, GeForce Experience is temperamental. To guarantee you never lose a clip to a silent crash, implement a background monitor like Mynofi and play with confidence.</p>
+
+            </div>
+        </article>
+    </main>
+
+    <footer style="text-align: center; padding: 2rem; color: #848494; border-top: 1px solid #2f2f35; margin-top: 4rem;">
+        <p>&copy; 2026 OBS Tools. All rights reserved.</p>
+    </footer>
+</body>
+</html>
