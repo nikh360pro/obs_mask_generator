@@ -1,3 +1,7 @@
+/stream-analyzer/index.html
+  Content-Type: text/html; charset=UTF-8
+  Cache-Control: no-cache, no-store, must-revalidate
+
 /*.html
   Content-Type: text/html; charset=UTF-8
   X-Robots-Tag: index, follow
