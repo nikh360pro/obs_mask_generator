@@ -784,7 +784,7 @@ async function go(){const input=document.getElementById('uname'),btn=document.ge
 try{
   const headers = {'Content-Type':'application/json'};
   if (currentSession) headers['Authorization'] = `Bearer ${currentSession.access_token}`;
-  const res=await fetch(`${WORKER}/analyze`,{method:'POST',headers,body:JSON.stringify({username:uname})});
+  const res=await fetch(`${WORKER}/analyze`,{method:'POST',headers,body:JSON.stringify({username:uname,is_premium:devOn})});
   const data=await res.json();
   if(!res.ok||data.error)throw new Error(data.error||'Analysis failed.');
   clearInterval(stepT);document.getElementById('loading').style.display='none';render(data);
