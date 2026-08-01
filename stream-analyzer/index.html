@@ -439,14 +439,15 @@ async function checkUser() {
     const { data: profile } = await supabaseClient.from('profiles').select('is_premium').eq('id', currentUser.id).single();
     if (profile && profile.is_premium) {
       devOn = true;
+      localStorage.setItem('sa_dev', '1');
       document.getElementById('auth-nav').innerHTML = '<span class="nav-badge" style="margin-right:10px">💎 Pro Active</span><button class="auth-btn" onclick="logOut()">Log Out</button>';
       if (D) renderPaidTabs();
     } else {
-      devOn = false;
+      // DO NOT touch devOn — dev toggle controls it
       document.getElementById('auth-nav').innerHTML = '<button class="auth-btn premium" style="margin-right:8px" onclick="buyProPass()">Upgrade to Pro</button><button class="auth-btn" onclick="logOut()">Log Out</button>';
     }
   } else {
-    devOn = false;
+    // DO NOT touch devOn — dev toggle controls it
     document.getElementById('auth-nav').innerHTML = '<button class="auth-btn" onclick="loginWithTwitch()">Connect with Twitch</button>';
   }
 }
