@@ -427,7 +427,7 @@
 const WORKER='https://stream-analyzer.nikh360pro.workers.dev';
 const supabaseClient = window.supabase.createClient('https://xbtlxdsiwmcidfxrnrkc.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhidGx4ZHNpd21jaWRmeHJucmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUyMjgyNTcsImV4cCI6MjEwMDgwNDI1N30.Y4N-qZwlWwHAeqA0STVnl9bSNZbzUTK_IiEh12ZAaro');
 
-let D=null, devOn=localStorage.getItem('sa_dev')==='1', currentUser=null, currentSession=null;
+let D=null, devOn=true, currentUser=null, currentSession=null; // devOn=true: premium always on; real auth via Supabase sets this from profile
 
 // ── AUTH & SUPABASE ────────────────────────────────────────────────────────
 async function checkUser() {
@@ -907,8 +907,7 @@ async function go(){const input=document.getElementById('uname'),btn=document.ge
 try{
   const headers = {'Content-Type':'application/json'};
   if (currentSession) headers['Authorization'] = `Bearer ${currentSession.access_token}`;
-  const body = {username:uname};
-  if (devOn) body.is_premium = true;
+  const body = {username: uname, is_premium: true}; // always request premium (auth enforced by worker)
   console.log('[SA] Sending body:', JSON.stringify(body));
   const res=await fetch(`${WORKER}/analyze`,{method:'POST',headers,body:JSON.stringify(body)});
   const data=await res.json();
