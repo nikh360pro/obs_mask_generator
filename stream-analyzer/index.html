@@ -531,20 +531,20 @@ document.getElementById('panel-strategy').innerHTML=`
     ${ch.best_stream_days&&ch.best_stream_days!=='Not enough data'?`<span style="color:var(--muted);font-weight:400;margin-left:8px">Best days: <strong style="color:var(--yellow)">${esc(ch.best_stream_days)}</strong></span>`:''}
   </div>
 </div>
-<div class="grid-2" style="margin-bottom:12px">
-  <div>
-    <div class="card" style="margin-bottom:12px">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;align-items:stretch">
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div class="card">
       <div class="ct purple">📝 5 Custom Titles — Cloned From Top Performers</div>
       <p style="font-size:10px;color:var(--muted);margin-bottom:8px">Copied from the exact hook structure of top-performing live streams right now.</p>
       ${titles}
     </div>
-    <div class="card">
+    <div class="card" style="flex:1">
       <div class="ct cyan">🏷️ Tags To Add Now</div>
       <div class="tag-wrap">${tagsHtml}</div>
     </div>
   </div>
-  <div>
-    <div class="card" style="margin-bottom:12px" id="prem-playbook">
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div class="card" style="flex:1" id="prem-playbook">
       <div class="ct orange">🎯 Your Growth Playbook</div>
       <div class="premium-loading"><div class="premium-spin"></div>Loading personalised strategy…</div>
     </div>
