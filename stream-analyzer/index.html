@@ -303,9 +303,6 @@
     .copied-toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--green);color:#000;padding:10px 22px;border-radius:28px;font-size:13px;font-weight:700;z-index:300;opacity:0;transition:opacity .3s;pointer-events:none}
     .copied-toast.show{opacity:1}
 
-    #devbtn{display:none;position:fixed;bottom:18px;right:18px;z-index:999;background:linear-gradient(135deg,#92400e,#d97706);color:#fff;border:none;padding:9px 15px;border-radius:28px;font-size:11px;font-weight:800;font-family:'Inter',sans-serif;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.5);transition:transform .2s}
-    #devbtn:hover{transform:scale(1.05)}
-    #devbtn.on{background:linear-gradient(135deg,#065f46,#059669)}
     footer{text-align:center;padding:26px 18px;font-size:11px;color:var(--muted2);border-top:1px solid var(--border)}
     footer a{color:var(--muted);text-decoration:underline}
     .auth-btn{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:var(--text);padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.2s;}
@@ -324,7 +321,6 @@
 </head>
 <body>
 
-<button id="devbtn" onclick="toggleDev()">🛠 Dev: Unlock Paid</button>
 <div class="copied-toast" id="toast">✅ Copied!</div>
 
 <div class="modal-bg" id="modal-bg" onclick="if(event.target===this)closeModal()">
@@ -348,7 +344,7 @@
       <input id="uname" type="text" placeholder="Your Twitch username…" maxlength="25" autocomplete="off" spellcheck="false"/>
       <button class="btn-go" id="gobtn" onclick="go()">Analyze →</button>
     </div>
-    <div class="trust"><span>✓ Free report</span><span>✓ Live Twitch data</span><span>✓ PDF export</span></div>
+    <div class="trust"><span>✓ Free</span><span>✓ Live Twitch data</span><span>✓ Login to unlock all</span></div>
   </div>
   <div class="ticker-wrap" id="ticker-wrap" style="display:none"><div class="ticker" id="ticker"></div></div>
 </section>
@@ -370,8 +366,8 @@
   <div class="tabs" id="tabbar">
     <div class="tab active" data-tab="overview" onclick="switchTab('overview')">📊 Overview</div>
     <div class="tab" data-tab="intel" onclick="switchTab('intel')">🔥 Category Intel</div>
-    <div class="tab locked" data-tab="strategy" onclick="switchTab('strategy')">📝 Content Strategy</div>
-    <div class="tab locked" data-tab="actions" onclick="switchTab('actions')">🤝 Growth Actions</div>
+    <div class="tab" data-tab="strategy" onclick="switchTab('strategy')">📝 Content Strategy</div>
+    <div class="tab" data-tab="actions" onclick="switchTab('actions')">🤝 Growth Actions</div>
     <div class="tab" data-tab="export" onclick="switchTab('export')">📄 Export & AI</div>
   </div>
 
@@ -422,34 +418,39 @@
 const WORKER='https://stream-analyzer.nikh360pro.workers.dev';
 const supabaseClient = window.supabase.createClient('https://xbtlxdsiwmcidfxrnrkc.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhidGx4ZHNpd21jaWRmeHJucmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUyMjgyNTcsImV4cCI6MjEwMDgwNDI1N30.Y4N-qZwlWwHAeqA0STVnl9bSNZbzUTK_IiEh12ZAaro');
 
-let D=null, devOn=true, currentUser=null, currentSession=null; // devOn=true: premium always on; real auth via Supabase sets this from profile
+let D=null, loggedIn=false, currentUser=null, currentSession=null;
 
 // ── AUTH & SUPABASE ────────────────────────────────────────────────────────
 async function checkUser() {
   const { data: { session } } = await supabaseClient.auth.getSession();
   currentSession = session;
   currentUser = session?.user || null;
-  
-  if (currentUser) {
-    const { data: profile } = await supabaseClient.from('profiles').select('is_premium').eq('id', currentUser.id).single();
-    if (profile && profile.is_premium) {
-      devOn = true;
-      localStorage.setItem('sa_dev', '1');
-      document.getElementById('auth-nav').innerHTML = '<span class="nav-badge" style="margin-right:10px">💎 Pro Active</span><button class="auth-btn" onclick="logOut()">Log Out</button>';
-      if (D) renderPaidTabs();
-    } else {
-      // DO NOT touch devOn — dev toggle controls it
-      document.getElementById('auth-nav').innerHTML = '<button class="auth-btn premium" style="margin-right:8px" onclick="buyProPass()">Upgrade to Pro</button><button class="auth-btn" onclick="logOut()">Log Out</button>';
-    }
+  loggedIn = !!session;
+
+  if (loggedIn) {
+    const name = currentUser.user_metadata?.preferred_username || currentUser.user_metadata?.name || currentUser.email || 'Streamer';
+    const avatar = currentUser.user_metadata?.avatar_url;
+    document.getElementById('auth-nav').innerHTML = `
+      <div style="display:flex;align-items:center;gap:8px">
+        ${avatar ? `<img src="${avatar}" style="width:28px;height:28px;border-radius:50%;border:2px solid var(--purple2);flex-shrink:0">` : ''}
+        <span style="font-size:12px;color:var(--text);font-weight:600">${esc(name)}</span>
+        <button class="auth-btn" onclick="logOut()" style="padding:4px 12px;font-size:11px;background:rgba(255,255,255,.06)">Logout</button>
+      </div>`;
+    if (D) renderPaidTabs();
   } else {
-    // DO NOT touch devOn — dev toggle controls it
-    document.getElementById('auth-nav').innerHTML = '<button class="auth-btn" onclick="loginWithTwitch()">Connect with Twitch</button>';
+    document.getElementById('auth-nav').innerHTML =
+      `<button class="auth-btn" onclick="loginWithTwitch()">🟣 Connect with Twitch</button>`;
+    if (D) renderPaidTabs();
   }
 }
 
 async function logOut() {
   await supabaseClient.auth.signOut();
-  await checkUser();
+  loggedIn = false;
+  currentUser = null;
+  currentSession = null;
+  document.getElementById('auth-nav').innerHTML =
+    `<button class="auth-btn" onclick="loginWithTwitch()">🟣 Connect with Twitch</button>`;
   if (D) {
     switchTab('overview');
     renderLockPrompt('strategy');
@@ -459,7 +460,6 @@ async function logOut() {
 }
 
 async function loginWithTwitch() {
-  // Use current origin so redirect works on both localhost and production
   const redirectTo = window.location.origin + (window.location.pathname.includes('stream-analyzer') ? '/stream-analyzer/' : '/');
   const { data, error } = await supabaseClient.auth.signInWithOAuth({
     provider: 'twitch',
@@ -468,23 +468,12 @@ async function loginWithTwitch() {
   if (error) showToast('Login failed: ' + error.message);
 }
 
-function buyProPass() {
-  if (!currentUser) {
-    loginWithTwitch();
-  } else {
-    window.open(`https://nikhonet.gumroad.com/l/stream-analyzer?email=${encodeURIComponent(currentUser.email)}`, '_blank');
-  }
-}
-
 // Initial Auth Check
 checkUser();
 
-// ── DEV TOGGLE ──────────────────────────────────────────────────────────────
-function toggleDev(){devOn=!devOn;localStorage.setItem('sa_dev',devOn?'1':'0');const b=document.getElementById('devbtn');b.textContent=devOn?'✅ Paid Unlocked':'🛠 Dev: Unlock Paid';b.classList.toggle('on',devOn);document.querySelectorAll('.tab.locked').forEach(t=>{devOn?t.classList.remove('locked'):t.classList.add('locked');});if(D)renderPaidTabs();}
-
 // ── TABS ────────────────────────────────────────────────────────────────────
-function switchTab(id){const isLocked=document.querySelector(`.tab[data-tab="${id}"]`)?.classList.contains('locked');if(isLocked&&!devOn){renderLockPrompt(id);}document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.getElementById(`panel-${id}`).classList.add('active');document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelector(`.tab[data-tab="${id}"]`)?.classList.add('active');}
-function renderLockPrompt(id){const p=document.getElementById(`panel-${id}`),lbl=id==='strategy'?'Content Strategy':'Growth Actions';const pills=id==='strategy'?['5 custom titles','Growth Playbook','YouTube strategy','Clip Blueprint','Best stream days','Platform priority']:['All 3 mistakes','90-day roadmap','Community milestones','Collab strategy','Platform priority'];p.innerHTML=`<div class="lock-panel"><div class="lo-icon">🔒</div><h3>Unlock ${lbl}</h3><p>Unlock unlimited, month-over-month channel audits. Track your growth and adjust your strategy anytime. Pay once, no subscriptions ever.</p><div class="upills">${pills.map(x=>`<span class="up">${x}</span>`).join('')}</div><button class="btn-unlock" onclick="buyProPass()">🚀 Upgrade to Pro Pass — $19 (One-Time Fee)</button></div>`;}
+function switchTab(id){document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.getElementById(`panel-${id}`).classList.add('active');document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelector(`.tab[data-tab="${id}"]`)?.classList.add('active');}
+function renderLockPrompt(id){const p=document.getElementById(`panel-${id}`);const lbl=id==='strategy'?'Content Strategy':'Growth Actions';const pills=id==='strategy'?['5 Custom Titles','Growth Playbook','YouTube Strategy','Clip Blueprint','Best Stream Days','Platform Priority']:['All 3 Mistakes','90-Day Roadmap','Community Milestones','Collab Strategy','Vertical Clip Plan'];p.innerHTML=`<div class="lock-panel"><div class="lo-icon">🔒</div><h3>Login to Unlock ${esc(lbl)}</h3><p>Sign in free with your Twitch account to access your full personalised analysis — no payment required.</p><div class="upills">${pills.map(x=>`<span class="up">${x}</span>`).join('')}</div><button class="btn-unlock" onclick="loginWithTwitch()">🟣 Connect with Twitch — Free</button><p style="font-size:10px;margin-top:12px;color:var(--muted)">No payment required. Just your Twitch account.</p></div>`;}
 
 // ── MODAL ────────────────────────────────────────────────────────────────────
 function openModal(type){if(!D)return;const m=document.getElementById('modal-content'),bg=document.getElementById('modal-bg');let html='<button class="modal-close" onclick="closeModal()">✕</button>';
@@ -759,35 +748,35 @@ function fillPremiumActions(p){
 }
 
 // ── EXPORT + PROMPT ───────────────────────────────────────────────────────────
-function buildPrompt(data,isPaid){const ch=data.channel,a=data.analysis,comp=data.competitive,p=data.premium;const liveList=(comp.top_live_streams||[]).slice(0,isPaid?10:3).map((s,i)=>`${i+1}. "${s.title}" — ${fmtNum(s.viewers)} viewers (${s.username})`).join('\n');const clipList=(comp.trending_clips||[]).slice(0,isPaid?8:3).map((c,i)=>`${i+1}. "${c.title}" — ${fmtNum(c.views)} views (by ${c.streamer})`).join('\n');const gamesBlock=isPaid?(comp.opportunity_games||[]).map(g=>`- ${g.name} — ${g.viewers_per_channel} viewers/ch, Global #${g.global_rank}`).join('\n'):'[Unlock full report for alternative game data]';const mistakesBlock=isPaid?(a.biggest_mistakes||[]).map((m,i)=>`${i+1}. ${m}`).join('\n'):`1. ${(a.biggest_mistakes||[])[0]||'N/A'}\n2. [Unlock for mistake #2]\n3. [Unlock for mistake #3]`;const playbookBlock=isPaid&&p?.growth_playbook?(p.growth_playbook||[]).map((s,i)=>`${i+1}. ${s}`).join('\n'):'[Unlock full report for personalised growth playbook]';const ytBlock=isPaid&&p?.youtube_strategy?`Format: ${p.youtube_strategy.channel_format||''}\nTypes: ${(p.youtube_strategy.video_types||[]).join(', ')}\nFirst videos: ${(p.youtube_strategy.first_5_videos||[]).join(' | ')}`:'[Unlock for YouTube strategy]';const tags=Array.isArray(a.tags_to_use)?a.tags_to_use.join(', '):String(a.tags_to_use||'');
+function buildPrompt(data,isPaid){const ch=data.channel,a=data.analysis,comp=data.competitive,p=data.premium;const liveList=(comp.top_live_streams||[]).slice(0,isPaid?10:3).map((s,i)=>`${i+1}. "${s.title}" \u2014 ${fmtNum(s.viewers)} viewers (${s.username})`).join('\n');const clipList=(comp.trending_clips||[]).slice(0,isPaid?8:3).map((c,i)=>`${i+1}. "${c.title}" \u2014 ${fmtNum(c.views)} views (by ${c.streamer})`).join('\n');const gamesBlock=isPaid?(comp.opportunity_games||[]).map(g=>`- ${g.name} \u2014 ${g.viewers_per_channel} viewers/ch, Global #${g.global_rank}`).join('\n'):'[Login with Twitch for alternative game data]';const mistakesBlock=isPaid?(a.biggest_mistakes||[]).map((m,i)=>`${i+1}. ${m}`).join('\n'):`1. ${(a.biggest_mistakes||[])[0]||'N/A'}\n2. [Login for mistake #2]\n3. [Login for mistake #3]`;const playbookBlock=isPaid&&p?.growth_playbook?(p.growth_playbook||[]).map((s,i)=>`${i+1}. ${s}`).join('\n'):'[Login with Twitch for personalised growth playbook]';const ytBlock=isPaid&&p?.youtube_strategy?`Format: ${p.youtube_strategy.channel_format||''}\nTypes: ${(p.youtube_strategy.video_types||[]).join(', ')}\nFirst videos: ${(p.youtube_strategy.first_5_videos||[]).join(' | ')}`:'[Login for YouTube strategy]';const tags=Array.isArray(a.tags_to_use)?a.tags_to_use.join(', '):String(a.tags_to_use||'');
 return`You are an elite Twitch growth strategist. I am giving you my full competitive analysis. IMPORTANT: Before giving ANY advice, ask me these 5 questions first:
 
 1. How many hours per week can you realistically stream?
 2. Are you willing to switch games/categories if the data shows a better opportunity?
-3. What do you enjoy most about streaming — competition, entertainment, education, or community?
+3. What do you enjoy most about streaming \u2014 competition, entertainment, education, or community?
 4. What's your main goal: Affiliate, Partner, or full-time streaming income?
 5. Have you made any YouTube/TikTok content before? If yes, what performed best?
 
 After I answer, perform a deep analysis of my data below, then create a specific, numbered 30-day action plan where every step references a real number from my data.
 
-═══════════════════════════════════
+\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
 MY TWITCH CHANNEL DATA
-═══════════════════════════════════
+\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
 
 Channel: ${ch.username} (${ch.broadcaster_type})
-Category: ${ch.current_game||'Not set'} — Type: ${ch.category_type||'Variety'}
+Category: ${ch.current_game||'Not set'} \u2014 Type: ${ch.category_type||'Variety'}
 Title: "${ch.current_title||'None'}"
 Tier: ${ch.tier||'Starter'} | Best Days: ${ch.best_stream_days||'Unknown'}
 Streams/Week: ${ch.streams_per_week} | Account: ${ch.account_age_months}mo old
 Category Rank: ${ch.category_rank?'#'+ch.category_rank:'Niche'} | Competition: ${ch.competition_level}
 Viewers/Channel: ${ch.viewers_per_channel} | Opportunity Score: ${ch.opportunity_score}/100
-Clips: ${ch.total_clips} total · Best: ${fmtNum(ch.top_clip_views)} views · Avg: ${ch.avg_clip_views}
-Growth Score: ${a.growth_score||0}/100 (${a.score_label||'—'})
-${ch.best_vod?`Best VOD: "${(ch.best_vod.title||'').slice(0,50)}" — ${fmtNum(ch.best_vod.views||0)} views`:''}
+Clips: ${ch.total_clips} total \u00b7 Best: ${fmtNum(ch.top_clip_views)} views \u00b7 Avg: ${ch.avg_clip_views}
+Growth Score: ${a.growth_score||0}/100 (${a.score_label||'\u2014'})
+${ch.best_vod?`Best VOD: "${(ch.best_vod.title||'').slice(0,50)}" \u2014 ${fmtNum(ch.best_vod.views||0)} views`:''}
 
-═══════════════════════════════════
+\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
 LIVE COMPETITIVE INTELLIGENCE
-═══════════════════════════════════
+\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
 
 TOP STREAMERS IN MY CATEGORY NOW:
 ${liveList||'None found.'}
@@ -801,9 +790,9 @@ ${gamesBlock}
 TAGS USED BY TOP STREAMERS:
 ${tags||'None'}
 
-═══════════════════════════════════
+\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
 AI ANALYSIS
-═══════════════════════════════════
+\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
 
 MISTAKES:
 ${mistakesBlock}
@@ -817,21 +806,19 @@ YOUTUBE STRATEGY:
 ${ytBlock}
 
 60-DAY OUTLOOK: ${a.sixty_day_outlook||'N/A'}
-RECOMMENDED ACTION: ${a.one_action_now||'N/A'}`:'[Unlock full report for growth playbook, YouTube strategy, and roadmap]'}
-
-═══════════════════════════════════
+RECOMMENDED ACTION: ${a.one_action_now||'N/A'}`:'[Login with Twitch for full growth playbook, YouTube strategy, and roadmap]'}
 
 Now ask me the 5 questions above. After I answer, create a specific numbered 30-day action plan — every step must reference a real number from my data above. Do NOT give generic advice.`;}
 
-function renderExport(data){const isPaid=devOn;const prompt=buildPrompt(data,isPaid);const chars=prompt.length,tokens=Math.round(chars/4);
+function renderExport(data){const isPaid=loggedIn;const prompt=buildPrompt(data,isPaid);const chars=prompt.length,tokens=Math.round(chars/4);
 document.getElementById('panel-export').innerHTML=`
-<div class="export-hero"><h3>📤 Export Your Analysis</h3><p>Download a PDF report or copy a structured AI prompt to get personalised growth coaching from Claude, ChatGPT, or Gemini.</p></div>
+<div class="export-hero"><h3>📤 Export Your Analysis</h3><p>Download a full PDF report or copy a structured AI prompt to get personalised growth coaching from Claude, ChatGPT, or Gemini.</p></div>
 <div class="export-actions">
   <div class="exp-card">
-    <div class="exp-head"><div class="exp-icon pdf">📄</div><div><h4>PDF Report</h4><span class="exp-tag" style="background:${isPaid?'rgba(74,222,128,.12)':'rgba(250,204,21,.12)'};color:${isPaid?'var(--green)':'var(--yellow)'};border:1px solid ${isPaid?'rgba(74,222,128,.2)':'rgba(250,204,21,.2)'}">${isPaid?'Full Report':'Free Overview'}</span></div></div>
-    <div class="exp-desc">${isPaid?'Complete report with all competitive intelligence, growth playbook, YouTube strategy, 90-day roadmap, and action plan.':'Channel overview, category opportunity, and key metrics. Unlock the full analysis for the complete PDF.'}</div>
+    <div class="exp-head"><div class="exp-icon pdf">📄</div><div><h4>PDF Report</h4><span class="exp-tag" style="background:${isPaid?'rgba(74,222,128,.12)':'rgba(168,85,247,.12)'};color:${isPaid?'var(--green)':'var(--purple2)'};border:1px solid ${isPaid?'rgba(74,222,128,.2)':'rgba(168,85,247,.2)'};">${isPaid?'Full Report':'Login for Full PDF'}</span></div></div>
+    <div class="exp-desc">${isPaid?'Complete report with all competitive intelligence, growth playbook, YouTube strategy, 90-day roadmap, and action plan.':'Login with Twitch to unlock the complete PDF with growth playbook, YouTube strategy, 90-day roadmap, and action plan.'}</div>
     <div class="exp-features">${(isPaid?['Growth playbook','YouTube strategy','Clip blueprint','90-day roadmap','All mistakes','Collab strategy']:['Growth score','Opportunity','Competition','Top clips','Overview']).map(f=>`<span class="ef">✓ ${f}</span>`).join('')}</div>
-    <button class="btn-exp pdf" onclick="downloadPDF()">📥 Download PDF</button>
+    ${isPaid?`<button class="btn-exp pdf" onclick="downloadPDF()">📥 Download PDF</button>`:`<button class="btn-exp pdf" onclick="loginWithTwitch()">🟣 Login to Download Full PDF</button>`}
   </div>
   <div class="exp-card">
     <div class="exp-head"><div class="exp-icon ai">🤖</div><div><h4>AI Deep Dive Prompt</h4><span class="exp-tag" style="background:rgba(34,211,238,.12);color:var(--cyan);border:1px solid rgba(34,211,238,.2)">Works with any AI</span></div></div>
@@ -846,18 +833,18 @@ document.getElementById('panel-export').innerHTML=`
     <button class="prompt-copy-btn" onclick="copyPrompt()">📋 Copy</button>
   </div>
   <div class="prompt-body" id="prompt-box">${prompt.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
-  <div class="prompt-footer"><span>${chars.toLocaleString()} chars · ~${tokens.toLocaleString()} tokens</span><span>${isPaid?'✅ Full data':'🔒 Unlock for full data'}</span></div>
+  <div class="prompt-footer"><span>${chars.toLocaleString()} chars · ~${tokens.toLocaleString()} tokens</span><span>${isPaid?'✅ Full data':'🔒 Login for full data'}</span></div>
 </div>`;}
 
-function copyPrompt(){const p=buildPrompt(D,devOn);navigator.clipboard.writeText(p).then(()=>showToast('✅ Copied!')).catch(()=>{try{const b=document.getElementById('prompt-box');const r=document.createRange();r.selectNodeContents(b);window.getSelection().removeAllRanges();window.getSelection().addRange(r);document.execCommand('copy');showToast('✅ Copied!');}catch{}});}
+function copyPrompt(){const p=buildPrompt(D,loggedIn);navigator.clipboard.writeText(p).then(()=>showToast('✅ Copied!')).catch(()=>{try{const b=document.getElementById('prompt-box');const r=document.createRange();r.selectNodeContents(b);window.getSelection().removeAllRanges();window.getSelection().addRange(r);document.execCommand('copy');showToast('✅ Copied!');}catch{}});}
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
 
-function renderPaidTabs(){if(!D)return;if(devOn){renderStrategyWithSkeleton(D);renderActionsWithSkeleton(D);if(D.premium){fillPremiumStrategy(D.premium);fillPremiumActions(D.premium);}else{showPremiumFallback();}}else{renderLockPrompt('strategy');renderLockPrompt('actions');}renderExport(D);}
+function renderPaidTabs(){if(!D)return;if(loggedIn){renderStrategyWithSkeleton(D);renderActionsWithSkeleton(D);if(D.premium){fillPremiumStrategy(D.premium);fillPremiumActions(D.premium);}else{showPremiumFallback();}}else{renderLockPrompt('strategy');renderLockPrompt('actions');}renderExport(D);}
 
 function showPremiumFallback(){['prem-playbook','prem-youtube','prem-clips','prem-platform'].forEach(id=>{const el=document.getElementById(id);if(el){const h=el.querySelector('.ct');if(h){el.innerHTML=h.outerHTML+'<p style="font-size:11px;color:var(--muted);padding:10px 0;line-height:1.6">Premium analysis could not load. Try refreshing — the AI occasionally times out on heavy analysis. Your basic data above is still accurate.</p>';}}});['prem-roadmap','prem-milestones','prem-collab'].forEach(id=>{const el=document.getElementById(id);if(el){const h=el.querySelector('.ct');if(h){el.innerHTML=h.outerHTML+'<p style="font-size:11px;color:var(--muted);padding:10px 0">Premium section unavailable. Please retry the analysis.</p>';}}});}
 
 // ── PDF ───────────────────────────────────────────────────────────────────────
-function downloadPDF(){if(!D)return;const{jsPDF}=window.jspdf;const doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});const ch=D.channel,a=D.analysis,comp=D.competitive,p=D.premium,isPaid=devOn,W=190,M=10;let y=15;
+function downloadPDF(){if(!D)return;const{jsPDF}=window.jspdf;const doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});const ch=D.channel,a=D.analysis,comp=D.competitive,p=D.premium,W=190,M=10;let y=15;
 // Bug 1: Strip emoji/non-Latin-1 before any text enters jsPDF (helvetica is Latin-1 only)
 const pdfSafe=t=>String(t||'').replace(/[\u{1F000}-\u{1FFFF}]/gu,'').replace(/[\u2600-\u27FF]/g,'').replace(/[^\x00-\xFF]/g,'').replace(/\s{2,}/g,' ').trim();
 function addT(t,s=13){doc.setFontSize(s);doc.setFont('helvetica','bold');doc.setTextColor(168,85,247);doc.text(pdfSafe(t),M,y);y+=s*.5+2;}
@@ -865,25 +852,23 @@ function addP(t){doc.setFontSize(9);doc.setFont('helvetica','normal');doc.setTex
 function addKV(k,v){doc.setFontSize(9);doc.setFont('helvetica','normal');doc.setTextColor(100);doc.text(pdfSafe(k),M,y);doc.setFont('helvetica','bold');doc.setTextColor(40);doc.text(pdfSafe(v),M+55,y);y+=5;}
 function chk(n=20){if(y+n>280){doc.addPage();y=15;}}
 function ln(){doc.setDrawColor(220,220,230);doc.line(M,y,M+W,y);y+=4;}
-doc.setFillColor(8,8,11);doc.rect(0,0,210,30,'F');doc.setFontSize(16);doc.setFont('helvetica','bold');doc.setTextColor(168,85,247);doc.text(pdfSafe(`${ch.username} - Twitch Growth Report`),M,14);doc.setFontSize(9);doc.setTextColor(150,150,160);doc.text(pdfSafe(`Generated ${new Date().toLocaleDateString()} - OBSMaskGenerator.com - ${isPaid?'FULL REPORT':'FREE OVERVIEW'}`),M,22);y=38;
+doc.setFillColor(8,8,11);doc.rect(0,0,210,30,'F');doc.setFontSize(16);doc.setFont('helvetica','bold');doc.setTextColor(168,85,247);doc.text(pdfSafe(`${ch.username} - Twitch Growth Report`),M,14);doc.setFontSize(9);doc.setTextColor(150,150,160);doc.text(pdfSafe(`Generated ${new Date().toLocaleDateString()} - OBSMaskGenerator.com - ${loggedIn?'FULL REPORT':'BASIC OVERVIEW'}`),M,22);y=38;
 addT('Channel Overview');addKV('Username',ch.username);addKV('Status',ch.broadcaster_type==='partner'?'Partner':ch.broadcaster_type==='affiliate'?'Affiliate':'Not Affiliated');addKV('Tier',ch.tier||'Starter');addKV('Category',ch.current_game||'Not set');addKV('Category Type',ch.category_type||'Variety');addKV('Title','"'+(ch.current_title||'Not set').slice(0,55)+'"');addKV('Streams/Week',ch.streams_per_week+'×/wk');addKV('Best Stream Days',ch.best_stream_days||'N/A');addKV('Clips',ch.total_clips+' (best: '+fmtNum(ch.top_clip_views)+' · avg: '+ch.avg_clip_views+')');if(ch.best_vod)addKV('Best VOD','"'+(ch.best_vod.title||'').slice(0,40)+'" — '+fmtNum(ch.best_vod.views||0)+' views');ln();
 addT('Scores & Position');addKV('Growth Score',`${a.growth_score||0}/100 (${a.score_label||'—'})`);addP(a.score_reason||'');addKV('Opportunity',`${ch.opportunity_score}/100`);addKV('Competition',ch.competition_level);addKV('Category Rank',ch.category_rank?'#'+ch.category_rank:'Niche');addKV('Viewers/Channel',ch.viewers_per_channel+' avg');ln();
-chk(40);addT('Live Competitive Data');(comp.top_live_streams||[]).slice(0,isPaid?8:3).forEach((s,i)=>{chk(8);addP(`${i+1}. ${s.username} (${fmtNum(s.viewers)}v): "${(s.title||'').slice(0,70)}"`);});if(!isPaid&&(comp.top_live_streams||[]).length>3){addP('… Unlock full report to see all.');}ln();
-chk(30);addT('Viral Clips This Week');(comp.trending_clips||[]).slice(0,isPaid?8:3).forEach((c,i)=>{chk(8);addP(`${i+1}. "${(c.title||'').slice(0,60)}" — ${fmtNum(c.views)}v (${c.streamer})`);});ln();
+chk(40);addT('Live Competitive Data');(comp.top_live_streams||[]).slice(0,8).forEach((s,i)=>{chk(8);addP(`${i+1}. ${s.username} (${fmtNum(s.viewers)}v): "${(s.title||'').slice(0,70)}"`);});ln();
+chk(30);addT('Viral Clips This Week');(comp.trending_clips||[]).slice(0,8).forEach((c,i)=>{chk(8);addP(`${i+1}. "${(c.title||'').slice(0,60)}" — ${fmtNum(c.views)}v (${c.streamer})`);});ln();
 chk(20);addT('Your #1 Mistake');addP((a.biggest_mistakes||[])[0]||'N/A');
-if(isPaid){
-  if((a.biggest_mistakes||[]).length>1){ln();chk(30);addT('All 3 Mistakes');(a.biggest_mistakes||[]).forEach((m,i)=>{chk(12);addP(`${i+1}. ${m}`);});}
-  ln();chk(30);addT('5 Custom Titles');(a.title_suggestions||[]).forEach((t,i)=>{chk(8);addP(`${i+1}. ${t}`);});
-  ln();chk(15);addT('Tags To Add');const tags=Array.isArray(a.tags_to_use)?a.tags_to_use:String(a.tags_to_use||'').split(',').map(t=>t.trim()).filter(Boolean);addP(tags.length?tags.join(', '):(ch.popular_tags||[]).join(', ')||'No data');
-  if(p?.growth_playbook?.length){ln();chk(40);addT('Your Growth Playbook ('+ch.tier+' Tier)');if(p.tier_benchmark)addP(p.tier_benchmark);(p.growth_playbook||[]).forEach((s,i)=>{chk(10);addP(`${i+1}. ${s}`);});}
-  if(p?.youtube_strategy){ln();chk(30);addT('YouTube Strategy');const y2=p.youtube_strategy;addP('Channel Format: '+(y2.channel_format||''));addP('Video Types: '+((y2.video_types||[]).join(', ')));addP('Schedule: '+(y2.posting_schedule||''));addP('First 5 Videos:');(y2.first_5_videos||[]).forEach((v,i)=>{chk(8);addP(`  ${i+1}. ${v}`);});}
-  if(p?.clip_blueprint?.length){ln();chk(40);addT('Clip Blueprint');(p.clip_blueprint||[]).forEach((bp,i)=>{chk(20);addP(`Format ${i+1}: ${bp.format||''}`);addP(`  Setup: ${bp.setup||''}`);addP(`  When to clip: ${bp.clip_trigger||''}`);addP(`  Platform: ${bp.platform||'Both'}`);});}
-  if(p?.ninety_day_roadmap){ln();chk(60);addT('90-Day Growth Roadmap');['month_1','month_2','month_3'].forEach((mk,mi)=>{const m=p.ninety_day_roadmap[mk]||{};chk(20);addP(`MONTH ${mi+1} — ${m.theme||''}: ${m.goal||''}`);(m.weekly_targets||[]).forEach((w,wi)=>{chk(8);addP(`  Week ${mi*4+wi+1}: ${w}`);});});}
-  if(p?.community_milestones){ln();chk(40);addT('Community Milestones');(p.community_milestones||[]).forEach(m=>{chk(8);addP(`${m.at||''}: ${m.action||''}`);});}
-  if(p?.collab_strategy){ln();chk(20);addT('Collab Strategy');addP(p.collab_strategy);}
-  ln();chk(20);addT('Content Gap');addP(a.content_gap||'—');ln();chk(20);addT('60-Day Outlook');addP(a.sixty_day_outlook||'—');ln();chk(20);addT('⚡ Action This Week');addP(a.one_action_now||'—');
-}else{ln();addP('🔒 Unlock at OBSMaskGenerator.com/stream-analyzer for growth playbook, YouTube strategy, 90-day roadmap, all mistakes, and action plan.');}
-chk(10);y+=4;doc.setFontSize(8);doc.setTextColor(150);doc.text('OBSMaskGenerator.com/stream-analyzer · Powered by Twitch API + AI',M,y);doc.save(`${ch.username}-twitch-analysis${isPaid?'-full':''}.pdf`);showToast('📄 PDF downloaded!');}
+if((a.biggest_mistakes||[]).length>1){ln();chk(30);addT('All 3 Mistakes');(a.biggest_mistakes||[]).forEach((m,i)=>{chk(12);addP(`${i+1}. ${m}`);});}
+ln();chk(30);addT('5 Custom Titles');(a.title_suggestions||[]).forEach((t,i)=>{chk(8);addP(`${i+1}. ${t}`);});
+ln();chk(15);addT('Tags To Add');const tags=Array.isArray(a.tags_to_use)?a.tags_to_use:String(a.tags_to_use||'').split(',').map(t=>t.trim()).filter(Boolean);addP(tags.length?tags.join(', '):(ch.popular_tags||[]).join(', ')||'No data');
+if(p?.growth_playbook?.length){ln();chk(40);addT('Your Growth Playbook ('+ch.tier+' Tier)');if(p.tier_benchmark)addP(p.tier_benchmark);(p.growth_playbook||[]).forEach((s,i)=>{chk(10);addP(`${i+1}. ${s}`);});}
+if(p?.youtube_strategy){ln();chk(30);addT('YouTube Strategy');const y2=p.youtube_strategy;addP('Channel Format: '+(y2.channel_format||''));addP('Video Types: '+((y2.video_types||[]).join(', ')));addP('Schedule: '+(y2.posting_schedule||''));addP('First 5 Videos:');(y2.first_5_videos||[]).forEach((v,i)=>{chk(8);addP(`  ${i+1}. ${v}`);});}
+if(p?.clip_blueprint?.length){ln();chk(40);addT('Clip Blueprint');(p.clip_blueprint||[]).forEach((bp,i)=>{chk(20);addP(`Format ${i+1}: ${bp.format||''}`);addP(`  Setup: ${bp.setup||''}`);addP(`  When to clip: ${bp.clip_trigger||''}`);addP(`  Platform: ${bp.platform||'Both'}`);});}
+if(p?.ninety_day_roadmap){ln();chk(60);addT('90-Day Growth Roadmap');['month_1','month_2','month_3'].forEach((mk,mi)=>{const m=p.ninety_day_roadmap[mk]||{};chk(20);addP(`MONTH ${mi+1} - ${m.theme||''}: ${m.goal||''}`);(m.weekly_targets||[]).forEach((w,wi)=>{chk(8);addP(`  Week ${mi*4+wi+1}: ${w}`);});});}
+if(p?.community_milestones){ln();chk(40);addT('Community Milestones');(p.community_milestones||[]).forEach(m=>{chk(8);addP(`${m.at||''}: ${m.action||''}`);});}
+if(p?.collab_strategy){ln();chk(20);addT('Collab Strategy');addP(p.collab_strategy);}
+ln();chk(20);addT('Content Gap');addP(a.content_gap||'--');ln();chk(20);addT('60-Day Outlook');addP(a.sixty_day_outlook||'--');ln();chk(20);addT('Action This Week');addP(a.one_action_now||'--');
+chk(10);y+=4;doc.setFontSize(8);doc.setTextColor(150);doc.text('OBSMaskGenerator.com/stream-analyzer - Powered by Twitch API + AI',M,y);doc.save(`${ch.username}-twitch-analysis-full.pdf`);showToast('PDF downloaded!');}
 
 // ── MAIN RENDER ───────────────────────────────────────────────────────────────
 function render(data){D=data;const{channel:ch,analysis:a,competitive:comp}=data;
@@ -899,7 +884,7 @@ const t=document.getElementById('teaser');const m=a.biggest_mistakes||[];t.inner
 renderIntel(data);
 
 // Render paid tabs (skeletons immediately, premium fills when ready)
-if(devOn){
+if(loggedIn){
   renderStrategyWithSkeleton(data);
   renderActionsWithSkeleton(data);
   if(data.premium){fillPremiumStrategy(data.premium);fillPremiumActions(data.premium);}
@@ -908,7 +893,6 @@ if(devOn){
 renderExport(data);
 buildTicker(data.trending_now);
 switchTab('overview');
-document.getElementById('devbtn').style.display='block';
 document.getElementById('results').style.display='block';
 setTimeout(()=>document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'}),100);}
 
@@ -922,7 +906,7 @@ try{
   const res=await fetch(`${WORKER}/analyze`,{method:'POST',headers,body:JSON.stringify(body)});
   const data=await res.json();
   console.log('[SA] Response: isPremium=', !!data.premium, '| premiumError=', data.premiumError || 'none');
-  if(data.premiumError && devOn) console.warn('[SA] Premium failed because:', data.premiumError);
+  if(data.premiumError && loggedIn) console.warn('[SA] Premium failed because:', data.premiumError);
   if(!res.ok||data.error)throw new Error(data.error||'Analysis failed.');
   clearInterval(stepT);document.getElementById('loading').style.display='none';render(data);
 }
