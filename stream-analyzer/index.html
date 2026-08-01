@@ -554,19 +554,19 @@ document.getElementById('panel-strategy').innerHTML=`
     </div>
   </div>
 </div>
+<div class="card" style="margin-bottom:12px" id="prem-clips">
+  <div class="ct pink">🎬 Clip Blueprint</div>
+  <div class="premium-loading"><div class="premium-spin"></div>Generating clip formats…</div>
+</div>
 <div class="grid-2">
-  <div class="card" id="prem-clips">
-    <div class="ct pink">🎬 Clip Blueprint</div>
-    <div class="premium-loading"><div class="premium-spin"></div>Generating clip formats…</div>
-  </div>
   <div class="card" id="prem-platform">
     <div class="ct cyan">📱 Platform Priority</div>
     <div class="premium-loading"><div class="premium-spin"></div>Analysing best platform…</div>
   </div>
-</div>
-<div class="card" style="margin-top:12px">
-  <div class="ct orange">📊 Content Gap</div>
-  <p style="font-size:12px;line-height:1.6;color:var(--muted)">${esc(a.content_gap||'—')}</p>
+  <div class="card">
+    <div class="ct orange">📊 Content Gap</div>
+    <p style="font-size:12.5px;line-height:1.7;color:var(--text)">${esc(a.content_gap||'—')}</p>
+  </div>
 </div>`;}
 
 function renderActionsWithSkeleton(basicData){const a=basicData.analysis,comp=basicData.competitive;const mistakes=(a.biggest_mistakes||[]).map((m,i)=>`<div class="mr"><div class="mn mred">${i+1}</div><div>${esc(m)}</div></div>`).join('');const collab=(comp.collab_targets||[]).slice(0,5).map(t=>`<div class="collab-item"><div class="collab-name">🟣 ${esc(t.username)}</div><div class="collab-info"><div class="collab-title">${esc(t.title||'—')}</div></div><div class="collab-viewers">${fmtNum(t.viewers)} 👁</div></div>`).join('')||'<p style="font-size:11px;color:var(--muted)">No data.</p>';
