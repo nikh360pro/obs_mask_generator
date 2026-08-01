@@ -464,13 +464,13 @@ async function logOut() {
 }
 
 async function loginWithTwitch() {
+  // Use current origin so redirect works on both localhost and production
+  const redirectTo = window.location.origin + (window.location.pathname.includes('stream-analyzer') ? '/stream-analyzer/' : '/');
   const { data, error } = await supabaseClient.auth.signInWithOAuth({
     provider: 'twitch',
-    options: { redirectTo: window.location.origin + '/stream-analyzer/' }
+    options: { redirectTo }
   });
-  if (error) {
-    showToast('Login failed: ' + error.message);
-  }
+  if (error) showToast('Login failed: ' + error.message);
 }
 
 function buyProPass() {
@@ -604,28 +604,150 @@ document.getElementById('panel-actions').innerHTML=`
 
 // ── PREMIUM FILL-IN (called when premium AI data arrives) ─────────────────────
 function fillPremiumStrategy(p){
-  // Playbook
-  const pb=document.getElementById('prem-playbook');if(pb&&p.growth_playbook){const steps=Array.isArray(p.growth_playbook)?p.growth_playbook:[];const tierCls=p.tier==='Established'?'tier-established':p.tier==='Rising'?'tier-rising':'tier-starter';const tierIcon=p.tier==='Established'?'⭐':p.tier==='Rising'?'📈':'🌱';pb.innerHTML=`<div class="ct orange">🎯 Your Growth Playbook</div><div class="tier-badge ${tierCls}">${tierIcon} ${esc(p.tier||'')} Tier</div>${p.tier_benchmark?`<p style="font-size:11px;color:var(--muted);margin-bottom:10px;line-height:1.5">${esc(p.tier_benchmark)}</p>`:''}<div class="playbook">${steps.map((s,i)=>`<div class="playbook-step"><div class="step-num">${i+1}</div><div class="step-text">${esc(s)}</div></div>`).join('')}</div>`;}
+  // ── Growth Playbook ──────────────────────────────────────────────────────
+  const pb = document.getElementById('prem-playbook');
+  if (pb && p.growth_playbook) {
+    const steps = Array.isArray(p.growth_playbook) ? p.growth_playbook : [];
+    pb.innerHTML = `
+      <div class="ct orange">🎯 Your Growth Playbook</div>
+      ${p.tier_benchmark ? `<p style="font-size:11.5px;color:var(--muted);margin:0 0 14px;line-height:1.65;padding:10px 12px;background:rgba(251,146,60,.06);border-left:3px solid var(--orange);border-radius:0 6px 6px 0">${esc(p.tier_benchmark)}</p>` : ''}
+      <div class="playbook">
+        ${steps.map((s, i) => `
+          <div class="playbook-step">
+            <div class="step-num">${i+1}</div>
+            <div class="step-text">${esc(s)}</div>
+          </div>`).join('')}
+      </div>`;
+  }
 
-  // YouTube
-  const yt=document.getElementById('prem-youtube');if(yt&&p.youtube_strategy){const y=p.youtube_strategy;const vids=Array.isArray(y.first_5_videos)?y.first_5_videos:[];const types=Array.isArray(y.video_types)?y.video_types:[];yt.innerHTML=`<div class="ct red">📺 YouTube Strategy</div><div class="yt-card"><div class="yt-format">${esc(y.channel_format||'')}</div><div class="yt-types">${types.map(t=>`<span class="yt-type">${esc(t)}</span>`).join('')}</div><div class="yt-schedule">📅 ${esc(y.posting_schedule||'')}</div><div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">First 5 Videos To Make:</div><div class="yt-vid-list">${vids.map((v,i)=>`<div class="yt-vid"><span class="yt-vid-num">#${i+1}</span><span class="yt-vid-title">${esc(v)}</span></div>`).join('')}</div></div>`;}
+  // ── YouTube Strategy ────────────────────────────────────────────────────
+  const yt = document.getElementById('prem-youtube');
+  if (yt && p.youtube_strategy) {
+    const y = p.youtube_strategy;
+    const vids  = Array.isArray(y.first_5_videos) ? y.first_5_videos : [];
+    const types = Array.isArray(y.video_types)    ? y.video_types    : [];
+    yt.innerHTML = `
+      <div class="ct red">📺 YouTube Strategy</div>
+      <div class="yt-card">
+        <div class="yt-format">${esc(y.channel_format || '')}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin:10px 0">
+          ${types.map(t => `<span class="yt-type">${esc(t)}</span>`).join('')}
+        </div>
+        <div style="font-size:11px;color:var(--cyan);margin-bottom:12px">📅 ${esc(y.posting_schedule || '')}</div>
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">First 5 Videos To Make</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          ${vids.map((v, i) => `
+            <div style="display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:rgba(0,0,0,.25);border-radius:6px">
+              <span style="flex-shrink:0;font-size:10px;font-weight:800;color:var(--red);background:rgba(220,38,38,.12);padding:2px 7px;border-radius:4px">#${i+1}</span>
+              <span style="font-size:11.5px;color:var(--text);line-height:1.5">${esc(v)}</span>
+            </div>`).join('')}
+        </div>
+      </div>`;
+  }
 
-  // Clip Blueprint
-  const cb=document.getElementById('prem-clips');if(cb&&p.clip_blueprint){const bps=Array.isArray(p.clip_blueprint)?p.clip_blueprint:[];const platCls={TikTok:'p-tiktok','YouTube Shorts':'p-shorts',Both:'p-both'};const platIcon={'TikTok':'📱','YouTube Shorts':'▶️','Both':'🚀'};cb.innerHTML=`<div class="ct pink">🎬 Clip Blueprint — 3 Proven Formats</div><div class="clip-bp-grid">${bps.map(bp=>`<div class="clip-bp-card"><div class="clip-bp-name">${esc(bp.format||'')}</div><div class="clip-bp-row"><div class="clip-bp-label">Setup</div><div class="clip-bp-val">${esc(bp.setup||'')}</div></div><div class="clip-bp-row"><div class="clip-bp-label">When to Clip</div><div class="clip-bp-val">${esc(bp.clip_trigger||'')}</div></div><span class="platform-pill ${platCls[bp.platform]||'p-both'}">${platIcon[bp.platform]||'🚀'} ${esc(bp.platform||'Both')}</span></div>`).join('')}</div>`;}
+  // ── Clip Blueprint ───────────────────────────────────────────────────────
+  const cb = document.getElementById('prem-clips');
+  if (cb && p.clip_blueprint) {
+    const bps = Array.isArray(p.clip_blueprint) ? p.clip_blueprint : [];
+    const platCls  = { TikTok: 'p-tiktok', 'YouTube Shorts': 'p-shorts', Both: 'p-both' };
+    const platIcon = { TikTok: '📱', 'YouTube Shorts': '▶️', Both: '🚀' };
+    cb.innerHTML = `
+      <div class="ct pink">🎬 Clip Blueprint — ${bps.length} Proven Formats</div>
+      <div class="clip-bp-grid">
+        ${bps.map(bp => `
+          <div class="clip-bp-card">
+            <div class="clip-bp-name">${esc(bp.format || '')}</div>
+            <div class="clip-bp-row">
+              <div class="clip-bp-label">Setup</div>
+              <div class="clip-bp-val">${esc(bp.setup || '')}</div>
+            </div>
+            <div class="clip-bp-row" style="margin-bottom:10px">
+              <div class="clip-bp-label">When to Clip</div>
+              <div class="clip-bp-val">${esc(bp.clip_trigger || '')}</div>
+            </div>
+            <span class="platform-pill ${platCls[bp.platform] || 'p-both'}">${platIcon[bp.platform] || '🚀'} ${esc(bp.platform || 'Both')}</span>
+          </div>`).join('')}
+      </div>`;
+  }
 
-  // Platform priority
-  const pp=document.getElementById('prem-platform');if(pp&&p.platform_priority){const pl=p.platform_priority;const tools=Array.isArray(pl.tools)?pl.tools:[];pp.innerHTML=`<div class="ct cyan">📱 Platform Priority</div><div class="platform-hero"><div class="platform-name">${esc(pl.primary||'')}</div><div class="platform-why">${esc(pl.why||'')}</div><div class="platform-freq">📆 ${esc(pl.posting_frequency||'')} posts/week</div><div class="tools-row">${tools.map(t=>`<span class="tool-badge">🔧 ${esc(t)}</span>`).join('')}</div></div>`;}
+  // ── Platform Priority ────────────────────────────────────────────────────
+  const pp = document.getElementById('prem-platform');
+  if (pp && p.platform_priority) {
+    const pl    = p.platform_priority;
+    const tools = Array.isArray(pl.tools) ? pl.tools : [];
+    pp.innerHTML = `
+      <div class="ct cyan">📱 Platform Priority</div>
+      <div class="platform-hero">
+        <div style="font-size:22px;font-weight:900;color:var(--cyan);margin-bottom:6px">${esc(pl.primary || '')}</div>
+        <div style="font-size:12px;color:var(--text);line-height:1.6;margin-bottom:10px">${esc(pl.why || '')}</div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:10px">📆 <strong style="color:var(--yellow)">${esc(pl.posting_frequency || '')} posts/week</strong></div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          ${tools.map(t => `<span class="tool-badge">🔧 ${esc(t)}</span>`).join('')}
+        </div>
+      </div>`;
+  }
 }
 
 function fillPremiumActions(p){
-  // Collab strategy
-  const cs=document.getElementById('prem-collab');if(cs&&p.collab_strategy){const existing=cs.querySelector('[style*="margin-top"]');const collabHtml=existing?existing.outerHTML:'';cs.innerHTML=`<div class="ct cyan">🤝 Collab Strategy</div>${collabHtml}<div class="strategy-box">${esc(p.collab_strategy)}</div>`;}
+  // ── Collab Strategy ──────────────────────────────────────────────────────
+  const cs = document.getElementById('prem-collab');
+  if (cs && p.collab_strategy) {
+    const existing = cs.querySelector('[style*="margin-top"]');
+    const collabHtml = existing ? existing.outerHTML : '';
+    cs.innerHTML = `
+      <div class="ct cyan">🤝 Collab Strategy</div>
+      <div style="font-size:12px;line-height:1.7;color:var(--text);padding:12px 14px;background:rgba(34,211,238,.05);border:1px solid rgba(34,211,238,.12);border-radius:8px;margin-bottom:10px">${esc(p.collab_strategy)}</div>
+      ${collabHtml}`;
+  }
 
-  // 90-Day Roadmap
-  const rm=document.getElementById('prem-roadmap');if(rm&&p.ninety_day_roadmap){const r=p.ninety_day_roadmap;const months=['month_1','month_2','month_3'];const cls=['rm-m1','rm-m2','rm-m3'];rm.innerHTML=`<div class="ct purple">📅 90-Day Growth Roadmap</div><div class="roadmap">${months.map((mk,mi)=>{const m=r[mk]||{};const weeks=Array.isArray(m.weekly_targets)?m.weekly_targets:[];return`<div class="roadmap-month ${cls[mi]}"><div class="rm-header"><span class="rm-label">Month ${mi+1}</span></div><div class="rm-theme">${esc(m.theme||'')}</div><div class="rm-goal">${esc(m.goal||'')}</div>${weeks.map((w,wi)=>`<div class="rm-week"><span class="rm-wnum">Wk ${mi*4+wi+1}</span><span>${esc(w)}</span></div>`).join('')}</div>`;}).join('')}</div>`;}
+  // ── 90-Day Roadmap ───────────────────────────────────────────────────────
+  const rm = document.getElementById('prem-roadmap');
+  if (rm && p.ninety_day_roadmap) {
+    const r = p.ninety_day_roadmap;
+    const months = ['month_1','month_2','month_3'];
+    const clrs = ['var(--green)','var(--cyan)','var(--purple)'];
+    const labels = ['Month 1','Month 2','Month 3'];
+    rm.innerHTML = `
+      <div class="ct purple">📅 90-Day Growth Roadmap</div>
+      <div class="roadmap">
+        ${months.map((mk, mi) => {
+          const m = r[mk] || {};
+          const weeks = Array.isArray(m.weekly_targets) ? m.weekly_targets : [];
+          return `
+            <div class="roadmap-month" style="border-top:3px solid ${clrs[mi]}">
+              <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:${clrs[mi]};margin-bottom:4px">${labels[mi]}</div>
+              <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px">${esc(m.theme || '')}</div>
+              <div style="font-size:11px;color:var(--muted);margin-bottom:12px;line-height:1.5">${esc(m.goal || '')}</div>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                ${weeks.map((w, wi) => `
+                  <div style="display:flex;gap:8px;align-items:flex-start">
+                    <span style="flex-shrink:0;font-size:9px;font-weight:800;color:${clrs[mi]};padding:2px 6px;border:1px solid ${clrs[mi]};border-radius:4px;opacity:.7">Wk ${mi*4+wi+1}</span>
+                    <span style="font-size:11px;color:var(--text);line-height:1.5">${esc(w)}</span>
+                  </div>`).join('')}
+              </div>
+            </div>`;
+        }).join('')}
+      </div>`;
+  }
 
-  // Community milestones
-  const ms=document.getElementById('prem-milestones');if(ms&&p.community_milestones){const mls=Array.isArray(p.community_milestones)?p.community_milestones:[];const icons=['🌱','🌿','⚡','🔥','⭐'];ms.innerHTML=`<div class="ct green">🏆 Community Milestones</div><div class="milestones">${mls.map((m,i)=>`<div class="milestone"><div class="m-dot">${icons[i]||'🎯'}</div><div><div class="m-at">${esc(m.at||'')}</div><div class="m-action">${esc(m.action||'')}</div></div></div>`).join('')}</div>`;}
+  // ── Community Milestones ─────────────────────────────────────────────────
+  const ms = document.getElementById('prem-milestones');
+  if (ms && p.community_milestones) {
+    const mls = Array.isArray(p.community_milestones) ? p.community_milestones : [];
+    const icons = ['🌱','🌿','⚡','🔥','⭐'];
+    ms.innerHTML = `
+      <div class="ct green">🏆 Community Milestones</div>
+      <div class="milestones">
+        ${mls.map((m, i) => `
+          <div class="milestone">
+            <div class="m-dot">${icons[i] || '🎯'}</div>
+            <div style="flex:1">
+              <div class="m-at">${esc(m.at || '')}</div>
+              <div class="m-action">${esc(m.action || '')}</div>
+            </div>
+          </div>`).join('')}
+      </div>`;
+  }
 }
 
 // ── EXPORT + PROMPT ───────────────────────────────────────────────────────────
