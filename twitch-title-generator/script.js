@@ -123,6 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } finally {
             generateBtn.disabled = false;
             generateBtn.textContent = "Generate Titles 🚀";
+            setTimeout(() => document.getElementById('global-promo-modal')?.classList.add('show'), 7000);
         }
     });
 });

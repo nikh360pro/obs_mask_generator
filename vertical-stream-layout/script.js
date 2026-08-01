@@ -74,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Download PNG
     downloadBtn.addEventListener('click', () => {
+        setTimeout(() => document.getElementById('global-promo-modal')?.classList.add('show'), 7000);
         const offscreenCanvas = document.createElement('canvas');
         offscreenCanvas.width = 1080;
         offscreenCanvas.height = 1920;

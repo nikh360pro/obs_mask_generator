@@ -90,7 +90,13 @@ body {
         el.addEventListener('input', updatePreview);
     });
 
-    generateBtn.addEventListener('click', generateCSS);
+    generateBtn.addEventListener('click', () => {
+        generateCSS();
+        // Trigger cross-promo popup after 7 seconds
+        setTimeout(() => {
+            document.getElementById('global-promo-modal')?.classList.add('show');
+        }, 7000);
+    });
 
     // Init
     updatePreview();

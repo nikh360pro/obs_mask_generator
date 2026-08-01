@@ -245,8 +245,14 @@ function initControls() {
     });
 
     // Downloads
-    document.getElementById('download-png').addEventListener('click', downloadPNG);
-    document.getElementById('download-gif').addEventListener('click', downloadGIF);
+    document.getElementById('download-png').addEventListener('click', () => {
+        downloadPNG();
+        setTimeout(() => document.getElementById('global-promo-modal')?.classList.add('show'), 7000);
+    });
+    document.getElementById('download-gif').addEventListener('click', () => {
+        downloadGIF();
+        setTimeout(() => document.getElementById('global-promo-modal')?.classList.add('show'), 7000);
+    });
     document.getElementById('copy-link').addEventListener('click', copySettingsLink);
 }
 

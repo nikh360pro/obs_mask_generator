@@ -128,6 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         link.download = 'stream-schedule.png';
         link.href = canvas.toDataURL('image/png');
         link.click();
+        setTimeout(() => document.getElementById('global-promo-modal')?.classList.add('show'), 7000);
     });
 
     // Initial draw

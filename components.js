@@ -273,6 +273,39 @@ const GlobalComponents = {
         }
     },
 
+    crossPromoPopup: {
+        enabled: true,
+        injectBody: true,
+        html: `
+        <style>
+            .promo-modal-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+            .promo-modal-bg.show { opacity: 1; pointer-events: all; }
+            .promo-modal { background: #161623; border: 1px solid rgba(99,102,241,0.3); border-radius: 16px; padding: 40px; max-width: 480px; width: 90%; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5); position: relative; transform: translateY(20px); transition: transform 0.3s; }
+            .promo-modal-bg.show .promo-modal { transform: translateY(0); }
+            .promo-modal h2 { font-size: 1.8rem; color: #f8fafc; margin: 0 0 10px; line-height: 1.2; }
+            .promo-modal h2 em { color: #a855f7; font-style: normal; }
+            .promo-modal p.hook { font-size: 1.2rem; font-weight: 600; color: #ef4444; margin-bottom: 15px; }
+            .promo-modal p.desc { color: #94a3b8; font-size: 0.95rem; line-height: 1.6; margin-bottom: 24px; }
+            .promo-input { width: 100%; background: #0f0f17; border: 1px solid rgba(99,102,241,0.2); color: #fff; padding: 14px 16px; border-radius: 8px; font-size: 1rem; margin-bottom: 16px; box-sizing: border-box; outline: none; transition: border-color 0.2s; }
+            .promo-input:focus { border-color: #a855f7; }
+            .promo-btn { width: 100%; background: linear-gradient(135deg, #a855f7, #7c3aed); color: #fff; border: none; padding: 14px; border-radius: 8px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: transform 0.2s, opacity 0.2s; }
+            .promo-btn:hover { transform: translateY(-2px); opacity: 0.95; }
+            .promo-close { position: absolute; top: 16px; right: 20px; background: none; border: none; color: #64748b; font-size: 1.5rem; cursor: pointer; transition: color 0.2s; }
+            .promo-close:hover { color: #fff; }
+        </style>
+        <div class="promo-modal-bg" id="global-promo-modal">
+            <div class="promo-modal">
+                <button class="promo-close" onclick="document.getElementById('global-promo-modal').classList.remove('show')">×</button>
+                <h2>Emotes are great.<br>But <em>Viewers</em> are better.</h2>
+                <p class="hook">Stop streaming to an empty room.</p>
+                <p class="desc">You just spent time upgrading your stream, but who is going to see it? Enter your Twitch username below to discover exactly why your channel isn't growing and get a personalized 30-day plan.</p>
+                <input type="text" id="global-promo-username" class="promo-input" placeholder="Your Twitch Username..." spellcheck="false">
+                <button class="promo-btn" onclick="const u=document.getElementById('global-promo-username').value.trim();if(u)window.location.href='/stream-analyzer/?username='+encodeURIComponent(u);">🚀 Analyze My Channel Now</button>
+            </div>
+        </div>
+        `
+    },
+
     init: function() {
         // Prevent double initialization
         if (this._initialized) {

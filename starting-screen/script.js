@@ -475,6 +475,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // PNG Download (canvas-based)
     // ============================
     downloadPngBtn.addEventListener('click', () => {
+        setTimeout(() => document.getElementById('global-promo-modal')?.classList.add('show'), 7000);
         const canvas = document.getElementById('export-canvas');
         const ctx = canvas.getContext('2d');
         const width = 1920;
@@ -721,6 +722,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // HTML Download
     // ============================
     downloadHtmlBtn.addEventListener('click', () => {
+        setTimeout(() => document.getElementById('global-promo-modal')?.classList.add('show'), 7000);
         const html = generateHTML();
         const blob = new Blob([html], { type: 'text/html' });
         const url = URL.createObjectURL(blob);
