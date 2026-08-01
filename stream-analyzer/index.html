@@ -938,6 +938,17 @@ try{
 catch(err){document.getElementById('loading').style.display='none';const eb=document.getElementById('errbox');eb.textContent='❌ '+err.message;eb.style.display='block';eb.scrollIntoView({behavior:'smooth'});}
 finally{btn.disabled=false;btn.textContent='Analyze →';}}
 document.getElementById('uname').addEventListener('keydown',e=>{if(e.key==='Enter')go();});
+
+// ── AUTO-LOAD FROM URL ────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const qName = params.get('username');
+  if (qName) {
+    document.getElementById('uname').value = qName;
+    // Wait for auth to settle, then run analysis
+    setTimeout(go, 500);
+  }
+});
 </script>
 </body>
 </html>
