@@ -525,17 +525,13 @@ function renderIntel(data){const{competitive:comp,channel:ch}=data;const liveHtm
 // ── PREMIUM: SKELETON LOADER ──────────────────────────────────────────────────
 function renderStrategyWithSkeleton(basicData){const a=basicData.analysis,ch=basicData.channel;const titles=(a.title_suggestions||[]).map(t=>`<div class="title-item">${esc(t)}</div>`).join('');const tags=Array.isArray(a.tags_to_use)?a.tags_to_use:String(a.tags_to_use||'').split(',').map(t=>t.trim()).filter(Boolean);const tagsHtml=tags.map(t=>`<span class="tag">${esc(t)}</span>`).join('')||(ch.popular_tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('');
 document.getElementById('panel-strategy').innerHTML=`
-<div style="margin-bottom:14px">
-  <div class="ct purple" style="margin-bottom:0;font-size:11px">
-    🎯 ${esc(ch.tier||'Starter')} Tier · ${esc(ch.category_type||'Variety')}
-    ${ch.best_stream_days&&ch.best_stream_days!=='Not enough data'?`<span style="color:var(--muted);font-weight:400;margin-left:8px">Best days: <strong style="color:var(--yellow)">${esc(ch.best_stream_days)}</strong></span>`:''}
-  </div>
-</div>
+
+<!-- ROW 1: Titles+Tags (left) | Growth Playbook (right) -->
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;align-items:start">
   <div style="display:flex;flex-direction:column;gap:12px">
     <div class="card">
       <div class="ct purple">📝 5 Custom Titles — Cloned From Top Performers</div>
-      <p style="font-size:10px;color:var(--muted);margin-bottom:8px">Copied from the exact hook structure of top-performing live streams right now.</p>
+      <p style="font-size:10px;color:var(--muted);margin:0 0 10px">Copied from the exact hook structure of top-performing live streams right now.</p>
       ${titles}
     </div>
     <div class="card">
@@ -543,22 +539,26 @@ document.getElementById('panel-strategy').innerHTML=`
       <div class="tag-wrap">${tagsHtml}</div>
     </div>
   </div>
-  <div style="display:flex;flex-direction:column;gap:12px">
-    <div class="card" id="prem-playbook">
-      <div class="ct orange">🎯 Your Growth Playbook</div>
-      <div class="premium-loading"><div class="premium-spin"></div>Loading personalised strategy…</div>
-    </div>
-    <div class="card" id="prem-youtube">
-      <div class="ct red">📺 YouTube Strategy</div>
-      <div class="premium-loading"><div class="premium-spin"></div>Building YouTube roadmap…</div>
-    </div>
+  <div class="card" id="prem-playbook">
+    <div class="ct orange">🎯 Your Growth Playbook</div>
+    <div class="premium-loading"><div class="premium-spin"></div>Loading personalised strategy…</div>
   </div>
 </div>
+
+<!-- ROW 2: YouTube Strategy (full width) -->
+<div class="card" style="margin-bottom:12px" id="prem-youtube">
+  <div class="ct red">📺 YouTube Strategy</div>
+  <div class="premium-loading"><div class="premium-spin"></div>Building YouTube roadmap…</div>
+</div>
+
+<!-- ROW 3: Clip Blueprint (full width, 3-col inside) -->
 <div class="card" style="margin-bottom:12px" id="prem-clips">
   <div class="ct pink">🎬 Clip Blueprint</div>
   <div class="premium-loading"><div class="premium-spin"></div>Generating clip formats…</div>
 </div>
-<div class="grid-2">
+
+<!-- ROW 4: Platform Priority | Content Gap -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start">
   <div class="card" id="prem-platform">
     <div class="ct cyan">📱 Platform Priority</div>
     <div class="premium-loading"><div class="premium-spin"></div>Analysing best platform…</div>
