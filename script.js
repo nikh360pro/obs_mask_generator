@@ -889,6 +889,9 @@ function setupEventListeners() {
         
         config.isDownloading = false;
         draw(); // Restore transparent preview if webcam is active
+
+        // Trigger cross-promo popup after 7 seconds
+        setTimeout(() => document.getElementById('global-promo-modal')?.classList.add('show'), 7000);
     });
 
     // Download border button
