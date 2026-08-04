@@ -974,26 +974,7 @@
     <script src="script.js" defer></script>
     <script src="/components.js" defer></script>
 
-    <!-- Lazy Load Google Ads to fix Mobile FCP -->
-    <script>
-        let adsLoaded = false;
-        function loadGoogleAds() {
-            if (adsLoaded) return;
-            adsLoaded = true;
-            const script = document.createElement('script');
-            script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4560264570048889";
-            script.crossOrigin = "anonymous";
-            script.async = true;
-            document.head.appendChild(script);
-            ['scroll', 'mousemove', 'touchstart', 'keydown'].forEach(evt => {
-                window.removeEventListener(evt, loadGoogleAds);
-            });
-        }
-        ['scroll', 'mousemove', 'touchstart', 'keydown'].forEach(evt => {
-            window.addEventListener(evt, loadGoogleAds, { once: true, passive: true });
-        });
-        setTimeout(loadGoogleAds, 3500);
-    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4560264570048889" crossorigin="anonymous"></script>
 
     <!-- ── STREAM PACK WIZARD MODAL ── -->
     <div id="pack-wizard-modal" class="hidden" style="position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 1rem;">
@@ -1078,8 +1059,6 @@
         </div>
     </div>
 
-    <!-- SEO Bait Image for Google Images Indexing -->
-    <img src="/assets/obs-circle-mask-example.png" alt="OBS Circle Mask PNG Transparent Download" style="width: 1px; height: 1px; overflow: hidden; position: absolute; opacity: 0; pointer-events: none;">
     <script src="scene-builder.js" defer></script>
     <script src="stream-pack.js" defer></script>
 </body>
