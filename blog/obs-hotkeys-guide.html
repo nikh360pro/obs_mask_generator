@@ -170,6 +170,49 @@
                     <h3>View All OBS Hotkeys</h3>
                     <a href="../hotkey-reference/" class="cta-button">Open Hotkey Reference →</a>
                 </div>
+        
+                <h2>Advanced Hotkey Setups</h2>
+                <p>Basic hotkeys get you started. These advanced setups are what professional streamers use to run smooth, professional broadcasts:</p>
+                <ul>
+                    <li><strong>Stream Deck integration:</strong> The Elgato Stream Deck maps physical buttons directly to OBS hotkeys. Each button has a customizable icon. This eliminates keyboard memorization entirely — you see exactly what each button does at a glance. Essential for any streamer doing 10+ hours per week.</li>
+                    <li><strong>Numpad hotkeys:</strong> If you have a numpad, map your scene switches to Num1–Num9. The numpad is physically separate from your gaming keys, so you'll never accidentally trigger a scene switch during gameplay.</li>
+                    <li><strong>Modifier keys:</strong> Use Ctrl, Alt, or Shift as modifiers to double your hotkey count without running out of keys. For example: F1 = Switch to Game Scene, Ctrl+F1 = Switch to BRB Screen.</li>
+                </ul>
+
+                <h2>Complete OBS Hotkey Reference Table</h2>
+                <table style="width:100%; border-collapse:collapse; margin:1.5rem 0;">
+                    <thead><tr style="background:#1a1a25; color:#a0a0b0;">
+                        <th style="padding:0.75rem; text-align:left; border-bottom:1px solid #2a2a3a;">Function</th>
+                        <th style="padding:0.75rem; text-align:left; border-bottom:1px solid #2a2a3a;">Recommended Hotkey</th>
+                        <th style="padding:0.75rem; text-align:left; border-bottom:1px solid #2a2a3a;">Notes</th>
+                    </tr></thead>
+                    <tbody style="color:#ccc; font-size:0.9rem;">
+                        <tr><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Start Streaming</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Ctrl+Shift+S</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Requires OBS in focus unless using global hotkey</td></tr>
+                        <tr><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Stop Streaming</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Ctrl+Shift+S (toggle)</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Same hotkey can toggle in newer OBS versions</td></tr>
+                        <tr><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Start/Stop Recording</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Ctrl+Shift+R</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">—</td></tr>
+                        <tr><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Pause Recording</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Ctrl+Shift+P</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Available in OBS 26+</td></tr>
+                        <tr><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Mute Mic</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">F4</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Works best as a global hotkey</td></tr>
+                        <tr><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Push-to-Talk</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Caps Lock</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Popular choice — rarely used while gaming</td></tr>
+                        <tr><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Switch to Game Scene</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Num1</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Use numpad for scene switching</td></tr>
+                        <tr><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Switch to BRB Scene</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Num2</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">—</td></tr>
+                        <tr><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Switch to Starting Soon</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Num3</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">—</td></tr>
+                        <tr><td style="padding:0.75rem;">Screenshot</td><td style="padding:0.75rem;">Ctrl+F12</td><td style="padding:0.75rem;">Saves to configured Screenshots folder</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>Frequently Asked Questions</h2>
+                <details style="background:#1a1a25; border:1px solid #2a2a3a; border-radius:8px; padding:1rem; margin-bottom:0.75rem;">
+                    <summary style="font-weight:600; cursor:pointer; color:#fff;">Do OBS hotkeys work when OBS is not the active window?</summary>
+                    <p style="margin-top:0.75rem; color:#a0a0b0;">By default, no. OBS hotkeys only work when OBS is in focus. To make hotkeys work while gaming, enable <strong>System-wide Hotkeys</strong> in Settings > Hotkeys. Note: system-wide hotkeys can conflict with game keybindings, so test thoroughly before going live.</p>
+                </details>
+                <details style="background:#1a1a25; border:1px solid #2a2a3a; border-radius:8px; padding:1rem; margin-bottom:0.75rem;">
+                    <summary style="font-weight:600; cursor:pointer; color:#fff;">How do I set a hotkey to mute only desktop audio (not mic)?</summary>
+                    <p style="margin-top:0.75rem; color:#a0a0b0;">In OBS, go to Settings > Hotkeys. Scroll down to find your "Desktop Audio" source. There will be separate mute hotkeys for each audio source. Assign one hotkey to mute "Desktop Audio" and a separate hotkey to mute your "Mic/Aux" source.</p>
+                </details>
+                <details style="background:#1a1a25; border:1px solid #2a2a3a; border-radius:8px; padding:1rem; margin-bottom:0.75rem;">
+                    <summary style="font-weight:600; cursor:pointer; color:#fff;">What's the best hotkey for push-to-talk?</summary>
+                    <p style="margin-top:0.75rem; color:#a0a0b0;">The most popular choices are <strong>Caps Lock</strong> (rarely needed during gaming), <strong>Left Alt</strong> (thumb-accessible), or a mouse side button if your mouse has extra buttons. Avoid keys you use often in games — WASD, Space, Shift, or Ctrl are bad push-to-talk keys.</p>
+                </details>
         <div class="author-bio-box">
             <img src="/nikhil_image.webp" alt="Nikhil Agarwal">
             <div class="author-info">

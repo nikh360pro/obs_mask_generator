@@ -14,7 +14,7 @@
         content="Fix the 'Encoding Overloaded!' error in OBS Studio. Step-by-step guide to switching to NVENC, lowering CPU usage, and optimizing settings for lag-free streaming.">
     <meta name="keywords"
         content="encoding overloaded obs, obs encoding lag, fix obs stuttering, obs high cpu usage, nvenc vs x264, obs recording lag">
-    <meta name="author" content="OBS Mask Generator">
+    <meta name="author" content="Nikhil Agarwal">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://obsmaskgenerator.com/blog/fix-encoding-overloaded.html">
 
@@ -151,6 +151,43 @@
                     <li>✅ Lower Output Resolution to 720p if needed.</li>
                     <li>✅ Use Game Capture instead of Display Capture (it's faster).</li>
                 </ul>
+        
+                <h2>Recommended Settings by Hardware Type</h2>
+                <table style="width:100%; border-collapse:collapse; margin:1.5rem 0;">
+                    <thead><tr style="background:#1a1a25; color:#a0a0b0;">
+                        <th style="padding:0.75rem; text-align:left; border-bottom:1px solid #2a2a3a;">Your GPU</th>
+                        <th style="padding:0.75rem; text-align:left; border-bottom:1px solid #2a2a3a;">Encoder to Use</th>
+                        <th style="padding:0.75rem; text-align:left; border-bottom:1px solid #2a2a3a;">Recommended Preset</th>
+                    </tr></thead>
+                    <tbody style="color:#ccc; font-size:0.9rem;">
+                        <tr><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">NVIDIA RTX/GTX</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">NVIDIA NVENC H.264 / H.265</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Quality preset, 6000 Kbps</td></tr>
+                        <tr><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">AMD Radeon</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">AMD HW H.264 (AMF)</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Quality, 6000 Kbps</td></tr>
+                        <tr><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Intel Arc / UHD</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Intel QuickSync H.264</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Default, 4500 Kbps</td></tr>
+                        <tr><td style="padding:0.75rem;">No GPU (CPU only)</td><td style="padding:0.75rem;">x264</td><td style="padding:0.75rem;">superfast / ultrafast preset, 720p30</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>Common Mistakes That Cause Encoding Overload</h2>
+                <ul>
+                    <li><strong>Recording AND streaming simultaneously at the same quality:</strong> Each output stream requires separate encoding. Cut recording bitrate or use the "Use stream encoder" option in recording settings.</li>
+                    <li><strong>Game DVR / Xbox Game Bar running in background:</strong> Windows 10/11's built-in game recording uses GPU resources. Turn it off in Settings > Gaming > Xbox Game Bar.</li>
+                    <li><strong>Chrome or Discord with hardware acceleration:</strong> Every app using GPU hardware acceleration takes a slice of your NVENC/AMF encoder quota. Disable hardware acceleration in Chrome and Discord while streaming.</li>
+                    <li><strong>Too many browser sources:</strong> Each active browser source in OBS runs its own Chromium instance using CPU and GPU. Disable browser sources when not visible, or switch to image sources for static overlays.</li>
+                </ul>
+
+                <h2>Frequently Asked Questions</h2>
+                <details style="background:#1a1a25; border:1px solid #2a2a3a; border-radius:8px; padding:1rem; margin-bottom:0.75rem;">
+                    <summary style="font-weight:600; cursor:pointer; color:#fff;">Is encoding overloaded an internet issue?</summary>
+                    <p style="margin-top:0.75rem; color:#a0a0b0;">No. Encoding overload is purely a CPU/GPU issue — it has nothing to do with your internet speed. If you see dropped frames labeled "encoding" in OBS's stats, the problem is processing power, not bandwidth. Dropped "network" frames are an internet issue.</p>
+                </details>
+                <details style="background:#1a1a25; border:1px solid #2a2a3a; border-radius:8px; padding:1rem; margin-bottom:0.75rem;">
+                    <summary style="font-weight:600; cursor:pointer; color:#fff;">Why does encoding overload only happen in intense game moments?</summary>
+                    <p style="margin-top:0.75rem; color:#a0a0b0;">During fast-paced scenes (explosions, fast movement), the video changes dramatically between frames. This means the encoder has far more new pixel data to compress compared to a static scene. The encoder workload spikes exactly when your game also needs the most GPU power — creating a conflict for resources.</p>
+                </details>
+                <details style="background:#1a1a25; border:1px solid #2a2a3a; border-radius:8px; padding:1rem; margin-bottom:0.75rem;">
+                    <summary style="font-weight:600; cursor:pointer; color:#fff;">Does higher bitrate cause encoding overload?</summary>
+                    <p style="margin-top:0.75rem; color:#a0a0b0;">Not directly. Bitrate is about data throughput, not encoding complexity. However, very high bitrates (60,000+ Kbps) at high resolutions do increase the encoder's workload. The bigger factor is always resolution and frame rate — drop to 720p60 or 1080p30 before reducing bitrate.</p>
+                </details>
         <div class="author-bio-box">
             <img src="/nikhil_image.webp" alt="Nikhil Agarwal">
             <div class="author-info">

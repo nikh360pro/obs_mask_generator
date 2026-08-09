@@ -10,7 +10,7 @@
         content="Did OBS Studio randomly stop recording? We explain why your recording crashed (disk space, encoding) and how to fix it so you never lose footage again.">
     <meta name="keywords"
         content="obs stopped recording, obs recording stopped unexpectedly, obs recording indicator, why did obs stop recording, obs crash fix">
-    <meta name="author" content="OBS Mask Generator">
+    <meta name="author" content="Nikhil Agarwal">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://obsmaskgenerator.com/blog/obs-stopped-recording-fix.html">
 
@@ -101,6 +101,48 @@
                 
                 <p>When you are playing a fullscreen game, you cannot see the tiny red dot in the corner of the OBS window on your second monitor. If OBS stops recording, you won't know until you finish playing and check the folder.</p>
 
+                
+                <h2>Less Common (But Real) Causes</h2>
+                <h3>4. Corrupted or Read-Only Output Folder</h3>
+                <p>If you set your recording output to a folder on a network drive, a flash drive, or a folder that Windows has marked read-only, OBS will silently stop recording the moment it tries to write a new file segment. Check your output folder: right-click the folder, go to Properties, and confirm it is not marked "Read-only." Also avoid recording to any folder inside "Program Files" — Windows blocks writes there by default.</p>
+                <h3>5. Windows Power Settings Throttling the CPU</h3>
+                <p>If you use a laptop, Windows might throttle your CPU down to 30% performance while gaming to preserve battery. This can cause the encoder to miss frame deadlines and trigger an overload crash. Go to Control Panel > Power Options and switch to "High Performance" while streaming or recording.</p>
+                <h3>6. OBS Crashed Due to a Bad Plugin</h3>
+                <p>Third-party OBS plugins — especially old or poorly maintained ones — can cause sudden crashes with no error message. To test this, temporarily rename your OBS plugins folder (usually at <code>C:\Program Files\obs-studio\obs-plugins</code>) and relaunch OBS without plugins. If recording works fine, a plugin was the culprit.</p>
+
+                <h2>Preventing Recording Loss: A Complete Checklist</h2>
+                <table style="width:100%; border-collapse:collapse; margin:1.5rem 0;">
+                    <thead><tr style="background:#1a1a25; color:#a0a0b0;">
+                        <th style="padding:0.75rem; text-align:left; border-bottom:1px solid #2a2a3a;">Check</th>
+                        <th style="padding:0.75rem; text-align:left; border-bottom:1px solid #2a2a3a;">What to Do</th>
+                    </tr></thead>
+                    <tbody style="color:#ccc; font-size:0.9rem;">
+                        <tr><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Disk space</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Keep at least 50GB free on the recording drive</td></tr>
+                        <tr><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Encoder</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Use NVENC or AMF, not x264, if you have a dedicated GPU</td></tr>
+                        <tr><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Output path</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Record to internal SSD, never external USB or network drives</td></tr>
+                        <tr><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Admin rights</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Run OBS as Administrator</td></tr>
+                        <tr><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Power plan</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Set Windows Power Plan to "High Performance"</td></tr>
+                        <tr><td style="padding:0.75rem;">Monitoring</td><td style="padding:0.75rem;">Use a desktop alert tool to get notified if OBS stops mid-session</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>Frequently Asked Questions</h2>
+                <details style="background:#1a1a25; border:1px solid #2a2a3a; border-radius:8px; padding:1rem; margin-bottom:0.75rem;">
+                    <summary style="font-weight:600; cursor:pointer; color:#fff;">Can I recover footage if OBS stopped recording mid-session?</summary>
+                    <p style="margin-top:0.75rem; color:#a0a0b0;">Sometimes. If OBS stopped unexpectedly, check your recording path for a partial file. MKV format is recoverable even from incomplete recordings. If you use MP4 and the recording was cut off abruptly, the file will likely be unplayable. This is why most experienced creators record in MKV and remux to MP4 afterwards using OBS's built-in remux tool.</p>
+                </details>
+                <details style="background:#1a1a25; border:1px solid #2a2a3a; border-radius:8px; padding:1rem; margin-bottom:0.75rem;">
+                    <summary style="font-weight:600; cursor:pointer; color:#fff;">Should I record in MKV or MP4?</summary>
+                    <p style="margin-top:0.75rem; color:#a0a0b0;">Always record in MKV. Unlike MP4, MKV does not require a proper closing process — if OBS crashes or your power cuts out, the MKV file is still recoverable. After the session, use File > Remux Recordings in OBS to convert it to MP4 losslessly in seconds.</p>
+                </details>
+                <details style="background:#1a1a25; border:1px solid #2a2a3a; border-radius:8px; padding:1rem; margin-bottom:0.75rem;">
+                    <summary style="font-weight:600; cursor:pointer; color:#fff;">Why does OBS give no error when it stops recording?</summary>
+                    <p style="margin-top:0.75rem; color:#a0a0b0;">This is a known limitation of OBS. When the recording stops due to a system-level failure (like a full disk), OBS simply logs the event but does not interrupt your game to tell you. The OBS log file (Help > Log Files > View Current Log) will contain the exact reason for the stop.</p>
+                </details>
+                <details style="background:#1a1a25; border:1px solid #2a2a3a; border-radius:8px; padding:1rem; margin-bottom:0.75rem;">
+                    <summary style="font-weight:600; cursor:pointer; color:#fff;">How do I get a notification when OBS stops recording?</summary>
+                    <p style="margin-top:0.75rem; color:#a0a0b0;">OBS itself has limited notification capabilities when fullscreen. Third-party tools like Mynofi actively monitor the OBS process and fire a Windows Desktop notification directly over your game the moment recording stops, so you can restart it immediately instead of finding out hours later.</p>
+                </details>
                 <div class="cta-box" style="background: #111113; border: 1px solid #2f2f35; padding: 2rem; border-radius: 12px; margin-top: 2rem; text-align: center;">
                     <h3 style="color: #00f593; margin-top: 0; font-size: 1.5rem;">The Permanent Solution: Mynofi Desktop Alerts</h3>
                     <p style="color: #adadb8; margin-bottom: 1.5rem;">Stop relying on luck and a tiny red dot. Mynofi is a lightweight Windows app that watches OBS in the background. If your recording stops, crashes, or pauses unexpectedly, it fires a massive Windows Desktop Toast Notification straight over your fullscreen game.</p>

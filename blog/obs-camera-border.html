@@ -129,6 +129,44 @@
                     <h3>Create Your Camera Mask</h3>
                     <a href="../" class="cta-button">Open Mask Generator →</a>
                 </div>
+        
+                <h2>Advanced Techniques: Animated Borders</h2>
+                <p>A static border is good. An animated border is memorable. Here are three ways to add animation to your webcam frame in OBS:</p>
+                <ul>
+                    <li><strong>Animated PNG (APNG) border:</strong> Create a looping frame animation in Photoshop or After Effects, export as MP4 or GIF, then add it as a Media Source in OBS positioned over your webcam. This gives you glowing, breathing, or rotating border effects.</li>
+                    <li><strong>Shader plugin borders:</strong> The <em>OBS ShaderFilter Plus</em> plugin allows you to apply GLSL shaders to sources. A glow shader on your border frame can create a pulsing neon border effect with zero video files.</li>
+                    <li><strong>Chroma key frame:</strong> Some streamers use a physical LED ring light behind them to create a colored halo effect that naturally outlines their webcam — no editing required.</li>
+                </ul>
+
+                <h2>Webcam Border Style Guide: Which Shape for Your Content</h2>
+                <table style="width:100%; border-collapse:collapse; margin:1.5rem 0;">
+                    <thead><tr style="background:#1a1a25; color:#a0a0b0;">
+                        <th style="padding:0.75rem; text-align:left; border-bottom:1px solid #2a2a3a;">Stream Type</th>
+                        <th style="padding:0.75rem; text-align:left; border-bottom:1px solid #2a2a3a;">Recommended Shape</th>
+                        <th style="padding:0.75rem; text-align:left; border-bottom:1px solid #2a2a3a;">Why</th>
+                    </tr></thead>
+                    <tbody style="color:#ccc; font-size:0.9rem;">
+                        <tr><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">FPS / Battle Royale</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Hexagon / Circle</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Dynamic, tactical look</td></tr>
+                        <tr><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Just Chatting</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Rounded Rectangle (large)</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Professional, close-up-friendly</td></tr>
+                        <tr><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Music / Art</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Circle or Pill</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Soft, creative aesthetic</td></tr>
+                        <tr><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">IRL / Vlog</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">No mask (full rectangle)</td><td style="padding:0.75rem; border-bottom:1px solid #1e1e2e;">Natural, unframed look</td></tr>
+                        <tr><td style="padding:0.75rem;">Speed Runs</td><td style="padding:0.75rem;">Small circle (corner)</td><td style="padding:0.75rem;">Minimal screen real estate used</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>Frequently Asked Questions</h2>
+                <details style="background:#1a1a25; border:1px solid #2a2a3a; border-radius:8px; padding:1rem; margin-bottom:0.75rem;">
+                    <summary style="font-weight:600; cursor:pointer; color:#fff;">Does a camera border/mask reduce video quality?</summary>
+                    <p style="margin-top:0.75rem; color:#a0a0b0;">No. OBS image masks work at the compositor level — they hide pixels without re-encoding them. Your recording and stream quality are completely unaffected. Performance impact is negligible (less than 1% GPU usage for a static mask).</p>
+                </details>
+                <details style="background:#1a1a25; border:1px solid #2a2a3a; border-radius:8px; padding:1rem; margin-bottom:0.75rem;">
+                    <summary style="font-weight:600; cursor:pointer; color:#fff;">Do I need a plugin to use a camera border in OBS?</summary>
+                    <p style="margin-top:0.75rem; color:#a0a0b0;">No. OBS Studio has a built-in "Image Mask/Blend" filter that applies any PNG mask to any source. Download your mask from our free generator and apply it through Filters — no plugins needed.</p>
+                </details>
+                <details style="background:#1a1a25; border:1px solid #2a2a3a; border-radius:8px; padding:1rem; margin-bottom:0.75rem;">
+                    <summary style="font-weight:600; cursor:pointer; color:#fff;">Can I use a camera border on Streamlabs OBS?</summary>
+                    <p style="margin-top:0.75rem; color:#a0a0b0;">Yes. Streamlabs OBS supports the same Image Mask/Blend filter as OBS Studio. The process is identical: right-click your webcam source, go to Filters, add Image Mask/Blend, and browse to your PNG mask file.</p>
+                </details>
         <div class="author-bio-box">
             <img src="/nikhil_image.webp" alt="Nikhil Agarwal">
             <div class="author-info">
