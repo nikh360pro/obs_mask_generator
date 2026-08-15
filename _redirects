@@ -1,0 +1,18 @@
+# 301 Redirects for broken/moved pages
+# Fixes 10 "Not Found (404)" errors reported in Google Search Console
+
+# Tool pages that were renamed/moved
+/video-background-remover/                              /remove-video-background/                               301
+/video-background-remover/unscreen-alternative.html     /blog/unscreen-vs-obsmaskgenerator.html                 301
+/sub-badge-resizer/                                     /twitch-emote-resizer/                                  301
+
+# Blog/guide pages that were moved or renamed
+/obs-camera-border.html                                 /blog/obs-camera-border.html                            301
+/guides/high-cpu-usage/                                 /blog/fix-encoding-overloaded.html                      301
+/blog/chat-rules-guide.html                             /blog/                                                  301
+/blog/stream-schedule-guide.html                        /stream-schedule/                                       301
+/blog/stream-title-ideas.html                           /twitch-title-generator/                                301
+
+# Settings-generator GPU pages that no longer exist
+/settings-generator/rx-6700-xt/                         /settings-generator/                                    301
+/settings-generator/rtx-4060-ti/                        /settings-generator/                                    301
