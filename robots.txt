@@ -4,10 +4,8 @@ Disallow:
 User-agent: *
 Allow: /
 Disallow: /data/
-Disallow: /scripts/
 Disallow: /groq-proxy/
 Disallow: /stream-analyzer-worker/
-Disallow: /*.json$
 
 Crawl-delay: 1
 
