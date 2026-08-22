@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -d */)",
+      "WebSearch",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git config:*)",
+      "Bash(curl -s -X POST https://api.firecrawl.dev/v1/search -H \"Authorization: Bearer fc-3200aba37be54c619eef83d8fdddc2a0\" -H \"Content-Type: application/json\" -d '{\"\"\"\"query\"\"\"\":\"\"\"\"affiliate CTA placement highest conversion contextual in-content vs sidebar best practices\"\"\"\",\"\"\"\"limit\"\"\"\":6}')",
+      "Bash(curl -s -X POST https://api.firecrawl.dev/v1/search -H \"Authorization: Bearer fc-3200aba37be54c619eef83d8fdddc2a0\" -H \"Content-Type: application/json\" -d '{\"\"\"\"query\"\"\"\":\"\"\"\"OWN3D affiliate program commission rate recurring payout streamer overlays emotes review\"\"\"\",\"\"\"\"limit\"\"\"\":6}')"
+    ]
+  }
+}

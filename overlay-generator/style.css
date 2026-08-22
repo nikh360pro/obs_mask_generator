@@ -549,3 +549,27 @@ input[type="range"]::-webkit-slider-thumb {
     margin: 2rem 0;
     border-radius: 0 12px 12px 0;
 }
+
+/* OWN3D affiliate CTA (self-contained, works on all tool pages) */
+.own3d-cta {
+    background: linear-gradient(135deg, rgba(145, 71, 255, 0.15), rgba(119, 44, 232, 0.08));
+    border: 1px solid #9146ff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    text-align: center;
+}
+.own3d-cta h3 { font-size: 1.15rem; font-weight: 700; margin: 0 0 0.4rem; color: inherit; }
+.own3d-cta p { margin: 0 0 1rem; opacity: 0.85; font-size: 0.95rem; }
+.own3d-cta__btn {
+    display: inline-block;
+    padding: 0.8rem 1.6rem;
+    background: linear-gradient(135deg, #9146ff, #772ce8);
+    color: #fff !important;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 700;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.own3d-cta__btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(145, 71, 255, 0.4); }
+.own3d-cta__disclosure { display: block; margin-top: 0.75rem; font-size: 0.72rem; opacity: 0.6; }
