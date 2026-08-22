@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found (404) - OBS Mask Generator</title>
+    <meta name="robots" content="noindex, follow">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0f0f23;
+            color: #e0e0e0;
+            line-height: 1.7;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        .container { max-width: 720px; text-align: center; }
+        .code { font-size: 5rem; font-weight: 800; color: #9146ff; line-height: 1; }
+        h1 { color: #fff; margin: 12px 0 16px; font-size: 1.8rem; }
+        p { color: #b8b8c8; margin-bottom: 28px; }
+        .tools {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px;
+            margin: 28px 0;
+            text-align: left;
+        }
+        .tool {
+            background: #1a1a25;
+            border: 1px solid #2a2a3a;
+            border-radius: 10px;
+            padding: 16px 18px;
+            text-decoration: none;
+            color: #e0e0e0;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .tool:hover { border-color: #9146ff; transform: translateY(-3px); }
+        .tool strong { color: #fff; display: block; font-size: 1rem; }
+        .tool span { font-size: 0.85rem; color: #9a9ab0; }
+        .home-link {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 12px 26px;
+            background: #9146ff;
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .home-link:hover { background: #7a2ff2; }
+    </style>
+    <script src="/components.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="code">404</div>
+        <h1>This page took a break between streams</h1>
+        <p>The page you're looking for doesn't exist or has moved. Try one of our free OBS &amp; streaming tools instead:</p>
+
+        <div class="tools">
+            <a class="tool" href="/"><strong>Circle Mask Generator</strong><span>Round webcam masks for OBS</span></a>
+            <a class="tool" href="/bitrate-calculator/"><strong>Bitrate Calculator</strong><span>Best bitrate for Twitch, YouTube, Kick</span></a>
+            <a class="tool" href="/settings-generator/"><strong>OBS Settings Generator</strong><span>Optimal encoder settings</span></a>
+            <a class="tool" href="/aspect-ratio-calculator/"><strong>Aspect Ratio Calculator</strong><span>Resolution &amp; ratio helper</span></a>
+            <a class="tool" href="/overlay-generator/"><strong>Overlay Generator</strong><span>Free stream overlays</span></a>
+            <a class="tool" href="/hotkey-reference/"><strong>OBS Hotkeys Cheat Sheet</strong><span>Keyboard shortcut reference</span></a>
+            <a class="tool" href="/countdown-timer/"><strong>Countdown Timer</strong><span>Starting-soon countdowns</span></a>
+            <a class="tool" href="/blog/"><strong>OBS &amp; Streaming Blog</strong><span>Guides and tutorials</span></a>
+        </div>
+
+        <a class="home-link" href="/">&larr; Back to Home</a>
+    </div>
+</body>
+
+</html>

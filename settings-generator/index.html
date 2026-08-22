@@ -307,6 +307,56 @@
             </section>
         </main>
 
+        <!-- Recommended Settings Reference Table (featured-snippet target) -->
+        <section class="seo-guide">
+            <h2>Best OBS Settings by Platform (1080p60 Baseline)</h2>
+            <p>A quick-reference starting point for streaming at 1080p 60fps. Use the calculator above to tune these for your GPU, upload speed, and content type.</p>
+            <div style="overflow-x:auto; margin:1.5rem 0;">
+                <table style="width:100%; border-collapse:collapse; font-size:0.92rem;">
+                    <thead>
+                        <tr style="background:#9146ff; color:#fff;">
+                            <th style="padding:10px 12px; text-align:left; border:1px solid #2f2f35;">Platform</th>
+                            <th style="padding:10px 12px; text-align:left; border:1px solid #2f2f35;">Encoder</th>
+                            <th style="padding:10px 12px; text-align:left; border:1px solid #2f2f35;">Bitrate</th>
+                            <th style="padding:10px 12px; text-align:left; border:1px solid #2f2f35;">Rate Control</th>
+                            <th style="padding:10px 12px; text-align:left; border:1px solid #2f2f35;">Keyframe</th>
+                        </tr>
+                    </thead>
+                    <tbody style="color:#ccc;">
+                        <tr style="background:#1e1e2a;">
+                            <td style="padding:10px 12px; border:1px solid #2f2f35;"><strong>Twitch</strong></td>
+                            <td style="padding:10px 12px; border:1px solid #2f2f35;">NVENC (HEVC/H.264)</td>
+                            <td style="padding:10px 12px; border:1px solid #2f2f35;">6000 Kbps (max)</td>
+                            <td style="padding:10px 12px; border:1px solid #2f2f35;">CBR</td>
+                            <td style="padding:10px 12px; border:1px solid #2f2f35;">2s</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:10px 12px; border:1px solid #2f2f35;"><strong>YouTube</strong></td>
+                            <td style="padding:10px 12px; border:1px solid #2f2f35;">NVENC (H.264)</td>
+                            <td style="padding:10px 12px; border:1px solid #2f2f35;">9000–12000 Kbps</td>
+                            <td style="padding:10px 12px; border:1px solid #2f2f35;">CBR</td>
+                            <td style="padding:10px 12px; border:1px solid #2f2f35;">2s</td>
+                        </tr>
+                        <tr style="background:#1e1e2a;">
+                            <td style="padding:10px 12px; border:1px solid #2f2f35;"><strong>Kick</strong></td>
+                            <td style="padding:10px 12px; border:1px solid #2f2f35;">NVENC (H.264)</td>
+                            <td style="padding:10px 12px; border:1px solid #2f2f35;">8000 Kbps</td>
+                            <td style="padding:10px 12px; border:1px solid #2f2f35;">CBR</td>
+                            <td style="padding:10px 12px; border:1px solid #2f2f35;">2s</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:10px 12px; border:1px solid #2f2f35;"><strong>Facebook Gaming</strong></td>
+                            <td style="padding:10px 12px; border:1px solid #2f2f35;">NVENC (H.264)</td>
+                            <td style="padding:10px 12px; border:1px solid #2f2f35;">4000–6000 Kbps</td>
+                            <td style="padding:10px 12px; border:1px solid #2f2f35;">CBR</td>
+                            <td style="padding:10px 12px; border:1px solid #2f2f35;">2s</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="font-size:0.9rem; color:#9a9ab0;">No NVIDIA GPU? Use x264 with a <em>veryfast</em> preset on a strong CPU, or AMD/Intel hardware encoders. For 720p60, drop the bitrate to ~4500 Kbps.</p>
+        </section>
+
         <!-- SEO Content Section -->
         <article class="seo-guide">
             <h2>About the OBS Settings Generator</h2>

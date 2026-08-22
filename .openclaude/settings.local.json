@@ -19,7 +19,19 @@
       "Bash(curl -s -X POST https://api.firecrawl.dev/v1/search -H \"Authorization: Bearer fc-3200aba37be54c619eef83d8fdddc2a0\" -H \"Content-Type: application/json\" -d '{\"\"\"\"query\"\"\"\":\"\"\"\"Nerd or Die affiliate program commission overlays vs Own3d streamplay Kick monetization 2026\"\"\"\",\"\"\"\"limit\"\"\"\":5}')",
       "Bash(curl -s -X POST https://api.firecrawl.dev/v1/search -H \"Authorization: Bearer fc-3200aba37be54c619eef83d8fdddc2a0\" -H \"Content-Type: application/json\" -d '{\"\"\"\"query\"\"\"\":\"\"\"\"VEED.io official affiliate program PartnerStack Impact commission percentage recurring join\"\"\"\",\"\"\"\"limit\"\"\"\":5}')",
       "Bash(curl -s -X POST https://api.firecrawl.dev/v1/search -H \"Authorization: Bearer fc-3200aba37be54c619eef83d8fdddc2a0\" -H \"Content-Type: application/json\" -d '{\"\"\"\"query\"\"\"\":\"\"\"\"Kapwing affiliate program commission rate 2026 background remover creators\"\"\"\",\"\"\"\"limit\"\"\"\":4}')",
-      "Bash(curl -s -X POST https://api.firecrawl.dev/v1/search -H \"Authorization: Bearer fc-3200aba37be54c619eef83d8fdddc2a0\" -H \"Content-Type: application/json\" -d '{\"\"\"\"query\"\"\"\":\"\"\"\"Amazon Associates commission rate streaming gear electronics 2026 vs Fiverr affiliate CPA custom emotes\"\"\"\",\"\"\"\"limit\"\"\"\":5}')"
+      "Bash(curl -s -X POST https://api.firecrawl.dev/v1/search -H \"Authorization: Bearer fc-3200aba37be54c619eef83d8fdddc2a0\" -H \"Content-Type: application/json\" -d '{\"\"\"\"query\"\"\"\":\"\"\"\"Amazon Associates commission rate streaming gear electronics 2026 vs Fiverr affiliate CPA custom emotes\"\"\"\",\"\"\"\"limit\"\"\"\":5}')",
+      "Bash(python3 -c \"from PIL import Image; im=Image.open\\(''''Top_queries.PNG''''\\); print\\(im.size\\)\")",
+      "Bash(pip install:*)",
+      "Bash(pip3 install:*)",
+      "Bash(python3 -c \"from PIL import Image; print\\(''''ok''''\\)\")",
+      "Bash(python3:*)",
+      "Bash(cp index.html /tmp/index.html.bak)",
+      "Bash(sed -n '888,892p;936,939p' index.html)",
+      "Bash(sed -i '890,937d' index.html)",
+      "Bash(sed -n '888,895p' index.html)",
+      "Bash(grep -rn can-i-stream/sitemap --include=*.txt --include=*.xml .)",
+      "Bash(cp blog/twitch-emote-sizes.html /tmp/tes.bak)",
+      "Bash(sed -i '1,56d' blog/twitch-emote-sizes.html)"
     ]
   }
 }
