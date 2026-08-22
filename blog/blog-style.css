@@ -246,6 +246,34 @@ body {
 .own3d-cta__btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(145, 71, 255, 0.4); }
 .own3d-cta__disclosure { display: block; margin-top: 0.75rem; font-size: 0.72rem; opacity: 0.6; }
 
+/* Generic affiliate CTA (reusable across programs) */
+.aff-cta {
+    background: linear-gradient(135deg, rgba(145, 71, 255, 0.15), rgba(119, 44, 232, 0.08));
+    border: 1px solid #9146ff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    text-align: center;
+}
+.aff-cta h3 { font-size: 1.15rem; font-weight: 700; margin: 0 0 0.4rem; color: inherit; }
+.aff-cta p { margin: 0 0 1rem; opacity: 0.85; font-size: 0.95rem; }
+.aff-cta__btn {
+    display: inline-block;
+    padding: 0.8rem 1.6rem;
+    background: linear-gradient(135deg, #9146ff, #772ce8);
+    color: #fff !important;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 700;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.aff-cta__btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(145, 71, 255, 0.4); }
+.aff-cta__disclosure { display: block; margin-top: 0.75rem; font-size: 0.72rem; opacity: 0.6; }
+/* VEED teal accent */
+.aff-cta--veed { border-color: #00e5c0; background: linear-gradient(135deg, rgba(0, 229, 192, 0.15), rgba(0, 179, 230, 0.08)); }
+.aff-cta--veed .aff-cta__btn { background: linear-gradient(135deg, #00c9a7, #00a0e9); }
+.aff-cta--veed .aff-cta__btn:hover { box-shadow: 0 8px 24px rgba(0, 201, 167, 0.4); }
+
 /* Info Box */
 .info-box {
     background: var(--bg-tertiary);
