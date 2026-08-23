@@ -31,7 +31,9 @@
       "Bash(sed -n '888,895p' index.html)",
       "Bash(grep -rn can-i-stream/sitemap --include=*.txt --include=*.xml .)",
       "Bash(cp blog/twitch-emote-sizes.html /tmp/tes.bak)",
-      "Bash(sed -i '1,56d' blog/twitch-emote-sizes.html)"
+      "Bash(sed -i '1,56d' blog/twitch-emote-sizes.html)",
+      "Bash(node --check stream-analyzer-worker/src/index.js)",
+      "Bash(node:*)"
     ]
   }
 }

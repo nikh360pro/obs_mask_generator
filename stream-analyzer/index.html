@@ -106,10 +106,10 @@
     .trust{display:flex;justify-content:center;gap:14px;margin-top:10px;font-size:11px;color:var(--muted);flex-wrap:wrap}
 
     .ticker-wrap{overflow:hidden;margin-top:16px;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-    .ticker{display:flex;gap:8px;animation:tickscroll 40s linear infinite;white-space:nowrap}
+    .ticker{display:flex;width:max-content;animation:tickscroll 40s linear infinite;white-space:nowrap;will-change:transform}
     @keyframes tickscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
     .ticker-wrap:hover .ticker{animation-play-state:paused}
-    .tick{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;background:rgba(168,85,247,.06);border:1px solid rgba(168,85,247,.1);border-radius:16px;font-size:10px;color:var(--muted);font-weight:500}
+    .tick{display:inline-flex;align-items:center;gap:5px;margin-right:8px;padding:4px 10px;background:rgba(168,85,247,.06);border:1px solid rgba(168,85,247,.1);border-radius:16px;font-size:10px;color:var(--muted);font-weight:500}
     .tick .rk{color:var(--purple);font-weight:800;font-size:9px}
 
     #loading{display:none;text-align:center;padding:44px 18px}
@@ -631,18 +631,27 @@ checkUser();
 
 // ── TABS ────────────────────────────────────────────────────────────────────
 function switchTab(id){document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.getElementById(`panel-${id}`).classList.add('active');document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelector(`.tab[data-tab="${id}"]`)?.classList.add('active');}
-function renderLockPrompt(id){const p=document.getElementById(`panel-${id}`);const lbl=id==='strategy'?'Content Strategy':'Growth Actions';const pills=id==='strategy'?['5 Custom Titles','Growth Playbook','YouTube Strategy','Clip Blueprint','Best Stream Days','Platform Priority']:['All 3 Mistakes','90-Day Roadmap','Community Milestones','Collab Strategy','Vertical Clip Plan'];p.innerHTML=`<div class="lock-panel"><div class="lo-icon">🔒</div><h3>Login to Unlock ${esc(lbl)}</h3><p>Sign in free with your Twitch account to access your full personalised analysis — no payment required.</p><div class="upills">${pills.map(x=>`<span class="up">${x}</span>`).join('')}</div><button class="btn-unlock" onclick="loginWithTwitch()">🟣 Connect with Twitch — Free</button><p style="font-size:10px;margin-top:12px;color:var(--muted)">No payment required. Just your Twitch account.</p></div>`;}
 
-// Blurred paywall teaser — shown to logged-in users when ENFORCE_PAID is on and they haven't paid.
-function renderPaywallPreview(id){
-  const p=document.getElementById(`panel-${id}`);
-  const lbl=id==='strategy'?'Full Content Strategy':'Full Growth Actions';
-  const pills=id==='strategy'?['5 Custom Titles','Growth Playbook','YouTube Strategy','Clip Blueprint','Platform Priority']:['All 3 Mistakes','90-Day Roadmap','Community Milestones','Collab Strategy','Vertical Clip Plan'];
-  // Render the real skeleton structure, then blur it and overlay the unlock card.
+
+// Blurred teaser — realistic fake-filled report behind a blur + CTA. mode 'login' (anon, free) or 'pay' (preview, $15).
+function teaserFill(id){
+  const panel=document.getElementById(`panel-${id}`);if(!panel)return;
+  const bar=w=>`<div style="height:9px;border-radius:5px;background:rgba(255,255,255,.10);margin:8px 0;width:${w}%"></div>`;
+  const lines=['Your fastest path to the browse page starts with a tighter, more predictable schedule.','Viewers drop in the first 90 seconds because the payoff isn’t visible fast enough. Front-load the hook.','A creator one tier above you scaled by repeating one proven clip format every single stream.','Prioritise the one platform where your format compounds fastest for net-new reach.'];
+  panel.querySelectorAll('.premium-loading').forEach((sp,i)=>{let html=`<p style="font-size:12px;line-height:1.7;color:var(--text);margin:0 0 6px">${lines[i%lines.length]}</p>`;const n=3+(i%2);for(let k=0;k<n;k++)html+=bar(92-k*13);sp.outerHTML=html;});
+}
+function renderTeaser(id, mode){
+  const p=document.getElementById(`panel-${id}`);if(!p||!D)return;
   if(id==='strategy') renderStrategyWithSkeleton(D); else renderActionsWithSkeleton(D);
+  teaserFill(id);
   const inner=p.innerHTML;
-  p.innerHTML=`<div class="paywall-wrap"><div class="paywall-blur">${inner}</div><div class="paywall-over"><div class="lo-icon">🔓</div><h3>Unlock Your ${esc(lbl)}</h3><p>Your channel data is ready. Get your complete AI growth plan — every title, roadmap and action tailored to your numbers.</p><div class="upills">${pills.map(x=>`<span class="up">${x}</span>`).join('')}</div><div class="paywall-price"><s>$29</s>${PREMIUM_PRICE} one-time · yours forever</div><button class="btn-unlock" onclick="startCheckout('paywall-${id}')">🔓 Unlock Full Report — ${PREMIUM_PRICE}</button><p style="font-size:10px;margin-top:12px;color:var(--muted)">One-time payment. No subscription.</p></div></div>`;
-  track('paywall_teaser_view', {tab: id});
+  const lbl=id==='strategy'?'Full Content Strategy':'Full Growth Actions';
+  const pills=id==='strategy'?['5 Custom Titles','Growth Playbook','YouTube Strategy','Clip Blueprint','Platform Priority']:['All 3 Mistakes','Retention Fix','90-Day Roadmap','Milestones','Collab Strategy'];
+  const cta=mode==='login'
+    ?{icon:'🟣',sub:'Sign in free with your Twitch account to reveal your complete AI growth plan — every title, roadmap and action tailored to your channel. No payment required.',price:'',btn:`🟣 Connect with Twitch — Free`,onclick:'loginWithTwitch()',note:'No payment required. Just your Twitch account.'}
+    :{icon:'🔓',sub:'Your channel data is ready. Get your complete AI growth plan — every title, roadmap and action tailored to your numbers.',price:`<div class="paywall-price"><s>$29</s>${PREMIUM_PRICE} one-time · yours forever</div>`,btn:`🔓 Unlock Full Report — ${PREMIUM_PRICE}`,onclick:`startCheckout('paywall-${id}')`,note:'One-time payment. No subscription.'};
+  p.innerHTML=`<div class="paywall-wrap"><div class="paywall-blur">${inner}</div><div class="paywall-over"><div class="lo-icon">${cta.icon}</div><h3>Unlock Your ${esc(lbl)}</h3><p>${cta.sub}</p><div class="upills">${pills.map(x=>`<span class="up">${esc(x)}</span>`).join('')}</div>${cta.price}<button class="btn-unlock" onclick="${cta.onclick}">${cta.btn}</button><p style="font-size:10px;margin-top:12px;color:var(--muted)">${cta.note}</p></div></div>`;
+  track('paywall_teaser_view', {tab: id, mode});
 }
 
 // Route strategy/actions tabs by access state.
@@ -651,11 +660,11 @@ function renderAccessTabs(){
   const st=accessState();
   if(st==='full'){
     renderStrategyWithSkeleton(D);renderActionsWithSkeleton(D);
-    if(D.premium){fillPremiumStrategy(D.premium);fillPremiumActions(D.premium);}else{showPremiumFallback();}
+    if(D.premium){fillPremiumStrategy(D.premium);fillPremiumActions(D.premium);sweepOrphanSpinners();}else{showPremiumFallback();}
   }else if(st==='preview'){
-    renderPaywallPreview('strategy');renderPaywallPreview('actions');
+    renderTeaser('strategy','pay');renderTeaser('actions','pay');
   }else{
-    renderLockPrompt('strategy');renderLockPrompt('actions');
+    renderTeaser('strategy','login');renderTeaser('actions','login');
   }
 }
 
@@ -687,7 +696,7 @@ function buildCmp(avg,vpc,top){const c=document.getElementById('cmpchart');c.inn
 
 function bdg(t){const m={partner:['bp','⭐ Partner'],affiliate:['ba','🔷 Affiliate'],none:['bn','Not Affiliated']};const[cl,l]=m[t]||m.none;return`<span class="badge ${cl}">${l}</span>`;}
 function fmtNum(n){return n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e3?(n/1e3).toFixed(1)+'k':String(n||0);}
-function esc(s){return String(s||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function esc(s){return String(s||'').replace(/\s[—–]\s/g,' - ').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
 // ── TICKER ───────────────────────────────────────────────────────────────────
 function buildTicker(trending){if(!trending?.length)return;const t=document.getElementById('ticker');const items=trending.map(g=>{const name=typeof g==='string'?g:(g?.name||'');const rank=typeof g==='object'?g?.rank:null;if(!name)return'';return`<span class="tick">${rank?`<span class="rk">#${rank}</span>`:''}${esc(name)}</span>`;}).filter(Boolean).join('');if(!items)return;t.innerHTML=items+items;document.getElementById('ticker-wrap').style.display='block';}
@@ -1065,6 +1074,9 @@ function renderPaidTabs(){if(!D)return;renderAccessTabs();renderExport(D);}
 
 function showPremiumFallback(){['prem-playbook','prem-youtube','prem-teardown','prem-clips','prem-platform'].forEach(id=>{const el=document.getElementById(id);if(el){const h=el.querySelector('.ct');if(h){el.innerHTML=h.outerHTML+'<p style="font-size:11px;color:var(--muted);padding:10px 0;line-height:1.6">Premium analysis could not load. Try refreshing — the AI occasionally times out on heavy analysis. Your basic data above is still accurate.</p>';}}});['prem-retention','prem-roadmap','prem-milestones','prem-collab'].forEach(id=>{const el=document.getElementById(id);if(el){const h=el.querySelector('.ct');if(h){el.innerHTML=h.outerHTML+'<p style="font-size:11px;color:var(--muted);padding:10px 0">Premium section unavailable. Please retry the analysis.</p>';}}});}
 
+// Safety net: after premium fill-in, replace any card whose spinner never got filled (partial JSON) so no tab spins forever.
+function sweepOrphanSpinners(){document.querySelectorAll('.premium-loading').forEach(sp=>{const card=sp.closest('.card');const h=card&&card.querySelector('.ct');if(card&&h){card.innerHTML=h.outerHTML+'<p style="font-size:11px;color:var(--muted);padding:10px 0;line-height:1.6">This section wasn’t generated this run. Refresh to regenerate. Your data above is accurate.</p>';}});}
+
 // ── PDF ───────────────────────────────────────────────────────────────────────
 function downloadPDF(){if(!D)return;const{jsPDF}=window.jspdf;const doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});const ch=D.channel,a=D.analysis,comp=D.competitive,p=D.premium,W=190,M=10;let y=15;
 // Bug 1: Strip emoji/non-Latin-1 before any text enters jsPDF (helvetica is Latin-1 only)
@@ -1120,14 +1132,19 @@ try{
   const headers = {'Content-Type':'application/json'};
   if (currentSession) headers['Authorization'] = `Bearer ${currentSession.access_token}`;
   const body = {username: uname, is_premium: hasPaidAccess()}; // premium AI only for full-access users; worker re-verifies entitlement
-  const res=await fetch(`${WORKER}/analyze`,{method:'POST',headers,body:JSON.stringify(body)});
-  const data=await res.json();
+  const ctrl = new AbortController();
+  const killer = setTimeout(() => ctrl.abort(), 60000); // UI never waits >60s
+  let res, data;
+  try {
+    res=await fetch(`${WORKER}/analyze`,{method:'POST',headers,body:JSON.stringify(body),signal:ctrl.signal});
+    data=await res.json();
+  } finally { clearTimeout(killer); }
   if(data.premiumError && loggedIn) console.warn('[SA] Premium failed because:', data.premiumError);
   if(!res.ok||data.error)throw new Error(data.error||'Analysis failed.');
   clearInterval(stepT);document.getElementById('loading').style.display='none';render(data);
   track('sa_analyze_completed', {access: accessState(), has_premium: !!data.premium, tier: data.channel?.tier || 'unknown'});
 }
-catch(err){document.getElementById('loading').style.display='none';const eb=document.getElementById('errbox');eb.textContent='❌ '+err.message;eb.style.display='block';eb.scrollIntoView({behavior:'smooth'});track('sa_analyze_error', {message: String(err.message||'').slice(0,120)});}
+catch(err){document.getElementById('loading').style.display='none';const eb=document.getElementById('errbox');eb.textContent=err.name==='AbortError'?'⏱️ Analysis is taking longer than usual. Please try again.':'❌ '+err.message;eb.style.display='block';eb.scrollIntoView({behavior:'smooth'});track('sa_analyze_error', {message: err.name==='AbortError'?'timeout':String(err.message||'').slice(0,120)});}
 finally{btn.disabled=false;btn.textContent='Analyze →';}}
 document.getElementById('uname').addEventListener('keydown',e=>{if(e.key==='Enter')go();});
 
