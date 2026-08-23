@@ -3,16 +3,22 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Twitch Stats, Channel Tracker & AI Growth Analyzer</title>
-  <meta name="description" content="Free Twitch stats tracker and channel analyzer. Check your live viewer statistics, improve your stream setup, and find out exactly how to get more viewers on Twitch."/>
+  <title>Free Twitch Channel Audit: Find Out Why You're Not Growing</title>
+  <meta name="description" content="Run a free Twitch channel audit in 30 seconds. See your growth score, viewer stats, competition level, and the exact mistakes holding your channel back — then get an AI-built 30-day plan to grow."/>
+  <link rel="canonical" href="https://obsmaskgenerator.com/stream-analyzer/"/>
+  <meta property="og:title" content="Free Twitch Channel Audit: Find Out Why You're Not Growing"/>
+  <meta property="og:description" content="Get your Twitch growth score, competition analysis, and a personalised 30-day plan to get more viewers — free."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://obsmaskgenerator.com/stream-analyzer/"/>
+  <meta name="twitter:card" content="summary_large_image"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Stream Analyzer",
+    "name": "Twitch Channel Audit & Growth Analyzer",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Web",
-    "description": "Free Twitch stats tracker and channel analyzer. Track viewer statistics and get a custom stream setup plan.",
+    "description": "Free Twitch channel audit tool. Check your growth score, viewer statistics, and competition, then get a personalised 30-day plan to get more viewers on Twitch.",
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -20,10 +26,51 @@
     }
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the Twitch channel audit free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can run a full audit of any Twitch channel for free using just a username. Logging in with your Twitch account unlocks your complete personalised growth analysis at no cost."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I find out why my Twitch channel isn't growing?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Enter your Twitch username above. The audit analyses your streaming consistency, category competition, clip performance, and titles against the top streamers live in your category right now, then shows the biggest mistakes holding your channel back."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What data does the Twitch analyzer use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It pulls live data from the official Twitch API — your recent streams, clips, category rank, and the streamers and viral clips currently live in your category — and combines it with AI analysis to build your plan."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I get more viewers on Twitch?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The three biggest levers are streaming consistency (3+ predictable days a week), picking categories with a high viewers-per-channel ratio, and producing clips that appear on the category browse page. The audit measures all three for your channel and gives you a 30-day action plan."
+        }
+      }
+    ]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/components.js" defer></script>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
@@ -282,6 +329,16 @@
     .btn-unlock{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--purple3),var(--purple));color:#fff;border:none;padding:12px 24px;border-radius:10px;font-size:14px;font-weight:800;font-family:'Inter',sans-serif;cursor:pointer;text-decoration:none;transition:transform .2s,box-shadow .2s;box-shadow:0 0 24px rgba(168,85,247,.3)}
     .btn-unlock:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(168,85,247,.5)}
 
+    /* Paywall preview (blurred teaser) */
+    .paywall-wrap{position:relative;min-height:360px;overflow:hidden;border-radius:var(--r)}
+    .paywall-blur{filter:blur(7px);opacity:.55;pointer-events:none;user-select:none;padding:4px}
+    .paywall-over{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px;background:linear-gradient(180deg,rgba(8,8,11,.55),rgba(8,8,11,.88))}
+    .paywall-over .lo-icon{font-size:38px;margin-bottom:12px;animation:float 3s ease-in-out infinite}
+    .paywall-over h3{font-size:20px;font-weight:800;margin-bottom:8px}
+    .paywall-over p{font-size:12px;color:var(--muted);max-width:360px;margin:0 auto 16px;line-height:1.6}
+    .paywall-price{font-size:13px;font-weight:800;color:var(--green);margin-bottom:16px}
+    .paywall-price s{color:var(--muted);font-weight:600;margin-right:8px}
+
     /* Export tab */
     .export-hero{text-align:center;padding:28px 20px 22px;margin-bottom:16px;background:linear-gradient(135deg,rgba(168,85,247,.06),rgba(34,211,238,.04));border:1px solid rgba(168,85,247,.12);border-radius:var(--r)}
     .export-hero h3{font-size:18px;font-weight:800;letter-spacing:-.3px;margin-bottom:6px}
@@ -351,8 +408,8 @@
 
 <section class="hero">
   <div class="hero-tag"><span class="dot"></span> Real Twitch Data · AI Analysis</div>
-  <h1>Twitch Stats & <em>Channel Tracker</em></h1>
-  <h2 class="sub">Analyze your channel, uncover viewer stats, and get a 30-day stream setup plan to get more viewers on Twitch.</h2>
+  <h1>Free Twitch Channel Audit: <em>Why You're Not Growing</em></h1>
+  <h2 class="sub">Enter your Twitch username to get your growth score, competition analysis, and a personalised 30-day plan to get more viewers — free.</h2>
   <div class="sbox-wrap">
     <div class="sbox">
       <span style="color:var(--purple);margin-right:9px;font-size:15px">📡</span>
@@ -431,10 +488,28 @@
 </main>
 
 <article class="seo-content" style="max-width:800px;margin:40px auto 20px;padding:24px 24px 0;border-top:1px solid var(--border);color:var(--muted);font-size:12px;line-height:1.7;">
-  <h2 style="font-size:16px;color:var(--text);margin-bottom:12px;font-weight:700;">Twitch Stats & Stream Tracker</h2>
-  <p style="margin-bottom:12px;">Looking to get more viewers on Twitch? Our free Twitch channel tracker and analyzer gives you the live competitive intelligence you need to grow. Stop guessing why you have low viewership and start making data-driven decisions about your Twitch stream setup.</p>
+  <h2 style="font-size:16px;color:var(--text);margin-bottom:12px;font-weight:700;">Free Twitch Channel Audit &amp; Growth Analyzer</h2>
+  <p style="margin-bottom:12px;">Not sure why your Twitch channel isn't growing? This free channel audit turns raw Twitch data into a clear answer. Enter any username and, in about 30 seconds, you'll see a growth score, an opportunity score for your category, your competition level, and the specific mistakes that are quietly capping your viewership. It's the same kind of competitive intelligence bigger channels pay for — with no cost to run the basic audit.</p>
+
+  <h3 style="font-size:14px;color:var(--text);margin-bottom:10px;margin-top:20px;font-weight:600;">What the audit checks</h3>
+  <p style="margin-bottom:12px;">The analyzer pulls live data from the official Twitch API and scores your channel across the factors that actually move discovery:</p>
+  <ul style="margin:0 0 12px 18px;padding:0;">
+    <li style="margin-bottom:6px;"><strong>Streaming consistency</strong> — your 30-day activity pattern, because a predictable schedule is the single biggest driver of Twitch discovery.</li>
+    <li style="margin-bottom:6px;"><strong>Category competition</strong> — the viewers-per-channel ratio of your category, so you know whether you're fighting for scraps or sitting in an under-served niche.</li>
+    <li style="margin-bottom:6px;"><strong>Clip performance</strong> — how your clips compare to the viral clips in your category this week, since clips are free marketing on the browse page.</li>
+    <li style="margin-bottom:6px;"><strong>Title &amp; tag optimization</strong> — the hook structures and tags the top live streamers in your category are using right now.</li>
+  </ul>
+
   <h3 style="font-size:14px;color:var(--text);margin-bottom:10px;margin-top:20px;font-weight:600;">How to get more viewers on Twitch</h3>
-  <p style="margin-bottom:12px;">Growing a channel requires more than just hitting "Go Live." The algorithm favors consistency and niche optimization. Use our Twitch stats tool above to check your Category Opportunity Score, track competitor viewers, and generate a 30-day stream setup plan optimized for real growth.</p>
+  <p style="margin-bottom:12px;">Growing a channel takes more than hitting "Go Live." Three levers matter most, and the audit measures all three for you. First, stream on a consistent, predictable schedule — 3+ days a week at the same times trains both the algorithm and your audience. Second, choose categories with a healthy viewers-per-channel ratio instead of the most crowded games. Third, produce one clip-worthy moment per stream so your content appears in category browse and short-form feeds. The audit's 30-day action plan ties each recommendation to a real number from your own channel, so you're never guessing.</p>
+
+  <h3 style="font-size:14px;color:var(--text);margin-bottom:10px;margin-top:20px;font-weight:600;">Frequently asked questions</h3>
+  <p style="margin-bottom:8px;"><strong style="color:var(--text);">Is the Twitch channel audit free?</strong><br>Yes. Running the audit is completely free. Signing in with your Twitch account unlocks your full personalised growth analysis at no cost.</p>
+  <p style="margin-bottom:8px;"><strong style="color:var(--text);">Do I need to log in?</strong><br>No — you can audit any public channel by username. Logging in with Twitch simply unlocks the deeper, personalised strategy tabs.</p>
+  <p style="margin-bottom:12px;"><strong style="color:var(--text);">What data does it use?</strong><br>Only public data from the official Twitch API: your recent streams, clips, category rank, and the streamers and viral clips live in your category right now.</p>
+
+  <h3 style="font-size:14px;color:var(--text);margin-bottom:10px;margin-top:20px;font-weight:600;">More free tools for streamers</h3>
+  <p style="margin-bottom:20px;">Dialing in your channel? Pair your audit with our other free streamer tools: the <a href="/bitrate-calculator/" style="color:var(--purple2);">bitrate calculator</a> for a clean, buffer-free stream, the <a href="/twitch-title-generator/" style="color:var(--purple2);">Twitch title generator</a> for click-worthy stream titles, the <a href="/twitch-emote-resizer/" style="color:var(--purple2);">emote resizer</a> for perfectly sized emotes, and the <a href="/stream-schedule/" style="color:var(--purple2);">stream schedule maker</a> to lock in the consistency the algorithm rewards.</p>
 </article>
 
 <footer><p>Built by <a href="/">OBSMaskGenerator.com</a> · Free tools for streamers</p></footer>
@@ -445,6 +520,41 @@ const supabaseClient = window.supabase.createClient('https://xbtlxdsiwmcidfxrnrk
 
 let D=null, loggedIn=false, currentUser=null, currentSession=null;
 
+// ── MONETIZATION CONFIG ───────────────────────────────────────────────────────
+// Staged paywall. While ENFORCE_PAID=false, any logged-in Twitch user gets the
+// full premium analysis for free (current behaviour). Flip to true once the
+// Gumroad product is live to require the one-time $15 unlock for premium tabs.
+const ENFORCE_PAID = false;
+const PREMIUM_PRICE = '$15';
+const GUMROAD_CHECKOUT_URL = 'https://obsmaskgenerator.gumroad.com/l/stream-analyzer'; // TODO: replace with live Gumroad product URL before enabling ENFORCE_PAID
+let isPremiumUser = false; // set from Supabase entitlement in checkUser()
+
+// ── ANALYTICS (GTM/GA4 via dataLayer, injected by /components.js) ──────────────
+function track(event, params){
+  try{
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(Object.assign({event}, params || {}));
+  }catch(e){}
+}
+
+// ── ACCESS STATE ──────────────────────────────────────────────────────────────
+// 'anon'    → not logged in (locked, free Twitch login unlocks)
+// 'preview' → logged in but payment enforced and not yet paid (blurred paywall)
+// 'full'    → full premium access
+function accessState(){
+  if(!loggedIn) return 'anon';
+  if(ENFORCE_PAID && !isPremiumUser) return 'preview';
+  return 'full';
+}
+function hasPaidAccess(){ return accessState()==='full'; }
+
+function startCheckout(source){
+  if(source && String(source).startsWith('paywall')) track('paywall_teaser_clicked', {source});
+  track('checkout_started', {source: source||'unknown', price: PREMIUM_PRICE});
+  const email = currentUser?.email ? '?email=' + encodeURIComponent(currentUser.email) : '';
+  window.open(GUMROAD_CHECKOUT_URL + email, '_blank', 'noopener');
+}
+
 // ── AUTH & SUPABASE ────────────────────────────────────────────────────────
 async function checkUser() {
   const { data: { session } } = await supabaseClient.auth.getSession();
@@ -453,6 +563,8 @@ async function checkUser() {
   loggedIn = !!session;
 
   if (loggedIn) {
+    isPremiumUser = await checkEntitlement();
+    track('twitch_auth_completed', {is_premium: isPremiumUser});
     const name = currentUser.user_metadata?.preferred_username || currentUser.user_metadata?.name || currentUser.email || 'Streamer';
     const avatar = currentUser.user_metadata?.avatar_url;
     document.getElementById('auth-nav').innerHTML = `
@@ -463,9 +575,30 @@ async function checkUser() {
       </div>`;
     if (D) renderPaidTabs();
   } else {
+    isPremiumUser = false;
     document.getElementById('auth-nav').innerHTML =
       `<button class="auth-btn" onclick="loginWithTwitch()">🟣 Connect with Twitch</button>`;
     if (D) renderPaidTabs();
+  }
+}
+
+// Entitlement lookup. Dormant while ENFORCE_PAID=false (premium is free on login).
+// When enforcement is enabled, checks the Supabase profiles table populated by the
+// Gumroad webhook (upgrade_user_by_email RPC). Fails safe to false.
+async function checkEntitlement() {
+  if (!ENFORCE_PAID) return false; // not enforced → skip the query entirely
+  try {
+    const email = currentUser?.email;
+    if (!email) return false;
+    const { data, error } = await supabaseClient
+      .from('profiles')
+      .select('is_premium')
+      .eq('email', email)
+      .maybeSingle();
+    if (error) return false;
+    return !!(data && data.is_premium);
+  } catch (e) {
+    return false;
   }
 }
 
@@ -478,13 +611,13 @@ async function logOut() {
     `<button class="auth-btn" onclick="loginWithTwitch()">🟣 Connect with Twitch</button>`;
   if (D) {
     switchTab('overview');
-    renderLockPrompt('strategy');
-    renderLockPrompt('actions');
+    renderAccessTabs();
     renderExport(D);
   }
 }
 
 async function loginWithTwitch() {
+  track('twitch_auth_started', {});
   const redirectTo = window.location.origin + (window.location.pathname.includes('stream-analyzer') ? '/stream-analyzer/' : '/');
   const { data, error } = await supabaseClient.auth.signInWithOAuth({
     provider: 'twitch',
@@ -499,6 +632,32 @@ checkUser();
 // ── TABS ────────────────────────────────────────────────────────────────────
 function switchTab(id){document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.getElementById(`panel-${id}`).classList.add('active');document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelector(`.tab[data-tab="${id}"]`)?.classList.add('active');}
 function renderLockPrompt(id){const p=document.getElementById(`panel-${id}`);const lbl=id==='strategy'?'Content Strategy':'Growth Actions';const pills=id==='strategy'?['5 Custom Titles','Growth Playbook','YouTube Strategy','Clip Blueprint','Best Stream Days','Platform Priority']:['All 3 Mistakes','90-Day Roadmap','Community Milestones','Collab Strategy','Vertical Clip Plan'];p.innerHTML=`<div class="lock-panel"><div class="lo-icon">🔒</div><h3>Login to Unlock ${esc(lbl)}</h3><p>Sign in free with your Twitch account to access your full personalised analysis — no payment required.</p><div class="upills">${pills.map(x=>`<span class="up">${x}</span>`).join('')}</div><button class="btn-unlock" onclick="loginWithTwitch()">🟣 Connect with Twitch — Free</button><p style="font-size:10px;margin-top:12px;color:var(--muted)">No payment required. Just your Twitch account.</p></div>`;}
+
+// Blurred paywall teaser — shown to logged-in users when ENFORCE_PAID is on and they haven't paid.
+function renderPaywallPreview(id){
+  const p=document.getElementById(`panel-${id}`);
+  const lbl=id==='strategy'?'Full Content Strategy':'Full Growth Actions';
+  const pills=id==='strategy'?['5 Custom Titles','Growth Playbook','YouTube Strategy','Clip Blueprint','Platform Priority']:['All 3 Mistakes','90-Day Roadmap','Community Milestones','Collab Strategy','Vertical Clip Plan'];
+  // Render the real skeleton structure, then blur it and overlay the unlock card.
+  if(id==='strategy') renderStrategyWithSkeleton(D); else renderActionsWithSkeleton(D);
+  const inner=p.innerHTML;
+  p.innerHTML=`<div class="paywall-wrap"><div class="paywall-blur">${inner}</div><div class="paywall-over"><div class="lo-icon">🔓</div><h3>Unlock Your ${esc(lbl)}</h3><p>Your channel data is ready. Get your complete AI growth plan — every title, roadmap and action tailored to your numbers.</p><div class="upills">${pills.map(x=>`<span class="up">${x}</span>`).join('')}</div><div class="paywall-price"><s>$29</s>${PREMIUM_PRICE} one-time · yours forever</div><button class="btn-unlock" onclick="startCheckout('paywall-${id}')">🔓 Unlock Full Report — ${PREMIUM_PRICE}</button><p style="font-size:10px;margin-top:12px;color:var(--muted)">One-time payment. No subscription.</p></div></div>`;
+  track('paywall_teaser_view', {tab: id});
+}
+
+// Route strategy/actions tabs by access state.
+function renderAccessTabs(){
+  if(!D)return;
+  const st=accessState();
+  if(st==='full'){
+    renderStrategyWithSkeleton(D);renderActionsWithSkeleton(D);
+    if(D.premium){fillPremiumStrategy(D.premium);fillPremiumActions(D.premium);}else{showPremiumFallback();}
+  }else if(st==='preview'){
+    renderPaywallPreview('strategy');renderPaywallPreview('actions');
+  }else{
+    renderLockPrompt('strategy');renderLockPrompt('actions');
+  }
+}
 
 // ── MODAL ────────────────────────────────────────────────────────────────────
 function openModal(type){if(!D)return;const m=document.getElementById('modal-content'),bg=document.getElementById('modal-bg');let html='<button class="modal-close" onclick="closeModal()">✕</button>';
@@ -578,6 +737,12 @@ document.getElementById('panel-strategy').innerHTML=`
   <div class="premium-loading"><div class="premium-spin"></div>Building YouTube roadmap…</div>
 </div>
 
+<!-- ROW 2b: Creator Teardown (full width) -->
+<div class="card" style="margin-bottom:12px" id="prem-teardown">
+  <div class="ct purple">🔍 Copy This Creator</div>
+  <div class="premium-loading"><div class="premium-spin"></div>Analysing a top creator in your category…</div>
+</div>
+
 <!-- ROW 3: Clip Blueprint (full width, 3-col inside) -->
 <div class="card" style="margin-bottom:12px" id="prem-clips">
   <div class="ct pink">🎬 Clip Blueprint</div>
@@ -598,6 +763,10 @@ document.getElementById('panel-strategy').innerHTML=`
 
 function renderActionsWithSkeleton(basicData){const a=basicData.analysis,comp=basicData.competitive;const mistakes=(a.biggest_mistakes||[]).map((m,i)=>`<div class="mr"><div class="mn mred">${i+1}</div><div>${esc(m)}</div></div>`).join('');const collab=(comp.collab_targets||[]).slice(0,5).map(t=>`<div class="collab-item"><div class="collab-name">🟣 ${esc(t.username)}</div><div class="collab-info"><div class="collab-title">${esc(t.title||'—')}</div></div><div class="collab-viewers">${fmtNum(t.viewers)} 👁</div></div>`).join('')||'<p style="font-size:11px;color:var(--muted)">No data.</p>';
 document.getElementById('panel-actions').innerHTML=`
+<div class="card" style="margin-bottom:12px" id="prem-retention">
+  <div class="ct orange">🩺 Retention Diagnosis — Why Viewers Don't Stick</div>
+  <div class="premium-loading"><div class="premium-spin"></div>Diagnosing your retention leak…</div>
+</div>
 <div class="grid-2" style="margin-bottom:12px">
   <div class="card">
     <div class="ct red">⚠️ All 3 Critical Mistakes</div>
@@ -708,9 +877,26 @@ function fillPremiumStrategy(p){
         </div>
       </div>`;
   }
+
+  // ── Creator Teardown ─────────────────────────────────────────────────────
+  const td = document.getElementById('prem-teardown');
+  if (td && p.creator_teardown) {
+    td.innerHTML = `
+      <div class="ct purple">🔍 Copy This Creator</div>
+      <p style="font-size:10px;color:var(--muted);margin:0 0 10px">A specific, copyable move from a top creator live in your category right now.</p>
+      <div style="font-size:12.5px;line-height:1.75;color:var(--text);padding:12px 14px;background:rgba(168,85,247,.06);border:1px solid rgba(168,85,247,.14);border-radius:8px">${esc(p.creator_teardown)}</div>`;
+  }
 }
 
 function fillPremiumActions(p){
+  // ── Retention Diagnosis ──────────────────────────────────────────────────
+  const rd = document.getElementById('prem-retention');
+  if (rd && p.retention_diagnosis) {
+    rd.innerHTML = `
+      <div class="ct orange">🩺 Retention Diagnosis — Why Viewers Don't Stick</div>
+      <p style="font-size:12.5px;line-height:1.75;color:var(--text);padding:12px 14px;background:rgba(251,146,60,.06);border-left:3px solid var(--orange);border-radius:0 8px 8px 0">${esc(p.retention_diagnosis)}</p>`;
+  }
+
   // ── Collab Strategy ──────────────────────────────────────────────────────
   const cs = document.getElementById('prem-collab');
   if (cs && p.collab_strategy) {
@@ -835,15 +1021,26 @@ RECOMMENDED ACTION: ${a.one_action_now||'N/A'}`:'[Login with Twitch for full gro
 
 Now ask me the 5 questions above. After I answer, create a specific numbered 30-day action plan — every step must reference a real number from my data above. Do NOT give generic advice.`;}
 
-function renderExport(data){const isPaid=loggedIn;const prompt=buildPrompt(data,isPaid);const chars=prompt.length,tokens=Math.round(chars/4);
+function renderExport(data){const isPaid=hasPaidAccess();const st=accessState();const prompt=buildPrompt(data,isPaid);const chars=prompt.length,tokens=Math.round(chars/4);
+const pdfCta = st==='full'
+  ? `<button class="btn-exp pdf" onclick="downloadPDF()">📥 Download PDF</button>`
+  : st==='preview'
+    ? `<button class="btn-exp pdf" onclick="startCheckout('export-pdf')">🔓 Unlock Full PDF — ${PREMIUM_PRICE}</button>`
+    : `<button class="btn-exp pdf" onclick="loginWithTwitch()">🟣 Login to Download Full PDF</button>`;
+const pdfTag = st==='full'?'Full Report':st==='preview'?`Unlock for ${PREMIUM_PRICE}`:'Login for Full PDF';
+const pdfDesc = st==='full'
+  ? 'Complete report with all competitive intelligence, growth playbook, YouTube strategy, 90-day roadmap, and action plan.'
+  : st==='preview'
+    ? `Unlock the complete PDF — growth playbook, YouTube strategy, 90-day roadmap, and action plan — for a one-time ${PREMIUM_PRICE}.`
+    : 'Login with Twitch to unlock the complete PDF with growth playbook, YouTube strategy, 90-day roadmap, and action plan.';
 document.getElementById('panel-export').innerHTML=`
 <div class="export-hero"><h3>📤 Export Your Analysis</h3><p>Download a full PDF report or copy a structured AI prompt to get personalised growth coaching from Claude, ChatGPT, or Gemini.</p></div>
 <div class="export-actions">
   <div class="exp-card">
-    <div class="exp-head"><div class="exp-icon pdf">📄</div><div><h4>PDF Report</h4><span class="exp-tag" style="background:${isPaid?'rgba(74,222,128,.12)':'rgba(168,85,247,.12)'};color:${isPaid?'var(--green)':'var(--purple2)'};border:1px solid ${isPaid?'rgba(74,222,128,.2)':'rgba(168,85,247,.2)'};">${isPaid?'Full Report':'Login for Full PDF'}</span></div></div>
-    <div class="exp-desc">${isPaid?'Complete report with all competitive intelligence, growth playbook, YouTube strategy, 90-day roadmap, and action plan.':'Login with Twitch to unlock the complete PDF with growth playbook, YouTube strategy, 90-day roadmap, and action plan.'}</div>
+    <div class="exp-head"><div class="exp-icon pdf">📄</div><div><h4>PDF Report</h4><span class="exp-tag" style="background:${isPaid?'rgba(74,222,128,.12)':'rgba(168,85,247,.12)'};color:${isPaid?'var(--green)':'var(--purple2)'};border:1px solid ${isPaid?'rgba(74,222,128,.2)':'rgba(168,85,247,.2)'};">${pdfTag}</span></div></div>
+    <div class="exp-desc">${pdfDesc}</div>
     <div class="exp-features">${(isPaid?['Growth playbook','YouTube strategy','Clip blueprint','90-day roadmap','All mistakes','Collab strategy']:['Growth score','Opportunity','Competition','Top clips','Overview']).map(f=>`<span class="ef">✓ ${f}</span>`).join('')}</div>
-    ${isPaid?`<button class="btn-exp pdf" onclick="downloadPDF()">📥 Download PDF</button>`:`<button class="btn-exp pdf" onclick="loginWithTwitch()">🟣 Login to Download Full PDF</button>`}
+    ${pdfCta}
   </div>
   <div class="exp-card">
     <div class="exp-head"><div class="exp-icon ai">🤖</div><div><h4>AI Deep Dive Prompt</h4><span class="exp-tag" style="background:rgba(34,211,238,.12);color:var(--cyan);border:1px solid rgba(34,211,238,.2)">Works with any AI</span></div></div>
@@ -858,15 +1055,15 @@ document.getElementById('panel-export').innerHTML=`
     <button class="prompt-copy-btn" onclick="copyPrompt()">📋 Copy</button>
   </div>
   <div class="prompt-body" id="prompt-box">${prompt.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
-  <div class="prompt-footer"><span>${chars.toLocaleString()} chars · ~${tokens.toLocaleString()} tokens</span><span>${isPaid?'✅ Full data':'🔒 Login for full data'}</span></div>
+  <div class="prompt-footer"><span>${chars.toLocaleString()} chars · ~${tokens.toLocaleString()} tokens</span><span>${isPaid?'✅ Full data':st==='preview'?`🔒 Unlock for ${PREMIUM_PRICE}`:'🔒 Login for full data'}</span></div>
 </div>`;}
 
-function copyPrompt(){const p=buildPrompt(D,loggedIn);navigator.clipboard.writeText(p).then(()=>showToast('✅ Copied!')).catch(()=>{try{const b=document.getElementById('prompt-box');const r=document.createRange();r.selectNodeContents(b);window.getSelection().removeAllRanges();window.getSelection().addRange(r);document.execCommand('copy');showToast('✅ Copied!');}catch{}});}
+function copyPrompt(){const p=buildPrompt(D,hasPaidAccess());navigator.clipboard.writeText(p).then(()=>showToast('✅ Copied!')).catch(()=>{try{const b=document.getElementById('prompt-box');const r=document.createRange();r.selectNodeContents(b);window.getSelection().removeAllRanges();window.getSelection().addRange(r);document.execCommand('copy');showToast('✅ Copied!');}catch{}});}
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
 
-function renderPaidTabs(){if(!D)return;if(loggedIn){renderStrategyWithSkeleton(D);renderActionsWithSkeleton(D);if(D.premium){fillPremiumStrategy(D.premium);fillPremiumActions(D.premium);}else{showPremiumFallback();}}else{renderLockPrompt('strategy');renderLockPrompt('actions');}renderExport(D);}
+function renderPaidTabs(){if(!D)return;renderAccessTabs();renderExport(D);}
 
-function showPremiumFallback(){['prem-playbook','prem-youtube','prem-clips','prem-platform'].forEach(id=>{const el=document.getElementById(id);if(el){const h=el.querySelector('.ct');if(h){el.innerHTML=h.outerHTML+'<p style="font-size:11px;color:var(--muted);padding:10px 0;line-height:1.6">Premium analysis could not load. Try refreshing — the AI occasionally times out on heavy analysis. Your basic data above is still accurate.</p>';}}});['prem-roadmap','prem-milestones','prem-collab'].forEach(id=>{const el=document.getElementById(id);if(el){const h=el.querySelector('.ct');if(h){el.innerHTML=h.outerHTML+'<p style="font-size:11px;color:var(--muted);padding:10px 0">Premium section unavailable. Please retry the analysis.</p>';}}});}
+function showPremiumFallback(){['prem-playbook','prem-youtube','prem-teardown','prem-clips','prem-platform'].forEach(id=>{const el=document.getElementById(id);if(el){const h=el.querySelector('.ct');if(h){el.innerHTML=h.outerHTML+'<p style="font-size:11px;color:var(--muted);padding:10px 0;line-height:1.6">Premium analysis could not load. Try refreshing — the AI occasionally times out on heavy analysis. Your basic data above is still accurate.</p>';}}});['prem-retention','prem-roadmap','prem-milestones','prem-collab'].forEach(id=>{const el=document.getElementById(id);if(el){const h=el.querySelector('.ct');if(h){el.innerHTML=h.outerHTML+'<p style="font-size:11px;color:var(--muted);padding:10px 0">Premium section unavailable. Please retry the analysis.</p>';}}});}
 
 // ── PDF ───────────────────────────────────────────────────────────────────────
 function downloadPDF(){if(!D)return;const{jsPDF}=window.jspdf;const doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});const ch=D.channel,a=D.analysis,comp=D.competitive,p=D.premium,W=190,M=10;let y=15;
@@ -893,7 +1090,7 @@ if(p?.ninety_day_roadmap){ln();chk(60);addT('90-Day Growth Roadmap');['month_1',
 if(p?.community_milestones){ln();chk(40);addT('Community Milestones');(p.community_milestones||[]).forEach(m=>{chk(8);addP(`${m.at||''}: ${m.action||''}`);});}
 if(p?.collab_strategy){ln();chk(20);addT('Collab Strategy');addP(p.collab_strategy);}
 ln();chk(20);addT('Content Gap');addP(a.content_gap||'--');ln();chk(20);addT('60-Day Outlook');addP(a.sixty_day_outlook||'--');ln();chk(20);addT('Action This Week');addP(a.one_action_now||'--');
-chk(10);y+=4;doc.setFontSize(8);doc.setTextColor(150);doc.text('OBSMaskGenerator.com/stream-analyzer - Powered by Twitch API + AI',M,y);doc.save(`${ch.username}-twitch-analysis-full.pdf`);showToast('PDF downloaded!');}
+chk(10);y+=4;doc.setFontSize(8);doc.setTextColor(150);doc.text('OBSMaskGenerator.com/stream-analyzer - Powered by Twitch API + AI',M,y);doc.save(`${ch.username}-twitch-analysis-full.pdf`);showToast('PDF downloaded!');track('pdf_downloaded', {access: accessState(), username: ch.username});}
 
 // ── MAIN RENDER ───────────────────────────────────────────────────────────────
 function render(data){D=data;const{channel:ch,analysis:a,competitive:comp}=data;
@@ -909,12 +1106,7 @@ const t=document.getElementById('teaser');const m=a.biggest_mistakes||[];t.inner
 renderIntel(data);
 
 // Render paid tabs (skeletons immediately, premium fills when ready)
-if(loggedIn){
-  renderStrategyWithSkeleton(data);
-  renderActionsWithSkeleton(data);
-  if(data.premium){fillPremiumStrategy(data.premium);fillPremiumActions(data.premium);}
-  else{showPremiumFallback();}
-}else{renderLockPrompt('strategy');renderLockPrompt('actions');}
+renderAccessTabs();
 renderExport(data);
 buildTicker(data.trending_now);
 switchTab('overview');
@@ -923,19 +1115,19 @@ setTimeout(()=>document.getElementById('results').scrollIntoView({behavior:'smoo
 
 // ── GO ────────────────────────────────────────────────────────────────────────
 async function go(){const input=document.getElementById('uname'),btn=document.getElementById('gobtn');const uname=input.value.trim().replace(/^@/,'');if(!uname){input.focus();return;}document.getElementById('results').style.display='none';document.getElementById('errbox').style.display='none';document.getElementById('loading').style.display='block';btn.disabled=true;btn.textContent='Analyzing…';resetSteps();runSteps();
+track('sa_analyze_started', {access: accessState()});
 try{
   const headers = {'Content-Type':'application/json'};
   if (currentSession) headers['Authorization'] = `Bearer ${currentSession.access_token}`;
-  const body = {username: uname, is_premium: true}; // always request premium (auth enforced by worker)
-  console.log('[SA] Sending body:', JSON.stringify(body));
+  const body = {username: uname, is_premium: hasPaidAccess()}; // premium AI only for full-access users; worker re-verifies entitlement
   const res=await fetch(`${WORKER}/analyze`,{method:'POST',headers,body:JSON.stringify(body)});
   const data=await res.json();
-  console.log('[SA] Response: isPremium=', !!data.premium, '| premiumError=', data.premiumError || 'none');
   if(data.premiumError && loggedIn) console.warn('[SA] Premium failed because:', data.premiumError);
   if(!res.ok||data.error)throw new Error(data.error||'Analysis failed.');
   clearInterval(stepT);document.getElementById('loading').style.display='none';render(data);
+  track('sa_analyze_completed', {access: accessState(), has_premium: !!data.premium, tier: data.channel?.tier || 'unknown'});
 }
-catch(err){document.getElementById('loading').style.display='none';const eb=document.getElementById('errbox');eb.textContent='❌ '+err.message;eb.style.display='block';eb.scrollIntoView({behavior:'smooth'});}
+catch(err){document.getElementById('loading').style.display='none';const eb=document.getElementById('errbox');eb.textContent='❌ '+err.message;eb.style.display='block';eb.scrollIntoView({behavior:'smooth'});track('sa_analyze_error', {message: String(err.message||'').slice(0,120)});}
 finally{btn.disabled=false;btn.textContent='Analyze →';}}
 document.getElementById('uname').addEventListener('keydown',e=>{if(e.key==='Enter')go();});
 
@@ -944,6 +1136,11 @@ window.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(window.location.search);
   const qName = params.get('username');
   if (qName) {
+    // Per-user result URLs are not canonical content — keep them out of the index.
+    const m = document.createElement('meta');
+    m.name = 'robots';
+    m.content = 'noindex, follow';
+    document.head.appendChild(m);
     document.getElementById('uname').value = qName;
     // Wait for auth to settle, then run analysis
     setTimeout(go, 500);
